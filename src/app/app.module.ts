@@ -11,17 +11,19 @@ import { ProductComponent } from './product/product.component';
 import { ProductItemComponent } from './product-list/product-item/product-item.component';
 import { ContactsComponent } from './header/contacts/contacts.component';
 
+import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
-import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const MaterialModules = [
   MatToolbarModule,
-  MatChipsModule,
+  MatDividerModule,
   MatIconModule,
-  MatButtonModule
+  MatButtonModule,
+  MatListModule
 ];
 
 @NgModule({

@@ -1,22 +1,15 @@
-@mixin grope-alignment {
-  display: flex;
-  align-items: center;
-}
+@import './contacts-link.mixin.scss';
 
 .contacts {
+  display: flex;
+
   &__phones {
     @include grope-alignment;
-    margin-bottom: 5px;
   }
   &__social {
     @include grope-alignment;
   }
   &__link {
-    margin-left: 5px;
-
-    line-height: 25px;
-
-    background-color: white;
-    border-radius: 50px;
+    @include contacts-link;
   }
 }

@@ -1,0 +1,14 @@
+@mixin contacts-link {
+  margin-left: 5px;
+
+  line-height: 25px;
+
+  background-color: white;
+  border-radius: 50px;
+}
+
+@mixin grope-alignment {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 40px;
+}

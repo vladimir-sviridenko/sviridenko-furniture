@@ -1,4 +1,15 @@
-<mat-toolbar class="header">
-  <h1 class="header__logo">Sviridenko Furniture</h1>
-  <app-contacts class="header__contacts"></app-contacts>
-</mat-toolbar>
+<header class="header">
+  <mat-toolbar class="header__main">
+    <div class="header__logo-container">
+      <h1 class="header__logo">Sviridenko Furniture</h1>
+      <button mat-stroked-button class="header__location" disableRipple>Москва и МО</button>
+    </div>
+    <app-contacts class="header__contacts"></app-contacts>
+  </mat-toolbar>
+  <mat-toolbar class="header__products" color='primary'>
+    <h1 class="header__products-title">Купить мебель онлайн:</h1>
+    <button class="header__product" mat-stroked-button>Эконом</button>
+    <mat-divider [vertical]="true"></mat-divider>
+    <h1 class="header__products-title">Под заказ:</h1>
+  </mat-toolbar>
+</header>

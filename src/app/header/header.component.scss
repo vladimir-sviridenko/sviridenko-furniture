@@ -1,6 +1,31 @@
+@import './contacts/contacts-link.mixin.scss';
+
 .header {
-  display: flex;
-  justify-content: space-between;
-  
-  min-height: 90px;
+
+  &__logo {
+    display: inline-block;
+  }
+
+  &__location {
+    @include contacts-link;
+    margin-left: 10px;
+  }
+
+  &__main {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__products {
+    
+  }
+
+  &__products-title {
+    margin-right: 20px;
+  }
+
+  &__product {
+    margin-right: 35px;
+    border-color: white;
+  }
 }
