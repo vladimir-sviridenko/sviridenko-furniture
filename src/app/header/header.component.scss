@@ -1,31 +1,74 @@
-@import './contacts/contacts-link.mixin.scss';
-
 .header {
+  &__logo-container {
+    display: flex;
+    flex: 1 0 180px;
+    flex-wrap: wrap;
+    align-items: center;
+    max-width: 310px;
+    min-height: 48px;
+    margin-right: -10px;
+
+    justify-items: center;
+  }
 
   &__logo {
     display: inline-block;
+    margin-right: 10px;
   }
 
   &__location {
-    @include contacts-link;
-    margin-left: 10px;
+    line-height: 25px;
+
+    background-color: white;
+    border-radius: 50px;
+  }
+
+  &__contacts {
+    flex: 1 0 380px;
   }
 
   &__main {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    height: auto;
+    padding: 5px 20px;
   }
 
   &__products {
-    
+    display: flex;
+    flex-flow: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    height: auto;
+    margin-right: -10px;
+    padding: 8px 9px 8px 15px;
   }
 
-  &__products-title {
-    margin-right: 20px;
+  &__products-type {
+    align-self: center;
+    margin-right: 5px;
   }
 
   &__product {
-    margin-right: 35px;
+    flex: 1 0 auto;
+    max-width: 200px;
+    margin: 6px 0;
+    margin-right: 10px;
+
+    line-height: 30px;
+
     border-color: white;
+
+    transition: background-color 0.3s;
+    &:hover {
+      background-color: transparentize($color: black, $amount: 0.9);
+    }
+
+    &_online {
+      $color: white;
+      color: $color;
+
+      border-color: $color;
+    }
   }
 }

@@ -7,9 +7,10 @@
     <app-contacts class="header__contacts"></app-contacts>
   </mat-toolbar>
   <mat-toolbar class="header__products" color='primary'>
-    <h1 class="header__products-title">Купить мебель онлайн:</h1>
-    <button class="header__product" mat-stroked-button>Эконом</button>
-    <mat-divider [vertical]="true"></mat-divider>
-    <h1 class="header__products-title">Под заказ:</h1>
+    <button mat-stroked-button
+    [routerLink]='["/products", link.id]'
+    class="header__product"
+    [class.header__product_online] = 'link.onlinePurchase'
+    *ngFor='let link of albumLinks'>{{link.title}}</button>
   </mat-toolbar>
 </header>

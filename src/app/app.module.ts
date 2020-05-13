@@ -1,49 +1,39 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { CartComponent } from './cart/cart.component';
-import { ProductListComponent } from './product-list/product-list.component';
-import { GalleryComponent } from './gallery/gallery.component';
-import { ProductComponent } from './product/product.component';
-import { ProductItemComponent } from './product-list/product-item/product-item.component';
 import { ContactsComponent } from './header/contacts/contacts.component';
+import { ProductPageComponent } from './product-page/product-page.component';
+import { ProductCardComponent } from './product-card/product-card.component';
+import { ProductsTableComponent } from './products-table/products-table.component';
 
-import { MatListModule } from '@angular/material/list';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModules } from './material.modules';
 
-const MaterialModules = [
-  MatToolbarModule,
-  MatDividerModule,
-  MatIconModule,
-  MatButtonModule,
-  MatListModule
-];
+import { GalleryService } from './services/gallery.service';
+import { KitchenCabinetService } from './services/kitchen-cabinet.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     CartComponent,
-    ProductListComponent,
-    ProductItemComponent,
-    GalleryComponent,
-    ProductComponent,
     ContactsComponent,
+    ProductPageComponent,
+    ProductCardComponent,
+    ProductsTableComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule,
+    HttpClientModule,
+    HttpClientJsonpModule,
     ...MaterialModules
   ],
-  providers: [],
+  providers: [GalleryService, KitchenCabinetService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
