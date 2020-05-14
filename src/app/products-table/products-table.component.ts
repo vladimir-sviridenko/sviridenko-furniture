@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { GalleryService } from '../services/gallery.service';
-import { KitchenCabinetService } from '../services/kitchen-cabinet.service';
-import { Album } from '../services/interfaces/Album';
+import { ProductsService } from '../services/products.service';
 
 import { ActivatedRoute, Router} from '@angular/router';
+import { Info } from '../services/interfaces/Info';
 
 @Component({
   selector: 'app-products-table',
@@ -13,11 +12,10 @@ import { ActivatedRoute, Router} from '@angular/router';
 export class ProductsTableComponent implements OnInit {
 
   public id: number;
-  public ids: number[] = [];
+  public info: Info[];
 
   constructor(
-    private galleryService: GalleryService,
-    private kitchenCabinetService: KitchenCabinetService,
+    private productsService: ProductsService,
     private route: ActivatedRoute,
     private router: Router
   ) {
@@ -25,17 +23,21 @@ export class ProductsTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.ids.push(this.kitchenCabinetService.albumId);
-
-    this.galleryService.albums.subscribe((albums: Album[]) => {
-      this.ids = albums.map(album => album.id);
+    this.productsService.infoObservable.subscribe((infos: Info[]) => {
+      this.info = [...infos];
+      this.redirectToExistingTable();
     });
-    this.redirectToExistingAlbum();
   }
 
-  private redirectToExistingAlbum() {
-    if (!this.ids.includes(this.id)) {
-      this.router.navigate(['/products', this.ids[0]]);
+  private redirectToExistingTable() {
+    let isExisting: boolean = false;
+
+    for (let i = 0; !isExisting && i < this.info.length; i++) {
+      isExisting = this.info[i].id === this.id;
+    }
+
+    if (!isExisting) {
+      this.router.navigate(['/products', this.info[0].id]);
     }
   }
 }

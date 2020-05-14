@@ -2,16 +2,10 @@ import { Skin } from './Skin';
 import { Facade } from './Facade';
 
 export interface KitchenCabinet {
-  id: string;
+  id: number;
   name: string;
-  size: Size;
-  price: number | null;
-  skin?: Skin;
-  facade?: Facade;
+  size: string;
+  price: number;
+  skin: Skin;
+  facade: Facade;
 }
-
-export type Size = {
-  height: number,
-  width: number,
-  depth: number,
-};

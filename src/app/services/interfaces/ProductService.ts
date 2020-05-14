@@ -1,5 +1,9 @@
-export interface ProductService<T> {
-  readonly products: T[];
-  createProduct(id: string, name: string, sizeStr?: string, price?: number): T;
-  getPhotoUrl(product: T, sizeType?: 'q' | 'x' | 'y' ): string;
+import { ProductCard } from './ProductCard';
+import { Info } from './Info';
+
+export interface ProductService {
+  info: Info[];
+  products: ProductCard[];
+  productCardFabric(id: number, name: string, size: string, price: number): ProductCard;
+  getProductCards(id: number): ProductCard[];
 }

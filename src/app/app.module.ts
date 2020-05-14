@@ -13,6 +13,7 @@ import { ProductsTableComponent } from './products-table/products-table.componen
 
 import { MaterialModules } from './material.modules';
 
+import { ProductsService } from './services/products.service';
 import { GalleryService } from './services/gallery.service';
 import { KitchenCabinetService } from './services/kitchen-cabinet.service';
 
@@ -33,7 +34,7 @@ import { KitchenCabinetService } from './services/kitchen-cabinet.service';
     HttpClientJsonpModule,
     ...MaterialModules
   ],
-  providers: [GalleryService, KitchenCabinetService],
+  providers: [ProductsService, GalleryService, KitchenCabinetService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
