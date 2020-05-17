@@ -4,36 +4,70 @@ import { Observable, of } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
 
 import { Album } from './interfaces/Album';
+import { VkRequest } from './interfaces/VkRequest';
 import { VkResponse } from './interfaces/VkResponse';
 import { ProductService } from './interfaces/ProductService';
 import { ProductCard } from './interfaces/ProductCard';
+import { Photo } from './interfaces/Photo';
+import { PhotoSizeTypes } from './enums/PhotoSizeTypes.enum';
 
 @Injectable()
 export class GalleryService implements ProductService {
 
-  public info: { id: number, title: string }[] = [];
+  public albums: Album[] = [];
+  public albums$: Observable<Album[]>;
 
-  public baseUrl = 'https://api.vk.com/method/';
-  public ownerId = '-184311662';
-  public accessToken = '797c1fca797c1fca797c1fca1e790dc5257797c797c1fca27c62cecb8dcd6ce6f9cf236';
-  public apiVersion = '5.103';
-  public albumsObservable: Observable<Album[]>;
+  private baseUrl = 'https://api.vk.com/method/';
+  private ownerId = -184311662;
+  private accessToken = '797c1fca797c1fca797c1fca1e790dc5257797c797c1fca27c62cecb8dcd6ce6f9cf236';
+  private apiVersion = 5.103;
 
-  public products: ProductCard[] = [];
+  private get emptyVkResponse() {
+    const emptyVkResponse = {
+      response: {
+        count: 0,
+        items: []
+      }
+    };
+    return emptyVkResponse;
+  }
 
   constructor(private http: HttpClient) {
-    this.albumsObservable = this.fetchAlbums();
+    this.albums$ = this.fetchAlbums();
   }
 
-  public productCardFabric(id: number, name: string, price = null): ProductCard {
-    throw new Error('Method not implemented.');
+  private generateVkUrl(method: string, params: VkRequest): string {
+    let url: string = this.baseUrl + method + '?';
+    for (const [key, value] of Object.entries(params)) {
+      url += `${key}=${value}&`;
+    }
+    return url;
   }
 
-  public getProductCards(id: number): ProductCard[] {
-    throw new Error('Method not implemented.');
+  private fetchPhotosFrom(album: Album): Observable<Album> {
+    const url = this.generateVkUrl('photos.get', {
+      owner_id: this.ownerId,
+      album_id: album.id,
+      access_token: this.accessToken,
+      v: this.apiVersion
+    });
+
+    return this.http.jsonp(url, 'callback').pipe(
+      catchError((): Observable<VkResponse<Photo[]>> => of(this.emptyVkResponse)),
+      map((vkResponse: VkResponse<Photo[]>) => vkResponse.response.items),
+      map((photos: Photo[]) => {
+        photos.forEach(photo => {
+          album.photos.push({
+            id: photo.id,
+            sizes: photo.sizes
+          });
+        });
+        return album;
+      })
+    );
   }
 
-  private fetchAlbums(): Observable<Album[]> {
+  public fetchAlbums(): Observable<Album[]> {
     const url = this.generateVkUrl('photos.getAlbums', {
       owner_id: this.ownerId,
       access_token: this.accessToken,
@@ -41,24 +75,22 @@ export class GalleryService implements ProductService {
     });
 
     return this.http.jsonp(url, 'callback').pipe(
-      catchError((): Observable<VkResponse<Album>> => of({
-        response: {
-          count: 0,
-          items: []
-        }
+      catchError((): Observable<VkResponse<Album[]>> => of(this.emptyVkResponse)),
+      map((vkResponse: VkResponse<Album[]>) => vkResponse.response.items),
+      map((albums) => albums.map((album: Album) => {
+        album.onlinePurchase = false;
+        return album;
       })),
-      map((vkResponse: VkResponse<Album>) => vkResponse.response.items),
-      tap((albums) => {
-        albums.forEach((album) => this.info.push({ id: album.id, title: album.title }));
-      })
+      tap((albums) => this.albums = albums),
     );
   }
 
-  private generateVkUrl(method: string, params: object): string {
-    let url: string = this.baseUrl + method + '?';
-    for (const [key, value] of Object.entries(params)) {
-      url += `${key}=${value}&`;
-    }
-    return url;
+  public productCardFabric(id: number, name: string): ProductCard {
+    throw new Error('Method not implemented.');
   }
+
+  public getProductCards(id: number): ProductCard[] {
+    throw new Error('Method not implemented.');
+  }
+
 }

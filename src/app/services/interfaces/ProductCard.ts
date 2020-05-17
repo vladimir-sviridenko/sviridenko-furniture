@@ -1,9 +1,9 @@
-import { Image } from './Image';
+import { Photo } from './Photo';
 
 export interface ProductCard {
   id: number;
   name: string;
-  image: Image;
   size: string;
   price: number | null;
+  photo: Photo;
 }

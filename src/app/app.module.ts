@@ -8,7 +8,6 @@ import { HeaderComponent } from './header/header.component';
 import { CartComponent } from './cart/cart.component';
 import { ContactsComponent } from './header/contacts/contacts.component';
 import { ProductPageComponent } from './product-page/product-page.component';
-import { ProductCardComponent } from './product-card/product-card.component';
 import { ProductsTableComponent } from './products-table/products-table.component';
 
 import { MaterialModules } from './material.modules';
@@ -24,7 +23,6 @@ import { KitchenCabinetService } from './services/kitchen-cabinet.service';
     CartComponent,
     ContactsComponent,
     ProductPageComponent,
-    ProductCardComponent,
     ProductsTableComponent
   ],
   imports: [

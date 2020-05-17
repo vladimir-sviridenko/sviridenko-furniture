@@ -4,14 +4,14 @@ import { KitchenCabinetService } from './kitchen-cabinet.service';
 import { ProductCard } from './interfaces/ProductCard';
 import { ProductService } from './interfaces/ProductService';
 import { Album } from './interfaces/Album';
-import { Info } from './interfaces/Info';
-import { Observable, of } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, share } from 'rxjs/operators';
 
 @Injectable()
-export class ProductsService {
+export class ProductsService implements ProductService{
 
-  public infoObservable: Observable<Info[]>;
+  public albums$: Observable<Album[]>;
+  public albums: Album[];
 
   public mainService: GalleryService;
   public dependencies: ProductService[] = [];
@@ -22,38 +22,22 @@ export class ProductsService {
       this.mainService,
       this.kitchenCabinetService
     ];
-
-    this.infoObservable = this.fetchInfo();
+    this.albums$ = this.fetchAlbums();
   }
 
-
-
-  private fetchInfo(): Observable<Info[]> {
-    return this.mainService.albumsObservable.pipe(
+  private fetchAlbums(): Observable<Album[]> {
+    return this.mainService.fetchAlbums().pipe(
       map((albums: Album[]) => {
-        const info: Info[] = [];
         for (let i = 1; i < this.dependencies.length; i++) {
-          info.push(...this.dependencies[i].info);
+          albums = [...this.dependencies[i].albums, ...albums];
         }
-        albums.forEach((album: Album) => {
-          info.push({
-            id: album.id,
-            title: album.title
-          });
-        });
-        return info;
-      })
+        return albums;
+      }),
+      share()
     );
   }
 
   public getProductCards(id: number): ProductCard[] {
-  let cards: ProductCard[] = [];
-  this.dependencies.forEach((service) => {
-    service.info.forEach((serviceInfo) => {
-      cards = [...cards, ...service.getProductCards(serviceInfo.id)];
-    });
-  });
-
-  return cards;
-}
+    throw new Error('not implemented');
+  }
 }

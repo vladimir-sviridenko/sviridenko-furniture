@@ -1,9 +1,9 @@
 import { ProductCard } from './ProductCard';
-import { Info } from './Info';
+import { Album } from './Album';
+import { Observable } from 'rxjs';
 
 export interface ProductService {
-  info: Info[];
-  products: ProductCard[];
-  productCardFabric(id: number, name: string, size: string, price: number): ProductCard;
-  getProductCards(id: number): ProductCard[];
+  albums: Album[];
+  albums$: Observable<Album[]>;
+  getProductCards(albumId: number): ProductCard[];
 }

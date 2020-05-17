@@ -1,7 +1,6 @@
-import { PhotoSizes } from './PhotoSizes';
+import { PhotoSize } from './PhotoSize';
 
 export interface Photo {
   id: number;
-  album_id: number;
-  sizes: PhotoSizes;
+  sizes: PhotoSize[];
 }
