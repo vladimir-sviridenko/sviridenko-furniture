@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductsService } from '../services/products.service';
-import { Album } from '../services/interfaces/Album';
-import { ProductCard } from '../services/interfaces/ProductCard';
+import { ProductsService } from '@services/products.service';
+
+import { Album } from '@interfaces/Album';
+import { ProductCard } from '@interfaces/ProductCard';
 import { ActivatedRoute, Router } from '@angular/router';
 
 type AlbumLink = {

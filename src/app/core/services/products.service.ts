@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { GalleryService } from './gallery.service';
-import { KitchenCabinetService } from './kitchen-cabinet.service';
-import { ProductCard } from './interfaces/ProductCard';
-import { ProductService } from './interfaces/ProductService';
-import { Album } from './interfaces/Album';
 import { Observable } from 'rxjs';
 import { map, share } from 'rxjs/operators';
+
+import { GalleryService } from '../http/gallery.service';
+import { KitchenCabinetService } from './kitchen-cabinet.service';
+
+import { ProductCard } from '@interfaces/ProductCard';
+import { ProductService } from '@interfaces/ProductService';
+import { Album } from '@interfaces/Album';
 
 @Injectable()
 export class ProductsService implements ProductService{

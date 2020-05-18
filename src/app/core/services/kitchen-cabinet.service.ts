@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
-import { ProductService } from './interfaces/ProductService';
-import { ProductCard } from './interfaces/ProductCard';
-import { Album } from './interfaces/Album';
-import { PhotoSizeTypes } from './enums/PhotoSizeTypes.enum';
-import { Photo } from './interfaces/Photo';
-import { PhotoSize } from './interfaces/PhotoSize';
-import { tap } from 'rxjs/operators';
+import { ProductService } from '@interfaces/ProductService';
+import { ProductCard } from '@interfaces/ProductCard';
+import { Album } from '@interfaces/Album';
+import { PhotoSizeTypes } from '@interfaces/enums/PhotoSizeTypes.enum';
+import { Photo } from '@interfaces/Photo';
+import { PhotoSize } from '@interfaces/PhotoSize';
 
 
 @Injectable()

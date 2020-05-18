@@ -3,13 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
 
-import { Album } from './interfaces/Album';
-import { VkRequest } from './interfaces/VkRequest';
-import { VkResponse } from './interfaces/VkResponse';
-import { ProductService } from './interfaces/ProductService';
-import { ProductCard } from './interfaces/ProductCard';
-import { Photo } from './interfaces/Photo';
-import { PhotoSizeTypes } from './enums/PhotoSizeTypes.enum';
+import { Album } from '@interfaces/Album';
+import { VkRequest } from '@interfaces/VkRequest';
+import { VkResponse } from '@interfaces/VkResponse';
+import { ProductService } from '@interfaces/ProductService';
+import { ProductCard } from '@interfaces/ProductCard';
+import { Photo } from '@interfaces/Photo';
+import { PhotoSizeTypes } from '@interfaces/enums/PhotoSizeTypes.enum';
 
 @Injectable()
 export class GalleryService implements ProductService {
