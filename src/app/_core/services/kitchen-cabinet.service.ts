@@ -53,31 +53,41 @@ export class KitchenCabinetService implements ProductService {
       title: this.albumTitle,
       description: this.albumDescription,
       size: this.products.length,
-      photos: this.products.map(product => product.photo),
+      photos: this.products.map(product => this.createPhotoFor(product)),
       onlinePurchase: true
     }];
 
     return of(this.albums);
   }
 
-  productFabric(id: number, name: string, size: string, price: number): ProductCard {
-    const photoSizes: PhotoSize[] = [];
-    for (const photoType in PhotoSizeTypes) {
-      if (PhotoSizeTypes.hasOwnProperty(photoType)) {
-        photoSizes.push({
-          type: PhotoSizeTypes[photoType],
-          url: `${this.photoBaseUrl}/${id}`
-        });
-      }
-    }
-    const photo: Photo = {
-      id,
-      sizes: photoSizes
-    };
-    return { id, name, photo, size, price };
+  public getProductCardsBy(): ProductCard[] {
+    return this.products;
   }
 
-  getProductCards(): ProductCard[] {
-    return this.products;
+  private productFabric(id: number, name: string, size: string, price: number): ProductCard {
+    const photoUrl: string = `${this.photoBaseUrl}/${id}`;
+    return { id, name, size, price, photoUrl };
+  }
+
+  private createPhotoFor(product: ProductCard): Photo {
+    const createPhotoSizes = () => {
+      const photoSizes: PhotoSize[] = [];
+      for (const photoType in PhotoSizeTypes) {
+        if (PhotoSizeTypes.hasOwnProperty(photoType)) {
+          photoSizes.push({
+            type: PhotoSizeTypes[photoType],
+            url: `${this.photoBaseUrl}/${product.id}`
+          });
+        }
+      }
+      return photoSizes;
+    };
+
+    const photo: Photo = {
+      id: product.id,
+      sizes: createPhotoSizes(),
+      text: name
+    };
+    return photo;
   }
 }

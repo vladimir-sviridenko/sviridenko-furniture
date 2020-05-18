@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, forkJoin } from 'rxjs';
-import { map, tap, catchError, switchMap, concatMap, mergeMap } from 'rxjs/operators';
+import { map, tap, catchError, mergeMap } from 'rxjs/operators';
 
 import { Album } from '@models/Album';
 import { VkRequest } from '@models/VkRequest';
@@ -9,6 +9,9 @@ import { VkResponse } from '@models/VkResponse';
 import { ProductService } from '@models/ProductService';
 import { ProductCard } from '@models/ProductCard';
 import { Photo } from '@models/Photo';
+
+import { getPhotoUrlBySizeType } from '@services/products.service';
+import { PhotoSizeTypes } from '@models/enums/PhotoSizeTypes.enum';
 
 @Injectable()
 export class GalleryService implements ProductService {
@@ -35,6 +38,19 @@ export class GalleryService implements ProductService {
     this.albums$ = this.fetchAlbums();
   }
 
+  public getProductCardsBy(album: Album): ProductCard[] {
+    return album.photos.map((photo) => {
+      const productCard: ProductCard = {
+        id: photo.id,
+        name: photo.text || album.title,
+        size: null,
+        price: null,
+        photoUrl: getPhotoUrlBySizeType(photo, PhotoSizeTypes.Low)
+      };
+      return productCard;
+    });
+  }
+
   private generateVkUrl(method: string, params: VkRequest): string {
     let url: string = this.baseUrl + method + '?';
     for (const [key, value] of Object.entries(params)) {
@@ -58,7 +74,8 @@ export class GalleryService implements ProductService {
         photos.forEach(photo => {
           album.photos.push({
             id: photo.id,
-            sizes: photo.sizes
+            sizes: photo.sizes,
+            text: photo.text
           });
         });
         return album;
@@ -89,13 +106,4 @@ export class GalleryService implements ProductService {
       tap((albums: Album[]) => this.albums = albums)
     );
   }
-
-  public productCardFabric(id: number, name: string): ProductCard {
-    throw new Error('Method not implemented.');
-  }
-
-  public getProductCards(id: number): ProductCard[] {
-    throw new Error('Method not implemented.');
-  }
-
 }

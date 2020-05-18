@@ -3,7 +3,7 @@ import { Photo } from './Photo';
 export interface ProductCard {
   id: number;
   name: string;
-  size: string;
+  size: string | null;
   price: number | null;
-  photo: Photo;
+  photoUrl: string;
 }
