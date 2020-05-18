@@ -5,10 +5,8 @@ import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { CartComponent } from './cart/cart.component';
 import { ContactsComponent } from './header/contacts/contacts.component';
-import { ProductPageComponent } from './product-page/product-page.component';
-import { ProductsTableComponent } from './products-table/products-table.component';
+import { ShopComponent } from './shop/shop.component';
 
 import { MaterialModules } from './material.modules';
 
@@ -20,10 +18,8 @@ import { KitchenCabinetService } from './services/kitchen-cabinet.service';
   declarations: [
     AppComponent,
     HeaderComponent,
-    CartComponent,
     ContactsComponent,
-    ProductPageComponent,
-    ProductsTableComponent
+    ShopComponent
   ],
   imports: [
     BrowserModule,

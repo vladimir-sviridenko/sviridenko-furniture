@@ -1,0 +1,30 @@
+.shop {
+  &__navigation {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    height: auto;
+    margin-right: -10px;
+    padding: 8px 9px 8px 15px;
+  }
+
+  &__product {
+    flex: 1 0 auto;
+    max-width: 300px;
+    margin: 6px 0;
+    margin-right: 10px;
+
+    line-height: 30px;
+
+    border-color: white;
+
+    transition: background-color 0.3s;
+    &:hover {
+      background-color: transparentize($color: black, $amount: 0.9);
+    }
+
+    &_online {
+    }
+  }
+}
