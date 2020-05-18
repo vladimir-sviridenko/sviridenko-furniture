@@ -83,7 +83,9 @@ export class GalleryService implements ProductService {
           return album;
         });
       }),
-      mergeMap((albums: Album[]) => forkJoin(albums.map(album => this.fetchPhotosInto(album)))),
+      mergeMap((albums: Album[]) => {
+        return (albums.length === 0) ? of([]) : forkJoin(albums.map(album => this.fetchPhotosInto(album)));
+      }),
       tap((albums: Album[]) => this.albums = albums)
     );
   }
