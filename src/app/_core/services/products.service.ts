@@ -5,9 +5,9 @@ import { map, share } from 'rxjs/operators';
 import { GalleryService } from '../http/gallery.service';
 import { KitchenCabinetService } from './kitchen-cabinet.service';
 
-import { ProductCard } from '@interfaces/ProductCard';
-import { ProductService } from '@interfaces/ProductService';
-import { Album } from '@interfaces/Album';
+import { ProductCard } from '@models/ProductCard';
+import { ProductService } from '@models/ProductService';
+import { Album } from '@models/Album';
 
 @Injectable()
 export class ProductsService implements ProductService{
