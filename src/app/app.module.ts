@@ -12,7 +12,7 @@ import { MaterialModules } from './material.modules';
 
 import { ProductsService } from '@services/products.service';
 import { GalleryService } from './core/http/gallery.service';
-import { KitchenCabinetService } from '@core/services/kitchen-cabinet.service';
+import { KitchenCabinetService } from './core/services/kitchen-cabinet.service';
 
 @NgModule({
   declarations: [

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { map, tap, catchError } from 'rxjs/operators';
+import { Observable, of, forkJoin } from 'rxjs';
+import { map, tap, catchError, switchMap, concatMap, mergeMap } from 'rxjs/operators';
 
 import { Album } from '@interfaces/Album';
 import { VkRequest } from '@interfaces/VkRequest';
@@ -9,7 +9,6 @@ import { VkResponse } from '@interfaces/VkResponse';
 import { ProductService } from '@interfaces/ProductService';
 import { ProductCard } from '@interfaces/ProductCard';
 import { Photo } from '@interfaces/Photo';
-import { PhotoSizeTypes } from '@interfaces/enums/PhotoSizeTypes.enum';
 
 @Injectable()
 export class GalleryService implements ProductService {
@@ -44,7 +43,7 @@ export class GalleryService implements ProductService {
     return url;
   }
 
-  private fetchPhotosFrom(album: Album): Observable<Album> {
+  private fetchPhotosInto(album: Album): Observable<Album> {
     const url = this.generateVkUrl('photos.get', {
       owner_id: this.ownerId,
       album_id: album.id,
@@ -76,12 +75,16 @@ export class GalleryService implements ProductService {
 
     return this.http.jsonp(url, 'callback').pipe(
       catchError((): Observable<VkResponse<Album[]>> => of(this.emptyVkResponse)),
-      map((vkResponse: VkResponse<Album[]>) => vkResponse.response.items),
-      map((albums) => albums.map((album: Album) => {
-        album.onlinePurchase = false;
-        return album;
-      })),
-      tap((albums) => this.albums = albums),
+      map((vkResponse: VkResponse<Album[]>) => {
+        const albums = vkResponse.response.items;
+        return albums.map((album: Album) => {
+          album.onlinePurchase = false;
+          album.photos = [];
+          return album;
+        });
+      }),
+      mergeMap((albums: Album[]) => forkJoin(albums.map(album => this.fetchPhotosInto(album)))),
+      tap((albums: Album[]) => this.albums = albums)
     );
   }
 
