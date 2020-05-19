@@ -10,8 +10,13 @@ import { ProductService } from '@models/ProductService';
 import { ProductCard } from '@models/ProductCard';
 import { Photo } from '@models/Photo';
 
-import { getPhotoUrlBySizeType } from '@services/products.service';
 import { PhotoSizeTypes } from '@models/enums/PhotoSizeTypes.enum';
+import { PhotoSize } from '@models/PhotoSize';
+
+export function getPhotoUrlBySizeType(photo: Photo, photoSizeType: PhotoSizeTypes): string {
+  const photoSize = photo.sizes.find((size: PhotoSize) => size.type === photoSizeType);
+  return photoSize.url;
+}
 
 @Injectable()
 export class GalleryService implements ProductService {

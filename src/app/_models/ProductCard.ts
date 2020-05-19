@@ -1,5 +1,3 @@
-import { Photo } from './Photo';
-
 export interface ProductCard {
   id: number;
   name: string;

@@ -28,7 +28,7 @@ export class ShopComponent {
       this.albums = albums;
       this.updateAlbumLinks();
       this.route.params.subscribe(params => {
-        const albumToShow: Album = this.albums.find(album => params.albumId === album.id);
+        const albumToShow: Album = this.albums.find(album => params.albumId === String(album.id));
         if (albumToShow) {
           this.currentAlbumId = albumToShow.id;
           this.productCards = this.productsService.getProductCardsBy(albumToShow);

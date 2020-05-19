@@ -16,7 +16,8 @@ export class KitchenCabinetService implements ProductService {
   private albumTitle: string = 'Эконом мебель';
   private albumDescription: string = '';
 
-  private photoBaseUrl = '/assets/products/kitchen-cabinets';
+  private photoBaseUrl: string = '/assets/images/products/kitchen-cabinets';
+  private imagesFormat: string = '.jpg';
 
   public albums: Album[] = [];
   public albums$: Observable<Album[]>;
@@ -65,7 +66,7 @@ export class KitchenCabinetService implements ProductService {
   }
 
   private productFabric(id: number, name: string, size: string, price: number): ProductCard {
-    const photoUrl: string = `${this.photoBaseUrl}/${id}`;
+    const photoUrl: string = `${this.photoBaseUrl}/${id}${this.imagesFormat}`;
     return { id, name, size, price, photoUrl };
   }
 
