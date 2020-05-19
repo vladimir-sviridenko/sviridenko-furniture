@@ -4,8 +4,8 @@
     [matBadge]='link.onlinePurchase ? "Онлайн" : "Под заказ"'
     matBadgeSize="small"
     [routerLink]='["/products", link.id]'
-    class="shop__product"
-    [class.shop__product_online] = 'link.onlinePurchase'
+    class="shop__link"
+    [class.shop__link_online-product] = 'link.onlinePurchase'
     *ngFor='let link of albumLinks'>{{link.title}}</button>
   </mat-toolbar>
   <app-products-table [productCards]='productCards'></app-products-table>

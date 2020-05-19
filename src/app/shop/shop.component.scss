@@ -11,7 +11,7 @@
     padding: 8px 9px 8px 15px;
   }
 
-  &__product {
+  &__link {
     flex: 1 0 auto;
     max-width: 300px;
     margin: 6px 0;
@@ -26,13 +26,20 @@
       background-color: transparentize($color: black, $amount: 0.9);
     }
 
-    &::ng-deep .mat-badge-content {
+    &.mat-badge-small::ng-deep .mat-badge-content {
+      top: -4px;
+      right: -6px;
+
       width: auto;
-      min-width: 50px;
+      height: 8px;
+
+      line-height: 8px;
+
+      border-radius: 0;
     }
 
-    &_online {
-      &::ng-deep .mat-badge-content {
+    &_online-product {
+      &.mat-badge-small::ng-deep .mat-badge-content {
         color: $color-accent;
       }
     }
