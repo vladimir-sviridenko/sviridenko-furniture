@@ -17,7 +17,7 @@
     ],
     "paths": {
       "@services/*": ["src/app/_core/services/*"],
-      "@models/*": ["src/app/_models/*"],
+      "@models/*": ["src/app/_models/*"]
     }
   },
   "angularCompilerOptions": {

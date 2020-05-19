@@ -1,9 +1,11 @@
 <div class="shop">
   <mat-toolbar class="shop__navigation" color='primary'>
-    <button mat-stroked-button
+    <button mat-stroked-button 
+    [matBadge]='link.onlinePurchase ? "Онлайн" : "Под заказ"'
+    matBadgeSize="small"
     [routerLink]='["/products", link.id]'
     class="shop__product"
-    [class.header__product_online] = 'link.onlinePurchase'
+    [class.shop__product_online] = 'link.onlinePurchase'
     *ngFor='let link of albumLinks'>{{link.title}}</button>
   </mat-toolbar>
   <app-products-table [productCards]='productCards'></app-products-table>

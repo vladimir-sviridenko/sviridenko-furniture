@@ -1,3 +1,5 @@
+@import "variables";
+
 .shop {
   &__navigation {
     display: flex;
@@ -24,7 +26,15 @@
       background-color: transparentize($color: black, $amount: 0.9);
     }
 
+    &::ng-deep .mat-badge-content {
+      width: auto;
+      min-width: 50px;
+    }
+
     &_online {
+      &::ng-deep .mat-badge-content {
+        color: $color-accent;
+      }
     }
   }
 }

@@ -1,17 +1,19 @@
 <div class="products-table">
-  <mat-card class='products-table__card' *ngFor='let product of productCards'>
-    <img mat-card-image [attr.src]='product.photoUrl' alt="">
-    <mat-card-header>
-      <mat-card-title>{{product.name}}</mat-card-title>
-      <mat-card-subtitle *ngIf='product.size'>
-        <span>Размер: {{product.size}}</span>
-      </mat-card-subtitle>
-      <mat-card-title>{{product.price || "Под заказ"}}</mat-card-title>
-    </mat-card-header>
-    <mat-card-actions>
-      <button mat-flat-button color='primary'>{{product.price ? "В корзину" : "Заказать звонок"}}</button>
-      <button mat-stroked-button color='primary'>Подробнее</button>
-    </mat-card-actions>
-  </mat-card>
+  <div class="products-table__container">
+    <mat-card class='products-table__card' *ngFor='let product of productCards'>
+      <img mat-card-image [attr.src]='product.photoUrl' alt="">
+      <mat-card-header>
+        <mat-card-title>{{product.name}}</mat-card-title>
+        <mat-card-subtitle *ngIf='product.size'>
+          <span>Размер: {{product.size}}</span>
+        </mat-card-subtitle>
+        <mat-card-title>{{product.price || "Под заказ"}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-actions class="products-table__actions">
+        <button mat-flat-button class="products-table__button" color='primary'>{{product.price ? "В корзину" : "Заказать звонок"}}</button>
+        <button mat-stroked-button class="products-table__button" color='primary'>Подробнее</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 </div>
   
