@@ -44,4 +44,12 @@
       }
     }
   }
+
+  &__product-cards {
+    display: flex;
+    flex-flow: row wrap;
+    padding: 10px;
+
+    background-color: $backgroun-color-primary;
+  }
 }

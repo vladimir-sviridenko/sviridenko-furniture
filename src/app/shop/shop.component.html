@@ -8,5 +8,7 @@
     [class.shop__link_online-product] = 'link.onlinePurchase'
     *ngFor='let link of albumLinks'>{{link.title}}</button>
   </mat-toolbar>
-  <app-products-table [productCards]='productCards'></app-products-table>
+  <div class="shop__product-cards">
+    <app-product-card [productCard]='product' *ngFor='let product of productCards'></app-product-card>
+  </div>
 </div>

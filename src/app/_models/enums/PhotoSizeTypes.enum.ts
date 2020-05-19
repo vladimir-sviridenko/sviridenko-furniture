@@ -1,5 +1,5 @@
 export enum PhotoSizeTypes {
-  Low = 'p',
+  Low = 's',
   Middle = 'q',
   Large = 'r'
 }

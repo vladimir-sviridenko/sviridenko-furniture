@@ -1,0 +1,16 @@
+<mat-card class='product-card'>
+  <div mat-card-image class="product-card__image-container">
+    <img class="product-card__image" [attr.src]='productCard.photoUrl' alt="">
+  </div>
+  <mat-card-header>
+    <mat-card-title>{{productCard.name}}</mat-card-title>
+    <mat-card-subtitle *ngIf='productCard.size'>
+      <span>Размер: {{productCard.size}}</span>
+    </mat-card-subtitle>
+    <mat-card-title class="product-card__price">{{productCard.price || "Под заказ"}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-actions class="product-card__actions">
+    <button mat-flat-button class="product-card__button" color='primary'>{{productCard.price ? "В корзину" : "Заказать"}}</button>
+    <button mat-stroked-button class="product-card__button" color='primary'>Подробнее</button>
+  </mat-card-actions>
+</mat-card>

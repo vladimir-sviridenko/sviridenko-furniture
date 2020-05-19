@@ -13,7 +13,7 @@ import { MaterialModules } from './material.modules';
 import { ProductsService } from '@services/products.service';
 import { GalleryService } from './_core/http/gallery.service';
 import { KitchenCabinetService } from './_core/services/kitchen-cabinet.service';
-import { ProductsTableComponent } from './shop/products-table/products-table.component';
+import { ProductCardComponent } from './shop/product-card/product-card.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,7 @@ import { ProductsTableComponent } from './shop/products-table/products-table.com
     HeaderComponent,
     ContactsComponent,
     ShopComponent,
-    ProductsTableComponent
+    ProductCardComponent
   ],
   imports: [
     BrowserModule,
