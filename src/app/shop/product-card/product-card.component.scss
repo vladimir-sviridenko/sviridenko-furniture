@@ -1,6 +1,21 @@
+@import "variables";
+
 :host {
   display: flex;
-  flex: 1 0 220px;
+  width: 50%;
+  @media screen and (min-width: map-get($breakpoints, mobile)) {
+    width: 33.3%;
+  }
+  @media screen and (min-width: map-get($breakpoints, tablet)) {
+    width: 20%;
+  }
+  @media screen and (min-width: map-get($breakpoints, laptop)) {
+    width: 16.6%;
+  }
+  @media screen and (min-width: map-get($breakpoints, desktop)) {
+    width: 14.285%;
+  }
+  
 }
 
 .product-card {

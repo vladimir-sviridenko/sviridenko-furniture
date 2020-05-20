@@ -10,13 +10,8 @@ import { ProductService } from '@models/ProductService';
 import { ProductCard } from '@models/ProductCard';
 import { Photo } from '@models/Photo';
 
-import { PhotoSizeTypes } from '@models/enums/PhotoSizeTypes.enum';
+import { PhotoQuality } from '@models/enums/PhotoQuality.enum';
 import { PhotoSize } from '@models/PhotoSize';
-
-export function getPhotoUrlBySizeType(photo: Photo, photoSizeType: PhotoSizeTypes): string {
-  const photoSize = photo.sizes.find((size: PhotoSize) => size.type === photoSizeType);
-  return photoSize.url;
-}
 
 @Injectable()
 export class GalleryService implements ProductService {
@@ -43,6 +38,14 @@ export class GalleryService implements ProductService {
     this.albums$ = this.fetchAlbums();
   }
 
+  private getProductCardsPhotoUrl(photo: Photo): string {
+    const photoSize = photo.sizes.find((size: PhotoSize) => size.type === PhotoQuality.Low);
+    /*photoSize = (photoSize.width > photoSize.height)
+      ? photo.sizes.find((size: PhotoSize) => size.type === PhotoQuality.Middle)
+      : photoSize;*/
+    return photoSize.url;
+  }
+
   public getProductCardsBy(album: Album): ProductCard[] {
     return album.photos.map((photo) => {
       const productCard: ProductCard = {
@@ -50,7 +53,7 @@ export class GalleryService implements ProductService {
         name: photo.text || album.title,
         size: null,
         price: null,
-        photoUrl: getPhotoUrlBySizeType(photo, PhotoSizeTypes.Low)
+        photoUrl: this.getProductCardsPhotoUrl(photo)
       };
       return productCard;
     });
@@ -62,6 +65,17 @@ export class GalleryService implements ProductService {
       url += `${key}=${value}&`;
     }
     return url;
+  }
+
+  private sortPhotosByPortrait(albums: Album[]) {
+    albums.forEach((album) => {
+      album.photos.sort((photo, nextPhoto) => {
+        const photoMinHeight: number = Number(photo.sizes[0].height);
+        const nextPhotoMinHeight: number = Number(nextPhoto.sizes[0].height);
+        return nextPhotoMinHeight - photoMinHeight;
+      });
+    });
+    return albums;
   }
 
   private fetchPhotosInto(album: Album): Observable<Album> {
@@ -108,6 +122,7 @@ export class GalleryService implements ProductService {
       mergeMap((albums: Album[]) => {
         return (albums.length === 0) ? of([]) : forkJoin(albums.map(album => this.fetchPhotosInto(album)));
       }),
+      map((albums: Album[]) => this.sortPhotosByPortrait(albums)),
       tap((albums: Album[]) => this.albums = albums)
     );
   }

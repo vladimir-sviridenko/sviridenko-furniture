@@ -1,6 +1,8 @@
-import { PhotoSizeTypes } from './enums/PhotoSizeTypes.enum';
+import { PhotoQuality } from './enums/PhotoQuality.enum';
 
 export interface PhotoSize {
-  type: PhotoSizeTypes;
+  type: PhotoQuality;
   url: string;
+  width: number;
+  height: number;
 }

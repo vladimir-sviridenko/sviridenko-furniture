@@ -1,4 +1,5 @@
 @import "variables";
+@import "mixins";
 
 .shop {
   &__navigation {
@@ -51,5 +52,9 @@
     padding: 10px;
 
     background-color: $backgroun-color-primary;
+    &::after {
+      content: "";
+      flex: auto;
+    }
   }
 }

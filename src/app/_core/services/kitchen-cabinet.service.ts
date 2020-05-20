@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { ProductService } from '@models/ProductService';
 import { ProductCard } from '@models/ProductCard';
 import { Album } from '@models/Album';
-import { PhotoSizeTypes } from '@models/enums/PhotoSizeTypes.enum';
+import { PhotoQuality } from '@models/enums/PhotoQuality.enum';
 import { Photo } from '@models/Photo';
 import { PhotoSize } from '@models/PhotoSize';
 
@@ -73,11 +73,13 @@ export class KitchenCabinetService implements ProductService {
   private createPhotoFor(product: ProductCard): Photo {
     const createPhotoSizes = () => {
       const photoSizes: PhotoSize[] = [];
-      for (const photoType in PhotoSizeTypes) {
-        if (PhotoSizeTypes.hasOwnProperty(photoType)) {
+      for (const photoType in PhotoQuality) {
+        if (PhotoQuality.hasOwnProperty(photoType)) {
           photoSizes.push({
-            type: PhotoSizeTypes[photoType],
-            url: `${this.photoBaseUrl}/${product.id}`
+            type: PhotoQuality[photoType],
+            url: `${this.photoBaseUrl}/${product.id}`,
+            width: 1368,
+            height: 1368
           });
         }
       }
