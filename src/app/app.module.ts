@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ShopModule } from './shop/shop.module';
+import { ShopRoutingModule } from './shop/shop-routing.module';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,7 @@ import { ShopModule } from './shop/shop.module';
   imports: [
     BrowserModule,
     ShopModule,
-    AppRoutingModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

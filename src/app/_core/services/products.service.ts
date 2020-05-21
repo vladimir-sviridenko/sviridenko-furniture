@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map, share, first } from 'rxjs/operators';
 
 import { GalleryService } from '../http/gallery.service';
@@ -10,8 +10,11 @@ import { ProductService } from '@models/ProductService';
 import { Album } from '@models/Album';
 
 @Injectable()
-export class ProductsService implements ProductService{
+export class ProductsService {
 
+  public isProductCardsLoaded: boolean = false;
+  public currentAlbumId: number;
+  public productCards$: Subject<ProductCard[]> = new Subject<ProductCard[]>();
   public albums$: Observable<Album[]>;
   public albums: Album[];
 
@@ -27,6 +30,10 @@ export class ProductsService implements ProductService{
     this.albums$ = this.fetchAlbums();
   }
 
+  public hideCards(linkToAlbumId: number) {
+    this.isProductCardsLoaded = (linkToAlbumId === this.currentAlbumId);
+  }
+
   private fetchAlbums(): Observable<Album[]> {
     return this.httpService.fetchAlbums().pipe(
       map((albums: Album[]) => {
@@ -40,9 +47,11 @@ export class ProductsService implements ProductService{
     );
   }
 
-  public getProductCardsBy(album: Album): ProductCard[] {
+  public generateProductCards(album: Album): void {
+    this.currentAlbumId = album.id;
     const serviceContainingAlbum = this.dependencies.find(service =>
       service.albums.find(serviceAlbum => serviceAlbum.id === album.id));
-    return serviceContainingAlbum.getProductCardsBy(album);
+    const productCards: ProductCard[] = serviceContainingAlbum.getProductCardsBy(album);
+    this.productCards$.next(productCards);
   }
 }

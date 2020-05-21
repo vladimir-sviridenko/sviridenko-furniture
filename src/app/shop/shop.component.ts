@@ -17,57 +17,6 @@ type AlbumLink = {
   templateUrl: './shop.component.html',
   styleUrls: ['./shop.component.scss']
 })
-export class ShopComponent implements AfterViewInit {
-
-  @ViewChildren(ProductCardComponent)
-  private productCardComponents: QueryList<ProductCardComponent>;
-
-  public isProductCardsLoaded: boolean = false;
-
-  public albumLinks: AlbumLink[] = null;
-  public currentAlbumId: number;
-  public productCards: ProductCard[];
-
-  constructor(public productsService: ProductsService, private router: Router, private route: ActivatedRoute) {
-    this.productsService.albums$.subscribe((albums: Album[]) => {
-      this.route.params.subscribe(params => {
-        const albumToShow: Album = albums.find(album => params.albumId === String(album.id));
-        if (albumToShow) {
-          this.currentAlbumId = albumToShow.id;
-          this.productCards = this.productsService.getProductCardsBy(albumToShow);
-        } else {
-          this.router.navigate(['/shop', albums[0].id]);
-        }
-      });
-    });
-  }
-
-  ngAfterViewInit(): void {
-    this.productCardComponents.changes.subscribe((value) => {
-      this.showCardsAfterAllLoaded();
-    });
-  }
-
-  public hideCards(linkToAlbumId: number) {
-    this.isProductCardsLoaded = (linkToAlbumId === this.currentAlbumId);
-  }
-
-  private showCardsAfterAllLoaded(): void {
-    const loadingPhotos$ = this.productCardComponents.map((component: ProductCardComponent, index: number) => {
-      return new Promise((resolve) => {
-        component.imageLoad.subscribe((isSuccessLoading) => {
-          if (isSuccessLoading) {
-            resolve();
-          } else {
-            const elementToDelete = document.querySelectorAll('.shop__card')[index];
-            elementToDelete.parentNode.removeChild(elementToDelete);
-          }
-        });
-      });
-    });
-    console.log(loadingPhotos$)
-    Promise.all(loadingPhotos$).then(() => {
-      this.isProductCardsLoaded = true;
-    });
-  }
+export class ShopComponent {
+  constructor(public productsService: ProductsService) {}
 }

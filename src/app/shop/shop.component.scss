@@ -48,34 +48,4 @@
       }
     }
   }
-
-  &__product-cards {
-    display: flex;
-    flex-flow: row wrap;
-    padding: 10px;
-
-    background-color: $backgroun-color-primary;
-    opacity: 1;
-
-    pointer-events: auto;
-
-    transition: opacity 0.3s;
-
-    &_hidden {
-      opacity: 0;
-
-      pointer-events: none;
-      transition: none;
-    }
-
-    &::after {
-      content: "";
-
-      flex: auto;
-    }
-  }
-
-  &__loader {
-    margin: 30vh auto;
-  }
 }
