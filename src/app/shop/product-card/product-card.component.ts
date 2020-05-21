@@ -1,5 +1,6 @@
-import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { ProductCard } from '@models/ProductCard';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-product-card',
@@ -10,7 +11,9 @@ import { ProductCard } from '@models/ProductCard';
 export class ProductCardComponent {
 
   @Input()
-  productCard: ProductCard;
+  public productCard: ProductCard;
+
+  public imageLoad$: Subject<boolean> = new Subject<boolean>();
 
   constructor() {}
 }

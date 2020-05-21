@@ -14,6 +14,7 @@ import { ProductsService } from '@services/products.service';
 import { GalleryService } from './_core/http/gallery.service';
 import { KitchenCabinetService } from './_core/services/kitchen-cabinet.service';
 import { ProductCardComponent } from './shop/product-card/product-card.component';
+import { ProductPageComponent } from './shop/product-page/product-page.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ProductCardComponent } from './shop/product-card/product-card.component
     HeaderComponent,
     ContactsComponent,
     ShopComponent,
-    ProductCardComponent
+    ProductCardComponent,
+    ProductPageComponent
   ],
   imports: [
     BrowserModule,

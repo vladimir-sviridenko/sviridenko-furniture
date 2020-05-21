@@ -1,14 +1,17 @@
 <div class="shop">
   <mat-toolbar class="shop__navigation" color='primary'>
-    <button mat-stroked-button 
+    <button mat-stroked-button
+    *ngFor='let link of albumLinks'
+    (click)='hideCards(link.id)'
     [matBadge]='link.onlinePurchase ? "Онлайн" : "Под заказ"'
     matBadgeSize="small"
     [routerLink]='["/products", link.id]'
     class="shop__link"
     [class.shop__link_online-product] = 'link.onlinePurchase'
-    *ngFor='let link of albumLinks'>{{link.title}}</button>
+    >{{link.title}}</button>
   </mat-toolbar>
-  <div class="shop__product-cards">
-    <app-product-card [productCard]='product' *ngFor='let product of productCards'></app-product-card>
+  <mat-spinner class="shop__loader" [diameter]='50' *ngIf='!isProductCardsLoaded'></mat-spinner>
+  <div class="shop__product-cards" [class.shop__product-cards_hidden]='!isProductCardsLoaded'>
+    <app-product-card class="shop__card" [productCard]='product' *ngFor='let product of productCards'></app-product-card>
   </div>
 </div>
