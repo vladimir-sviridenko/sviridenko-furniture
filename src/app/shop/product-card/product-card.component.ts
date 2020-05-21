@@ -13,7 +13,8 @@ export class ProductCardComponent {
   @Input()
   public productCard: ProductCard;
 
-  public imageLoad$: Subject<boolean> = new Subject<boolean>();
+  @Output()
+  public imageLoad = new EventEmitter();
 
   constructor() {}
 }

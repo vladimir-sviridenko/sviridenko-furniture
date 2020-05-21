@@ -1,14 +1,15 @@
 <div class="shop">
+  <app-header></app-header>
   <mat-toolbar class="shop__navigation" color='primary'>
     <button mat-stroked-button
-    *ngFor='let link of albumLinks'
-    (click)='hideCards(link.id)'
-    [matBadge]='link.onlinePurchase ? "Онлайн" : "Под заказ"'
+    *ngFor='let album of this.productsService.albums$ | async'
+    (click)='hideCards(album.id)'
+    [matBadge]='album.onlinePurchase ? "Онлайн" : "Под заказ"'
     matBadgeSize="small"
-    [routerLink]='["/products", link.id]'
+    [routerLink]='["/shop", album.id]'
     class="shop__link"
-    [class.shop__link_online-product] = 'link.onlinePurchase'
-    >{{link.title}}</button>
+    [class.shop__link_online-product] = 'album.onlinePurchase'
+    >{{album.title}}</button>
   </mat-toolbar>
   <mat-spinner class="shop__loader" [diameter]='50' *ngIf='!isProductCardsLoaded'></mat-spinner>
   <div class="shop__product-cards" [class.shop__product-cards_hidden]='!isProductCardsLoaded'>

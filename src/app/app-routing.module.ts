@@ -2,10 +2,12 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { ShopComponent } from './shop/shop.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'products/375686981', pathMatch: 'full'},
-  {path: 'products/:albumId', component: ShopComponent}
+  {path: '', redirectTo: 'shop/375686981', pathMatch: 'full'},
+  {path: 'shop', component: ShopComponent},
+  {path: '**', component: NotFoundComponent}
 ];
 
 @NgModule({
