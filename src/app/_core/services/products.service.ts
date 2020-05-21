@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, combineLatest } from 'rxjs';
 import { map, share, first } from 'rxjs/operators';
 
 import { GalleryService } from '../http/gallery.service';
@@ -18,14 +18,14 @@ export class ProductsService {
   public albums$: Observable<Album[]>;
   public albums: Album[];
 
-  public httpService: GalleryService;
+  public mainService: GalleryService;
   public dependencies: ProductService[] = [];
 
   constructor(private galleryService: GalleryService, private kitchenCabinetService: KitchenCabinetService) {
-    this.httpService = this.galleryService;
+    this.mainService = this.galleryService;
     this.dependencies = [
       this.kitchenCabinetService,
-      this.httpService
+      this.mainService
     ];
     this.albums$ = this.fetchAlbums();
   }
@@ -35,7 +35,14 @@ export class ProductsService {
   }
 
   private fetchAlbums(): Observable<Album[]> {
-    return this.httpService.fetchAlbums().pipe(
+    return combineLatest([this.kitchenCabinetService.albums$, this.mainService.albums$]).pipe(
+      map(([album1, album2]) => {
+        return [...album1, ...album2];
+      }),
+      share(),
+      first()
+    );
+    return this.mainService.fetchAlbums().pipe(
       map((albums: Album[]) => {
         for (let i = 0; i < this.dependencies.length - 1; i++) {
           albums = [...this.dependencies[i].albums, ...albums];
@@ -51,7 +58,7 @@ export class ProductsService {
     this.currentAlbumId = album.id;
     const serviceContainingAlbum = this.dependencies.find(service =>
       service.albums.find(serviceAlbum => serviceAlbum.id === album.id));
-    const productCards: ProductCard[] = serviceContainingAlbum.getProductCardsBy(album);
+    const productCards: ProductCard[] = serviceContainingAlbum.getProductCards(album);
     this.productCards$.next(productCards);
   }
 }

@@ -13,15 +13,15 @@ import { ProductOptions } from '@models/enums/ProductOptions.enum';
 @Injectable()
 export class KitchenCabinetService implements ProductService {
 
+  public albums$: Observable<Album[]>;
+  public albums: Album[];
+
   private albumId: number = 375686981;
   private albumTitle: string = 'Эконом мебель';
   private albumDescription: string = '';
 
   private photoBaseUrl: string = '/assets/images/products/kitchen-cabinets';
   private imagesFormat: string = '.jpg';
-
-  public albums: Album[] = [];
-  public albums$: Observable<Album[]>;
 
   private products: ProductCard[] = [
     this.productFabric(1, 'Шкаф навесной', '72×40×34', 2192),
@@ -63,7 +63,7 @@ export class KitchenCabinetService implements ProductService {
     return of(this.albums);
   }
 
-  public getProductCardsBy(): ProductCard[] {
+  public getProductCards(): ProductCard[] {
     return this.products;
   }
 

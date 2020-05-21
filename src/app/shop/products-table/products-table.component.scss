@@ -1,37 +1,31 @@
 @import "variables";
 
 .products-table {
-  &__cards {
-    display: flex;
-    flex-flow: row wrap;
-    padding: 10px;
+  display: flex;
+  flex-flow: row wrap;
+  padding: 10px;
 
-    background-color: $backgroun-color-primary;
-    opacity: 1;
+  background-color: $backgroun-color-primary;
+  opacity: 1;
 
-    transition: opacity 0.3s;
+  transition: opacity 0.3s;
 
-    pointer-events: auto;
+  pointer-events: auto;
 
-    &_hidden {
-      height: 0;
-      overflow: hidden;
+  &_hidden {
+    height: 0;
+    overflow: hidden;
 
-      opacity: 0;
+    opacity: 0;
 
-      transition: none;
+    transition: none;
 
-      pointer-events: none;
-    }
-
-    &::after {
-      content: "";
-
-      flex: auto;
-    }
+    pointer-events: none;
   }
 
-  &__loader {
-    margin: 30vh auto;
+  &::after {
+    content: "";
+
+    flex: auto;
   }
 }

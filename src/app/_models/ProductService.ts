@@ -5,5 +5,5 @@ import { Observable } from 'rxjs';
 export interface ProductService {
   albums: Album[];
   albums$: Observable<Album[]>;
-  getProductCardsBy(album: Album): ProductCard[];
+  getProductCards(album: Album): ProductCard[];
 }

@@ -16,8 +16,8 @@ import { PhotoSize } from '@models/PhotoSize';
 @Injectable()
 export class GalleryService implements ProductService {
 
-  public albums: Album[] = [];
   public albums$: Observable<Album[]>;
+  public albums: Album[];
 
   private baseUrl = 'https://api.vk.com/method/';
   private ownerId = -184311662;
@@ -46,7 +46,7 @@ export class GalleryService implements ProductService {
     return photoSize.url;
   }
 
-  public getProductCardsBy(album: Album): ProductCard[] {
+  public getProductCards(album: Album): ProductCard[] {
     return album.photos.map((photo) => {
       const productCard: ProductCard = {
         id: photo.id,
@@ -124,7 +124,7 @@ export class GalleryService implements ProductService {
         return (albums.length === 0) ? of([]) : forkJoin(albums.map(album => this.fetchPhotosInto(album)));
       }),
       map((albums: Album[]) => this.sortPhotosByPortrait(albums)),
-      tap((albums: Album[]) => this.albums = albums)
+      tap((albums) => { this.albums = albums; })
     );
   }
 }
