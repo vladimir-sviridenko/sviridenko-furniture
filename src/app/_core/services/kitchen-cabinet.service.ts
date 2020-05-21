@@ -7,6 +7,7 @@ import { Album } from '@models/Album';
 import { PhotoQuality } from '@models/enums/PhotoQuality.enum';
 import { Photo } from '@models/Photo';
 import { PhotoSize } from '@models/PhotoSize';
+import { ProductOptions } from '@models/enums/ProductOptions.enum';
 
 
 @Injectable()
@@ -55,7 +56,8 @@ export class KitchenCabinetService implements ProductService {
       description: this.albumDescription,
       size: this.products.length,
       photos: this.products.map(product => this.createPhotoFor(product)),
-      onlinePurchase: true
+      onlinePurchase: true,
+      productOptions: [ProductOptions.Facade, ProductOptions.Skin]
     }];
 
     return of(this.albums);

@@ -8,5 +8,5 @@ export interface Album {
   size: number;
   photos: Photo[];
   onlinePurchase: boolean;
-  productOptions: ProductOptions[] | undefined;
+  productOptions: ProductOptions[];
 }
