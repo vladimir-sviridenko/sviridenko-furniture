@@ -7,7 +7,7 @@ import { ShopComponent } from './shop.component';
 
 const shopChildrenRoutes: Routes = [
   {path: ':albumId', component: ProductsTableComponent},
-  {path: 'item/:productId', component: ProductPageComponent}
+  {path: ':albumId/:productId', component: ProductPageComponent}
 ];
 
 const routes: Routes = [

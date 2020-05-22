@@ -15,6 +15,8 @@ import { ProductsTableComponent } from './products-table/products-table.componen
 import { ProductsService } from '@services/products.service';
 import { GalleryService } from '../_core/http/gallery.service';
 import { KitchenCabinetService } from '@services/kitchen-cabinet.service';
+import { FacadeService } from '@services/facade.service';
+import { SkinService } from '@services/skin.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,7 @@ import { KitchenCabinetService } from '@services/kitchen-cabinet.service';
     HttpClientJsonpModule,
     ...MaterialModules
   ],
-  providers: [ProductsService, GalleryService, KitchenCabinetService],
+  providers: [ProductsService, GalleryService, KitchenCabinetService, FacadeService, SkinService],
   bootstrap: [ShopComponent]
 })
 export class ShopModule { }

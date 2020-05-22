@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChildren, QueryList, AfterViewInit, OnDestroy } from '@angular/core';
 import { ProductsService } from '@services/products.service';
 import { ProductCardComponent } from '../product-card/product-card.component';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { Subject, combineLatest } from 'rxjs';
 import { Album } from '@models/Album';
@@ -21,14 +21,14 @@ export class ProductsTableComponent implements OnInit, AfterViewInit, OnDestroy 
   constructor(public productsService: ProductsService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    combineLatest([this.productsService.albums$, this.route.params]).pipe(takeUntil(this.unsubscriber$))
-    .subscribe(([albums, params]) => {
-      const albumToShow: Album = albums.find(album => params.albumId === String(album.id));
-      if (albumToShow) {
-          this.productsService.generateProductCards(albumToShow);
-        } else {
-          this.router.navigate(['/shop', albums[0].id]);
-        }
+    combineLatest([this.productsService.albums$, this.route.params])
+    .pipe(takeUntil(this.unsubscriber$))
+    .subscribe(([albums, params]: [Album[], Params]) => {
+    const albumId = parseInt(params.albumId, 10);
+    const success: boolean = this.productsService.updateProductCards(albumId);
+    if (!success) {
+      this.router.navigate(['/shop', albums[0].id]);
+    }
     });
   }
 

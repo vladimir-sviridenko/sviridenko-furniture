@@ -19,10 +19,10 @@ import { CanProceedToErrorPageGuard } from '@core/guards/can-proceed-to-error-pa
     AppRoutingModule
   ],
   providers: [
-    {
-      provide: ErrorHandler,
-      useClass: GlobalErrorHandler
-    },
+    // {
+    //   provide: ErrorHandler,
+    //   useClass: GlobalErrorHandler
+    // },
     CanProceedToErrorPageGuard
   ],
   bootstrap: [AppComponent]

@@ -13,6 +13,9 @@ export class ProductCardComponent {
   @Input()
   public productCard: ProductCard;
 
+  @Input()
+  public albumId: number;
+
   @Output()
   public imageLoad = new EventEmitter();
 

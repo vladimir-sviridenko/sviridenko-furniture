@@ -38,12 +38,30 @@ export class GalleryService implements ProductService {
     this.albums$ = this.fetchAlbums();
   }
 
-  private getProductCardsPhotoUrl(photo: Photo): string {
-    const photoSize = photo.sizes.find((size: PhotoSize) => size.type === PhotoQuality.Low);
+  private getProductCardsPhotoUrl(photo: Photo, photoQuality: PhotoQuality): string {
+    const photoSize = photo.sizes.find((size: PhotoSize) => size.type === photoQuality);
     /*photoSize = (photoSize.width > photoSize.height)
       ? photo.sizes.find((size: PhotoSize) => size.type === PhotoQuality.Middle)
       : photoSize;*/
     return photoSize.url;
+  }
+
+  public getProductCardBy(albumId: number, productId: number): ProductCard {
+    const albumWithProduct = this.albums.find((album) => album.id === albumId);
+    const productPhoto = albumWithProduct
+      ? albumWithProduct.photos.find((photo: Photo) => photo.id === productId)
+      : null;
+    const productCard: ProductCard = productPhoto
+      ? {
+        id: productPhoto.id,
+        name: productPhoto.text || albumWithProduct.title,
+        size: null,
+        price: null,
+        photoUrl: this.getProductCardsPhotoUrl(productPhoto, PhotoQuality.Large),
+        productOptions: null,
+      }
+      : null;
+    return productCard;
   }
 
   public getProductCards(album: Album): ProductCard[] {
@@ -53,7 +71,7 @@ export class GalleryService implements ProductService {
         name: photo.text || album.title,
         size: null,
         price: null,
-        photoUrl: this.getProductCardsPhotoUrl(photo)
+        photoUrl: this.getProductCardsPhotoUrl(photo, PhotoQuality.Low)
       };
       return productCard;
     });

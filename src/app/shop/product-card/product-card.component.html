@@ -14,6 +14,6 @@
   </mat-card-header>
   <mat-card-actions class="product-card__actions">
     <button mat-flat-button class="product-card__button" color='primary'>{{productCard.price ? "В корзину" : "Заказать"}}</button>
-    <button mat-stroked-button class="product-card__button" color='primary' [routerLink]='["/shop/item", productCard.id]'>Подробнее</button>
+    <button mat-stroked-button class="product-card__button" color='primary' [routerLink]='["/shop", albumId, productCard.id]'>Подробнее</button>
   </mat-card-actions>
 </mat-card>

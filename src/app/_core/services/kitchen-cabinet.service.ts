@@ -7,7 +7,9 @@ import { Album } from '@models/Album';
 import { PhotoQuality } from '@models/enums/PhotoQuality.enum';
 import { Photo } from '@models/Photo';
 import { PhotoSize } from '@models/PhotoSize';
-import { ProductOptions } from '@models/enums/ProductOptions.enum';
+import { FacadeService } from './facade.service';
+import { SkinService } from './skin.service';
+import { ProductOptions } from '@models/ProductOptions';
 
 
 @Injectable()
@@ -15,6 +17,8 @@ export class KitchenCabinetService implements ProductService {
 
   public albums$: Observable<Album[]>;
   public albums: Album[];
+
+  private productOptions: ProductOptions<any>[];
 
   private albumId: number = 375686981;
   private albumTitle: string = 'Эконом мебель';
@@ -45,7 +49,8 @@ export class KitchenCabinetService implements ProductService {
     this.productFabric(18, 'Шкаф-пенал', '214×60×56', 7473)
   ];
 
-  constructor() {
+  constructor(private facadeService: FacadeService, private skinService: SkinService) {
+    this.productOptions = [this.facadeService, this.skinService];
     this.albums$ = this.fetchAlbums();
   }
 
@@ -57,10 +62,18 @@ export class KitchenCabinetService implements ProductService {
       size: this.products.length,
       photos: this.products.map(product => this.createPhotoFor(product)),
       onlinePurchase: true,
-      productOptions: [ProductOptions.Facade, ProductOptions.Skin]
+      productOptions: this.productOptions
     }];
 
     return of(this.albums);
+  }
+
+  public getProductCardBy(albumId: number, productId: number): ProductCard {
+    const productCard: ProductCard = this.products.find((product) =>
+      product.id === productId
+    );
+    productCard.productOptions = this.productOptions;
+    return productCard;
   }
 
   public getProductCards(): ProductCard[] {
