@@ -1,23 +1,30 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NotFoundComponent } from './not-found/not-found.component';
 import { ShopModule } from './shop/shop.module';
-import { ShopRoutingModule } from './shop/shop-routing.module';
+import { ErrorComponent } from './error/error.component';
+import { GlobalErrorHandler } from '@core/interceptors/global-error-handler';
+import { CanProceedToErrorPageGuard } from '@core/guards/can-proceed-to-error-page.guard';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NotFoundComponent
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
     ShopModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: ErrorHandler,
+      useClass: GlobalErrorHandler
+    },
+    CanProceedToErrorPageGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

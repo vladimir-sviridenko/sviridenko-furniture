@@ -42,16 +42,6 @@ export class ProductsService {
       share(),
       first()
     );
-    return this.mainService.fetchAlbums().pipe(
-      map((albums: Album[]) => {
-        for (let i = 0; i < this.dependencies.length - 1; i++) {
-          albums = [...this.dependencies[i].albums, ...albums];
-        }
-        return albums;
-      }),
-      share(),
-      first()
-    );
   }
 
   public generateProductCards(album: Album): void {
