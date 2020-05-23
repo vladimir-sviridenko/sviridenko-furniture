@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject, combineLatest } from 'rxjs';
+import { Observable, Subject, combineLatest, BehaviorSubject, of } from 'rxjs';
 import { map, share, first, tap } from 'rxjs/operators';
 
 import { GalleryService } from '../http/gallery.service';
@@ -14,11 +14,10 @@ export class ProductsService {
 
   public currentProduct$: Subject<ProductCard> = new Subject<ProductCard>();
 
-  public isProductCardsLoaded: boolean = false;
+  public isLoaderHidden: boolean = false;
   public currentAlbumId: number;
   public productCards$: Subject<ProductCard[]> = new Subject<ProductCard[]>();
   public albums$: Observable<Album[]>;
-  public albums: Album[];
 
   public mainService: GalleryService;
   public dependencies: ProductService[] = [];
@@ -33,18 +32,18 @@ export class ProductsService {
   }
 
   public hideCards(linkToAlbumId: number) {
-    this.isProductCardsLoaded = (linkToAlbumId === this.currentAlbumId);
+    this.isLoaderHidden = (linkToAlbumId === this.currentAlbumId);
   }
 
   private fetchAlbums(): Observable<Album[]> {
     return combineLatest([this.kitchenCabinetService.albums$, this.mainService.albums$])
-    .pipe(
-      map(([album1, album2]) => {
-        return [...album1, ...album2];
-      }),
-      share(),
-      first()
-    );
+      .pipe(
+        map(([album1, album2]) => {
+          return [...album1, ...album2];
+        }),
+        tap((albums) => this.albums$ = of(albums)),
+        share()
+      );
   }
 
   private getServiceBy(albumId: number): ProductService {
@@ -66,11 +65,15 @@ export class ProductsService {
 
   public updateProduct(albumId: number, productId: number): boolean {
     const serviceWithAlbum: ProductService = this.getServiceBy(albumId);
-    if (!serviceWithAlbum) {
+    const productCard: ProductCard = serviceWithAlbum
+      ? serviceWithAlbum.getProductCardBy(albumId, productId)
+      : null;
+
+    if (productCard) {
+      this.currentProduct$.next(productCard);
+      return true;
+    } else {
       return false;
     }
-    const productCard: ProductCard = serviceWithAlbum.getProductCardBy(albumId, productId);
-    this.currentProduct$.next(productCard);
-    return true;
   }
 }

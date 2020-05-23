@@ -71,7 +71,8 @@ export class GalleryService implements ProductService {
         name: photo.text || album.title,
         size: null,
         price: null,
-        photoUrl: this.getProductCardsPhotoUrl(photo, PhotoQuality.Low)
+        photoUrl: this.getProductCardsPhotoUrl(photo, PhotoQuality.Low),
+        productOptions: null
       };
       return productCard;
     });
@@ -116,7 +117,7 @@ export class GalleryService implements ProductService {
           });
         });
         return album;
-      })
+      }),
     );
   }
 

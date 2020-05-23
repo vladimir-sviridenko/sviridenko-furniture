@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChildren, QueryList, AfterViewInit, OnDestroy } 
 import { ProductsService } from '@services/products.service';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, delay } from 'rxjs/operators';
 import { Subject, combineLatest } from 'rxjs';
 import { Album } from '@models/Album';
 
@@ -18,22 +18,22 @@ export class ProductsTableComponent implements OnInit, AfterViewInit, OnDestroy 
 
   public unsubscriber$: Subject<void> = new Subject();
 
-  constructor(public productsService: ProductsService, private router: Router, private route: ActivatedRoute) {}
+  constructor(public productsService: ProductsService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     combineLatest([this.productsService.albums$, this.route.params])
-    .pipe(takeUntil(this.unsubscriber$))
+    .pipe(takeUntil(this.unsubscriber$), delay(0))
     .subscribe(([albums, params]: [Album[], Params]) => {
-    const albumId = parseInt(params.albumId, 10);
-    const success: boolean = this.productsService.updateProductCards(albumId);
-    if (!success) {
-      this.router.navigate(['/shop', albums[0].id]);
-    }
+      const albumId: number = parseInt(params.albumId, 10);
+      const success: boolean = this.productsService.updateProductCards(albumId);
+      if (!success) {
+        this.router.navigate(['/shop', albums[0].id]);
+      }
     });
   }
 
   ngAfterViewInit(): void {
-    this.productCardComponents.changes.subscribe((value) => {
+    this.productCardComponents.changes.pipe(takeUntil(this.unsubscriber$)).subscribe(() => {
       this.showCardsAfterAllLoaded();
     });
   }
@@ -57,7 +57,7 @@ export class ProductsTableComponent implements OnInit, AfterViewInit, OnDestroy 
       });
     });
     Promise.all(loadingPhotos$).then(() => {
-      this.productsService.isProductCardsLoaded = true;
+      this.productsService.isLoaderHidden = true;
     });
   }
 

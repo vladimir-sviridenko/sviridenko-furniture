@@ -72,7 +72,6 @@ export class KitchenCabinetService implements ProductService {
     const productCard: ProductCard = this.products.find((product) =>
       product.id === productId
     );
-    productCard.productOptions = this.productOptions;
     return productCard;
   }
 
@@ -82,7 +81,7 @@ export class KitchenCabinetService implements ProductService {
 
   private productFabric(id: number, name: string, size: string, price: number): ProductCard {
     const photoUrl: string = `${this.photoBaseUrl}/${id}${this.imagesFormat}`;
-    return { id, name, size, price, photoUrl };
+    return { id, name, size, price, photoUrl, productOptions: this.productOptions };
   }
 
   private createPhotoFor(product: ProductCard): Photo {

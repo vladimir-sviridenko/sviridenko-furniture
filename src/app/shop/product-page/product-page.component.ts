@@ -20,35 +20,35 @@ export class ProductPageComponent implements OnInit, OnDestroy {
     public productsService: ProductsService,
     private router: Router,
     private route: ActivatedRoute) {
-    this.productsService.isProductCardsLoaded = true;
   }
 
   ngOnInit(): void {
-    combineLatest([
-      this.route.params,
-      this.productsService.albums$
-    ])
-    .pipe(takeUntil(this.unsubscriber$))
-    .subscribe(([params, albums]: [Params, Album[]]) => {
-      const albumId = parseInt(params.albumId, 10);
-      const productId = parseInt(params.productId, 10);
-      const success: boolean = this.productsService.updateProduct(albumId, productId);
-      if (!success) {
-        this.router.navigate(['/not-found']);
-      }
-    });
+    this.productsService.isLoaderHidden = false;
 
     this.productsService.currentProduct$
-    .pipe(takeUntil(this.unsubscriber$))
-    .subscribe((currentProduct: ProductCard) => {
-      this.product = currentProduct;
-      console.log(this.product);
-    });
+      .pipe(takeUntil(this.unsubscriber$))
+      .subscribe((currentProduct: ProductCard) => {
+        this.product = currentProduct;
+        this.productsService.isLoaderHidden = true;
+      });
+
+    combineLatest([
+      this.productsService.albums$,
+      this.route.params
+    ]).pipe(takeUntil(this.unsubscriber$))
+      .subscribe(([albums, params]: [Album[], Params]) => {
+        const albumId: number = parseInt(params.albumId, 10);
+        const productId: number = parseInt(params.productId, 10);
+        const success: boolean = this.productsService.updateProduct(albumId, productId);
+        if (!success) {
+          this.router.navigate(['/not-found']);
+        }
+      });
   }
 
   ngOnDestroy(): void {
     this.unsubscriber$.next();
     this.unsubscriber$.complete();
-    this.productsService.isProductCardsLoaded = false;
+    this.productsService.isLoaderHidden = false;
   }
 }

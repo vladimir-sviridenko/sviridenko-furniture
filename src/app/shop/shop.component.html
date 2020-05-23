@@ -11,6 +11,6 @@
     [class.shop__link_online-product] = 'album.onlinePurchase'
     >{{album.title}}</button>
   </mat-toolbar>
-  <mat-spinner class="shop__loader" *ngIf='!this.productsService.isProductCardsLoaded' [diameter]='50'></mat-spinner>
+  <mat-spinner class="shop__loader" *ngIf='!this.productsService.isLoaderHidden' [diameter]='50'></mat-spinner>
   <router-outlet></router-outlet>
 </div>
