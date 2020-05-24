@@ -7,6 +7,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Album } from '@models/Album';
 import { ProductOptions } from '@models/enums/ProductOptions.enum';
 import { Size } from '@models/Size';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-product-page',
@@ -18,6 +19,7 @@ export class ProductPageComponent implements OnInit, OnDestroy {
   public product: ProductCard;
   public productSize: Size;
   public photoUrl: string;
+  public albumId: number;
   public unsubscriber$: Subject<void> = new Subject();
 
   constructor(
@@ -41,9 +43,9 @@ export class ProductPageComponent implements OnInit, OnDestroy {
       this.route.params
     ]).pipe(takeUntil(this.unsubscriber$))
       .subscribe(([albums, params]: [Album[], Params]) => {
-        const albumId: number = parseInt(params.albumId, 10);
+        this.albumId = parseInt(params.albumId, 10);
         const productId: number = parseInt(params.productId, 10);
-        const success: boolean = this.productsService.updateProduct(albumId, productId);
+        const success: boolean = this.productsService.updateProduct(this.albumId, productId);
         if (!success) {
           this.router.navigate(['/not-found']);
         } else {

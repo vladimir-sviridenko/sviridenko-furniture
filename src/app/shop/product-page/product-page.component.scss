@@ -10,8 +10,16 @@
   margin: 40px auto;
 
   &__image-container {
+    & .product-page__button {
+      background-color: white;
+    }
+  }
+
+  &__image {
+    padding: 0;
     width: 40vh;
     height: 40vh;
+    overflow: hidden;
   }
 
   &__info-card {
@@ -19,12 +27,20 @@
     margin-left: 2%;
   }
 
-  &__button {
+  &__table {
     width: 100%;
   }
 
-  &__name {
-    margin: 0;
+  &__button {
+    width: 100%;
+
+    &_back {
+      margin-top: 10px;
+    }
+
+    &_update-photo {
+      margin-top: 10px;
+    }
   }
 
   &__price {

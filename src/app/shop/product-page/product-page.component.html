@@ -1,7 +1,13 @@
 <div class='product-page' *ngIf='this.productsService.isLoaderHidden'>
-  <mat-card class="product-page__image-container">
-    <app-image [title]='product.name' [src]='photoUrl'></app-image>
-  </mat-card>
+  <div class="product-page__image-container">
+    <mat-card class="product-page__image">
+      <app-image [title]='product.name' [src]='photoUrl'></app-image>
+    </mat-card>
+    <button mat-stroked-button class='product-page__button product-page__button_update-photo' 
+    *ngIf='photoUrl !== product.photoUrl'>Показать фото продукта</button>
+    <button mat-stroked-button class='product-page__button product-page__button_back'
+    [routerLink]='["/shop", albumId]'>Другие товары этой категории</button>
+  </div>
   <mat-card class='product-page__options' *ngIf='product.productOptions.length > 0'>
     <mat-tab-group mat-align-tabs="start">
       <mat-tab label="Плёнка ПВХ" *ngIf='isOptionOfProduct("Skin")'>
@@ -13,10 +19,10 @@
     </mat-tab-group>
   </mat-card>
   <mat-card class="product-page__info-card">
-    <mat-card-header>
-      <mat-card-title class="product-page__name">{{product.name}}</mat-card-title>
-      <mat-card-subtitle>
-        <table class="product-page__size" *ngIf='product.size'>
+    <mat-card-title class="product-page__name">{{product.name}}</mat-card-title>
+    <mat-card-content>
+      <table class="product-page__table">
+        <ng-container  *ngIf='product.size'>
           <tr>
             <td>Высота:</td>
             <td>{{productSize.height}} см</td>
@@ -29,11 +35,14 @@
             <td>Глубина:</td>
             <td>{{productSize.depth}} см</td>
           </tr>
-        </table>
-      </mat-card-subtitle>
-      <mat-card-subtitle *ngFor='let option of product.productOptions'>{{option}}</mat-card-subtitle>
-      <mat-card-title class="product-page__price">Итого: {{product.price}}</mat-card-title>
-    </mat-card-header>
+        </ng-container>
+        <tr *ngFor='let option of product.productOptions'>
+          <td>{{option}}: </td>
+          <td>!empty!</td>
+        </tr>
+      </table>
+    </mat-card-content>
+    <mat-card-title class="product-page__price">Итого: {{product.price}}</mat-card-title>
     <mat-card-actions>
       <button mat-flat-button  class="product-page__button"  *ngIf='product.price' color='primary'>В корзину</button>
     </mat-card-actions>
