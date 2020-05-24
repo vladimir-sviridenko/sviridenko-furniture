@@ -1,1 +1,16 @@
-<h1>Упс! Сайт не работает.</h1>
+<div class="error">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title class="error__title">
+        Упс... Сайт сломался.
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="error__content">
+      <span>Мы уже исправляем проблему.</span>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-stroked-button class='error__button' (click)='restart()'>Перезагрузить сайт.</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+

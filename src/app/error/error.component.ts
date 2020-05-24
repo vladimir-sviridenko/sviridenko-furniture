@@ -13,4 +13,7 @@ export class ErrorComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public restart() {
+    window.location.href = '';
+  }
 }

@@ -9,4 +9,8 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 export class HeaderComponent {
 
   constructor() {}
+
+  public error() {
+    throw Error(); //  TODO: FIX ERROR;
+  }
 }
