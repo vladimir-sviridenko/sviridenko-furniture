@@ -1,0 +1,28 @@
+@import "variables";
+
+.product-page {
+  display: flex;
+  align-items: flex-start;
+  width: 80vw;
+  margin: 40px auto;
+
+  &__image {
+    box-sizing: border-box;
+    width: 30%;
+    height: 30%;
+    border-radius: 20px;
+    border: 4px solid white;
+  }
+
+  &__info {
+    margin-left: 2%;
+    width: 25%;
+  }
+
+  &__options {
+    padding: 10px;
+    width: 45%;
+    border-radius: 10px;
+    border: 4px solid white;
+  }
+}

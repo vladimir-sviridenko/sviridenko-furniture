@@ -135,7 +135,7 @@ export class GalleryService implements ProductService {
         return albums.map((album: Album) => {
           album.onlinePurchase = false;
           album.photos = [];
-          album.productOptions = null;
+          album.productOptions = [];
           return album;
         });
       }),

@@ -1,6 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { ProductCard } from '@models/ProductCard';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-product-card',

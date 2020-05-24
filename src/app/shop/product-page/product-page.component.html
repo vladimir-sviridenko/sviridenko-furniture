@@ -1,1 +1,37 @@
-<p *ngIf='this.productsService.isLoaderHidden'>product-page works!{{product.id}}</p>
+<div class='product-page' *ngIf='this.productsService.isLoaderHidden'>
+  <img class="product-page__image product-page__image_horizontal" [src]='photoUrl | async' [title]='product.name' alt="Product photo">
+  <div class="product-page__info">
+    <h1 class="product-page__name">{{product.name}}</h1>
+    <table class="product-page__size" *ngIf='product.size'>
+      <tr>
+        <td>Высота:</td>
+        <td>{{productSize.height}} см</td>
+      </tr>
+      <tr>
+        <td>Ширина:</td>
+        <td>{{productSize.width}} см</td>
+      </tr>
+      <tr>
+        <td>Глубина:</td>
+        <td>{{productSize.depth}} см</td>
+      </tr>
+    </table>
+    <div class="product-page__chosen-options" *ngIf='product.productOptions.length > 0'>
+      <h2>Вариант:</h2>
+    </div>
+    <h2 class="product-page__price">Итого: {{product.price ? product.price + " руб." : "Под заказ"}}</h2>
+    <button mat-flat-button *ngIf='!product.price' color='primary'>Заказать звонок</button>
+    <button mat-flat-button *ngIf='product.price' color='primary'>В корзину</button>
+  </div>
+  <div class='product-page__options' *ngIf='product.productOptions.length > 0'>
+    <h2>Дополнительные варианты:</h2>
+    <mat-tab-group mat-align-tabs="start">
+      <mat-tab label="Плёнка ПВХ">
+        <app-skin-option *ngIf='isOptionOfProduct("Skin")'></app-skin-option>
+      </mat-tab>
+      <mat-tab label="Фасад">
+        <app-facade-option *ngIf='isOptionOfProduct("Facade")'></app-facade-option>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

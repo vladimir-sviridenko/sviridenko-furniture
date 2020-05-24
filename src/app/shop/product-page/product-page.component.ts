@@ -1,10 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProductsService } from '@services/products.service';
 import { ProductCard } from '@models/ProductCard';
-import { Subject, combineLatest, forkJoin } from 'rxjs';
+import { Subject, combineLatest, BehaviorSubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Album } from '@models/Album';
+import { ProductOptions } from '@models/enums/ProductOptions.enum';
+import { Size } from '@models/Size';
 
 @Component({
   selector: 'app-product-page',
@@ -14,6 +16,8 @@ import { Album } from '@models/Album';
 export class ProductPageComponent implements OnInit, OnDestroy {
 
   public product: ProductCard;
+  public productSize: Size;
+  public photoUrl: BehaviorSubject<string>;
   public unsubscriber$: Subject<void> = new Subject();
 
   constructor(
@@ -42,8 +46,26 @@ export class ProductPageComponent implements OnInit, OnDestroy {
         const success: boolean = this.productsService.updateProduct(albumId, productId);
         if (!success) {
           this.router.navigate(['/not-found']);
+        } else {
+          this.createSizeEntity();
+          this.photoUrl = new BehaviorSubject(this.product.photoUrl);
         }
       });
+  }
+
+  public createSizeEntity(): void {
+    if (this.product.size) {
+      const size = this.product.size.split('×');
+      this.productSize = {
+        height: +size[0],
+        width: +size[1],
+        depth: +size[2]
+      };
+    }
+  }
+
+  public isOptionOfProduct(option: string) {
+    return this.product.productOptions.includes(ProductOptions[option]);
   }
 
   ngOnDestroy(): void {

@@ -11,7 +11,7 @@ import { CanProceedToErrorPageGuard } from '@core/guards/can-proceed-to-error-pa
 @NgModule({
   declarations: [
     AppComponent,
-    ErrorComponent
+    ErrorComponent,
   ],
   imports: [
     BrowserModule,

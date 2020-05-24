@@ -17,6 +17,8 @@ import { GalleryService } from '../_core/http/gallery.service';
 import { KitchenCabinetService } from '@services/kitchen-cabinet.service';
 import { FacadeService } from '@services/facade.service';
 import { SkinService } from '@services/skin.service';
+import { FacadeOptionComponent } from './product-page/facade-option/facade-option.component';
+import { SkinOptionComponent } from './product-page/skin-option/skin-option.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import { SkinService } from '@services/skin.service';
     ProductCardComponent,
     ProductPageComponent,
     ProductsTableComponent,
+    FacadeOptionComponent,
+    SkinOptionComponent
   ],
   imports: [
     CommonModule,

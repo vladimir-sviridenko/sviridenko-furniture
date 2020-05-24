@@ -7,9 +7,7 @@ import { Album } from '@models/Album';
 import { PhotoQuality } from '@models/enums/PhotoQuality.enum';
 import { Photo } from '@models/Photo';
 import { PhotoSize } from '@models/PhotoSize';
-import { FacadeService } from './facade.service';
-import { SkinService } from './skin.service';
-import { ProductOptions } from '@models/ProductOptions';
+import { ProductOptions } from '@models/enums/ProductOptions.enum';
 
 
 @Injectable()
@@ -18,7 +16,7 @@ export class KitchenCabinetService implements ProductService {
   public albums$: Observable<Album[]>;
   public albums: Album[];
 
-  private productOptions: ProductOptions<any>[];
+  private productOptions: ProductOptions[] = [ProductOptions.Skin, ProductOptions.Facade];
 
   private albumId: number = 375686981;
   private albumTitle: string = 'Эконом мебель';
@@ -49,8 +47,7 @@ export class KitchenCabinetService implements ProductService {
     this.productFabric(18, 'Шкаф-пенал', '214×60×56', 7473)
   ];
 
-  constructor(private facadeService: FacadeService, private skinService: SkinService) {
-    this.productOptions = [this.facadeService, this.skinService];
+  constructor() {
     this.albums$ = this.fetchAlbums();
   }
 

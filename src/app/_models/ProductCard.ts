@@ -1,4 +1,4 @@
-import { ProductOptions } from './ProductOptions';
+import { ProductOptions } from './enums/ProductOptions.enum'
 
 export interface ProductCard {
   id: number;
@@ -6,5 +6,5 @@ export interface ProductCard {
   size: string | null;
   price: number | null;
   photoUrl: string;
-  productOptions?: ProductOptions<any>[];
+  productOptions: ProductOptions[];
 }

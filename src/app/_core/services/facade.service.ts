@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Facade } from '@models/Facade';
-import { ProductOptions } from '@models/ProductOptions';
+import { ProductOptionService } from '@models/ProductOptionsService';
 
 @Injectable()
-export class FacadeService implements ProductOptions<Facade> {
+export class FacadeService implements ProductOptionService<Facade> {
 
   public name: string = 'Фасад';
   public options: Facade[] = [];
