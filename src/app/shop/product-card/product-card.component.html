@@ -10,13 +10,17 @@
     <mat-card-subtitle *ngIf='productCard.size'>
       <span>Размер: {{productCard.size}}</span>
     </mat-card-subtitle>
-    <mat-card-title class="product-card__price">{{productCard.price || "Под заказ"}}</mat-card-title>
+    <mat-card-title class="product-card__price" *ngIf='productCard.price'>{{productCard.price}}</mat-card-title>
   </mat-card-header>
-  <mat-card-actions class="product-card__actions">
-    <button mat-flat-button class="product-card__button" color='primary'>{{productCard.price ? "В корзину" : "Заказать"}}</button>
+  <mat-card-actions class="product-card__actions" *ngIf='productCard.price'>
+    <button mat-flat-button class="product-card__button" color='primary'>В корзину</button>
     <button mat-stroked-button class="product-card__button" color='primary' 
     [routerLink]='["/shop", albumId, productCard.id]'>
-    {{productCard.price ? 'Подробнее' : 'Открыть фото'}}
+      Подробнее
     </button>
+  </mat-card-actions>
+  <mat-card-actions class="product-card__actions" *ngIf='!productCard.price'>
+    <button mat-flat-button class="product-card__button" color='primary'>Заказать</button>
+    <button mat-stroked-button class="product-card__button" color='primary'>Открыть фото</button>
   </mat-card-actions>
 </mat-card>

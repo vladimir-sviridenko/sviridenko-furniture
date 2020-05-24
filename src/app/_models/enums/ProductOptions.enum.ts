@@ -1,1 +1,1 @@
-export enum ProductOptions {Skin = 'Skin', Facade = 'Facade'}
+export enum ProductOptions {Skin = 'Плёнка ПВХ', Facade = 'Фасад'}

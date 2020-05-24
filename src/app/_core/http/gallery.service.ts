@@ -39,10 +39,10 @@ export class GalleryService implements ProductService {
   }
 
   private getProductCardsPhotoUrl(photo: Photo, photoQuality: PhotoQuality): string {
-    const photoSize = photo.sizes.find((size: PhotoSize) => size.type === photoQuality);
-    /*photoSize = (photoSize.width > photoSize.height)
+    let photoSize = photo.sizes.find((size: PhotoSize) => size.type === photoQuality);
+    photoSize = (photoQuality === PhotoQuality.Low && photoSize.width > photoSize.height)
       ? photo.sizes.find((size: PhotoSize) => size.type === PhotoQuality.Middle)
-      : photoSize;*/
+      : photoSize;
     return photoSize.url;
   }
 
@@ -142,7 +142,7 @@ export class GalleryService implements ProductService {
       mergeMap((albums: Album[]) => {
         return (albums.length === 0) ? of([]) : forkJoin(albums.map(album => this.fetchPhotosInto(album)));
       }),
-      map((albums: Album[]) => this.sortPhotosByPortrait(albums)),
+     // map((albums: Album[]) => this.sortPhotosByPortrait(albums)),
       tap((albums) => { this.albums = albums; })
     );
   }

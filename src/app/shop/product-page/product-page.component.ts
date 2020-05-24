@@ -17,7 +17,7 @@ export class ProductPageComponent implements OnInit, OnDestroy {
 
   public product: ProductCard;
   public productSize: Size;
-  public photoUrl: BehaviorSubject<string>;
+  public photoUrl: string;
   public unsubscriber$: Subject<void> = new Subject();
 
   constructor(
@@ -48,7 +48,7 @@ export class ProductPageComponent implements OnInit, OnDestroy {
           this.router.navigate(['/not-found']);
         } else {
           this.createSizeEntity();
-          this.photoUrl = new BehaviorSubject(this.product.photoUrl);
+          this.photoUrl = this.product.photoUrl;
         }
       });
   }

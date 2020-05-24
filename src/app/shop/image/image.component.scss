@@ -1,0 +1,31 @@
+:host {
+  width: 100%;
+  height: 100%;
+}
+
+.image {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  &__content {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    transition: opacity 0.3s;
+
+    &_hidden {
+      opacity: 0;
+    }
+  }
+
+  &__loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 40px;
+    width: 40px;
+    transform: translate(-50%, -50%);
+  }
+}

@@ -19,6 +19,7 @@ import { FacadeService } from '@services/facade.service';
 import { SkinService } from '@services/skin.service';
 import { FacadeOptionComponent } from './product-page/facade-option/facade-option.component';
 import { SkinOptionComponent } from './product-page/skin-option/skin-option.component';
+import { ImageComponent } from './image/image.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { SkinOptionComponent } from './product-page/skin-option/skin-option.comp
     ProductPageComponent,
     ProductsTableComponent,
     FacadeOptionComponent,
-    SkinOptionComponent
+    SkinOptionComponent,
+    ImageComponent
   ],
   imports: [
     CommonModule,

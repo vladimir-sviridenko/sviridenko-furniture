@@ -1,37 +1,41 @@
 <div class='product-page' *ngIf='this.productsService.isLoaderHidden'>
-  <img class="product-page__image product-page__image_horizontal" [src]='photoUrl | async' [title]='product.name' alt="Product photo">
-  <div class="product-page__info">
-    <h1 class="product-page__name">{{product.name}}</h1>
-    <table class="product-page__size" *ngIf='product.size'>
-      <tr>
-        <td>Высота:</td>
-        <td>{{productSize.height}} см</td>
-      </tr>
-      <tr>
-        <td>Ширина:</td>
-        <td>{{productSize.width}} см</td>
-      </tr>
-      <tr>
-        <td>Глубина:</td>
-        <td>{{productSize.depth}} см</td>
-      </tr>
-    </table>
-    <div class="product-page__chosen-options" *ngIf='product.productOptions.length > 0'>
-      <h2>Вариант:</h2>
-    </div>
-    <h2 class="product-page__price">Итого: {{product.price ? product.price + " руб." : "Под заказ"}}</h2>
-    <button mat-flat-button *ngIf='!product.price' color='primary'>Заказать звонок</button>
-    <button mat-flat-button *ngIf='product.price' color='primary'>В корзину</button>
-  </div>
-  <div class='product-page__options' *ngIf='product.productOptions.length > 0'>
-    <h2>Дополнительные варианты:</h2>
+  <mat-card class="product-page__image-container">
+    <app-image [title]='product.name' [src]='photoUrl'></app-image>
+  </mat-card>
+  <mat-card class='product-page__options' *ngIf='product.productOptions.length > 0'>
     <mat-tab-group mat-align-tabs="start">
-      <mat-tab label="Плёнка ПВХ">
-        <app-skin-option *ngIf='isOptionOfProduct("Skin")'></app-skin-option>
+      <mat-tab label="Плёнка ПВХ" *ngIf='isOptionOfProduct("Skin")'>
+        <app-skin-option></app-skin-option>
       </mat-tab>
-      <mat-tab label="Фасад">
-        <app-facade-option *ngIf='isOptionOfProduct("Facade")'></app-facade-option>
+      <mat-tab label="Фасад" *ngIf='isOptionOfProduct("Facade")'>
+        <app-facade-option></app-facade-option>
       </mat-tab>
     </mat-tab-group>
-  </div>
+  </mat-card>
+  <mat-card class="product-page__info-card">
+    <mat-card-header>
+      <mat-card-title class="product-page__name">{{product.name}}</mat-card-title>
+      <mat-card-subtitle>
+        <table class="product-page__size" *ngIf='product.size'>
+          <tr>
+            <td>Высота:</td>
+            <td>{{productSize.height}} см</td>
+          </tr>
+          <tr>
+            <td>Ширина:</td>
+            <td>{{productSize.width}} см</td>
+          </tr>
+          <tr>
+            <td>Глубина:</td>
+            <td>{{productSize.depth}} см</td>
+          </tr>
+        </table>
+      </mat-card-subtitle>
+      <mat-card-subtitle *ngFor='let option of product.productOptions'>{{option}}</mat-card-subtitle>
+      <mat-card-title class="product-page__price">Итого: {{product.price}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-actions>
+      <button mat-flat-button  class="product-page__button"  *ngIf='product.price' color='primary'>В корзину</button>
+    </mat-card-actions>
+  </mat-card>
 </div>
