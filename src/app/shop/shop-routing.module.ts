@@ -4,10 +4,11 @@ import { NgModule } from '@angular/core';
 import { ProductsTableComponent } from './products-table/products-table.component';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { ShopComponent } from './shop.component';
+import { CanOpenProductGuard } from '@core/guards/can-open-product.guard';
 
 const shopChildrenRoutes: Routes = [
   {path: ':albumId', component: ProductsTableComponent},
-  {path: ':albumId/:productId', component: ProductPageComponent}
+  {path: ':albumId/:productId', component: ProductPageComponent, canActivate: [CanOpenProductGuard]}
 ];
 
 const routes: Routes = [

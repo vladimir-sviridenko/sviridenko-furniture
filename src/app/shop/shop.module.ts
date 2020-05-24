@@ -20,6 +20,7 @@ import { SkinService } from '@services/skin.service';
 import { FacadeOptionComponent } from './product-page/facade-option/facade-option.component';
 import { SkinOptionComponent } from './product-page/skin-option/skin-option.component';
 import { ImageComponent } from './image/image.component';
+import { CanOpenProductGuard } from '@core/guards/can-open-product.guard';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,14 @@ import { ImageComponent } from './image/image.component';
     HttpClientJsonpModule,
     ...MaterialModules
   ],
-  providers: [ProductsService, GalleryService, KitchenCabinetService, FacadeService, SkinService],
+  providers: [
+    ProductsService,
+    GalleryService,
+    KitchenCabinetService,
+    FacadeService,
+    SkinService,
+    CanOpenProductGuard
+  ],
   bootstrap: [ShopComponent]
 })
 export class ShopModule { }

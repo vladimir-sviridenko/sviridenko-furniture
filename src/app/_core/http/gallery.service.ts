@@ -58,7 +58,7 @@ export class GalleryService implements ProductService {
         size: null,
         price: null,
         photoUrl: this.getProductCardsPhotoUrl(productPhoto, PhotoQuality.Large),
-        productOptions: null,
+        productOptions: [],
       }
       : null;
     return productCard;
