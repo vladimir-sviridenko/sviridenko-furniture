@@ -8,21 +8,16 @@
     <button mat-stroked-button class='product-page__button product-page__button_back'
     [routerLink]='["/shop", albumId]'>Другие товары этой категории</button>
   </div>
-  <mat-card class='product-page__options' *ngIf='product.productOptions.length > 0'>
-    <mat-tab-group mat-align-tabs="start">
-      <mat-tab label="Плёнка ПВХ" *ngIf='isOptionOfProduct("Skin")'>
-        <app-skin-option></app-skin-option>
-      </mat-tab>
-      <mat-tab label="Фасад" *ngIf='isOptionOfProduct("Facade")'>
-        <app-facade-option></app-facade-option>
-      </mat-tab>
-    </mat-tab-group>
+  <mat-card  class='product-page__options'>
+    <app-product-options
+    *ngIf='product.productOptions.length > 0' 
+    [options]='product.productOptions'></app-product-options>
   </mat-card>
   <mat-card class="product-page__info-card">
     <mat-card-title class="product-page__name">{{product.name}}</mat-card-title>
     <mat-card-content>
       <table class="product-page__table">
-        <ng-container  *ngIf='product.size'>
+        <ng-container *ngIf='product.size'>
           <tr>
             <td>Высота:</td>
             <td>{{productSize.height}} см</td>

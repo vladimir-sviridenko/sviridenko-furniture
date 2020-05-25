@@ -1,0 +1,14 @@
+.request-call {
+  overflow: hidden;
+  &__form {
+    display: flex;
+    flex-flow: column nowrap;
+  }
+  &__form-field {
+    margin-bottom: 4px;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+}

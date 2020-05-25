@@ -19,10 +19,10 @@ export class KitchenCabinetService implements ProductService {
   private productOptions: ProductOptions[] = [ProductOptions.Skin, ProductOptions.Facade];
 
   private albumId: number = 375686981;
-  private albumTitle: string = 'Эконом мебель';
+  private albumTitle: string = 'Кухонные шкафы';
   private albumDescription: string = '';
 
-  private photoBaseUrl: string = '/assets/images/products/kitchen-cabinets';
+  private photoBaseUrl: string = './assets/images/products/kitchen-cabinets';
   private imagesFormat: string = '.jpg';
 
   private products: ProductCard[] = [

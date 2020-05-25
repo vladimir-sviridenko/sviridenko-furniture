@@ -17,8 +17,9 @@
 
   &__image {
     padding: 0;
-    width: 40vh;
-    height: 40vh;
+    width: 300px;
+    height: 300px;
+    flex: 1 0 300px;
     overflow: hidden;
   }
 
@@ -53,7 +54,5 @@
     width: 43%;
     min-height: 50vh;
     margin-left: 2%;
-
-    border: 1px solid rgba(0,0,0,0.12);
   }
 }

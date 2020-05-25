@@ -10,5 +10,8 @@ export class GlobalErrorHandler implements ErrorHandler {
   handleError(error: Error) {
     this.canProceedToErrorPageGuard.isErrorThrown = true;
     this.zone.run(() => this.router.navigate(['/error']));
+    console.log(error.name);
+    console.log(error.message);
+    console.log(error.stack);
   }
 }

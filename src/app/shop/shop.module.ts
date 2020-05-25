@@ -17,10 +17,13 @@ import { GalleryService } from '../_core/http/gallery.service';
 import { KitchenCabinetService } from '@services/kitchen-cabinet.service';
 import { FacadeService } from '@services/facade.service';
 import { SkinService } from '@services/skin.service';
-import { FacadeOptionComponent } from './product-page/facade-option/facade-option.component';
-import { SkinOptionComponent } from './product-page/skin-option/skin-option.component';
+import { FacadeOptionComponent } from './product-options/facade-option/facade-option.component';
+import { SkinOptionComponent } from './product-options/skin-option/skin-option.component';
 import { ImageComponent } from './image/image.component';
 import { CanOpenProductGuard } from '@core/guards/can-open-product.guard';
+import { ProductOptionsComponent } from './product-options/product-options.component';
+import { RequestCallComponent } from './request-call/request-call.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -32,13 +35,16 @@ import { CanOpenProductGuard } from '@core/guards/can-open-product.guard';
     ProductsTableComponent,
     FacadeOptionComponent,
     SkinOptionComponent,
-    ImageComponent
+    ImageComponent,
+    ProductOptionsComponent,
+    RequestCallComponent
   ],
   imports: [
     CommonModule,
     ShopRoutingModule,
     HttpClientModule,
     HttpClientJsonpModule,
+    ReactiveFormsModule,
     ...MaterialModules
   ],
   providers: [

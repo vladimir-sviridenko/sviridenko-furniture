@@ -1,5 +1,7 @@
 import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { ProductCard } from '@models/ProductCard';
+import { MatDialog } from '@angular/material/dialog';
+import { RequestCallComponent } from '../request-call/request-call.component';
 
 @Component({
   selector: 'app-product-card',
@@ -18,5 +20,13 @@ export class ProductCardComponent {
   @Output()
   public imageLoad = new EventEmitter();
 
-  constructor() {}
+  constructor(private dialog: MatDialog) {}
+
+  public openRequestCallForm(): void {
+    const dialogRef = this.dialog.open(RequestCallComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
 }

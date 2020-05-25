@@ -66,10 +66,6 @@ export class ProductPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  public isOptionOfProduct(option: string) {
-    return this.product.productOptions.includes(ProductOptions[option]);
-  }
-
   ngOnDestroy(): void {
     this.unsubscriber$.next();
     this.unsubscriber$.complete();

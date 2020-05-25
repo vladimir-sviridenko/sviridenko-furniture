@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FacadeService } from '@services/facade.service';
 
 @Component({
   selector: 'app-facade-option',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FacadeOptionComponent implements OnInit {
 
-  constructor() { }
+  constructor(public facadeService: FacadeService) { }
 
   ngOnInit(): void {
   }
