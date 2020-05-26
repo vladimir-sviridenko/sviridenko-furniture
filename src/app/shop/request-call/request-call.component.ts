@@ -13,7 +13,7 @@ import { EmailJSResponseStatus } from 'emailjs-com';
 })
 export class RequestCallComponent implements OnInit {
 
-  public showLoader: boolean = true;
+  public isLoading: boolean = false;
 
   public requestCallForm: FormGroup = new FormGroup({
     userName: new FormControl('', Validators.required),
@@ -31,10 +31,12 @@ export class RequestCallComponent implements OnInit {
   }
 
   public requestCall(event: Event): void {
+    this.isLoading = true;
     const form: HTMLFormElement = event.target as HTMLFormElement;
     this.emailService.sendForm(EmailTemplate.RequestCall, form)
       .then(() => {
         this.dialogRef.close(true);
+        this.isLoading = false;
       })
       .catch(() => {
         this.dialogRef.close(false);

@@ -25,12 +25,13 @@ export class ProductCardComponent {
 
   public openRequestCallDialog(): void {
     const dialogRef = this.dialog.open(RequestCallComponent, {
+      width: '320px',
       data: this.productCard.photoUrl
     });
 
     const subscription = dialogRef.afterClosed().subscribe(requestSuccess => {
       subscription.unsubscribe();
-      if (requestSuccess !== null) {
+      if (requestSuccess !== undefined) {
         requestSuccess
           ? this.requestStatusTip.open('Запрос успешно отправлен', 'Ок', {
             duration: 5000

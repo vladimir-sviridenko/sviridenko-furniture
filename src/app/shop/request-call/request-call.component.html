@@ -30,9 +30,10 @@
     </mat-error>
     <mat-icon matSuffix>email</mat-icon>
   </mat-form-field>
-  <mat-dialog-actions>
-    <button mat-flat-button color='primary' [disabled]='requestCallForm.invalid'>Заказать</button>
-    <button mat-stroked-button [mat-dialog-close]='null'>Отмена</button>
-  </mat-dialog-actions>
   <input formControlName='productPhotoUrl' name='productPhotoUrl' type='hidden'>
+  <mat-progress-bar mode="buffer" [style.visibility]='isLoading ? "visible" : "hidden"'></mat-progress-bar>
+  <mat-dialog-actions>
+    <button mat-flat-button color='primary' [disabled]='requestCallForm.invalid || isLoading'>Заказать</button>
+    <button mat-stroked-button [mat-dialog-close]='undefined'>Отмена</button>
+  </mat-dialog-actions>
 </form>
