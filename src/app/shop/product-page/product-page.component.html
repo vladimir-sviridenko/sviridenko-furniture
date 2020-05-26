@@ -20,15 +20,15 @@
         <ng-container *ngIf='product.size'>
           <tr>
             <td>Высота:</td>
-            <td>{{productSize.height}} см</td>
+            <td>{{product.size.height}} см</td>
           </tr>
           <tr>
             <td>Ширина:</td>
-            <td>{{productSize.width}} см</td>
+            <td>{{product.size.width}} см</td>
           </tr>
           <tr>
             <td>Глубина:</td>
-            <td>{{productSize.depth}} см</td>
+            <td>{{product.size.depth}} см</td>
           </tr>
         </ng-container>
         <tr *ngFor='let option of product.productOptions'>

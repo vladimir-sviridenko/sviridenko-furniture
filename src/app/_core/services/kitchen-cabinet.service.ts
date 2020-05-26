@@ -8,6 +8,7 @@ import { PhotoQuality } from '@models/enums/PhotoQuality.enum';
 import { Photo } from '@models/Photo';
 import { PhotoSize } from '@models/PhotoSize';
 import { ProductOptions } from '@models/enums/ProductOptions.enum';
+import { Size } from '@models/Size';
 
 
 @Injectable()
@@ -76,8 +77,18 @@ export class KitchenCabinetService implements ProductService {
     return this.products;
   }
 
-  private productFabric(id: number, name: string, size: string, price: number): ProductCard {
+  private parseShortSize(shortSize: string): Size {
+    const size = shortSize.split('×');
+    return {
+      height: +size[0],
+      width: +size[1],
+      depth: +size[2]
+    };
+  }
+
+  private productFabric(id: number, name: string, shortSize: string, price: number): ProductCard {
     const photoUrl: string = `${this.photoBaseUrl}/${id}${this.imagesFormat}`;
+    const size = this.parseShortSize(shortSize);
     return { id, name, size, price, photoUrl, productOptions: this.productOptions };
   }
 

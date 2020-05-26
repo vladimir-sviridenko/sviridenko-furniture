@@ -55,7 +55,7 @@
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
-                "src/assets/scss"
+                "src/app/_shared/scss"
               ]
             },
             "scripts": []

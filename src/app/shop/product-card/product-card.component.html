@@ -8,7 +8,7 @@
   <mat-card-header>
     <mat-card-title>{{productCard.name}}</mat-card-title>
     <mat-card-subtitle *ngIf='productCard.size'>
-      <span>Размер: {{productCard.size}}</span>
+      <span>Размер: {{productCard.size | size}}</span>
     </mat-card-subtitle>
     <mat-card-title class="product-card__price" *ngIf='productCard.price'>{{productCard.price | currency:'RUB':'code':'4.0':'ru'}}</mat-card-title>
   </mat-card-header>

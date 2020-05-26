@@ -25,6 +25,7 @@ import { FacadeService } from '@services/facade.service';
 import { SkinService } from '@services/skin.service';
 import { EmailService } from '@services/email.service';
 import { CanOpenProductGuard } from '@core/guards/can-open-product.guard';
+import { SizePipe } from '@shared/pipes/size.pipe';
 
 import ru from '@angular/common/locales/ru';
 
@@ -40,7 +41,8 @@ import ru from '@angular/common/locales/ru';
     SkinOptionComponent,
     ImageComponent,
     ProductOptionsComponent,
-    RequestCallComponent
+    RequestCallComponent,
+    SizePipe
   ],
   imports: [
     CommonModule,
