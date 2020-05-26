@@ -16,7 +16,7 @@ export class RequestCallComponent implements OnInit {
   public isLoading: boolean = false;
 
   public requestCallForm: FormGroup = new FormGroup({
-    userName: new FormControl('', Validators.required),
+    userName: new FormControl('', [Validators.required, Validators.pattern('^(?!\\s*$).+')]),
     userPhone: new FormControl('', [Validators.required, Validators.pattern('^((\\+7|7|8)+([0-9]){10})$')]),
     userEmail: new FormControl('', [Validators.required, Validators.pattern('.+@.+\\..+')]),
     productPhotoUrl: new FormControl('')
