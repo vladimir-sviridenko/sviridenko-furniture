@@ -5,9 +5,7 @@ import { Subject, combineLatest, BehaviorSubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Album } from '@models/Album';
-import { ProductOptions } from '@models/enums/ProductOptions.enum';
 import { Size } from '@models/Size';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-product-page',

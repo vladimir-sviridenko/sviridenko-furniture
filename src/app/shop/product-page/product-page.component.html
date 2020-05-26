@@ -37,7 +37,7 @@
         </tr>
       </table>
     </mat-card-content>
-    <mat-card-title class="product-page__price">Итого: {{product.price}}</mat-card-title>
+    <mat-card-title class="product-page__price">Итого: {{product.price | currency:'RUB':'code':'4.0':'ru'}}</mat-card-title>
     <mat-card-actions>
       <button mat-flat-button  class="product-page__button"  *ngIf='product.price' color='primary'>В корзину</button>
     </mat-card-actions>
