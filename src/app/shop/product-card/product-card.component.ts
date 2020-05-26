@@ -2,6 +2,7 @@ import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from 
 import { ProductCard } from '@models/ProductCard';
 import { MatDialog } from '@angular/material/dialog';
 import { RequestCallComponent } from '../request-call/request-call.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-product-card',
@@ -20,13 +21,26 @@ export class ProductCardComponent {
   @Output()
   public imageLoad = new EventEmitter();
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private requestStatusTip: MatSnackBar) {}
 
-  public openRequestCallForm(): void {
-    const dialogRef = this.dialog.open(RequestCallComponent);
+  public openRequestCallDialog(): void {
+    const dialogRef = this.dialog.open(RequestCallComponent, {
+      data: this.productCard.photoUrl
+    });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+    const subscription = dialogRef.afterClosed().subscribe(requestSuccess => {
+      subscription.unsubscribe();
+      if (requestSuccess !== null) {
+        requestSuccess
+          ? this.requestStatusTip.open('Запрос успешно отправлен', 'Ок', {
+            duration: 5000
+          })
+          : this.requestStatusTip.open('Ошибка запроса', 'Ок', {
+            duration: 10000
+          });
+      } else {  // dialog closed by user
+        return;
+      }
     });
   }
 }

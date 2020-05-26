@@ -1,8 +1,8 @@
-<form [formGroup]='requestCallForm' class="request-call__form">
+<form [formGroup]='requestCallForm' novalidate class="request-call__form" (ngSubmit)='requestCall($event)'>
   <h1 mat-dialog-title>Заказать звонок?</h1>
   <mat-form-field appearance="outline" class="request-call__form-field">
     <mat-label>Ваше имя</mat-label>
-    <input formControlName='userName' matInput>
+    <input formControlName='userName' name='userName' matInput>
     <mat-error *ngIf='requestCallForm.get("userName").hasError("required")'>
       Пожалуйста введите имя.
     </mat-error>
@@ -10,7 +10,7 @@
   </mat-form-field>
   <mat-form-field appearance="outline" class="request-call__form-field">
     <mat-label>Ваш телефон</mat-label>
-    <input formControlName='userPhone' matInput type='text'>
+    <input formControlName='userPhone' name='userPhone' matInput>
     <mat-error *ngIf='requestCallForm.get("userPhone").hasError("pattern") && !requestCallForm.get("userPhone").hasError("required")'>
       Неправильно набран номер.
     </mat-error>
@@ -21,7 +21,7 @@
   </mat-form-field>
   <mat-form-field appearance="outline" class="request-call__form-field">
     <mat-label>Email</mat-label>
-    <input formControlName='userEmail' matInput>
+    <input formControlName='userEmail' name='userEmail' matInput>
     <mat-error *ngIf='requestCallForm.get("userEmail").hasError("email") && !requestCallForm.get("userEmail").hasError("required")'>
       Неправильный email.
     </mat-error>
@@ -31,7 +31,8 @@
     <mat-icon matSuffix>email</mat-icon>
   </mat-form-field>
   <mat-dialog-actions>
-    <button mat-flat-button color='primary' [mat-dialog-close]='true'>Заказать</button>
-    <button mat-stroked-button [mat-dialog-close]='false'>Отмена</button>
+    <button mat-flat-button color='primary' [disabled]='requestCallForm.invalid'>Заказать</button>
+    <button mat-stroked-button [mat-dialog-close]='null'>Отмена</button>
   </mat-dialog-actions>
+  <input formControlName='productPhotoUrl' name='productPhotoUrl' type='hidden'>
 </form>

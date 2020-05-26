@@ -24,6 +24,7 @@ import { CanOpenProductGuard } from '@core/guards/can-open-product.guard';
 import { ProductOptionsComponent } from './product-options/product-options.component';
 import { RequestCallComponent } from './request-call/request-call.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EmailService } from '@services/email.service';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     KitchenCabinetService,
     FacadeService,
     SkinService,
-    CanOpenProductGuard
+    CanOpenProductGuard,
+    EmailService
   ],
   bootstrap: [ShopComponent]
 })
