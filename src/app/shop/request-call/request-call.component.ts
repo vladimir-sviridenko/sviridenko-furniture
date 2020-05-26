@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EmailService } from '@services/email.service';
-import { EmailTemplate } from '@models/enums/EmailTemplates';
+import { EmailTemplate } from '@models/enums/EmailTemplate';
 import { EmailJSResponseStatus } from 'emailjs-com';
 
 
@@ -18,7 +18,7 @@ export class RequestCallComponent implements OnInit {
   public requestCallForm: FormGroup = new FormGroup({
     userName: new FormControl('', Validators.required),
     userPhone: new FormControl('', [Validators.required, Validators.pattern('^((\\+7|7|8)+([0-9]){10})$')]),
-    userEmail: new FormControl('', [Validators.required, Validators.email]),
+    userEmail: new FormControl('', [Validators.required, Validators.pattern('.+@.+\\..+')]),
     productPhotoUrl: new FormControl('')
   });
 

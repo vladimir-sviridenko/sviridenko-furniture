@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { EmailTemplate } from '@models/enums/EmailTemplates';
+import { EmailTemplate } from '@models/enums/EmailTemplate';
 import emailjs from 'emailjs-com';
 
 @Injectable()

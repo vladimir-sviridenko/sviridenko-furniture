@@ -22,7 +22,7 @@
   <mat-form-field appearance="outline" class="request-call__form-field">
     <mat-label>Email</mat-label>
     <input formControlName='userEmail' name='userEmail' matInput>
-    <mat-error *ngIf='requestCallForm.get("userEmail").hasError("email") && !requestCallForm.get("userEmail").hasError("required")'>
+    <mat-error *ngIf='requestCallForm.get("userEmail").hasError("pattern") && !requestCallForm.get("userEmail").hasError("required")'>
       Неправильный email.
     </mat-error>
     <mat-error *ngIf='requestCallForm.get("userEmail").hasError("required")'>
