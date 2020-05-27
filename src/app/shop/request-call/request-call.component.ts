@@ -31,6 +31,7 @@ export class RequestCallComponent implements OnInit {
   }
 
   public requestCall(event: Event): void {
+    this.dialogRef.disableClose = true;
     this.isLoading = true;
     const form: HTMLFormElement = event.target as HTMLFormElement;
     this.emailService.sendForm(EmailTemplate.RequestCall, form)
