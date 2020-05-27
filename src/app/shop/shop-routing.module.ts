@@ -5,9 +5,10 @@ import { ProductsTableComponent } from './products-table/products-table.componen
 import { ProductPageComponent } from './product-page/product-page.component';
 import { ShopComponent } from './shop.component';
 import { CanOpenProductGuard } from '@core/guards/can-open-product.guard';
+import { CanOpenAlbumGuard } from '@core/guards/can-open-album.guard';
 
 const shopChildrenRoutes: Routes = [
-  {path: ':albumId', component: ProductsTableComponent},
+  {path: ':albumId', component: ProductsTableComponent, canActivate: [CanOpenAlbumGuard]},
   {path: ':albumId/:productId', component: ProductPageComponent, canActivate: [CanOpenProductGuard]}
 ];
 

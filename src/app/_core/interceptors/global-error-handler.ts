@@ -1,11 +1,11 @@
 import { ErrorHandler, Injectable, Injector, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { CanProceedToErrorPageGuard } from '@core/guards/can-proceed-to-error-page.guard';
+import { CanOpenErrorPageGuard } from '@core/guards/can-open-error-page.guard';
 
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler {
 
-  constructor(private router: Router, private canProceedToErrorPageGuard: CanProceedToErrorPageGuard, private zone: NgZone) {}
+  constructor(private router: Router, private canProceedToErrorPageGuard: CanOpenErrorPageGuard, private zone: NgZone) {}
 
   handleError(error: Error) {
     this.canProceedToErrorPageGuard.isErrorThrown = true;

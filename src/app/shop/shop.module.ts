@@ -28,6 +28,7 @@ import { CanOpenProductGuard } from '@core/guards/can-open-product.guard';
 import { SizePipe } from '@shared/pipes/size.pipe';
 
 import ru from '@angular/common/locales/ru';
+import { CanOpenAlbumGuard } from '@core/guards/can-open-album.guard';
 
 @NgModule({
   declarations: [
@@ -58,8 +59,9 @@ import ru from '@angular/common/locales/ru';
     KitchenCabinetService,
     FacadeService,
     SkinService,
+    EmailService,
     CanOpenProductGuard,
-    EmailService
+    CanOpenAlbumGuard
   ],
   bootstrap: [ShopComponent]
 })

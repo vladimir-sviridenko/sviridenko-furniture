@@ -5,6 +5,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { takeUntil, delay } from 'rxjs/operators';
 import { Subject, combineLatest } from 'rxjs';
 import { Album } from '@models/Album';
+import { ProductCard } from '@models/ProductCard';
 
 @Component({
   selector: 'app-products-table',
@@ -16,19 +17,20 @@ export class ProductsTableComponent implements OnInit, AfterViewInit, OnDestroy 
   @ViewChildren(ProductCardComponent)
   private productCardComponents: QueryList<ProductCardComponent>;
 
+  public  productCards: ProductCard[];
+
   public unsubscriber$: Subject<void> = new Subject();
 
   constructor(public productsService: ProductsService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    combineLatest([this.productsService.albums$, this.route.params])
-    .pipe(takeUntil(this.unsubscriber$), delay(0))
-    .subscribe(([albums, params]: [Album[], Params]) => {
-      const albumId: number = parseInt(params.albumId, 10);
-      const success: boolean = this.productsService.updateProductCards(albumId);
-      if (!success) {
-        this.router.navigate(['/shop', albums[0].id]);
-      }
+    this.productsService.productCards$
+      .pipe(
+        delay(0),
+        takeUntil(this.unsubscriber$)
+      )
+      .subscribe((productCards) => {
+      this.productCards = productCards;
     });
   }
 

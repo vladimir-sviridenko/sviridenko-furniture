@@ -16,7 +16,7 @@ export class ProductsService {
 
   public isLoading: boolean = true;
   public currentAlbumId: number;
-  public productCards$: Subject<ProductCard[]> = new Subject<ProductCard[]>();
+  public productCards$: BehaviorSubject<ProductCard[]> = new BehaviorSubject<ProductCard[]>(undefined);
   public albums$: Observable<Album[]>;
 
   public mainService: GalleryService;
@@ -50,21 +50,21 @@ export class ProductsService {
       .find(service => service.albums.find(serviceAlbum => serviceAlbum.id === albumId));
   }
 
-  public updateProductCards(albumId: number): boolean {
+  public updateProductCards(albumId: number): ProductCard[] {
     const serviceWithAlbum: ProductService = this.getServiceBy(albumId);
     if (!serviceWithAlbum) {
-      return false;
+      return null;
     }
     this.currentAlbumId = albumId;
     const currentAlbum: Album = serviceWithAlbum.albums.find(album => album.id === albumId);
     const productCards: ProductCard[] = serviceWithAlbum.getProductCards(currentAlbum);
     this.productCards$.next(productCards);
-    return true;
+    return productCards;
   }
 
   public updateProduct(albumId: number, productId: number): ProductCard {
     const serviceWithAlbum: ProductService = this.getServiceBy(albumId);
-    const productCard: ProductCard = serviceWithAlbum && serviceWithAlbum !== this.galleryService
+    const productCard: ProductCard = serviceWithAlbum && (serviceWithAlbum !== this.galleryService)
       ? serviceWithAlbum.getProductCardBy(albumId, productId)
       : null;
     this.currentProduct$.next(productCard);

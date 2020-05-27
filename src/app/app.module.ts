@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { ShopModule } from './shop/shop.module';
 import { ErrorComponent } from './error/error.component';
 import { GlobalErrorHandler } from '@core/interceptors/global-error-handler';
-import { CanProceedToErrorPageGuard } from '@core/guards/can-proceed-to-error-page.guard';
+import { CanOpenErrorPageGuard } from '@core/guards/can-open-error-page.guard';
 import { MaterialModules } from './material.modules';
 
 @NgModule({
@@ -25,7 +25,7 @@ import { MaterialModules } from './material.modules';
       provide: ErrorHandler,
       useClass: GlobalErrorHandler
     },
-    CanProceedToErrorPageGuard
+    CanOpenErrorPageGuard
   ],
   bootstrap: [AppComponent]
 })

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ErrorComponent } from './error/error.component';
-import { CanProceedToErrorPageGuard } from '@core/guards/can-proceed-to-error-page.guard';
+import { CanOpenErrorPageGuard } from '@core/guards/can-open-error-page.guard';
 
 const routes: Routes = [
   {
@@ -12,7 +12,7 @@ const routes: Routes = [
   {
     path: 'error',
     component: ErrorComponent,
-    canActivate: [CanProceedToErrorPageGuard]
+    canActivate: [CanOpenErrorPageGuard]
   },
   {
     path: '**',

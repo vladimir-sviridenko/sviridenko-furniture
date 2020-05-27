@@ -3,7 +3,7 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Rout
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class CanProceedToErrorPageGuard implements CanActivate {
+export class CanOpenErrorPageGuard implements CanActivate {
 
   public isErrorThrown = false;
 
