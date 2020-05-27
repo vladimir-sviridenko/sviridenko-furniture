@@ -3,6 +3,7 @@ import { ProductsService } from '@services/products.service';
 import { ProductCard } from '@models/ProductCard';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-page',
@@ -13,7 +14,6 @@ export class ProductPageComponent implements OnInit, OnDestroy {
 
   public product: ProductCard;
   public photoUrl: string;
-  public albumId: number;
   public unsubscriber$: Subject<void> = new Subject();
 
   constructor(public productsService: ProductsService) {}

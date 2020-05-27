@@ -67,6 +67,7 @@ export class ProductsService {
     const productCard: ProductCard = serviceWithAlbum && (serviceWithAlbum !== this.galleryService)
       ? serviceWithAlbum.getProductCardBy(albumId, productId)
       : null;
+    this.currentAlbumId = albumId;
     this.currentProduct$.next(productCard);
     this.isLoading = false;
     return productCard;

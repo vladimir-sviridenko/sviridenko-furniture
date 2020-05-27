@@ -6,7 +6,7 @@
     <button mat-stroked-button class='product-page__button product-page__button_update-photo' 
     *ngIf='photoUrl !== product.photoUrl'>Показать фото продукта</button>
     <button mat-stroked-button class='product-page__button product-page__button_back'
-    [routerLink]='["/shop", albumId]'>Другие товары этой категории</button>
+    [routerLink]='["/shop", this.productsService.currentAlbumId]'>Другие товары этой категории</button>
   </div>
   <mat-card  class='product-page__options'>
     <app-product-options
