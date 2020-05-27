@@ -25,13 +25,13 @@ export class ProductPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.productsService.isLoaderHidden = false;
+    this.productsService.isLoading = true;
 
     this.productsService.currentProduct$
       .pipe(takeUntil(this.unsubscriber$))
       .subscribe((currentProduct: ProductCard) => {
         this.product = currentProduct;
-        this.productsService.isLoaderHidden = true;
+        this.productsService.isLoading = false;
       });
 
     combineLatest([
@@ -53,6 +53,6 @@ export class ProductPageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.unsubscriber$.next();
     this.unsubscriber$.complete();
-    this.productsService.isLoaderHidden = false;
+    this.productsService.isLoading = true;
   }
 }

@@ -14,7 +14,7 @@ export class ProductsService {
 
   public currentProduct$: Subject<ProductCard> = new Subject<ProductCard>();
 
-  public isLoaderHidden: boolean = false;
+  public isLoading: boolean = true;
   public currentAlbumId: number;
   public productCards$: Subject<ProductCard[]> = new Subject<ProductCard[]>();
   public albums$: Observable<Album[]>;
@@ -32,7 +32,7 @@ export class ProductsService {
   }
 
   public hideCards(linkToAlbumId: number) {
-    this.isLoaderHidden = (linkToAlbumId === this.currentAlbumId);
+    this.isLoading = !(linkToAlbumId === this.currentAlbumId);
   }
 
   private fetchAlbums(): Observable<Album[]> {

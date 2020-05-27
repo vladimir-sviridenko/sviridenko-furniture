@@ -57,7 +57,7 @@ export class ProductsTableComponent implements OnInit, AfterViewInit, OnDestroy 
       });
     });
     Promise.all(loadingPhotos$).then(() => {
-      this.productsService.isLoaderHidden = true;
+      this.productsService.isLoading = false;
     });
   }
 

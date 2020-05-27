@@ -3,6 +3,7 @@ import { ProductCard } from '@models/ProductCard';
 import { MatDialog } from '@angular/material/dialog';
 import { RequestCallComponent } from '../request-call/request-call.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Overlay } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-product-card',
@@ -21,11 +22,12 @@ export class ProductCardComponent {
   @Output()
   public imageLoad = new EventEmitter();
 
-  constructor(private dialog: MatDialog, private requestStatusTip: MatSnackBar) {}
+  constructor(private dialog: MatDialog, private requestStatusTip: MatSnackBar, private overlay: Overlay) {}
 
   public openRequestCallDialog(): void {
     const dialogRef = this.dialog.open(RequestCallComponent, {
       width: '320px',
+      scrollStrategy: this.overlay.scrollStrategies.noop(),
       data: this.productCard.photoUrl
     });
 
@@ -39,7 +41,7 @@ export class ProductCardComponent {
           : this.requestStatusTip.open('Ошибка запроса', 'Ок', {
             duration: 10000
           });
-      } else {  // dialog closed by user
+      } else {  // when dialog closed by user
         return;
       }
     });

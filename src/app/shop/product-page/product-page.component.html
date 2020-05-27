@@ -1,4 +1,4 @@
-<div class='product-page' *ngIf='this.productsService.isLoaderHidden'>
+<div class='product-page' *ngIf='!this.productsService.isLoading'>
   <div class="product-page__image-container">
     <mat-card class="product-page__image">
       <app-image [title]='product.name' [src]='photoUrl'></app-image>
