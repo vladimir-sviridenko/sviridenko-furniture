@@ -12,7 +12,7 @@ import { Album } from '@models/Album';
 @Injectable()
 export class ProductsService {
 
-  public currentProduct$: Subject<ProductCard> = new Subject<ProductCard>();
+  public currentProduct$: BehaviorSubject<ProductCard> = new BehaviorSubject<ProductCard>(undefined);
 
   public isLoading: boolean = true;
   public currentAlbumId: number;
@@ -22,21 +22,20 @@ export class ProductsService {
   public mainService: GalleryService;
   public dependencies: ProductService[] = [];
 
-  constructor(private galleryService: GalleryService, private kitchenCabinetService: KitchenCabinetService) {
-    this.mainService = this.galleryService;
+  constructor(public galleryService: GalleryService, private kitchenCabinetService: KitchenCabinetService) {
     this.dependencies = [
       this.kitchenCabinetService,
-      this.mainService
+      this.galleryService
     ];
     this.albums$ = this.fetchAlbums();
   }
 
   public hideCards(linkToAlbumId: number) {
-    this.isLoading = !(linkToAlbumId === this.currentAlbumId);
+    this.isLoading = linkToAlbumId !== this.currentAlbumId;
   }
 
   private fetchAlbums(): Observable<Album[]> {
-    return combineLatest([this.kitchenCabinetService.albums$, this.mainService.albums$])
+    return combineLatest([this.kitchenCabinetService.albums$, this.galleryService.albums$])
       .pipe(
         map(([album1, album2]) => {
           return [...album1, ...album2];
@@ -46,9 +45,9 @@ export class ProductsService {
       );
   }
 
-  private getServiceBy(albumId: number): ProductService {
-    return this.dependencies.find(service =>
-      service.albums.find(serviceAlbum => serviceAlbum.id === albumId));
+  public getServiceBy(albumId: number): ProductService {
+    return this.dependencies
+      .find(service => service.albums.find(serviceAlbum => serviceAlbum.id === albumId));
   }
 
   public updateProductCards(albumId: number): boolean {
@@ -63,17 +62,13 @@ export class ProductsService {
     return true;
   }
 
-  public updateProduct(albumId: number, productId: number): boolean {
+  public updateProduct(albumId: number, productId: number): ProductCard {
     const serviceWithAlbum: ProductService = this.getServiceBy(albumId);
-    const productCard: ProductCard = serviceWithAlbum
+    const productCard: ProductCard = serviceWithAlbum && serviceWithAlbum !== this.galleryService
       ? serviceWithAlbum.getProductCardBy(albumId, productId)
       : null;
-
-    if (productCard) {
-      this.currentProduct$.next(productCard);
-      return true;
-    } else {
-      return false;
-    }
+    this.currentProduct$.next(productCard);
+    this.isLoading = false;
+    return productCard;
   }
 }

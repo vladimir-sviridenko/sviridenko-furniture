@@ -1,15 +1,18 @@
 .request-call {
-  overflow: hidden;
+  overflow: visible;
   &__form {
     display: flex;
     flex-flow: column nowrap;
   }
   &__form-field {
-    font-size: 16px;
     margin-bottom: 4px;
 
     &:last-of-type {
       margin-bottom: 0;
+    }
+
+    &::ng-deep .mat-input-element {
+      line-height: 16px;
     }
   }
 }
