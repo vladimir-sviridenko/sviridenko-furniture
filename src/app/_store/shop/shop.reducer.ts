@@ -41,7 +41,8 @@ export const reducer = createReducer(
   on(ActionShop.changeCurrentProduct, (state: ShopState, { product }) => {
     return {
       ...state,
-      currentProduct: product
+      currentProduct: product,
+      isShopLoading: false
     };
   })
 );

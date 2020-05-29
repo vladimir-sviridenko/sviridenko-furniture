@@ -23,7 +23,7 @@ export class ProductsTableComponent implements OnInit, AfterViewInit, OnDestroy 
   constructor(public shopFacadeService: ShopFacadeService) { }
 
   ngOnInit(): void {
-    this.shopFacadeService.currentAlbum
+    this.shopFacadeService.currentAlbum$
       .pipe(
         delay(0),
         takeUntil(this.unsubscriber$)

@@ -1,45 +1,47 @@
-<div class='product-page' *ngIf='!this.productsService.isLoading'>
-  <div class="product-page__image-container">
-    <mat-card class="product-page__image">
-      <app-image [title]='product.name' [src]='photoUrl'></app-image>
+<div class='product-page' *ngIf='!(this.shopFacadeService.isShopLoading$ | async)'>
+  <ng-container *ngIf='this.shopFacadeService.currentProduct$ | async'>
+    <div class="product-page__image-container">
+      <mat-card class="product-page__image">
+        <app-lazy-image [title]='product.name' [src]='photoUrl'></app-lazy-image>
+      </mat-card>
+      <button mat-stroked-button class='product-page__button product-page__button_update-photo' 
+      *ngIf='photoUrl !== product.photoUrl'>Показать фото продукта</button>
+      <button mat-stroked-button class='product-page__button product-page__button_back'
+      [routerLink]='["/shop", (this.shopFacadeService.currentAlbum$ | async).id ]'>Другие товары этой категории</button>
+    </div>
+    <mat-card  class='product-page__options'>
+      <app-product-options
+      *ngIf='product.options.size > 0' 
+      [options]='product.options'></app-product-options>
     </mat-card>
-    <button mat-stroked-button class='product-page__button product-page__button_update-photo' 
-    *ngIf='photoUrl !== product.photoUrl'>Показать фото продукта</button>
-    <button mat-stroked-button class='product-page__button product-page__button_back'
-    [routerLink]='["/shop", this.productsService.currentAlbumId]'>Другие товары этой категории</button>
-  </div>
-  <mat-card  class='product-page__options'>
-    <app-product-options
-    *ngIf='product.options.size > 0' 
-    [options]='product.options'></app-product-options>
-  </mat-card>
-  <mat-card class="product-page__info-card">
-    <mat-card-title class="product-page__name">{{product.name}}</mat-card-title>
-    <mat-card-content>
-      <table class="product-page__table">
-        <ng-container *ngIf='product.size'>
-          <tr>
-            <td>Высота:</td>
-            <td>{{product.size.height}} см</td>
+    <mat-card class="product-page__info-card">
+      <mat-card-title class="product-page__name">{{product.name}}</mat-card-title>
+      <mat-card-content>
+        <table class="product-page__table">
+          <ng-container *ngIf='product.size'>
+            <tr>
+              <td>Высота:</td>
+              <td>{{product.size.height}} см</td>
+            </tr>
+            <tr>
+              <td>Ширина:</td>
+              <td>{{product.size.width}} см</td>
+            </tr>
+            <tr>
+              <td>Глубина:</td>
+              <td>{{product.size.depth}} см</td>
+            </tr>
+          </ng-container>
+          <tr *ngFor='let option of product.options | keyvalue'>
+            <td>{{option.key}}: </td>
+            <td>{{product.options.get(option.key).name}}</td>
           </tr>
-          <tr>
-            <td>Ширина:</td>
-            <td>{{product.size.width}} см</td>
-          </tr>
-          <tr>
-            <td>Глубина:</td>
-            <td>{{product.size.depth}} см</td>
-          </tr>
-        </ng-container>
-        <tr *ngFor='let option of product.options | keyvalue'>
-          <td>{{option.key}}: </td>
-          <td>{{product.options.get(option.key).name}}</td>
-        </tr>
-      </table>
-    </mat-card-content>
-    <mat-card-title class="product-page__price">Итого: {{product.price | currency:'RUB':'code':'4.0':'ru'}}</mat-card-title>
-    <mat-card-actions>
-      <button mat-flat-button  class="product-page__button"  *ngIf='product.price' color='primary'>В корзину</button>
-    </mat-card-actions>
-  </mat-card>
+        </table>
+      </mat-card-content>
+      <mat-card-title class="product-page__price">Итого: {{product.price | currency:'RUB':'code':'4.0':'ru'}}</mat-card-title>
+      <mat-card-actions>
+        <button mat-flat-button  class="product-page__button"  *ngIf='product.price' color='primary'>В корзину</button>
+      </mat-card-actions>
+    </mat-card>
+  </ng-container>
 </div>

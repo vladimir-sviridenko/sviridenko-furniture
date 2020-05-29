@@ -16,11 +16,11 @@ export const changeCurrentAlbum = createAction(
   props<{ album: Album }>()
 );
 
-export const hideShopLoader = createAction(
-  '[SHOP/API] Hide shop loader'
-);
-
 export const changeCurrentProduct = createAction(
   '[SHOP/API] Change current product',
   props<{ product: Product }>()
+);
+
+export const hideShopLoader = createAction(
+  '[SHOP/API] Hide shop loader'
 );

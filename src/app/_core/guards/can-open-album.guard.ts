@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
-import { Observable, Subject, ReplaySubject } from 'rxjs';
-import { withLatestFrom, map, last, filter, takeLast } from 'rxjs/operators';
+import { Observable, ReplaySubject } from 'rxjs';
+import { map, filter, take } from 'rxjs/operators';
 import { ShopFacadeService } from '@store/shop/shop.facade';
 import { ShopEffects } from '@store/shop/shop.effects';
 import { Album } from '@models/Album';
@@ -9,10 +9,10 @@ import { Album } from '@models/Album';
 @Injectable()
 export class CanOpenAlbumGuard implements CanActivate {
 
-  private albums: ReplaySubject<Album[]> = new ReplaySubject<Album[]>();
+  private albums$: ReplaySubject<Album[]> = new ReplaySubject<Album[]>();
 
   constructor(private shopFacadeService: ShopFacadeService, private router: Router, private shopEffects: ShopEffects) {
-    this.shopFacadeService.albums.pipe(filter((albums) => Boolean(albums))).subscribe(this.albums);
+    this.shopFacadeService.albums$.pipe(take(2), filter((albums) => !!albums)).subscribe(this.albums$);
   }
 
   canActivate(
@@ -20,7 +20,7 @@ export class CanOpenAlbumGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const albumId: number = parseInt(next.params.albumId, 10);
 
-    return this.albums.pipe(
+    return this.albums$.pipe(
       map((albums) => {
         for (const album of albums) {
           if (album.id === albumId) {

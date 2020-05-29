@@ -17,19 +17,19 @@ export class ShopFacadeService {
     this.store.dispatch(ActionShop.initializeAlbums());
   }
 
-  public get albums(): Observable<Album[]> {
+  public get albums$(): Observable<Album[]> {
     return this.store.select(SelectorShop.selectAlbums);
   }
 
-  public get currentAlbum(): Observable<Album> {
+  public get currentAlbum$(): Observable<Album> {
     return this.store.select(SelectorShop.selectCurrentAlbum);
   }
 
-  public get currentProduct(): Observable<Product> {
+  public get currentProduct$(): Observable<Product> {
     return this.store.select(SelectorShop.selectCurrentProduct);
   }
 
-  public get isShopLoading(): Observable<boolean> {
+  public get isShopLoading$(): Observable<boolean> {
     return this.store.select(SelectorShop.selectIsShopLoading);
   }
 
@@ -37,27 +37,12 @@ export class ShopFacadeService {
     this.store.dispatch(ActionShop.changeCurrentAlbum({ album }));
   }
 
+  public changeCurrentProduct(product: Product): void {
+    this.store.dispatch(ActionShop.changeCurrentProduct({ product }));
+  }
+
   public hideShopLoader(): void {
     this.store.dispatch(ActionShop.hideShopLoader());
   }
 
-  // private getAlbumBy(albumId: number) {
-  //   for (const album: Album of albums) {
-  //     if (album.id === albumId) {
-  //       return album;
-  //     }
-  //   }
-  //   return undefined;
-  // };
-
-// export const selectProductBy = (albumId: number, productId: number) =>
-//     createSelector(selectShopState, (state: ShopState) => {
-
-//   for (const [id, album] of state.albums) {
-//     if (id === albumId) {
-//       return album.find((product) => product.id === productId);
-//     }
-//   }
-//   return undefined;
-// });
 }
