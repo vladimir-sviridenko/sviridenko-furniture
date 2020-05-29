@@ -8,9 +8,6 @@ import { ErrorComponent } from './error/error.component';
 import { GlobalErrorHandler } from '@core/interceptors/global-error-handler';
 import { CanOpenErrorPageGuard } from '@core/guards/can-open-error-page.guard';
 import { MaterialModules } from './material.modules';
-import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -21,9 +18,7 @@ import { environment } from '../environments/environment';
     BrowserModule,
     ShopModule,
     AppRoutingModule,
-    ...MaterialModules,
-    StoreModule.forRoot({}, {}),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
+    ...MaterialModules
   ],
   providers: [
     {

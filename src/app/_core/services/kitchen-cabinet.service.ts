@@ -1,24 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
-import { ProductService } from '@models/ProductService';
 import { Product } from '@models/Product';
-import { Album } from '@models/Album';
-import { PhotoQuality } from '@models/enums/PhotoQuality.enum';
-import { Photo } from '@models/Photo';
-import { PhotoSize } from '@models/PhotoSize';
 import { ProductOption } from '@models/enums/ProductOption.enum';
 import { Size } from '@models/Size';
 import { FacadeService } from './facade.service';
 import { SkinService } from './skin.service';
-import { Skin } from '@models/Skin';
+import { Album } from '@models/Album';
 
 
 @Injectable()
-export class KitchenCabinetService implements ProductService {
+export class KitchenCabinetService {
 
   public albums$: Observable<Album[]>;
-  public albums: Album[];
 
   private productOptions: ProductOption[] = [ProductOption.Skin, ProductOption.Facade];
 
@@ -56,29 +50,22 @@ export class KitchenCabinetService implements ProductService {
   }
 
   private fetchAlbums(): Observable<Album[]> {
-    this.albums = [{
+    const album: Album[] = [{
       id: this.albumId,
       title: this.albumTitle,
       description: this.albumDescription,
-      size: this.products.length,
-      photos: this.products.map(product => this.createPhotoFor(product)),
-      onlinePurchase: true,
-      productOptions: this.productOptions
+      products: this.products
     }];
 
-    return of(this.albums);
+    return of(album);
   }
 
-  public getProductCardBy(albumId: number, productId: number): Product {
-    const productCard: Product = this.products.find((product) =>
-      product.id === productId
-    );
-    return productCard;
-  }
-
-  public getProductCards(): Product[] {
-    return this.products;
-  }
+  // public getProductBy(albumId: number, productId: number): Product {
+  //   const productCard: Product = this.products.find((product) =>
+  //     product.id === productId
+  //   );
+  //   return productCard;
+  // }
 
   private parseShortSize(shortSize: string): Size {
     const size = shortSize.split('×');
@@ -97,29 +84,5 @@ export class KitchenCabinetService implements ProductService {
       [ProductOption.Facade, this.facadeService.options[0]]
     ]);
     return { id, name, size, price, photoUrl, options };
-  }
-
-  private createPhotoFor(product: Product): Photo {
-    const createPhotoSizes = () => {
-      const photoSizes: PhotoSize[] = [];
-      for (const photoType in PhotoQuality) {
-        if (PhotoQuality.hasOwnProperty(photoType)) {
-          photoSizes.push({
-            type: PhotoQuality[photoType],
-            url: `${this.photoBaseUrl}/${product.id}`,
-            width: 1368,
-            height: 1368
-          });
-        }
-      }
-      return photoSizes;
-    };
-
-    const photo: Photo = {
-      id: product.id,
-      sizes: createPhotoSizes(),
-      text: name
-    };
-    return photo;
   }
 }

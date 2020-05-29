@@ -1,11 +1,11 @@
 import { Component, Input, OnChanges, SimpleChanges, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
-  selector: 'app-image',
-  templateUrl: './image.component.html',
-  styleUrls: ['./image.component.scss'],
+  selector: 'app-lazy-image',
+  templateUrl: './lazy-image.component.html',
+  styleUrls: ['./lazy-image.component.scss'],
 })
-export class ImageComponent implements OnChanges {
+export class LazyImageComponent implements OnChanges {
 
   @Input()
   public title: string;

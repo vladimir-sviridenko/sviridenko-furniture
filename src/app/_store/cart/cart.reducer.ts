@@ -12,7 +12,7 @@ const initialState: CartState = {
   totalPrice: 0
 };
 
-const reducer = createReducer(
+export const reducer = createReducer(
   initialState,
   on(ActionCart.addProduct, (state: CartState, { product }) => {
     return {

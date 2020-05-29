@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ProductsService } from '@services/products.service';
 import { Product } from '@models/Product';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -16,7 +15,7 @@ export class ProductPageComponent implements OnInit, OnDestroy {
   public photoUrl: string;
   public unsubscriber$: Subject<void> = new Subject();
 
-  constructor(public productsService: ProductsService) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.productsService.currentProduct$

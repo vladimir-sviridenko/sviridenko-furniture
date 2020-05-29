@@ -1,11 +1,10 @@
 import { Component, OnInit, ViewChildren, QueryList, AfterViewInit, OnDestroy } from '@angular/core';
-import { ProductsService } from '@services/products.service';
-import { ProductCardComponent } from '../product-card/product-card.component';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { takeUntil, delay } from 'rxjs/operators';
-import { Subject, combineLatest } from 'rxjs';
-import { Album } from '@models/Album';
+import { ProductCardComponent } from '../../_components/product-card/product-card.component';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { Product } from '@models/Product';
+import { ShopFacadeService } from '@store/shop/shop.facade';
+import { takeUntil, delay } from 'rxjs/operators';
+import { Album } from '@models/Album';
 
 @Component({
   selector: 'app-products-table',
@@ -17,20 +16,20 @@ export class ProductsTableComponent implements OnInit, AfterViewInit, OnDestroy 
   @ViewChildren(ProductCardComponent)
   private productCardComponents: QueryList<ProductCardComponent>;
 
-  public  productCards: Product[];
+  public  album: Album;
 
   public unsubscriber$: Subject<void> = new Subject();
 
-  constructor(public productsService: ProductsService, private router: Router, private route: ActivatedRoute) { }
+  constructor(public shopFacadeService: ShopFacadeService) { }
 
   ngOnInit(): void {
-    this.productsService.productCards$
+    this.shopFacadeService.currentAlbum
       .pipe(
         delay(0),
         takeUntil(this.unsubscriber$)
       )
-      .subscribe((productCards) => {
-      this.productCards = productCards;
+      .subscribe((album: Album) => {
+      this.album = album;
     });
   }
 
@@ -59,7 +58,7 @@ export class ProductsTableComponent implements OnInit, AfterViewInit, OnDestroy 
       });
     });
     Promise.all(loadingPhotos$).then(() => {
-      this.productsService.isLoading = false;
+      this.shopFacadeService.hideShopLoader();
     });
   }
 

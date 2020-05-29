@@ -1,12 +1,12 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
-import { ProductsTableComponent } from './products-table/products-table.component';
-import { ProductPageComponent } from './product-page/product-page.component';
+import { ProductsTableComponent } from './_pages/products-table/products-table.component';
+import { ProductPageComponent } from './_pages/product-page/product-page.component';
 import { ShopComponent } from './shop.component';
 import { CanOpenProductGuard } from '@core/guards/can-open-product.guard';
 import { CanOpenAlbumGuard } from '@core/guards/can-open-album.guard';
-import { NotFoundComponent } from './not-found/not-found.component';
+import { NotFoundComponent } from './_pages/not-found/not-found.component';
 
 const shopChildrenRoutes: Routes = [
   {path: '404', component: NotFoundComponent },

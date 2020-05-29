@@ -1,4 +1,4 @@
-import { Album } from './Album';
+import { VkAlbum } from './VkAlbum';
 
 export interface VkResponse<T> {
   response: {

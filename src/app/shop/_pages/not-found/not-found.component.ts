@@ -1,5 +1,4 @@
 import { Component, OnInit, AfterViewChecked } from '@angular/core';
-import { ProductsService } from '@services/products.service';
 
 @Component({
   selector: 'app-not-found',
@@ -8,7 +7,5 @@ import { ProductsService } from '@services/products.service';
 })
 export class NotFoundComponent {
 
-  constructor(private productsService: ProductsService) {
-    this.productsService.isLoading = false;
-  }
+  constructor() {}
 }
