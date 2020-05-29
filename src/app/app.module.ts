@@ -18,7 +18,7 @@ import { MaterialModules } from './material.modules';
     BrowserModule,
     ShopModule,
     AppRoutingModule,
-    ...MaterialModules
+    ...MaterialModules,
   ],
   providers: [
     {

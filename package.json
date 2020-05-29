@@ -24,6 +24,7 @@
     "@angular/platform-browser-dynamic": "~9.1.4",
     "@angular/router": "~9.1.4",
     "@ngrx/effects": "^9.2.0",
+    "@ngrx/router-store": "^9.2.0",
     "@ngrx/store": "^9.2.0",
     "@ngrx/store-devtools": "^9.2.0",
     "emailjs-com": "^2.4.1",

@@ -1,18 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Album } from '@models/Album';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { AppState } from '@store/AppState';
-import { Observable } from 'rxjs';
+import { Observable  } from 'rxjs';
 
 import * as ActionShop from './shop.actions';
 import * as SelectorShop from './shop.selectors';
 import { Product } from '@models/Product';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShopFacadeService {
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>, private router: Router) {
+    this.store.dispatch(ActionShop.initializeAlbums());
+  }
 
   public get albums(): Observable<Album[]> {
     return this.store.select(SelectorShop.selectAlbums);
@@ -30,10 +33,6 @@ export class ShopFacadeService {
     return this.store.select(SelectorShop.selectIsShopLoading);
   }
 
-  public initializeAlbums(): void {
-    this.store.dispatch(ActionShop.initializeAlbums());
-  }
-
   public changeCurrentAlbum(album: Album): void {
     this.store.dispatch(ActionShop.changeCurrentAlbum({ album }));
   }
@@ -42,9 +41,9 @@ export class ShopFacadeService {
     this.store.dispatch(ActionShop.hideShopLoader());
   }
 
-  // private getAlbumBy(id: number) {
+  // private getAlbumBy(albumId: number) {
   //   for (const album: Album of albums) {
-  //     if (album.id === id) {
+  //     if (album.id === albumId) {
   //       return album;
   //     }
   //   }

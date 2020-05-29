@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewChecked } from '@angular/core';
+import { ShopFacadeService } from '@store/shop/shop.facade';
 
 @Component({
   selector: 'app-not-found',
@@ -7,5 +8,7 @@ import { Component, OnInit, AfterViewChecked } from '@angular/core';
 })
 export class NotFoundComponent {
 
-  constructor() {}
+  constructor(private shopFacadeService: ShopFacadeService) {
+    this.shopFacadeService.hideShopLoader();
+  }
 }

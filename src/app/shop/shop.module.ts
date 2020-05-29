@@ -36,6 +36,7 @@ import { ShopEffects } from 'src/app/_store/shop/shop.effects';
 import { reducers } from 'src/app/_store/AppState';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { EffectsModule } from '@ngrx/effects';
     ReactiveFormsModule,
     ...MaterialModules,
     StoreModule.forRoot(reducers),
+    StoreRouterConnectingModule.forRoot(),
     EffectsModule.forRoot([ShopEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],

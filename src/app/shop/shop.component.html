@@ -3,7 +3,7 @@
   <mat-toolbar class="shop__navigation" color='primary'>
     <button mat-stroked-button
     *ngFor='let album of shopFacadeService.albums | async'
-    (click)='shopFacadeService.changeCurrentAlbum(album)'
+    [routerLink]='["/shop", album.id]'
     [matBadge]='album.products[0].price ? "Онлайн" : "Под заказ"'
     matBadgeSize="small"
     [routerLink]='["/shop", album.id]'

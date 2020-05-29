@@ -6,19 +6,18 @@ import * as ShopAction from './shop.actions';
 import { KitchenCabinetService } from '@services/kitchen-cabinet.service';
 import { GalleryService } from '@core/http/gallery.service';
 import { switchMap, share, map, tap } from 'rxjs/operators';
-import { combineLatest } from 'rxjs';
+import { combineLatest, Subject } from 'rxjs';
 import { Album } from '@models/Album';
 
 @Injectable()
 export class ShopEffects {
 
-  initializeAlbums$ = createEffect(
+  private initializeAlbums$ = createEffect(
     () => this.actions$.pipe(
       ofType(ShopAction.initializeAlbums),
       switchMap(() => combineLatest([this.kitchenCabinetService.albums$, this.galleryService.productAlbums$]).pipe(
         map(([album1, album2]) => [...album1, ...album2]),
-        tap((albums: Album[]) => this.store.dispatch(ShopAction.setAlbums({ albums }))),
-        map((albums: Album[]) => ShopAction.changeCurrentAlbum({ album: albums[0] })),
+        map((albums: Album[]) => ShopAction.setAlbums({ albums })),
         share()
       ))
     )
