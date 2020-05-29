@@ -2,13 +2,16 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 import { ProductService } from '@models/ProductService';
-import { ProductCard } from '@models/ProductCard';
+import { Product } from '@models/Product';
 import { Album } from '@models/Album';
 import { PhotoQuality } from '@models/enums/PhotoQuality.enum';
 import { Photo } from '@models/Photo';
 import { PhotoSize } from '@models/PhotoSize';
-import { ProductOptions } from '@models/enums/ProductOptions.enum';
+import { ProductOption } from '@models/enums/ProductOption.enum';
 import { Size } from '@models/Size';
+import { FacadeService } from './facade.service';
+import { SkinService } from './skin.service';
+import { Skin } from '@models/Skin';
 
 
 @Injectable()
@@ -17,7 +20,7 @@ export class KitchenCabinetService implements ProductService {
   public albums$: Observable<Album[]>;
   public albums: Album[];
 
-  private productOptions: ProductOptions[] = [ProductOptions.Skin, ProductOptions.Facade];
+  private productOptions: ProductOption[] = [ProductOption.Skin, ProductOption.Facade];
 
   private albumId: number = 375686981;
   private albumTitle: string = 'Кухонные шкафы';
@@ -26,7 +29,7 @@ export class KitchenCabinetService implements ProductService {
   private photoBaseUrl: string = './assets/images/products/kitchen-cabinets';
   private imagesFormat: string = '.jpg';
 
-  private products: ProductCard[] = [
+  private products: Product[] = [
     this.productFabric(1, 'Шкаф навесной', '72×40×34', 2192),
     this.productFabric(2, 'Шкаф навесной', '72×50×34', 2400),
     this.productFabric(3, 'Шкаф навесной', '72×60×34', 2575),
@@ -48,7 +51,7 @@ export class KitchenCabinetService implements ProductService {
     this.productFabric(18, 'Шкаф-пенал', '214×60×56', 7473)
   ];
 
-  constructor() {
+  constructor(private facadeService: FacadeService, private skinService: SkinService) {
     this.albums$ = this.fetchAlbums();
   }
 
@@ -66,14 +69,14 @@ export class KitchenCabinetService implements ProductService {
     return of(this.albums);
   }
 
-  public getProductCardBy(albumId: number, productId: number): ProductCard {
-    const productCard: ProductCard = this.products.find((product) =>
+  public getProductCardBy(albumId: number, productId: number): Product {
+    const productCard: Product = this.products.find((product) =>
       product.id === productId
     );
     return productCard;
   }
 
-  public getProductCards(): ProductCard[] {
+  public getProductCards(): Product[] {
     return this.products;
   }
 
@@ -86,13 +89,17 @@ export class KitchenCabinetService implements ProductService {
     };
   }
 
-  private productFabric(id: number, name: string, shortSize: string, price: number): ProductCard {
+  private productFabric(id: number, name: string, shortSize: string, price: number): Product {
     const photoUrl: string = `${this.photoBaseUrl}/${id}${this.imagesFormat}`;
     const size = this.parseShortSize(shortSize);
-    return { id, name, size, price, photoUrl, productOptions: this.productOptions };
+    const options = new Map([
+      [ProductOption.Skin, this.skinService.options[0]],
+      [ProductOption.Facade, this.facadeService.options[0]]
+    ]);
+    return { id, name, size, price, photoUrl, options };
   }
 
-  private createPhotoFor(product: ProductCard): Photo {
+  private createPhotoFor(product: Product): Photo {
     const createPhotoSizes = () => {
       const photoSizes: PhotoSize[] = [];
       for (const photoType in PhotoQuality) {

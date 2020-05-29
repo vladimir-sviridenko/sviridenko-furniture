@@ -1,5 +1,5 @@
 import { Photo } from './Photo';
-import { ProductOptions } from './enums/ProductOptions.enum';
+import { ProductOption } from './enums/ProductOption.enum';
 
 export interface Album {
   id: number;
@@ -8,5 +8,5 @@ export interface Album {
   size: number;
   photos: Photo[];
   onlinePurchase: boolean;
-  productOptions: ProductOptions[];
+  productOptions: ProductOption[];
 }

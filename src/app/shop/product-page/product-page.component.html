@@ -10,8 +10,8 @@
   </div>
   <mat-card  class='product-page__options'>
     <app-product-options
-    *ngIf='product.productOptions.length > 0' 
-    [options]='product.productOptions'></app-product-options>
+    *ngIf='product.options.size > 0' 
+    [options]='product.options'></app-product-options>
   </mat-card>
   <mat-card class="product-page__info-card">
     <mat-card-title class="product-page__name">{{product.name}}</mat-card-title>
@@ -31,9 +31,9 @@
             <td>{{product.size.depth}} см</td>
           </tr>
         </ng-container>
-        <tr *ngFor='let option of product.productOptions'>
-          <td>{{option}}: </td>
-          <td>!empty!</td>
+        <tr *ngFor='let option of product.options | keyvalue'>
+          <td>{{option.key}}: </td>
+          <td>{{product.options.get(option.key).name}}</td>
         </tr>
       </table>
     </mat-card-content>

@@ -17,6 +17,7 @@ import { SkinOptionComponent } from './product-options/skin-option/skin-option.c
 import { ImageComponent } from './image/image.component';
 import { ProductOptionsComponent } from './product-options/product-options.component';
 import { RequestCallComponent } from './request-call/request-call.component';
+import { CartComponent } from './cart/cart.component';
 
 import { ProductsService } from '@services/products.service';
 import { GalleryService } from '../_core/http/gallery.service';
@@ -43,6 +44,7 @@ import { CanOpenAlbumGuard } from '@core/guards/can-open-album.guard';
     ImageComponent,
     ProductOptionsComponent,
     RequestCallComponent,
+    CartComponent,
     SizePipe
   ],
   imports: [

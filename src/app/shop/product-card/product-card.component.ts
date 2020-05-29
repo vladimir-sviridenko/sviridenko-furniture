@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { ProductCard } from '@models/ProductCard';
+import { Product } from '@models/Product';
 import { MatDialog } from '@angular/material/dialog';
 import { RequestCallComponent } from '../request-call/request-call.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -14,7 +14,7 @@ import { Overlay } from '@angular/cdk/overlay';
 export class ProductCardComponent {
 
   @Input()
-  public productCard: ProductCard;
+  public productCard: Product;
 
   @Input()
   public albumId: number;

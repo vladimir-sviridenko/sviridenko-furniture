@@ -5,7 +5,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { takeUntil, delay } from 'rxjs/operators';
 import { Subject, combineLatest } from 'rxjs';
 import { Album } from '@models/Album';
-import { ProductCard } from '@models/ProductCard';
+import { Product } from '@models/Product';
 
 @Component({
   selector: 'app-products-table',
@@ -17,7 +17,7 @@ export class ProductsTableComponent implements OnInit, AfterViewInit, OnDestroy 
   @ViewChildren(ProductCardComponent)
   private productCardComponents: QueryList<ProductCardComponent>;
 
-  public  productCards: ProductCard[];
+  public  productCards: Product[];
 
   public unsubscriber$: Subject<void> = new Subject();
 

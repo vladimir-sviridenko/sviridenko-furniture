@@ -7,7 +7,7 @@ import { Album } from '@models/Album';
 import { VkRequest } from '@models/VkRequest';
 import { VkResponse } from '@models/VkResponse';
 import { ProductService } from '@models/ProductService';
-import { ProductCard } from '@models/ProductCard';
+import { Product } from '@models/Product';
 import { Photo } from '@models/Photo';
 
 import { PhotoQuality } from '@models/enums/PhotoQuality.enum';
@@ -46,33 +46,33 @@ export class GalleryService implements ProductService {
     return photoSize.url;
   }
 
-  public getProductCardBy(albumId: number, productId: number): ProductCard {
+  public getProductCardBy(albumId: number, productId: number): Product {
     const albumWithProduct = this.albums.find((album) => album.id === albumId);
     const productPhoto = albumWithProduct
       ? albumWithProduct.photos.find((photo: Photo) => photo.id === productId)
       : null;
-    const productCard: ProductCard = productPhoto
+    const productCard: Product = productPhoto
       ? {
         id: productPhoto.id,
         name: productPhoto.text || albumWithProduct.title,
         size: null,
         price: null,
         photoUrl: this.getProductCardsPhotoUrl(productPhoto, PhotoQuality.Large),
-        productOptions: [],
+        options: null,
       }
       : null;
     return productCard;
   }
 
-  public getProductCards(album: Album): ProductCard[] {
+  public getProductCards(album: Album): Product[] {
     return album.photos.map((photo) => {
-      const productCard: ProductCard = {
+      const productCard: Product = {
         id: photo.id,
-        name: photo.text || album.title,
+        name: photo.text || '',
         size: null,
         price: null,
         photoUrl: this.getProductCardsPhotoUrl(photo, PhotoQuality.Low),
-        productOptions: null
+        options: new Map()
       };
       return productCard;
     });

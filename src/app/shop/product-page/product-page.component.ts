@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProductsService } from '@services/products.service';
-import { ProductCard } from '@models/ProductCard';
+import { Product } from '@models/Product';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class ProductPageComponent implements OnInit, OnDestroy {
 
-  public product: ProductCard;
+  public product: Product;
   public photoUrl: string;
   public unsubscriber$: Subject<void> = new Subject();
 
@@ -21,7 +21,7 @@ export class ProductPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.productsService.currentProduct$
       .pipe(takeUntil(this.unsubscriber$))
-      .subscribe((currentProduct: ProductCard) => {
+      .subscribe((currentProduct: Product) => {
         this.product = currentProduct;
         this.photoUrl = currentProduct.photoUrl;
       });

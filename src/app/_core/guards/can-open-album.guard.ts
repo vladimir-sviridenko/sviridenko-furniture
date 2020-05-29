@@ -3,7 +3,7 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Rout
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ProductsService } from '@services/products.service';
-import { ProductCard } from '@models/ProductCard';
+import { Product } from '@models/Product';
 
 @Injectable()
 export class CanOpenAlbumGuard implements CanActivate {
@@ -16,7 +16,7 @@ export class CanOpenAlbumGuard implements CanActivate {
     const albumId: number = parseInt(next.params.albumId, 10);
     return this.productsService.albums$.pipe(
       map(() => {
-        const currentProductCards: ProductCard[] = this.productsService.updateProductCards(albumId);
+        const currentProductCards: Product[] = this.productsService.updateProductCards(albumId);
         if (currentProductCards) {
           return true;
         } else {

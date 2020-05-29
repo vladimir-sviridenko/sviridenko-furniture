@@ -6,7 +6,7 @@
     [attr.src]='productCard.photoUrl' alt="Furniture Photo">
   </div>
   <mat-card-header>
-    <mat-card-title>{{productCard.name}}</mat-card-title>
+    <mat-card-title *ngIf='productCard.name'>{{productCard.name}}</mat-card-title>
     <mat-card-subtitle *ngIf='productCard.size'>
       <span>Размер: {{productCard.size | size}}</span>
     </mat-card-subtitle>
@@ -20,7 +20,7 @@
     </button>
   </mat-card-actions>
   <mat-card-actions class="product-card__actions" *ngIf='!productCard.price'>
-    <button mat-flat-button class="product-card__button" color='primary' (click)='openRequestCallDialog()'>Заказать</button>
+    <button mat-flat-button class="product-card__button" color='primary' (click)='openRequestCallDialog()'>Заказать звонок</button>
     <button mat-stroked-button class="product-card__button" color='primary'>Открыть фото</button>
   </mat-card-actions>
 </mat-card>
