@@ -37,7 +37,7 @@ export class ProductsOptionsService {
       low: `${this.baseUrl}/facade/low/${category}/${id}`,
       high: `${this.baseUrl}/facade/low/${category}/${id}`
     };
-    return {id, name, category, photoUrl};
+    return { id, name, category, photoUrl };
   }
 
   private skinFabric(id: string, name: string, category: number) {
@@ -45,6 +45,6 @@ export class ProductsOptionsService {
       low: `${this.baseUrl}/skin/low/${category}/${id}`,
       high: `${this.baseUrl}/skin/low/${category}/${id}`
     };
-    return {id, name, category, photoUrl};
+    return { id, name, category, photoUrl };
   }
 }

@@ -1,4 +1,4 @@
-@import 'variables';
+@import "variables";
 
 .header {
   overflow: hidden;
@@ -9,7 +9,7 @@
     height: auto;
     padding: 5px 20px;
   }
-  
+
   &__logo-container {
     display: flex;
     flex: 1 0 180px;
@@ -47,23 +47,31 @@
     &__contacts-label {
       display: none;
     }
-  } 
+  }
 }
 
 @media screen and (max-width: map-get($breakpoints, mobile) - 1) {
   .header {
+    margin-bottom: 14px;
+
     &__container {
       justify-content: space-between;
+
+      color: white;
+
+      background-color: $color-primary;
     }
 
     &__contacts {
       display: none;
-    } 
-    
+    }
+
     &__contacts-switcher {
       display: block;
+
+      border-color: white;
     }
-    
+
     &__contacts-label {
       margin-left: 5px;
     }

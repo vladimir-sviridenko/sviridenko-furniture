@@ -16,7 +16,7 @@ export class ProductsTableComponent implements OnInit, AfterViewInit, OnDestroy 
   @ViewChildren(ProductCardComponent)
   private productCardComponents: QueryList<ProductCardComponent>;
 
-  public  album: Album;
+  public album: Album;
 
   public unsubscriber$: Subject<void> = new Subject();
 
@@ -29,8 +29,8 @@ export class ProductsTableComponent implements OnInit, AfterViewInit, OnDestroy 
         takeUntil(this.unsubscriber$)
       )
       .subscribe((album: Album) => {
-      this.album = album;
-    });
+        this.album = album;
+      });
   }
 
   ngAfterViewInit(): void {
@@ -61,5 +61,4 @@ export class ProductsTableComponent implements OnInit, AfterViewInit, OnDestroy 
       this.shopFacadeService.hideShopLoader();
     });
   }
-
 }

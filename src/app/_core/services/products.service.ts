@@ -41,7 +41,7 @@ export class ProductsService {
       id: 375686981,
       title: 'Кухонные шкафы',
       description: '', products:
-      this.kitchenKabitents
+        this.kitchenKabitents
     }
   ];
 

@@ -14,7 +14,7 @@ export class ProductPageComponent implements OnInit {
   public product: Product;
   public photoUrl: PhotoUrl;
 
-  constructor(public shopFacadeService: ShopFacadeService) {}
+  constructor(public shopFacadeService: ShopFacadeService) { }
 
   ngOnInit(): void {
     this.shopFacadeService.currentProduct$.pipe(take(1))

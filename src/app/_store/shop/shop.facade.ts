@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Album } from '@models/Album';
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { AppState } from '@store/AppState';
 import { Observable  } from 'rxjs';
 

@@ -3,12 +3,13 @@
   <div class='shop__navigation'>
     <ng-container *ngTemplateOutlet='navBar'></ng-container>
   </div>
-  <mat-accordion class='shop__navigation-mobile'>
+  <mat-accordion class='shop__navigation-mobile' [hideToggle]='true'>
     <mat-expansion-panel class="shop__panel" #panel>
-      <mat-expansion-panel-header [expandedHeight]='"40px"' [collapsedHeight]='"40px"'>
-        <mat-panel-description>
-            Категории нашей мебели
-        </mat-panel-description>
+      <mat-expansion-panel-header [expandedHeight]='"40px"' [collapsedHeight]='"40px"' class="shop__panel-header">
+        <mat-panel-title aria-label="Categories" class="shop__panel-title">
+          <div>Категории</div>
+          <mat-icon>view_module</mat-icon>
+        </mat-panel-title>
       </mat-expansion-panel-header>
       <ng-container *ngTemplateOutlet='navBar'></ng-container>
     </mat-expansion-panel>

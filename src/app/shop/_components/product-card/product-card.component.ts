@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { RequestCallComponent } from '../request-call/request-call.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Overlay } from '@angular/cdk/overlay';
+import { take } from 'rxjs/internal/operators/take';
 
 @Component({
   selector: 'app-product-card',
@@ -22,7 +23,7 @@ export class ProductCardComponent {
   @Output()
   public imageLoad = new EventEmitter();
 
-  constructor(private dialog: MatDialog, private requestStatusTip: MatSnackBar, private overlay: Overlay) {}
+  constructor(private dialog: MatDialog, private requestStatusTip: MatSnackBar, private overlay: Overlay) { }
 
   public openRequestCallDialog(): void {
     const dialogRef = this.dialog.open(RequestCallComponent, {
@@ -31,7 +32,7 @@ export class ProductCardComponent {
       data: this.product.photoUrl
     });
 
-    const subscription = dialogRef.afterClosed().subscribe(requestSuccess => {
+    const subscription = dialogRef.afterClosed().pipe(take(1)).subscribe(requestSuccess => {
       subscription.unsubscribe();
       if (requestSuccess !== undefined) {
         requestSuccess
