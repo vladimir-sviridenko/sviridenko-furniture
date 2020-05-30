@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
-import { ProductOption, options } from '@models/enums/ProductOption.enum';
-import { FacadeService } from '@services/facade.service';
-import { SkinService } from '@services/skin.service';
+import { ProductsOptionsService } from '@services/products-options.service';
+import { ProductOptionAlbum } from '@models/ProductOptionAlbum';
 
 @Component({
   selector: 'app-product-options',
@@ -12,14 +11,10 @@ import { SkinService } from '@services/skin.service';
 export class ProductOptionsComponent implements OnInit {
 
   @Input()
-  public options: Map<ProductOption, options>;
+  public options: ProductOptionAlbum[];
 
-  constructor(public skinService: SkinService, public facadeService: FacadeService) { }
+  constructor(public productsOptionsService: ProductsOptionsService) { }
 
   ngOnInit(): void {
-  }
-
-  public isOptionOfProduct(option: string) {
-    return this.options.has(ProductOption[option]);
   }
 }

@@ -12,17 +12,13 @@ import { ShopComponent } from './shop.component';
 import { ProductCardComponent} from './_components/product-card/product-card.component';
 import { ProductPageComponent } from './_pages/product-page/product-page.component';
 import { ProductsTableComponent } from './_pages/products-table/products-table.component';
-import { FacadeOptionComponent } from './_components/product-options/facade-option/facade-option.component';
-import { SkinOptionComponent } from './_components/product-options/skin-option/skin-option.component';
 import { LazyImageComponent } from './_components/lazy-image/lazy-image.component';
 import { ProductOptionsComponent } from './_components/product-options/product-options.component';
 import { RequestCallComponent } from './_components/request-call/request-call.component';
 import { CartComponent } from './_components/cart/cart.component';
 
 import { GalleryService } from '../_core/http/gallery.service';
-import { KitchenCabinetService } from '@services/kitchen-cabinet.service';
-import { FacadeService } from '@services/facade.service';
-import { SkinService } from '@services/skin.service';
+import { ProductsService } from '@services/products.service';
 import { EmailService } from '@services/email.service';
 import { CanOpenProductGuard } from '@core/guards/can-open-product.guard';
 import { SizePipe } from '@shared/pipes/size.pipe';
@@ -37,6 +33,7 @@ import { reducers } from 'src/app/_store/AppState';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { ProductsOptionsService } from '@services/products-options.service';
 
 @NgModule({
   declarations: [
@@ -46,8 +43,6 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
     ProductCardComponent,
     ProductPageComponent,
     ProductsTableComponent,
-    FacadeOptionComponent,
-    SkinOptionComponent,
     LazyImageComponent,
     ProductOptionsComponent,
     RequestCallComponent,
@@ -68,9 +63,8 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
   ],
   providers: [
     GalleryService,
-    KitchenCabinetService,
-    FacadeService,
-    SkinService,
+    ProductsService,
+    ProductsOptionsService,
     EmailService,
     CanOpenProductGuard,
     CanOpenAlbumGuard

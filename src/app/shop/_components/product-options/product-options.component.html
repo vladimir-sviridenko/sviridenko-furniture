@@ -1,8 +1,5 @@
 <mat-tab-group mat-align-tabs="start">
-  <mat-tab [label]='skinService.name' *ngIf='isOptionOfProduct(skinService.id)'>
-    SKIN not implemented
-  </mat-tab>
-  <mat-tab [label]="facadeService.name" *ngIf='isOptionOfProduct(facadeService.id)'>
-    FACADE not implemented
+  <mat-tab [label]="option.type" *ngFor='let option of options'>
+    {{option.type}} is not implemented
   </mat-tab>
 </mat-tab-group>

@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Product } from '@models/Product';
-import { Subject } from 'rxjs';
-import { takeUntil, filter, take } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { ShopFacadeService } from '@store/shop/shop.facade';
+import { PhotoUrl } from '@models/PhotoUrl';
 
 @Component({
   selector: 'app-product-page',
@@ -12,7 +12,7 @@ import { ShopFacadeService } from '@store/shop/shop.facade';
 export class ProductPageComponent implements OnInit {
 
   public product: Product;
-  public photoUrl: string;
+  public photoUrl: PhotoUrl;
 
   constructor(public shopFacadeService: ShopFacadeService) {}
 

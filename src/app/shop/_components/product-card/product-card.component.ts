@@ -14,7 +14,7 @@ import { Overlay } from '@angular/cdk/overlay';
 export class ProductCardComponent {
 
   @Input()
-  public productCard: Product;
+  public product: Product;
 
   @Input()
   public albumId: number;
@@ -28,7 +28,7 @@ export class ProductCardComponent {
     const dialogRef = this.dialog.open(RequestCallComponent, {
       width: '320px',
       scrollStrategy: this.overlay.scrollStrategies.noop(),
-      data: this.productCard.photoUrl
+      data: this.product.photoUrl
     });
 
     const subscription = dialogRef.afterClosed().subscribe(requestSuccess => {

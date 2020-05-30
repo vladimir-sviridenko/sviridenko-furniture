@@ -2,7 +2,7 @@
   <ng-container *ngIf='this.shopFacadeService.currentProduct$ | async'>
     <div class="product-page__image-container">
       <mat-card class="product-page__image">
-        <app-lazy-image [title]='product.name' [src]='photoUrl'></app-lazy-image>
+        <app-lazy-image [title]='product.name' [src]='photoUrl.high'></app-lazy-image>
       </mat-card>
       <button mat-stroked-button class='product-page__button product-page__button_update-photo' 
       *ngIf='photoUrl !== product.photoUrl'>Показать фото продукта</button>
@@ -11,7 +11,7 @@
     </div>
     <mat-card  class='product-page__options'>
       <app-product-options
-      *ngIf='product.options.size > 0' 
+      *ngIf='product.options.length > 0' 
       [options]='product.options'></app-product-options>
     </mat-card>
     <mat-card class="product-page__info-card">
@@ -32,9 +32,9 @@
               <td>{{product.size.depth}} см</td>
             </tr>
           </ng-container>
-          <tr *ngFor='let option of product.options | keyvalue'>
-            <td>{{option.key}}: </td>
-            <td>{{product.options.get(option.key).name}}</td>
+          <tr *ngFor='let option of product.options'>
+            <td>{{option.type}}: </td>
+            <td>{{null}}</td>
           </tr>
         </table>
       </mat-card-content>

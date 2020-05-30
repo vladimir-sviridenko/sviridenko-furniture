@@ -1,10 +1,9 @@
-import { Photo } from './Photo';
-import { ProductOption } from './enums/ProductOption.enum';
+import { VkPhoto } from './VkPhoto';
 
 export interface VkAlbum {
   id: number;
   title: string;
   description: string;
   size: number;
-  photos: Photo[];
+  photos: VkPhoto[];
 }

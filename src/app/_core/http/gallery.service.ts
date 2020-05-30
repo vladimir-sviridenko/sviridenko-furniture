@@ -7,11 +7,12 @@ import { VkAlbum } from '@models/VkAlbum';
 import { VkRequest } from '@models/VkRequest';
 import { VkResponse } from '@models/VkResponse';
 import { Product } from '@models/Product';
-import { Photo } from '@models/Photo';
+import { VkPhoto } from '@models/VkPhoto';
 
-import { PhotoQuality } from '@models/enums/PhotoQuality.enum';
-import { PhotoSize } from '@models/PhotoSize';
+import { VkPhotoQuality } from '@models/enums/VkPhotoQuality.enum';
+import { VkPhotoSize } from '@models/VkPhotoSize';
 import { Album } from '@models/Album';
+import { PhotoUrl } from '@models/PhotoUrl';
 
 @Injectable()
 export class GalleryService {
@@ -39,31 +40,22 @@ export class GalleryService {
     this.productAlbums$ = this.fetchAlbums();
   }
 
-  private getProductCardsPhotoUrl(photo: Photo, photoQuality: PhotoQuality): string {
-    let photoSize = photo.sizes.find((size: PhotoSize) => size.type === photoQuality);
-    photoSize = (photoQuality === PhotoQuality.Low && photoSize.width > photoSize.height)
-      ? photo.sizes.find((size: PhotoSize) => size.type === PhotoQuality.Middle)
-      : photoSize;
-    return photoSize.url;
-  }
+  private getProductPhotoUrl(photo: VkPhoto): PhotoUrl {
+    function getVkPhotoSize(sizeType: VkPhotoQuality): VkPhotoSize {
+      return photo.sizes.find((size: VkPhotoSize) => size.type === sizeType);
+    }
 
-  // public getProductBy(albumId: number, productId: number): Product {
-  //   const albumWithProduct = this.vkAlbums.find((album) => album.id === albumId);
-  //   const productPhoto = albumWithProduct
-  //     ? albumWithProduct.photos.find((photo: Photo) => photo.id === productId)
-  //     : null;
-  //   const productCard: Product = productPhoto
-  //     ? {
-  //       id: productPhoto.id,
-  //       name: productPhoto.text || albumWithProduct.title,
-  //       size: null,
-  //       price: null,
-  //       photoUrl: this.getProductCardsPhotoUrl(productPhoto, PhotoQuality.Large),
-  //       options: null,
-  //     }
-  //     : null;
-  //   return productCard;
-  // }
+    const photoLowSize: VkPhotoSize = (photo.sizes[0].width > photo.sizes[0].height)
+      ? getVkPhotoSize(VkPhotoQuality.Medium)
+      : getVkPhotoSize(VkPhotoQuality.Low);
+
+    const photoUrl: PhotoUrl = {
+      low: photoLowSize.url,
+      high: getVkPhotoSize(VkPhotoQuality.Large).url,
+    };
+
+    return photoUrl;
+  }
 
   public getProductsFrom(album: VkAlbum): Product[] {
     return album.photos.map((photo) => {
@@ -72,14 +64,14 @@ export class GalleryService {
         name: photo.text || '',
         size: null,
         price: null,
-        photoUrl: this.getProductCardsPhotoUrl(photo, PhotoQuality.Low),
-        options: new Map()
+        photoUrl: this.getProductPhotoUrl(photo),
+        options: []
       };
       return productCard;
     });
   }
 
-  private generateVkUrl(method: string, params: VkRequest): string {
+  private generateVkRequestUrl(method: string, params: VkRequest): string {
     let url: string = this.baseUrl + method + '?';
     for (const [key, value] of Object.entries(params)) {
       url += `${key}=${value}&`;
@@ -88,7 +80,7 @@ export class GalleryService {
   }
 
   private fetchPhotosInto(album: VkAlbum): Observable<VkAlbum> {
-    const url = this.generateVkUrl('photos.get', {
+    const url = this.generateVkRequestUrl('photos.get', {
       owner_id: this.ownerId,
       album_id: album.id,
       access_token: this.accessToken,
@@ -96,9 +88,9 @@ export class GalleryService {
     });
 
     return this.http.jsonp(url, 'callback').pipe(
-      catchError((): Observable<VkResponse<Photo[]>> => of(this.emptyVkResponse)),
-      map((vkResponse: VkResponse<Photo[]>) => vkResponse.response.items),
-      map((photos: Photo[]) => {
+      catchError((): Observable<VkResponse<VkPhoto[]>> => of(this.emptyVkResponse)),
+      map((vkResponse: VkResponse<VkPhoto[]>) => vkResponse.response.items),
+      map((photos: VkPhoto[]) => {
         photos.forEach(photo => {
           album.photos.push({
             id: photo.id,
@@ -112,7 +104,7 @@ export class GalleryService {
   }
 
   public fetchAlbums(): Observable<Album[]> {
-    const url = this.generateVkUrl('photos.getAlbums', {
+    const url = this.generateVkRequestUrl('photos.getAlbums', {
       owner_id: this.ownerId,
       access_token: this.accessToken,
       v: this.apiVersion
