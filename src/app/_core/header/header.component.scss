@@ -1,5 +1,15 @@
+@import 'variables';
+
 .header {
   overflow: hidden;
+
+  &__container {
+    display: flex;
+    align-items: center;
+    height: auto;
+    padding: 5px 20px;
+  }
+  
   &__logo-container {
     display: flex;
     flex: 1 0 180px;
@@ -7,7 +17,6 @@
     align-items: center;
     max-width: 310px;
     min-height: 48px;
-    margin-right: -10px;
 
     justify-items: center;
   }
@@ -28,10 +37,39 @@
     flex: 1 0 380px;
   }
 
-  &__main {
-    display: flex;
-    align-items: center;
-    height: auto;
-    padding: 5px 20px;
+  &__contacts-switcher {
+    display: none;
+  }
+}
+
+@media screen and (max-width: map-get($breakpoints, mobile-portrait) - 1) {
+  .header {
+    &__contacts-label {
+      display: none;
+    }
+  } 
+}
+
+@media screen and (max-width: map-get($breakpoints, mobile) - 1) {
+  .header {
+    &__container {
+      justify-content: space-between;
+    }
+
+    &__contacts {
+      display: none;
+    } 
+    
+    &__contacts-switcher {
+      display: block;
+    }
+    
+    &__contacts-label {
+      margin-left: 5px;
+    }
+
+    &__location {
+      display: none;
+    }
   }
 }
