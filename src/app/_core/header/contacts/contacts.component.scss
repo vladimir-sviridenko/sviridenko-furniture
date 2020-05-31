@@ -86,11 +86,16 @@
 
       line-height: 32px;
 
+      &:hover {
+        background-color: $backgroun-color-primary;
+      }
+
       &_location {
         display: inline-block;
         margin-bottom: 10px;
 
         background-color: $backgroun-color-primary;
+        cursor: default;
       }
     }
   }
