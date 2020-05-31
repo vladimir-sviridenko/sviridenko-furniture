@@ -29,7 +29,8 @@ export class ProductCardComponent {
     const dialogRef = this.dialog.open(RequestCallComponent, {
       width: '320px',
       scrollStrategy: this.overlay.scrollStrategies.noop(),
-      data: this.product.photoUrl
+      data: this.product.photoUrl,
+      maxHeight: '90vh'
     });
 
     const subscription = dialogRef.afterClosed().pipe(take(1)).subscribe(requestSuccess => {

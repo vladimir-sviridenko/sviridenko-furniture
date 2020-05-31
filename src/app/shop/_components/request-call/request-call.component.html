@@ -1,6 +1,6 @@
 <div class="request-call">
   <form [formGroup]='requestCallForm' novalidate class="request-call__form" (ngSubmit)='requestCall($event)'>
-    <h1 mat-dialog-title>Заказать звонок?</h1>
+    <div mat-dialog-title>Заказать звонок?</div>
     <mat-form-field appearance="outline" class="request-call__form-field">
       <mat-label>Ваше имя</mat-label>
       <input formControlName='userName' name='userName' matInput>
