@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { ProductsOptionsService } from '@services/products-options.service';
 import { ProductOptionAlbum } from '@models/ProductOptionAlbum';
+import { OptionType } from '@models/enums/OptionType.enum';
 
 @Component({
   selector: 'app-product-options',
@@ -11,7 +12,9 @@ import { ProductOptionAlbum } from '@models/ProductOptionAlbum';
 export class ProductOptionsComponent implements OnInit {
 
   @Input()
-  public options: ProductOptionAlbum[];
+  public optionAlbums: ProductOptionAlbum[];
+
+  public optionTypeEnum: typeof OptionType = OptionType;
 
   constructor(public productsOptionsService: ProductsOptionsService) { }
 

@@ -45,8 +45,10 @@
   }
 
   &__table {
-    width: 100%;
-    max-width: 250px;
+    width: auto;
+    & td:nth-child(2) {
+      padding-left: 15px;
+    }
   }
 
   &__actions {
@@ -69,12 +71,14 @@
     }
   }
 
-  &__back-button-top {
+  &__back-button-mobile {
     width: 100%;
   }
 
-  &__back-button-bottom {
+  &__back-button-desktop {
     display: none;
+    margin-top: -10px;
+    margin-bottom: 10px;
   }
 
   &__price {
@@ -111,7 +115,6 @@
   }
 }
 
-
 @media screen and (min-width: map-get($breakpoints, tablet)) {
   .product-page {
     width: 93vw;
@@ -119,8 +122,12 @@
 
     &__image-container {
       width: 300px;
-      height: 300px;
       margin-right: 10px;
+    }
+
+    &__image {
+      width: 300px;
+      height: 300px;
     }
 
     &__options-card {
@@ -135,11 +142,11 @@
       order: 3;
     }
 
-    &__back-button-top {
+    &__back-button-mobile {
       display: none;
     }
 
-    &__back-button-bottom {
+    &__back-button-desktop {
       display: block;
     }
   }
@@ -150,10 +157,16 @@
   .product-page {
     &__image-container {
       width: 400px;
-      height: 400px;
     }
+
+    &__image {
+      height: 400px;
+      width: 400px;
+    }
+
     &__options-card {
-      max-height: 400px;
+      flex-basis: 35%;
+      max-height: 447.31px;
     }
   }
 }

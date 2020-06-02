@@ -1,22 +1,22 @@
 <div class='product-page' *ngIf='!(this.shopFacadeService.isShopLoading$ | async)'>
   <ng-container *ngIf='this.shopFacadeService.currentProduct$ | async'>
-    <div class='product-page__back-button-top'>
+    <div class='product-page__back-button-mobile'>
       <ng-template *ngTemplateOutlet='backButton'></ng-template>
     </div>
     <div class="product-page__image-container">
+      <div class='product-page__back-button-desktop'>
+        <ng-template *ngTemplateOutlet='backButton'></ng-template>
+      </div>
       <mat-card class="product-page__image">
         <app-lazy-image [title]='product.name' [src]='photoUrl.high'></app-lazy-image>
       </mat-card>
       <button mat-stroked-button class='product-page__button product-page__button_update-photo' 
       *ngIf='photoUrl !== product.photoUrl'>Показать фото продукта</button>
-      <div class='product-page__back-button-bottom'>
-        <ng-template *ngTemplateOutlet='backButton'></ng-template>
-      </div>
     </div>
     <mat-card  class='product-page__options-card'>
       <app-product-options
       *ngIf='product.options.length > 0' 
-      [options]='product.options'></app-product-options>
+      [optionAlbums]='product.options'></app-product-options>
     </mat-card>
     <mat-card class="product-page__total-card">
       <mat-card-title class="product-page__name">{{product.name}}</mat-card-title>
@@ -36,9 +36,9 @@
               <td>{{product.size.depth}} см</td>
             </tr>
           </ng-container>
-          <tr *ngFor='let option of product.options'>
-            <td>{{option.type}}: </td>
-            <td>{{null}}</td>
+          <tr *ngFor='let selectedOption of product.selectedOptions'>
+            <td>{{selectedOption.type}}: </td>
+            <td>{{selectedOption.option.name}}</td>
           </tr>
         </table>
       </mat-card-content>

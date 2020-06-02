@@ -65,7 +65,8 @@ export class GalleryService {
         size: null,
         price: null,
         photoUrl: this.getProductPhotoUrl(photo),
-        options: []
+        options: [],
+        selectedOptions: []
       };
       return productCard;
     });

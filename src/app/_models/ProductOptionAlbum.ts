@@ -3,5 +3,8 @@ import { OptionType } from './enums/OptionType.enum';
 
 export interface ProductOptionAlbum {
   type: OptionType;
-  options: ProductOption[];
+  groups: {
+    name: string;
+    options: ProductOption[];
+  }[];
 }

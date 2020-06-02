@@ -5,14 +5,21 @@ import { map, filter, take } from 'rxjs/operators';
 import { ShopFacadeService } from '@store/shop/shop.facade';
 import { Album } from '@models/Album';
 import { Product } from '@models/Product';
+import { ProductsService } from '@services/products.service';
 
 @Injectable()
 export class CanOpenProductGuard implements CanActivate {
 
   private albums$: ReplaySubject<Album[]> = new ReplaySubject<Album[]>();
 
-  constructor(private shopFacadeService: ShopFacadeService, private router: Router) {
+  constructor(private shopFacadeService: ShopFacadeService,
+              private router: Router,
+              private productsService: ProductsService) {
     this.shopFacadeService.albums$.pipe(take(2), filter((albums) => !!albums)).subscribe(this.albums$);
+  }
+
+  private isAvailableAlbum(albumId: number): boolean {
+    return this.productsService.albums.some((album: Album) => album.id === albumId);
   }
 
   canActivate(
@@ -27,7 +34,7 @@ export class CanOpenProductGuard implements CanActivate {
         let productToShow: Product = null;
         let productsAlbum: Album = null;
         for (const album of albums) {
-          if (album.id === albumId) {
+          if (album.id === albumId && this.isAvailableAlbum(album.id)) {
             productToShow = album.products.find((product) => product.id === productId);
             productsAlbum = productToShow ? album : null;
           }

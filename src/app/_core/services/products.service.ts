@@ -8,6 +8,8 @@ import { ProductOptionAlbum } from '@models/ProductOptionAlbum';
 import { OptionType } from '@models/enums/OptionType.enum';
 import { ProductsOptionsService } from './products-options.service';
 import { PhotoUrl } from '@models/PhotoUrl';
+import { ProductOption } from '@models/ProductOption';
+import { SelectedOption } from '@models/SelectedOption';
 
 
 @Injectable()
@@ -36,7 +38,7 @@ export class ProductsService {
     this.kitchenCabinetFabric(18, 'Шкаф-пенал', '214×60×56', 7473)
   ];
 
-  private albums: Album[] = [
+  public albums: Album[] = [
     {
       id: 375686981,
       title: 'Кухонные шкафы',
@@ -71,6 +73,8 @@ export class ProductsService {
     const size: Size = this.parseShortSize(shortSize);
     const options: ProductOptionAlbum[] =
       this.productsOptionsService.getOptionAlbumsByTypes([OptionType.Skin, OptionType.Facade]);
-    return { id, name, size, price, photoUrl, options };
+    const selectedOptions: SelectedOption[] =
+      this.productsOptionsService.getDefaultSelectedOption(options);
+    return { id, name, size, price, photoUrl, options, selectedOptions };
   }
 }
