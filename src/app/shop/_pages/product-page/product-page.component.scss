@@ -38,8 +38,8 @@
     flex-direction: column;
     order: 3;
     box-sizing: border-box;
-    max-height: 470px;
     margin-bottom: 10px;
+    max-height: 430px;
     overflow: hidden;
   }
 
@@ -125,8 +125,6 @@
     }
 
     &__options-card {
-      z-index: 3;
-
       flex: 1 0 50%;
       height: $image-width;
       margin-top: 10px;
@@ -140,8 +138,8 @@
     flex-flow: column wrap;
     justify-content: flex-start;
     align-items: flex-start;
+    max-height: 800px;
     min-height: 608px;
-    max-height: 120vh;
 
     &:after {
       display: none;
@@ -154,7 +152,8 @@
 
     &__options-card {
       order: 3;
-      width: 100%;
+      flex-basis: 100%;
+      height: 100%;
       width: calc(100% - 330px + #{$update-button-height-mobile});
     }
 
@@ -171,8 +170,8 @@
   .product-page {
     flex-flow: row wrap;
     justify-content: flex-start;
-    height: 60vh;
     min-height: 320px;
+    height: 65vh;
 
     &__options-card {
       flex: 1 0 35%;
