@@ -6,6 +6,7 @@ import { ShopFacadeService } from '@store/shop/shop.facade';
 import { Album } from '@models/Album';
 import { Product } from '@models/Product';
 import { ProductsService } from '@services/products.service';
+import { ProductFacadeService } from '@store/product/product.facade';
 
 @Injectable()
 export class CanOpenProductGuard implements CanActivate {
@@ -13,6 +14,7 @@ export class CanOpenProductGuard implements CanActivate {
   private albums$: ReplaySubject<Album[]> = new ReplaySubject<Album[]>();
 
   constructor(private shopFacadeService: ShopFacadeService,
+              private productFacadeService: ProductFacadeService,
               private router: Router,
               private productsService: ProductsService) {
     this.shopFacadeService.albums$.pipe(take(2), filter((albums) => !!albums)).subscribe(this.albums$);
@@ -41,7 +43,7 @@ export class CanOpenProductGuard implements CanActivate {
         }
         if (productToShow) {
           this.shopFacadeService.changeCurrentAlbum(productsAlbum);
-          this.shopFacadeService.changeCurrentProduct(productToShow);
+          this.productFacadeService.changeProduct(productToShow);
           return true;
         } else {
           this.router.navigate(['/404']);

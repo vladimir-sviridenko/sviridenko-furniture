@@ -4,11 +4,8 @@ import { ShopState } from './shop.reducer';
 
 export const selectShopState = createFeatureSelector<AppState, ShopState>(shopFeatureKey);
 
-export const selectAlbums = createSelector(selectShopState, (state) => state.albums);
+export const selectAlbums = createSelector(selectShopState, (state: ShopState) => state.albums);
 
-export const selectCurrentAlbum = createSelector(selectShopState, (state) => state.currentAlbum);
+export const selectCurrentAlbum = createSelector(selectShopState, (state: ShopState) => state.currentAlbum);
 
-export const selectCurrentProduct = createSelector(selectShopState, (state) => state.currentProduct);
-
-export const selectIsShopLoading = createSelector(selectShopState, (state) => state.isShopLoading);
-
+export const selectIsShopLoading = createSelector(selectShopState, (state: ShopState) => state.isShopLoading);

@@ -1,6 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { Product } from '@models/Product';
 import { Album } from '@models/Album';
+import { SelectedOption } from '@models/SelectedOption';
 
 export const initializeAlbums = createAction(
   '[SHOP/API] Initialize albums'
@@ -14,11 +15,6 @@ export const setAlbums = createAction(
 export const changeCurrentAlbum = createAction(
   '[SHOP/API] Change current album',
   props<{ album: Album }>()
-);
-
-export const changeCurrentProduct = createAction(
-  '[SHOP/API] Change current product',
-  props<{ product: Product }>()
 );
 
 export const hideShopLoader = createAction(

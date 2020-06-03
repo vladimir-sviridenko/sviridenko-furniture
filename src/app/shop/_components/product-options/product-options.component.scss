@@ -29,17 +29,23 @@ $facade-image-width: 80px;
   }
 
   &::ng-deep .mat-tab-body-wrapper {
-    height: calc(100% - 48px);
+    height: calc(100% - #{$update-button-height-mobile});
+    max-height: 90vh;
   }
 
   &::ng-deep .mat-expansion-panel-body {
     padding: 0;
   }
 
-  &__group-name {
-    background-color: $backgroun-color-primary;
+  &::ng-deep .mat-tab-label {
+    height: $update-button-height-mobile;
+  }
 
-    user-select: none;
+  &__group-name {
+    background-color: $backgroun-color-primary !important;
+
+    user-select: none; 
+
     &.mat-expanded {
       background-color: $backgroun-color-primary;
     }
@@ -48,6 +54,11 @@ $facade-image-width: 80px;
   &__grid {
     display: flex;
     flex-flow: row wrap;
+    padding: 1px;
+
+    &_facade {
+      padding: 4px;
+    }
 
     .product-options__hidden-flex {
       @include flex-item($image-width, 0, 1px);
@@ -59,6 +70,8 @@ $facade-image-width: 80px;
   }
 
   &__image {
+    cursor: pointer;
+
     @include flex-item($image-width, 1px, 1px);
 
     &_facade {

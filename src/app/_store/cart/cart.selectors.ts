@@ -4,6 +4,6 @@ import { CartState } from './cart.reducer';
 
 export const selectCartState = createFeatureSelector<AppState, CartState>(cartFeatureKey);
 
-export const selectProducts = createSelector(selectCartState, (state) => state.products);
+export const selectProducts = createSelector(selectCartState, (state: CartState) => state.products);
 
-export const selectTotalPrice = createSelector(selectCartState, (state) => state.totalPrice);
+export const selectTotalPrice = createSelector(selectCartState, (state: CartState) => state.totalPrice);

@@ -2,14 +2,16 @@
   <mat-tab [label]="optionAlbum.type" *ngFor='let optionAlbum of optionAlbums'>
     <mat-accordion [displayMode]='"flat"' multi>
       <mat-expansion-panel *ngFor='let group of optionAlbum.groups' [expanded]='true'>
-        <mat-expansion-panel-header class="product-options__group-name" [expandedHeight]='"48px"' [collapsedHeight]='"48px"'>
+        <mat-expansion-panel-header class="product-options__group-name" [expandedHeight]='"34px"' [collapsedHeight]='"34px"'>
           {{group.name}}
         </mat-expansion-panel-header>
-        <div class="product-options__grid">
-          <img *ngFor='let options of group.options' class="product-options__image" [src]='options.photoUrl.low' [alt]='options.name'
+        <div class="product-options__grid" [class.product-options__grid_facade]='optionAlbum.type === optionTypeEnum.Facade'>
+          <img *ngFor='let option of group.options' class="product-options__image" [src]='option.photoUrl.low' [alt]='option.name'
           [class.product-options__image_facade]='optionAlbum.type === optionTypeEnum.Facade'
-          [matTooltip]='options.name' [matTooltipPosition]='"above"'>
-          <div *ngFor='let options of group.options' class='product-options__hidden-flex' 
+          (click)='productFacadeService.changeProductOption({ type: optionAlbum.type, option: option })'
+          (click)='check.emit(option.photoUrl.high)'
+          [matTooltip]='option.name' [matTooltipPosition]='"above"'>
+          <div *ngFor='let option of group.options' class='product-options__hidden-flex' 
           [class.product-options__hidden-flex_facade]='optionAlbum.type === optionTypeEnum.Facade'></div>
         </div>
       </mat-expansion-panel>

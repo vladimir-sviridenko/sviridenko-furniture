@@ -15,7 +15,7 @@
 
     transition: opacity 0.3s;
 
-    object-fit: cover;
+    object-fit: contain;
 
     &_hidden {
       opacity: 0;

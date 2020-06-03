@@ -3,6 +3,8 @@ import { Product } from '@models/Product';
 import { take } from 'rxjs/operators';
 import { ShopFacadeService } from '@store/shop/shop.facade';
 import { PhotoUrl } from '@models/PhotoUrl';
+import { SelectedOption } from '@models/SelectedOption';
+import { ProductFacadeService } from '@store/product/product.facade';
 
 @Component({
   selector: 'app-product-page',
@@ -12,15 +14,16 @@ import { PhotoUrl } from '@models/PhotoUrl';
 export class ProductPageComponent implements OnInit {
 
   public product: Product;
-  public photoUrl: PhotoUrl;
+  public photoUrl: string;
 
-  constructor(public shopFacadeService: ShopFacadeService) { }
+  constructor(public shopFacadeService: ShopFacadeService,
+              public productFacadeService: ProductFacadeService) { }
 
   ngOnInit(): void {
-    this.shopFacadeService.currentProduct$.pipe(take(1))
+    this.productFacadeService.product$.pipe(take(1))
       .subscribe((currentProduct: Product) => {
         this.product = currentProduct;
-        this.photoUrl = currentProduct.photoUrl;
+        this.photoUrl = currentProduct.photoUrl.high;
       });
   }
 }
