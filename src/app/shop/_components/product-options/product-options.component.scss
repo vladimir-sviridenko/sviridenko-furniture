@@ -1,9 +1,5 @@
 @import "variables";
 
-:host {
-  height: 100%;
-}
-
 @mixin flex-item($width, $margin-vertical, $margin-horizontal) {
   flex: 1 0 $width;
   box-sizing: border-box;
@@ -12,7 +8,43 @@
 }
 
 $image-width: 50px;
-$facade-image-width: 80px;
+$image-width_facade: 80px;
+$image-margin: 2px;
+$image-margin_facade: 5px;
+
+
+@mixin grid($width-delta, $margin-delta) {
+  &__grid {
+    display: flex;
+    flex-flow: row wrap;
+    padding: $image-margin + $margin-delta;
+
+    &_facade {
+      padding: $image-margin_facade + $margin-delta;
+    }
+
+    .product-options__hidden-flex {
+      @include flex-item($image-width + $width-delta, 0, $image-margin + $margin-delta);
+
+      &_facade {
+        @include flex-item($image-width_facade + $width-delta, 0, $image-margin_facade + $margin-delta);
+      }
+    }
+  }
+
+  &__image {
+    cursor: pointer;
+    @include flex-item($image-width + $width-delta, $image-margin + $margin-delta, $image-margin + $margin-delta);
+
+    &_facade {
+      @include flex-item($image-width_facade + $width-delta, $image-margin_facade + $margin-delta, $image-margin_facade + $margin-delta);
+    }
+  }
+}
+
+:host {
+  height: 100%;
+}
 
 ::ng-deep .mat-tooltip-panel {
   transform: translateY(20px);
@@ -23,6 +55,8 @@ $facade-image-width: 80px;
   height: 100%;
   padding: 0;
 
+  @include grid(0, 0);
+
   &::ng-deep .mat-expansion-panel:not([class*=mat-elevation-z]) {
     border-bottom: 1px solid rgba(0, 0, 0, 0.12);
     box-shadow: none;
@@ -30,7 +64,6 @@ $facade-image-width: 80px;
 
   &::ng-deep .mat-tab-body-wrapper {
     height: calc(100% - #{$update-button-height-mobile});
-    max-height: 90vh;
   }
 
   &::ng-deep .mat-expansion-panel-body {
@@ -50,32 +83,10 @@ $facade-image-width: 80px;
       background-color: $backgroun-color-primary;
     }
   }
+}
 
-  &__grid {
-    display: flex;
-    flex-flow: row wrap;
-    padding: 1px;
-
-    &_facade {
-      padding: 4px;
-    }
-
-    .product-options__hidden-flex {
-      @include flex-item($image-width, 0, 1px);
-
-      &_facade {
-        @include flex-item($facade-image-width, 0, 4px);
-      }
-    }
-  }
-
-  &__image {
-    cursor: pointer;
-
-    @include flex-item($image-width, 1px, 1px);
-
-    &_facade {
-      @include flex-item($facade-image-width, 4px, 4px);
-    }
+@media screen and (min-width: map-get($breakpoints, tablet) - 120px) {
+  .product-options {
+    @include grid(20px, 0)
   }
 }

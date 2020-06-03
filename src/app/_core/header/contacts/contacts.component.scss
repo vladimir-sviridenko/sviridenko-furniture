@@ -26,6 +26,10 @@
     margin-left: 40px;
   }
 
+  &__location {
+    display: none;
+  }
+
   &__link {
     margin-top: 5px;
     margin-bottom: 5px;
@@ -35,10 +39,6 @@
 
     background-color: white;
     border-radius: 50px;
-
-    &_location {
-      display: none;
-    }
   }
 }
 
@@ -70,7 +70,8 @@
     &__phones {
       display: flex;
       flex-flow: column nowrap;
-      margin: 5px 0;
+      margin: 0;
+      margin-bottom: 5px;
     }
 
     &__social {
@@ -80,23 +81,20 @@
       margin-top: 5px;
     }
 
+    &__location {
+      display: inline-block;
+      margin-top: 5px;
+      margin-bottom: 0;
+
+      font-size: 18px;
+      text-align: center;
+    }
+
     &__link {
       width: 100%;
       margin-left: 0;
 
       line-height: 32px;
-
-      &:hover {
-        background-color: $backgroun-color-primary;
-      }
-
-      &_location {
-        display: inline-block;
-        margin-bottom: 10px;
-
-        background-color: $backgroun-color-primary;
-        cursor: default;
-      }
     }
   }
 }

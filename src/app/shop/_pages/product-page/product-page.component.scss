@@ -1,10 +1,14 @@
 @import "variables";
 
+.shop__product-page {
+  margin: 0 auto;
+  width: 90vw;
+}
+
 .product-page {
   display: flex;
   flex-flow: row wrap;
   align-items: flex-start;
-  width: 90vw;
   margin: 0 auto;
 
   &__image-card {
@@ -40,7 +44,6 @@
     flex: 1 0 100%;
     order: 2;
     height: 40vh;
-    max-height: 100vh;
     margin-top: 0;
     margin-bottom: 10px;
     padding: 0;
@@ -84,6 +87,11 @@
 }
 
 @media screen and (min-width: map-get($breakpoints, mobile) - 60px) {
+  $hoh: 10000px;
+  .shop__product-page {
+    width: 95vw;
+  }
+  
   .product-page {
     justify-content: flex-end;
 
@@ -91,7 +99,7 @@
       content: "";
       display: block;
       order: 3;
-      width: 220px;
+      width: 240px;
       height: 1px;
       margin-right: 10px;
     }
@@ -99,8 +107,8 @@
     &__image-card {
       flex-flow: column-reverse;
       align-items: flex-start;
-      width: 220px;
-      height: 220px;
+      width: 240px;
+      height: 240px;
       margin-right: 10px;
     }
 
@@ -108,16 +116,14 @@
       flex: 1 0 50%;
       width: 50%;
       order: 4;
-      width: auto;
       margin-left: -#{$update-button-height-mobile};
     }
 
     &__options-card {
       flex: 1 0 50%;
-      width: 50%;
       z-index: 3;
       margin-left: -#{$update-button-height-mobile};
-      max-height: 220px;
+      height: 240px;
       margin-top: 10px;
     }
 
@@ -130,8 +136,12 @@
 
 @media screen and (min-width: map-get($breakpoints, tablet-portrait) - 100px) {
   .product-page {
-    width: 95vw;
-    justify-content: flex-start;
+
+    height: 70vh;
+    min-height: 610px;
+    flex-flow: column wrap;
+    align-items: flex-start;
+    justify-content: space-between;
 
     &:after{
       display: none;
@@ -143,10 +153,12 @@
     }
 
     &__options-card {
-      height: 100%;
+      width: calc(100% - 330px + #{$update-button-height-mobile});
+      order: 3;
     }
 
     &__total-card {
+      order: 2;
       flex: 0 1 auto;
       width: calc(320px - #{$update-button-height-mobile});
       margin-left: 0;
@@ -156,17 +168,26 @@
 
 @media screen and (min-width: map-get($breakpoints, tablet)) {
   .product-page {
+    justify-content: flex-start;
+    flex-flow: row wrap;
+    min-height: 500px;
+
     &__options-card {
-      flex-basis: 60%;
+      height: 100%;
+      flex: 1 0 35%;
+      order: 2;
+    }
+
+    &__total-card {
+      margin-top: 10px;
+      margin-left: 10px;
+      order: 3;
     }
   }
 }
 
 @media screen and (min-width: map-get($breakpoints, laptop)) {
   .product-page {
-    &__options-card {
-      flex-basis: 70%;
-    }
 
     &__image-card {
       width: 360px;
@@ -174,7 +195,9 @@
     }
 
     &__total-card {
-      width: calc(360px - #{$update-button-height-mobile});
+      width: 360px;
+      margin-left: 10px;
+      margin-top: 10px;
     }
 
     &__table {
