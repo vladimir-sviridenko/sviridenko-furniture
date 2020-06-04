@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "start:linux": "sudo ng serve",
+    "build:dev": "sudo ng build --prod --base-href https://vladimir-sviridenko.github.io/sviridenko-furniture/",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

@@ -10,7 +10,7 @@
           [class.product-options__image_facade]='optionAlbum.type === optionTypeEnum.Facade'
           (click)='productFacadeService.changeProductOption({ type: optionAlbum.type, option: option })'
           (click)='check.emit(option.photoUrl.high)'
-          [matTooltip]='option.name' [matTooltipPosition]='"above"'>
+          [matTooltip]='option.name' [matTooltipTouchGestures]='"off"' [matTooltipPosition]='"above"'>
           <div *ngFor='let quantity of [].constructor(40)' class='product-options__hidden-flex' 
           [class.product-options__hidden-flex_facade]='optionAlbum.type === optionTypeEnum.Facade'></div>
         </div>
