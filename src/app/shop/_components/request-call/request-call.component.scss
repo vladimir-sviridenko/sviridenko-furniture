@@ -1,0 +1,18 @@
+.request-call {
+  overflow: visible;
+  &__form {
+    display: flex;
+    flex-flow: column nowrap;
+  }
+  &__form-field {
+    margin-bottom: 4px;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+
+    &::ng-deep .mat-input-element {
+      line-height: 16px;
+    }
+  }
+}

@@ -1,5 +1,19 @@
+@import "variables";
+
+::ng-deep .header__contacts-dialog {
+  display: none;
+}
+
 .header {
   overflow: hidden;
+
+  &__container {
+    display: flex;
+    align-items: center;
+    height: auto;
+    padding: 5px 20px;
+  }
+
   &__logo-container {
     display: flex;
     flex: 1 0 180px;
@@ -7,7 +21,6 @@
     align-items: center;
     max-width: 310px;
     min-height: 48px;
-    margin-right: -10px;
 
     justify-items: center;
   }
@@ -28,10 +41,57 @@
     flex: 1 0 380px;
   }
 
-  &__main {
-    display: flex;
-    align-items: center;
-    height: auto;
-    padding: 5px 20px;
+  &__contacts-switcher {
+    display: none;
+  }
+}
+
+@media screen and (max-width: map-get($breakpoints, mobile-portrait) - 1) {
+  .header {
+    &__contacts-label {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: map-get($breakpoints, mobile) - 1) {
+  ::ng-deep .header__contacts-dialog {
+    display: block;
+
+    & .mat-dialog-container {
+      position: relative;
+
+      background-color: $backgroun-color-primary;
+    }
+  }
+
+  .header {
+    margin-bottom: 14px;
+
+    &__container {
+      justify-content: space-between;
+
+      color: white;
+
+      background-color: $color-primary;
+    }
+
+    &__contacts {
+      display: none;
+    }
+
+    &__contacts-switcher {
+      display: block;
+
+      border-color: white;
+    }
+
+    &__contacts-label {
+      margin-left: 5px;
+    }
+
+    &__location {
+      display: none;
+    }
   }
 }

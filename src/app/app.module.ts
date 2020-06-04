@@ -12,13 +12,13 @@ import { MaterialModules } from './material.modules';
 @NgModule({
   declarations: [
     AppComponent,
-    ErrorComponent
+    ErrorComponent,
   ],
   imports: [
     BrowserModule,
     ShopModule,
     AppRoutingModule,
-    ...MaterialModules
+    ...MaterialModules,
   ],
   providers: [
     {

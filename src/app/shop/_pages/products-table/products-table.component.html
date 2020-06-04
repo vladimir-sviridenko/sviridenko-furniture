@@ -1,0 +1,8 @@
+<div class="products-table" [class.products-table_hidden]='this.shopFacadeService.isShopLoading$ | async' *ngIf='album'>
+  <app-product-card
+    class="products-table__card"
+    *ngFor='let product of album.products'
+    [albumId]='album.id'
+    [product]='product'>
+  </app-product-card>
+</div>

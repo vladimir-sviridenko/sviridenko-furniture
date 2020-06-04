@@ -4,15 +4,23 @@
 .shop {
   background-color: $backgroun-color-primary;
 
-  &__navigation {
+  &__buttons {
     display: flex;
     flex-flow: wrap;
     justify-content: space-evenly;
     align-items: center;
     height: auto;
-    margin-right: -10px;
     min-height: 60px;
+    margin-right: -10px;
     padding: 8px 9px 8px 15px;
+  }
+
+  &__navigation {
+    display: block;
+  }
+
+  &__navigation-mobile {
+    display: none;
   }
 
   &__link {
@@ -48,8 +56,56 @@
       }
     }
   }
-  
+
   &__loader {
     margin: 30vh auto;
+  }
+}
+
+@media screen and (max-width: map-get($breakpoints, mobile) - 1) {
+  .shop {
+    &__buttons {
+      border-top: 1px solid white;
+    }
+
+    &__navigation {
+      display: none;
+    }
+
+    &__navigation-mobile {
+      display: block;
+
+      &::ng-deep .mat-expansion-panel-header {
+        background-color: $color-primary !important;
+      }
+    }
+
+    &__panel-header {
+      font-size: 18px;
+
+      border-radius: 0;
+
+      user-select: none;
+
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+    }
+
+    &__panel {
+      z-index: 1;
+
+      margin-right: 15px;
+      margin-left: 15px;
+      &::ng-deep .mat-expansion-panel-body {
+        padding: 0;
+      }
+    }
+
+    &__panel-title {
+      display: flex;
+      justify-content: space-between;
+      margin-right: 0;
+
+      color: white;
+    }
   }
 }

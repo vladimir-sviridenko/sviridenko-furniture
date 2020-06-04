@@ -1,8 +1,0 @@
-<div class="products-table" [class.products-table_hidden]='this.productsService.isLoading'>
-  <app-product-card 
-    class="products-table__card"
-    *ngFor='let product of productCards'
-    [albumId]='this.productsService.currentAlbumId'
-    [productCard]='product'>
-  </app-product-card>
-</div>

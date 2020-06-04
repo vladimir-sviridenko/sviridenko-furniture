@@ -1,75 +1,76 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject, combineLatest, BehaviorSubject, of } from 'rxjs';
-import { map, share, first, tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 
-import { GalleryService } from '../http/gallery.service';
-import { KitchenCabinetService } from './kitchen-cabinet.service';
-
-import { ProductCard } from '@models/ProductCard';
-import { ProductService } from '@models/ProductService';
+import { Product } from '@models/Product';
+import { Size } from '@models/Size';
 import { Album } from '@models/Album';
+import { ProductOptionAlbum } from '@models/ProductOptionAlbum';
+import { OptionType } from '@models/enums/OptionType.enum';
+import { ProductsOptionsService } from './products-options.service';
+import { PhotoUrl } from '@models/PhotoUrl';
+
 
 @Injectable()
 export class ProductsService {
 
-  public currentProduct$: BehaviorSubject<ProductCard> = new BehaviorSubject<ProductCard>(undefined);
-
-  public isLoading: boolean = true;
-  public currentAlbumId: number;
-  public productCards$: BehaviorSubject<ProductCard[]> = new BehaviorSubject<ProductCard[]>(undefined);
   public albums$: Observable<Album[]>;
 
-  public mainService: GalleryService;
-  public dependencies: ProductService[] = [];
+  private kitchenKabitents: Product[] = [
+    this.kitchenCabinetFabric(1, 'Шкаф навесной', '72×40×34', 2192),
+    this.kitchenCabinetFabric(2, 'Шкаф навесной', '72×50×34', 2400),
+    this.kitchenCabinetFabric(3, 'Шкаф навесной', '72×60×34', 2575),
+    this.kitchenCabinetFabric(4, 'Шкаф навесной', '72×80×34', 2764),
+    this.kitchenCabinetFabric(5, 'Шкаф навесной угловой', '72×61×61', 3163),
+    this.kitchenCabinetFabric(6, 'Шкаф навесной низкий', '36×60×34', 1868),
+    this.kitchenCabinetFabric(7, 'Шкаф навесной низкий', '36×80×34', 2278),
+    this.kitchenCabinetFabric(8, 'Шкаф напольный', '82×40×53', 2405),
+    this.kitchenCabinetFabric(9, 'Шкаф напольный (2 ящика)', '82×40×53', 3884),
+    this.kitchenCabinetFabric(10, 'Шкаф напольный (3 ящика)', '82×40×53', 4325),
+    this.kitchenCabinetFabric(11, 'Шкаф напольный', '82×50×53', 2775),
+    this.kitchenCabinetFabric(12, 'Шкаф напольный', '82×60×53', 3248),
+    this.kitchenCabinetFabric(13, 'Шкаф напольный (1 ящик)', '82×60×53', 4060),
+    this.kitchenCabinetFabric(14, 'Шкаф напольный под духовку (1 ящик)', '82×60×53', 3189),
+    this.kitchenCabinetFabric(15, 'Шкаф напольный', '82×80×53', 3504),
+    this.kitchenCabinetFabric(16, 'Шкаф напольный угловой', '82×91×53', 4068),
+    this.kitchenCabinetFabric(17, 'Шкаф-пенал под духовку', '214×60×56', 5564),
+    this.kitchenCabinetFabric(18, 'Шкаф-пенал', '214×60×56', 7473)
+  ];
 
-  constructor(public galleryService: GalleryService, private kitchenCabinetService: KitchenCabinetService) {
-    this.dependencies = [
-      this.kitchenCabinetService,
-      this.galleryService
-    ];
+  private albums: Album[] = [
+    {
+      id: 375686981,
+      title: 'Кухонные шкафы',
+      description: '', products:
+        this.kitchenKabitents
+    }
+  ];
+
+  constructor(private productsOptionsService: ProductsOptionsService) {
     this.albums$ = this.fetchAlbums();
   }
 
-  public hideCards(linkToAlbumId: number) {
-    this.isLoading = linkToAlbumId !== this.currentAlbumId;
-  }
-
   private fetchAlbums(): Observable<Album[]> {
-    return combineLatest([this.kitchenCabinetService.albums$, this.galleryService.albums$])
-      .pipe(
-        map(([album1, album2]) => {
-          return [...album1, ...album2];
-        }),
-        tap((albums) => this.albums$ = of(albums)),
-        share()
-      );
+    return of(this.albums);
   }
 
-  public getServiceBy(albumId: number): ProductService {
-    return this.dependencies
-      .find(service => service.albums.find(serviceAlbum => serviceAlbum.id === albumId));
+  private parseShortSize(shortSize: string): Size {
+    const size = shortSize.split('×');
+    return {
+      height: +size[0],
+      width: +size[1],
+      depth: +size[2]
+    };
   }
 
-  public updateProductCards(albumId: number): ProductCard[] {
-    const serviceWithAlbum: ProductService = this.getServiceBy(albumId);
-    if (!serviceWithAlbum) {
-      return null;
-    }
-    this.currentAlbumId = albumId;
-    const currentAlbum: Album = serviceWithAlbum.albums.find(album => album.id === albumId);
-    const productCards: ProductCard[] = serviceWithAlbum.getProductCards(currentAlbum);
-    this.productCards$.next(productCards);
-    return productCards;
-  }
-
-  public updateProduct(albumId: number, productId: number): ProductCard {
-    const serviceWithAlbum: ProductService = this.getServiceBy(albumId);
-    const productCard: ProductCard = serviceWithAlbum && (serviceWithAlbum !== this.galleryService)
-      ? serviceWithAlbum.getProductCardBy(albumId, productId)
-      : null;
-    this.currentAlbumId = albumId;
-    this.currentProduct$.next(productCard);
-    this.isLoading = false;
-    return productCard;
+  private kitchenCabinetFabric(id: number, name: string, shortSize: string, price: number): Product {
+    const commonUrl = `./assets/images/products/kitchen-cabinets/${id}.jpg`;
+    const photoUrl: PhotoUrl = {
+      low: commonUrl,
+      high: commonUrl
+    };
+    const size: Size = this.parseShortSize(shortSize);
+    const options: ProductOptionAlbum[] =
+      this.productsOptionsService.getOptionAlbumsByTypes([OptionType.Skin, OptionType.Facade]);
+    return { id, name, size, price, photoUrl, options };
   }
 }
