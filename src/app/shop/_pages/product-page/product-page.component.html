@@ -14,13 +14,15 @@
         [disableRipple]='true'
         (click)='photoUrl = product.photoUrl.high'>Фото продукта</button>
     </div>
-    <mat-card  class='product-page__options-card'>
-      <app-product-options
-      *ngIf='product.options.length > 0' 
-      [optionAlbums]='product.options'
-      (check)='photoUrl = $event'>
-      </app-product-options>
-    </mat-card>
+    <div class='product-page__options-card-container'>
+      <mat-card class='product-page__options-card'>
+        <app-product-options
+        *ngIf='product.options.length > 0' 
+        [optionAlbums]='product.options'
+        (check)='photoUrl = $event'>
+        </app-product-options>
+      </mat-card>
+    </div>
     <mat-card class="product-page__total-card">
       <mat-card-title class="product-page__name">{{product.name}}</mat-card-title>
       <mat-card-content>

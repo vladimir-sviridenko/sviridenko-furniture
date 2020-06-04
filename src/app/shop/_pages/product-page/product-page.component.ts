@@ -2,8 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Product } from '@models/Product';
 import { take } from 'rxjs/operators';
 import { ShopFacadeService } from '@store/shop/shop.facade';
-import { PhotoUrl } from '@models/PhotoUrl';
-import { SelectedOption } from '@models/SelectedOption';
 import { ProductFacadeService } from '@store/product/product.facade';
 
 @Component({

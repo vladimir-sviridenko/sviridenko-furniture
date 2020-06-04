@@ -11,6 +11,11 @@
   align-items: flex-start;
   margin: 0 auto;
 
+  &__options-card {
+    padding: 0;
+    height: 45vh;
+  }
+
   &__image-card {
     display: flex;
     flex-flow: column nowrap;
@@ -43,10 +48,9 @@
     overflow: hidden;
   }
 
-  &__options-card {
+  &__options-card-container {
     flex: 1 0 100%;
     order: 2;
-    height: 45vh;
     margin-top: 0;
     margin-bottom: 10px;
     padding: 0;
@@ -124,11 +128,15 @@
       margin-left: - #{$update-button-height-mobile};
     }
 
-    &__options-card {
+    &__options-card-container {
       flex: 1 0 50%;
-      height: $image-width;
+      height: unset;
       margin-top: 10px;
       margin-left: - #{$update-button-height-mobile};
+    }
+
+    &__options-card {
+      height: $image-width;
     }
   }
 }
@@ -141,6 +149,10 @@
     max-height: 800px;
     min-height: 608px;
 
+    &__options-card { 
+      height: unset;
+    }
+
     &:after {
       display: none;
     }
@@ -150,10 +162,9 @@
       height: 320px;
     }
 
-    &__options-card {
+    &__options-card-container {
       order: 3;
       flex-basis: 100%;
-      height: 100%;
       width: calc(100% - 330px + #{$update-button-height-mobile});
     }
 
@@ -170,13 +181,12 @@
   .product-page {
     flex-flow: row wrap;
     justify-content: flex-start;
-    min-height: 320px;
-    height: 65vh;
+    min-height: unset;
 
-    &__options-card {
+    &__options-card-container {
       flex: 1 0 35%;
       order: 2;
-      height: 100%;
+      height: unset;
     }
 
     &__total-card {
