@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ProductOptionAlbum } from '@models/ProductOptionAlbum';
 import { OptionType } from '@models/enums/OptionType.enum';
-import { ProductOption } from '@models/ProductOption';
 import { SelectedOption } from '@models/SelectedOption';
 
 @Injectable()

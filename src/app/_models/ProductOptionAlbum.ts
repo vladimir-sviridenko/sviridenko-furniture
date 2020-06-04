@@ -1,10 +1,7 @@
-import { ProductOption } from './ProductOption';
 import { OptionType } from './enums/OptionType.enum';
+import { ProductOptionGroup } from './ProductOptionGroup';
 
 export interface ProductOptionAlbum {
   type: OptionType;
-  groups: {
-    name: string;
-    options: ProductOption[];
-  }[];
+  groups: ProductOptionGroup[];
 }

@@ -165,6 +165,7 @@
     &__options-card-container {
       order: 3;
       flex-basis: 100%;
+      min-height: 320px;
       width: calc(100% - 330px + #{$update-button-height-mobile});
     }
 

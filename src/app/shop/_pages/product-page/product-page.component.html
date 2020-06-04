@@ -1,9 +1,9 @@
 <div class="shop__product-page">
-  <button mat-stroked-button class='product-page__button product-page__button_back'
+  <button mat-stroked-button class="product-page__button product-page__button_back"
   [routerLink]='["/shop", (this.shopFacadeService.currentAlbum$ | async).id ]'>
   <span>Показать ещё {{(this.shopFacadeService.currentAlbum$ | async).title | lowercase}}</span>
   </button>
-  <div class='product-page' *ngIf='!(this.shopFacadeService.isShopLoading$ | async)'>
+  <div class="product-page" *ngIf='!(this.shopFacadeService.isShopLoading$ | async)'>
     <div class="product-page__image-card">
       <mat-card class="product-page__image">
         <app-lazy-image [title]='product.name' [src]='photoUrl'></app-lazy-image>
@@ -17,9 +17,9 @@
     <div class='product-page__options-card-container'>
       <mat-card class='product-page__options-card'>
         <app-product-options
-        *ngIf='product.options.length > 0' 
-        [optionAlbums]='product.options'
-        (check)='photoUrl = $event'>
+          *ngIf='product.options.length > 0'
+          [optionAlbums]='product.options'
+          (check)='photoUrl = $event'>
         </app-product-options>
       </mat-card>
     </div>
