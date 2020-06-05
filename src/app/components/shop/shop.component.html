@@ -1,0 +1,39 @@
+<div class="shop">
+  <app-header></app-header>
+  <div class="shop__navigation">
+    <ng-container *ngTemplateOutlet="navBar"></ng-container>
+  </div>
+  <mat-accordion class="shop__navigation-mobile" [hideToggle]="true">
+    <mat-expansion-panel class="shop__panel" #panel>
+      <mat-expansion-panel-header 
+          class="shop__panel-header"
+          [expandedHeight]="'40px'" 
+          [collapsedHeight]="'40px'">
+          <mat-panel-title class="shop__panel-title" aria-label="Categories">
+            <div>Категории</div>
+            <mat-icon>view_module</mat-icon>
+          </mat-panel-title>
+      </mat-expansion-panel-header>
+      <ng-container *ngTemplateOutlet="navBar"></ng-container>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <mat-spinner class="shop__loader" [diameter]='50'
+    	*ngIf='shopFacadeService.isShopLoading$ | async'></mat-spinner>
+  <router-outlet></router-outlet>
+</div>
+
+<ng-template #navBar>
+  <mat-toolbar class="shop__buttons" color="primary">
+    <button mat-stroked-button
+				*ngFor="let album of shopFacadeService.albums$ | async"
+				(click)="panel.close()"
+				[routerLink]="['/shop', album.id]"
+				[matBadge]='album.products[0].price ? "Онлайн" : "Под заказ"'
+				matBadgeSize="small"
+				[routerLink]="['/shop', album.id]"
+				class="shop__link"
+				[class.shop__link_online-product] = "album.products[0].price">
+			{{album.title}}
+		</button>
+  </mat-toolbar>
+</ng-template>

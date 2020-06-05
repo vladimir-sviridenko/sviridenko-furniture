@@ -1,0 +1,47 @@
+<div class="request-call">
+  <form class="request-call__form" novalidate 
+  	  [formGroup]="requestCallForm" 
+      (ngSubmit)="requestCall($event)">
+    <div mat-dialog-title>Заказать звонок?</div>
+    <mat-form-field appearance="outline" class="request-call__form-field">
+      <mat-label>Ваше имя</mat-label>
+      <input formControlName="userName" name="userName" matInput>
+      <mat-error>
+        Пожалуйста введите имя.
+      </mat-error>
+      <mat-icon matSuffix>person</mat-icon>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="request-call__form-field">
+      <mat-label>Ваш телефон</mat-label>
+      <input formControlName="userPhone" name="userPhone" matInput>
+      <mat-error 
+          *ngIf="requestCallForm.get('userPhone').hasError('pattern') 
+            && !requestCallForm.get('userPhone').hasError('required')">
+        Некорректный номер.
+      </mat-error>
+      <mat-error *ngIf="requestCallForm.get('userPhone').hasError('required')">
+        Пожалуйста введите номер.
+      </mat-error>
+      <mat-icon matSuffix>phone</mat-icon>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="request-call__form-field">
+      <mat-label>Email</mat-label>
+      <input formControlName="userEmail" name="userEmail" matInput>
+      <mat-error 
+          *ngIf="requestCallForm.get('userEmail').hasError('pattern') 
+            && !requestCallForm.get('userEmail').hasError('required')">
+        Некорректный email.
+      </mat-error>
+      <mat-error *ngIf="requestCallForm.get('userEmail').hasError('required')">
+        Пожалуйста введите email.
+      </mat-error>
+      <mat-icon matSuffix>email</mat-icon>
+    </mat-form-field>
+    <input formControlName="productPhotoUrl" name="productPhotoUrl" type="hidden">
+    <mat-progress-bar mode="buffer" [style.visibility]="isLoading ? 'visible' : 'hidden'"></mat-progress-bar>
+    <mat-dialog-actions>
+      <button mat-flat-button color="primary" [disabled]="requestCallForm.invalid || isLoading">Заказать</button>
+      <button mat-stroked-button [mat-dialog-close]="undefined" [disabled]="isLoading">Отмена</button>
+    </mat-dialog-actions>
+  </form>
+</div>

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ShopFacadeService } from '@store/shop/shop.facade';
 
 @Component({
   selector: 'app-root',

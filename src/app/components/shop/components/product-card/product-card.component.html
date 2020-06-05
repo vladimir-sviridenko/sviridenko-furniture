@@ -1,0 +1,38 @@
+<mat-card class="product-card">
+  <div mat-card-image class="product-card__image-container">
+    <img class="product-card__image"
+        alt="Furniture Photo"
+        (load)="imageLoad.emit(true)" 
+        (error)="imageLoad.emit(false)" 
+        [attr.src]="product.photoUrl.low">
+  </div>
+  <mat-card-header>
+    <mat-card-title *ngIf="product.name">
+      {{product.name}}
+    </mat-card-title>
+    <mat-card-subtitle *ngIf="product.size">
+      <span>Размер: {{product.size | size}}</span>
+    </mat-card-subtitle>
+    <mat-card-title class="product-card__price" *ngIf="product.price">
+        {{product.price | currency:"RUB":"code":"4.0":"ru"}}
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-actions class="product-card__actions" *ngIf="product.price">
+    <button mat-flat-button class="product-card__button" color="primary">
+      В корзину
+    </button>
+    <button mat-stroked-button class="product-card__button" color="primary" 
+        [routerLink]="['/shop', albumId, product.id]">
+      Подробнее
+    </button>
+  </mat-card-actions>
+  <mat-card-actions class="product-card__actions" *ngIf="!product.price">
+    <button mat-flat-button class="product-card__button" color="primary" 
+        (click)="openRequestCallDialog()">
+        Заказать звонок
+    </button>
+    <button mat-stroked-button class="product-card__button" color="primary">
+      Открыть фото
+    </button>
+  </mat-card-actions>
+</mat-card>
