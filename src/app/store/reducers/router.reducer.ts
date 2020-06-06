@@ -1,8 +1,9 @@
 import { Params, Data } from '@angular/router';
 import { RouterReducerState } from '@ngrx/router-store';
 import { routerReducer } from '@ngrx/router-store';
+import { ActionReducer } from '@ngrx/store';
 
-interface MergedRouter {
+export interface MergedRouter {
   url: string;
   queryParams: Params;
   params: Params;
@@ -11,4 +12,4 @@ interface MergedRouter {
 
 export type RouterState = RouterReducerState<MergedRouter>;
 
-export const reducer = routerReducer;
+export const reducer: ActionReducer<RouterState> = routerReducer;

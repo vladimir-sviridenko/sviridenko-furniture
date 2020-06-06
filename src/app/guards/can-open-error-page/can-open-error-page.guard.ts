@@ -5,16 +5,16 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class CanOpenErrorPageGuard implements CanActivate {
 
-  public isErrorThrown = false;
+	public isErrorThrown: boolean = false;
 
-  constructor(private router: Router) { }
+	constructor(private router: Router) { }
 
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (!this.isErrorThrown) {
-      this.router.navigate(['']);
-    }
-    return this.isErrorThrown;
-  }
+	public canActivate(
+		next: ActivatedRouteSnapshot,
+		state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+		if (!this.isErrorThrown) {
+			this.router.navigate(['']);
+		}
+		return this.isErrorThrown;
+	}
 }

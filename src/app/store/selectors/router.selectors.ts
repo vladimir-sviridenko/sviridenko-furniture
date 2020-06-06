@@ -1,9 +1,6 @@
-import { createFeatureSelector } from '@ngrx/store';
+import { createFeatureSelector, MemoizedSelector } from '@ngrx/store';
 import { RouterState } from '../reducers/router.reducer';
-import * as fromRouter from '@ngrx/router-store';
-import { AppState } from '..';
+import { AppState, FeatureKey } from '..';
 
-export const selectRouterState =  createFeatureSelector<AppState, RouterState>('router');
-
-export const selectRouteParam = fromRouter.getSelectors(selectRouterState);
-
+export const selectRouterState: MemoizedSelector<AppState, RouterState>
+	= createFeatureSelector<AppState, RouterState>(FeatureKey.Router);

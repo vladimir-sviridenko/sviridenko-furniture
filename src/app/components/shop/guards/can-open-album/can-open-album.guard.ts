@@ -9,28 +9,28 @@ import { Album } from '@shop/models/Album';
 @Injectable()
 export class CanOpenAlbumGuard implements CanActivate {
 
-  private albums$: ReplaySubject<Album[]> = new ReplaySubject<Album[]>();
+	private albums$: ReplaySubject<Album[]> = new ReplaySubject<Album[]>();
 
-  constructor(private shopFacadeService: ShopFacadeService, private router: Router, private shopEffects: ShopEffects) {
-    this.shopFacadeService.albums$.pipe(take(2), filter((albums) => !!albums)).subscribe(this.albums$);
-  }
+	constructor(private shopFacadeService: ShopFacadeService, private router: Router, private shopEffects: ShopEffects) {
+		this.shopFacadeService.albums$.pipe(take(2), filter((albums: Album[]) => !!albums)).subscribe(this.albums$);
+	}
 
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const albumId: number = parseInt(next.params.albumId, 10);
+	public canActivate(
+		next: ActivatedRouteSnapshot,
+		state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+		const albumId: number = parseInt(next.params.albumId, 10);
 
-    return this.albums$.pipe(
-      map((albums) => {
-        for (const album of albums) {
-          if (album.id === albumId) {
-            this.shopFacadeService.changeCurrentAlbum(album);
-            return true;
-          }
-        }
-        this.router.navigate(['/404']);
-        return false;
-      })
-    );
-  }
+		return this.albums$.pipe(
+			map((albums: Album[]) => {
+				for (const album of albums) {
+					if (album.id === albumId) {
+						this.shopFacadeService.changeCurrentAlbum(album);
+						return true;
+					}
+				}
+				this.router.navigate(['/404']);
+				return false;
+			})
+		);
+	}
 }

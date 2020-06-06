@@ -1,6 +1,6 @@
 import { ProductOption } from './ProductOption';
 
 export interface ProductOptionGroup {
-  name: string;
-  options: ProductOption[];
+	name: string;
+	options: ProductOption[];
 }

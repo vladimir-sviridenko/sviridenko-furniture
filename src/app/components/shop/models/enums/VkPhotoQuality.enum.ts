@@ -1,5 +1,5 @@
 export enum VkPhotoQuality {
-  Low = 'x',
-  Medium = 'y',
-  Large = 'z'
+	Low = 'x',
+	Medium = 'y',
+	Large = 'z'
 }

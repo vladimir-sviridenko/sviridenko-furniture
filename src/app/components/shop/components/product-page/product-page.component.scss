@@ -12,8 +12,8 @@
   margin: 0 auto;
 
   &__options-card {
-    padding: 0;
     height: 45vh;
+    padding: 0;
   }
 
   &__image-card {
@@ -43,8 +43,8 @@
     flex-direction: column;
     order: 3;
     box-sizing: border-box;
-    margin-bottom: 10px;
     max-height: 430px;
+    margin-bottom: 10px;
     overflow: hidden;
   }
 
@@ -146,10 +146,10 @@
     flex-flow: column wrap;
     justify-content: flex-start;
     align-items: flex-start;
-    max-height: 800px;
     min-height: 608px;
+    max-height: 800px;
 
-    &__options-card { 
+    &__options-card {
       height: unset;
     }
 
@@ -163,10 +163,10 @@
     }
 
     &__options-card-container {
-      order: 3;
       flex-basis: 100%;
-      min-height: 320px;
+      order: 3;
       width: calc(100% - 330px + #{$update-button-height-mobile});
+      min-height: 320px;
     }
 
     &__total-card {

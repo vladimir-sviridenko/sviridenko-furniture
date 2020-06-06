@@ -66,7 +66,7 @@ $image-margin_facade: 5px;
   &::ng-deep .mat-tab-body-wrapper {
     height: calc(100% - #{$update-button-height-mobile});
   }
-  
+
   &::ng-deep .mat-expansion-panel-body {
     padding: 0;
   }

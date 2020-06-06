@@ -1,5 +1,4 @@
 export interface PhotoUrl {
-  low: string;
-  high: string;
+	low: string;
+	high: string;
 }
-

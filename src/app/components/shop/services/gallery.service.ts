@@ -17,125 +17,125 @@ import { PhotoUrl } from '@shop/models/PhotoUrl';
 @Injectable()
 export class GalleryService {
 
-  public vkAlbums: VkAlbum[];
+	private baseUrl: string = 'https://api.vk.com/method/';
+	private ownerId: number = -184311662;
+	private accessToken: string = '797c1fca797c1fca797c1fca1e790dc5257797c797c1fca27c62cecb8dcd6ce6f9cf236';
+	private apiVersion: number = 5.103;
 
-  public productAlbums$: Observable<Album[]>;
+	public vkAlbums: VkAlbum[];
 
-  private baseUrl = 'https://api.vk.com/method/';
-  private ownerId = -184311662;
-  private accessToken = '797c1fca797c1fca797c1fca1e790dc5257797c797c1fca27c62cecb8dcd6ce6f9cf236';
-  private apiVersion = 5.103;
+	public productAlbums$: Observable<Album[]>;
 
-  private get emptyVkResponse() {
-    const emptyVkResponse = {
-      response: {
-        count: 0,
-        items: []
-      }
-    };
-    return emptyVkResponse;
-  }
+	private get emptyVkResponse(): VkResponse<any> {
+		const emptyVkResponse: VkResponse<any> = {
+			response: {
+				count: 0,
+				items: []
+			}
+		};
+		return emptyVkResponse;
+	}
 
-  constructor(private http: HttpClient) {
-    this.productAlbums$ = this.fetchAlbums();
-  }
+	constructor(private http: HttpClient) {
+		this.productAlbums$ = this.fetchAlbums();
+	}
 
-  private getProductPhotoUrl(photo: VkPhoto): PhotoUrl {
-    function getVkPhotoSize(sizeType: VkPhotoQuality): VkPhotoSize {
-      return photo.sizes.find((size: VkPhotoSize) => size.type === sizeType);
-    }
+	private getProductPhotoUrl(photo: VkPhoto): PhotoUrl {
+		function getVkPhotoSize(sizeType: VkPhotoQuality): VkPhotoSize {
+			return photo.sizes.find((size: VkPhotoSize) => size.type === sizeType);
+		}
 
-    const photoLowSize: VkPhotoSize = (photo.sizes[0].width > photo.sizes[0].height)
-      ? getVkPhotoSize(VkPhotoQuality.Medium)
-      : getVkPhotoSize(VkPhotoQuality.Low);
+		const photoLowSize: VkPhotoSize = (photo.sizes[0].width > photo.sizes[0].height)
+			? getVkPhotoSize(VkPhotoQuality.Medium)
+			: getVkPhotoSize(VkPhotoQuality.Low);
 
-    const photoUrl: PhotoUrl = {
-      low: photoLowSize.url,
-      high: getVkPhotoSize(VkPhotoQuality.Large).url,
-    };
+		const photoUrl: PhotoUrl = {
+			low: photoLowSize.url,
+			high: getVkPhotoSize(VkPhotoQuality.Large).url,
+		};
 
-    return photoUrl;
-  }
+		return photoUrl;
+	}
 
-  public getProductsFrom(album: VkAlbum): Product[] {
-    return album.photos.map((photo) => {
-      const productCard: Product = {
-        id: photo.id,
-        name: photo.text || '',
-        size: null,
-        price: null,
-        photoUrl: this.getProductPhotoUrl(photo),
-        options: [],
-        selectedOptions: []
-      };
-      return productCard;
-    });
-  }
+	private generateVkRequestUrl(method: string, params: VkRequest): string {
+		let url: string = `${this.baseUrl}${method}?`;
+		for (const [key, value] of Object.entries(params)) {
+			url += `${key}=${value}&`;
+		}
+		return url;
+	}
 
-  private generateVkRequestUrl(method: string, params: VkRequest): string {
-    let url: string = this.baseUrl + method + '?';
-    for (const [key, value] of Object.entries(params)) {
-      url += `${key}=${value}&`;
-    }
-    return url;
-  }
+	private fetchPhotosInto(album: VkAlbum): Observable<VkAlbum> {
+		const url: string = this.generateVkRequestUrl('photos.get', {
+			owner_id: this.ownerId,
+			album_id: album.id,
+			access_token: this.accessToken,
+			v: this.apiVersion
+		});
 
-  private fetchPhotosInto(album: VkAlbum): Observable<VkAlbum> {
-    const url = this.generateVkRequestUrl('photos.get', {
-      owner_id: this.ownerId,
-      album_id: album.id,
-      access_token: this.accessToken,
-      v: this.apiVersion
-    });
+		return this.http.jsonp(url, 'callback').pipe(
+			catchError((): Observable<VkResponse<VkPhoto[]>> => of(this.emptyVkResponse)),
+			map((vkResponse: VkResponse<VkPhoto[]>) => vkResponse.response.items),
+			map((photos: VkPhoto[]) => {
+				photos.forEach((photo: VkPhoto) => {
+					album.photos.push({
+						id: photo.id,
+						sizes: photo.sizes,
+						text: photo.text
+					});
+				});
+				return album;
+			}),
+		);
+	}
 
-    return this.http.jsonp(url, 'callback').pipe(
-      catchError((): Observable<VkResponse<VkPhoto[]>> => of(this.emptyVkResponse)),
-      map((vkResponse: VkResponse<VkPhoto[]>) => vkResponse.response.items),
-      map((photos: VkPhoto[]) => {
-        photos.forEach(photo => {
-          album.photos.push({
-            id: photo.id,
-            sizes: photo.sizes,
-            text: photo.text
-          });
-        });
-        return album;
-      }),
-    );
-  }
+	public getProductsFrom(album: VkAlbum): Product[] {
+		return album.photos.map((photo: VkPhoto) => {
+			const productCard: Product = {
+				id: photo.id,
+				name: Boolean(photo.text) ? photo.text : '',
+				size: null,
+				price: null,
+				photoUrl: this.getProductPhotoUrl(photo),
+				options: [],
+				selectedOptions: []
+			};
+			return productCard;
+		});
+	}
 
-  public fetchAlbums(): Observable<Album[]> {
-    const url = this.generateVkRequestUrl('photos.getAlbums', {
-      owner_id: this.ownerId,
-      access_token: this.accessToken,
-      v: this.apiVersion
-    });
+	public fetchAlbums(): Observable<Album[]> {
+		const url: string = this.generateVkRequestUrl('photos.getAlbums', {
+			owner_id: this.ownerId,
+			access_token: this.accessToken,
+			v: this.apiVersion
+		});
 
-    return this.http.jsonp(url, 'callback').pipe(
-      catchError((): Observable<VkResponse<VkAlbum[]>> => of(this.emptyVkResponse)),
-      map((vkResponse: VkResponse<VkAlbum[]>) => {
-        const albums = vkResponse.response.items;
-        return albums.map((album: VkAlbum) => {
-          album.photos = [];
-          return album;
-        });
-      }),
-      mergeMap((albums: VkAlbum[]) => {
-        return (albums.length === 0) ? of([]) : forkJoin(albums.map(album => this.fetchPhotosInto(album)));
-      }),
-      tap((albums: VkAlbum[]) => this.vkAlbums = albums),
-      map((albums: VkAlbum[]) => {
-        const productAlbums = [];
-        albums.forEach((album: VkAlbum) => {
-          productAlbums.push({
-            id: album.id,
-            title: album.title,
-            description: album.description,
-            products: this.getProductsFrom(album)
-          });
-        });
-        return productAlbums;
-      })
-    );
-  }
+		return this.http.jsonp(url, 'callback').pipe(
+			catchError((): Observable<VkResponse<VkAlbum[]>> => of(this.emptyVkResponse)),
+			map((vkResponse: VkResponse<VkAlbum[]>) => {
+				const albums: VkAlbum[] = vkResponse.response.items;
+				return albums.map((album: VkAlbum) => {
+					album.photos = [];
+					return album;
+				});
+			}),
+			mergeMap((albums: VkAlbum[]) => {
+				return (albums.length === 0) ? of([]) : forkJoin(albums.map((album: VkAlbum) => this.fetchPhotosInto(album)));
+			}),
+			tap((albums: VkAlbum[]) => this.vkAlbums = albums),
+			map((albums: VkAlbum[]) => {
+				const productAlbums: Album[] = [];
+				albums.forEach((album: VkAlbum) => {
+					productAlbums.push({
+						id: album.id,
+						title: album.title,
+						description: album.description,
+						products: this.getProductsFrom(album)
+					});
+				});
+				return productAlbums;
+			})
+		);
+	}
 }

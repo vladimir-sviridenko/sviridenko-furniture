@@ -5,6 +5,7 @@
   flex-flow: wrap;
   justify-content: flex-end;
   margin-left: -40px;
+	user-select: none;
 
   &__dialog-title {
     display: none;
@@ -35,7 +36,7 @@
     margin-bottom: 5px;
     margin-left: 5px;
 
-    line-height: 25px;
+    line-height: 24px;
 
     background-color: white;
     border-radius: 50px;

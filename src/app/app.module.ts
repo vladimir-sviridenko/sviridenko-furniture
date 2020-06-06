@@ -11,22 +11,22 @@ import { GlobalErrorHandler } from './interceptors/global-error-handler/global-e
 
 @NgModule({
   declarations: [
-    AppComponent,
-    ErrorComponent,
+		AppComponent,
+		ErrorComponent,
   ],
   imports: [
-    BrowserModule,
-    ShopModule,
-    AppRoutingModule,
-    ...MaterialModules,
+	  BrowserModule,
+		ShopModule,
+		AppRoutingModule,
+  	...MaterialModules,
   ],
   providers: [
-    {
-      provide: ErrorHandler,
-      useClass: GlobalErrorHandler
-    },
-    CanOpenErrorPageGuard
+  {
+  	provide: ErrorHandler,
+  	useClass: GlobalErrorHandler
+  },
+  	CanOpenErrorPageGuard
   ],
-  bootstrap: [AppComponent]
+		bootstrap: [AppComponent]
 })
 export class AppModule { }

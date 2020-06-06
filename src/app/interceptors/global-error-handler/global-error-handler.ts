@@ -5,14 +5,14 @@ import { CanOpenErrorPageGuard } from 'src/app/guards/can-open-error-page/can-op
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler {
 
-  constructor(private router: Router, private canOpenErrorPageGuard: CanOpenErrorPageGuard, private zone: NgZone) { }
+	constructor(private router: Router, private canOpenErrorPageGuard: CanOpenErrorPageGuard, private zone: NgZone) { }
 
-  handleError(error: Error) {
-    this.canOpenErrorPageGuard.isErrorThrown = true;
-    this.zone.run(() => this.router.navigate(['/error']));
-    //  todo: send message to my email
-    console.log(error.name);
-    console.log(error.message);
-    console.log(error.stack);
-  }
+	public handleError(error: Error): void {
+		this.canOpenErrorPageGuard.isErrorThrown = true;
+		this.zone.run(() => this.router.navigate(['/error']));
+		//  todo: send message to my email
+		console.log(error.name);
+		console.log(error.message);
+		console.log(error.stack);
+	}
 }

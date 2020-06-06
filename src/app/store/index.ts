@@ -8,22 +8,23 @@ import { ProductState } from './state/product.state';
 import { ShopState } from './state/shop.state';
 import { CartState } from './state/cart.state';
 
-export const shopFeatureKey = 'shop';
-export const productFeatureKey = 'product';
-export const cartFeatureKey = 'cart';
-export const routerFeatureKey = 'router';
+export const enum FeatureKey {
+  Shop = 'shop',
+  Product = 'product',
+  Cart = 'cart',
+  Router = 'router'
+}
 
 export interface AppState {
-  [shopFeatureKey]: ShopState;
-  [productFeatureKey]: ProductState;
-  [cartFeatureKey]: CartState;
-  [routerFeatureKey]: RouterState;
+  [FeatureKey.Shop]: ShopState;
+  [FeatureKey.Product]: ProductState;
+  [FeatureKey.Cart]: CartState;
+  [FeatureKey.Router]: RouterState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
-  [shopFeatureKey]: shopReducer,
-  [productFeatureKey]: productReducer,
-  [cartFeatureKey]: cartReducer,
-  [routerFeatureKey]: routerReducer
+  [FeatureKey.Shop]: shopReducer,
+  [FeatureKey.Product]: productReducer,
+  [FeatureKey.Cart]: cartReducer,
+  [FeatureKey.Router]: routerReducer
 };
-

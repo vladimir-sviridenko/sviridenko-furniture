@@ -13,7 +13,7 @@
           [disabled]="photoUrl === product.photoUrl.high"
           [disableRipple]="true"
           (click)="photoUrl = product.photoUrl.high">
-          Фото продукта
+        Фото продукта
       </button>
     </div>
     <div class="product-page__options-card-container">
@@ -27,7 +27,7 @@
     </div>
     <mat-card class="product-page__total-card">
       <mat-card-title class="product-page__name">
-        {{product.name}}
+        <span>{{product.name}}</span>
       </mat-card-title>
       <mat-card-content>
         <table class="product-page__table">
@@ -51,9 +51,12 @@
           </tr>
         </table>
       </mat-card-content>
-      <mat-card-title class="product-page__price">Итого: {{product.price | currency:"RUB":"code":"4.0":"ru"}}</mat-card-title>
+			<mat-card-title class="product-page__price">
+				<span>Итого:</span> 
+				<span>{{product.price | currency:"RUB":"code":"4.0":"ru"}}</span>
+			</mat-card-title>
       <mat-card-actions class="product-page__actions">
-        <button mat-flat-button  class="product-page__button"  *ngIf="product.price" color="primary">В корзину</button>
+				<button mat-flat-button  class="product-page__button"  *ngIf="product.price" color="primary">В корзину</button>
       </mat-card-actions>
     </mat-card>
   </div>

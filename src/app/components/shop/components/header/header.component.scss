@@ -5,7 +5,7 @@
 }
 
 .header {
-  overflow: hidden;
+	overflow: hidden;
 
   &__container {
     display: flex;
@@ -22,19 +22,24 @@
     max-width: 310px;
     min-height: 48px;
 
-    justify-items: center;
+		justify-items: center;
   }
 
   &__logo {
     display: inline-block;
-    margin-right: 10px;
+		margin-right: 10px;
   }
 
   &__location {
-    line-height: 25px;
+    line-height: 24px;
 
     background-color: white;
     border-radius: 50px;
+		cursor: default;
+
+		::ng-deep .mat-button-focus-overlay {
+			background-color: white;
+		}
   }
 
   &__contacts {

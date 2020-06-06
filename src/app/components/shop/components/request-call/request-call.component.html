@@ -7,7 +7,7 @@
       <mat-label>Ваше имя</mat-label>
       <input formControlName="userName" name="userName" matInput>
       <mat-error>
-        Пожалуйста введите имя.
+				<span>Пожалуйста введите имя.</span>
       </mat-error>
       <mat-icon matSuffix>person</mat-icon>
     </mat-form-field>
@@ -17,10 +17,10 @@
       <mat-error 
           *ngIf="requestCallForm.get('userPhone').hasError('pattern') 
             && !requestCallForm.get('userPhone').hasError('required')">
-        Некорректный номер.
+        <span>Некорректный номер.</span>
       </mat-error>
       <mat-error *ngIf="requestCallForm.get('userPhone').hasError('required')">
-        Пожалуйста введите номер.
+        <span>Пожалуйста введите номер.</span>
       </mat-error>
       <mat-icon matSuffix>phone</mat-icon>
     </mat-form-field>
@@ -30,10 +30,10 @@
       <mat-error 
           *ngIf="requestCallForm.get('userEmail').hasError('pattern') 
             && !requestCallForm.get('userEmail').hasError('required')">
-        Некорректный email.
+				<span>Некорректный email.</span>
       </mat-error>
       <mat-error *ngIf="requestCallForm.get('userEmail').hasError('required')">
-        Пожалуйста введите email.
+				<span>Пожалуйста введите email.</span>
       </mat-error>
       <mat-icon matSuffix>email</mat-icon>
     </mat-form-field>

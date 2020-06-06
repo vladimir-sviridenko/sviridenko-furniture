@@ -1,15 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { ShopFacadeService } from '@store/facades/shop.facade';
 
 @Component({
-  selector: 'app-shop',
-  templateUrl: './shop.component.html',
-  styleUrls: ['./shop.component.scss']
+	selector: 'app-shop',
+	templateUrl: './shop.component.html',
+	styleUrls: ['./shop.component.scss']
 })
-export class ShopComponent implements OnInit {
+export class ShopComponent {
 
-  constructor(public shopFacadeService: ShopFacadeService) {}
-
-  ngOnInit(): void {}
+	constructor(public shopFacadeService: ShopFacadeService) {}
 }

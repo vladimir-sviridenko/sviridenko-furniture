@@ -32,48 +32,50 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { ProductsOptionsService } from 'src/app/components/shop/services/products-options.service';
 import { ProductPageComponent } from './components/product-page/product-page.component';
 import { ProductsTableComponent } from './components/products-table/products-table.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 import { reducers } from '@store/.';
 
 import ru from '@angular/common/locales/ru';
 
 @NgModule({
-  declarations: [
-    HeaderComponent,
-    ContactsComponent,
-    ShopComponent,
-    ProductCardComponent,
-    ProductPageComponent,
-    ProductsTableComponent,
-    LazyImageComponent,
-    ProductOptionsComponent,
-    RequestCallComponent,
-    CartComponent,
-    SizePipe
-  ],
-  imports: [
-    CommonModule,
-    ShopRoutingModule,
-    HttpClientModule,
-    HttpClientJsonpModule,
-    ReactiveFormsModule,
-    ...MaterialModules,
-    StoreModule.forRoot(reducers),
-    StoreRouterConnectingModule.forRoot(),
-    EffectsModule.forRoot([ShopEffects]),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
-  ],
-  providers: [
-    GalleryService,
-    ProductsService,
-    ProductsOptionsService,
-    EmailService,
-    CanOpenProductGuard,
-    CanOpenAlbumGuard
-  ],
-  bootstrap: [ShopComponent]
+	declarations: [
+		HeaderComponent,
+		ContactsComponent,
+		ShopComponent,
+		ProductCardComponent,
+		ProductPageComponent,
+		ProductsTableComponent,
+		LazyImageComponent,
+		ProductOptionsComponent,
+		RequestCallComponent,
+		CartComponent,
+		SizePipe,
+		NotFoundComponent,
+	],
+	imports: [
+		CommonModule,
+		ShopRoutingModule,
+		HttpClientModule,
+		HttpClientJsonpModule,
+		ReactiveFormsModule,
+		...MaterialModules,
+		StoreModule.forRoot(reducers),
+		StoreRouterConnectingModule.forRoot(),
+		EffectsModule.forRoot([ShopEffects]),
+		StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
+	],
+	providers: [
+		GalleryService,
+		ProductsService,
+		ProductsOptionsService,
+		EmailService,
+		CanOpenProductGuard,
+		CanOpenAlbumGuard
+	],
+	bootstrap: [ShopComponent]
 })
 export class ShopModule {
-  constructor() {
-    registerLocaleData(ru);
-  }
+	constructor() {
+		registerLocaleData(ru);
+	}
 }

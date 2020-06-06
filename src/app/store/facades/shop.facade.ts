@@ -8,30 +8,30 @@ import { AppState } from '..';
 import { Album } from '@shop/models/Album';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class ShopFacadeService {
-  constructor(private store: Store<AppState>) {
-    this.store.dispatch(ActionShop.initializeAlbums());
-  }
+	constructor(private store: Store<AppState>) {
+		this.store.dispatch(ActionShop.initializeAlbums());
+	}
 
-  public get albums$(): Observable<Album[]> {
-    return this.store.select(SelectorShop.selectAlbums);
-  }
+	public get albums$(): Observable<Album[]> {
+		return this.store.select(SelectorShop.selectAlbums);
+	}
 
-  public get currentAlbum$(): Observable<Album> {
-    return this.store.select(SelectorShop.selectCurrentAlbum);
-  }
+	public get currentAlbum$(): Observable<Album> {
+		return this.store.select(SelectorShop.selectCurrentAlbum);
+	}
 
-  public get isShopLoading$(): Observable<boolean> {
-    return this.store.select(SelectorShop.selectIsShopLoading);
-  }
+	public get isShopLoading$(): Observable<boolean> {
+		return this.store.select(SelectorShop.selectIsShopLoading);
+	}
 
-  public changeCurrentAlbum(album: Album): void {
-    this.store.dispatch(ActionShop.changeCurrentAlbum({ album }));
-  }
+	public changeCurrentAlbum(album: Album): void {
+		this.store.dispatch(ActionShop.changeCurrentAlbum({ album }));
+	}
 
-  public hideShopLoader(): void {
-    this.store.dispatch(ActionShop.hideShopLoader());
-  }
+	public hideShopLoader(): void {
+		this.store.dispatch(ActionShop.hideShopLoader());
+	}
 }
