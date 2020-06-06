@@ -1,0 +1,44 @@
+<div class="contacts">
+  <div mat-dialog-title class="contacts__dialog-title">
+    <span>Контакты</span>
+  </div>
+  <h1 mat-stroked-button class="contacts__location">
+    <span>Москва и МО</span>
+  </h1>
+  <div class="contacts__phones">
+    <mat-icon class="contacts__icon" aria-label="Contact phones">call</mat-icon>
+    <a mat-stroked-button class="contacts__link" 
+        href="tel:+79256118364">
+      <span>+7 925 611-83-64</span>
+    </a>
+    <a mat-stroked-button class="contacts__link"  
+        href="tel:+79060932758">
+			<span>+7 906 093-27-58</span>
+    </a>
+  </div> 
+  <mat-divider></mat-divider>
+  <div class="contacts__social">
+    <mat-icon class="contacts__icon" aria-label="Contact soicail networks">local_post_office</mat-icon> 
+    <a mat-stroked-button class="contacts__link" 
+        href="email:n.n.lis@yandex.ru">
+			<span>n.n.lis@yandex.ru</span>
+    </a>
+    <a mat-stroked-button class="contacts__link" 
+        href="https://wa.me/79256118364" 
+        target="_blank"
+        rel="noopener noreferrer">
+			<span>WhatsApp</span>
+    </a>
+    <a mat-stroked-button class="contacts__link" 
+        href="https://vk.com/sviridenko_furniture" 
+        target="_blank"
+        rel="noopener noreferrer">
+      <span>Вконтакте</span>
+    </a>
+  </div>
+  <button mat-icon-button class="contacts__close-button" 
+      [mat-dialog-close]='undefined' 
+      aria-label="Close contacts dialog">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>

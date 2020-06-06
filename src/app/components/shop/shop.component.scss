@@ -1,0 +1,110 @@
+@import "variables";
+
+.shop {
+  background-color: $backgroun-color-primary;
+
+  &__buttons {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    height: auto;
+    min-height: 60px;
+    margin-right: -10px;
+    padding: 8px 9px 8px 15px;
+  }
+
+  &__navigation {
+    display: block;
+  }
+
+  &__navigation-mobile {
+    display: none;
+  }
+
+  &__link {
+    flex: 1 0 auto;
+    max-width: 300px;
+    margin: 6px 0;
+    margin-right: 10px;
+
+    line-height: 30px;
+
+    border-color: white;
+
+    transition: background-color 0.3s;
+    &:hover {
+      background-color: transparentize($color: black, $amount: 0.9);
+    }
+
+    &.mat-badge-small::ng-deep .mat-badge-content {
+      top: -4px;
+      right: -6px;
+
+      width: auto;
+      height: 8px;
+
+      line-height: 8px;
+
+      border-radius: 0;
+    }
+
+    &_online-product {
+      &.mat-badge-small::ng-deep .mat-badge-content {
+        color: $color-accent;
+      }
+    }
+  }
+
+  &__loader {
+    margin: 30vh auto;
+  }
+}
+
+@media screen and (max-width: map-get($breakpoints, mobile) - 1) {
+  .shop {
+    &__buttons {
+      border-top: 1px solid white;
+    }
+
+    &__navigation {
+      display: none;
+    }
+
+    &__navigation-mobile {
+      display: block;
+
+      &::ng-deep .mat-expansion-panel-header {
+        background-color: $color-primary !important;
+      }
+    }
+
+    &__panel-header {
+      font-size: 18px;
+
+      border-radius: 0;
+
+      user-select: none;
+
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+    }
+
+    &__panel {
+      z-index: 1;
+
+      margin-right: 15px;
+      margin-left: 15px;
+      &::ng-deep .mat-expansion-panel-body {
+        padding: 0;
+      }
+    }
+
+    &__panel-title {
+      display: flex;
+      justify-content: space-between;
+      margin-right: 0;
+
+      color: white;
+    }
+  }
+}

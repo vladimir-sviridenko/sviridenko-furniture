@@ -1,0 +1,109 @@
+@import "variables";
+
+@mixin flex-item($width, $margin-vertical, $margin-horizontal) {
+  flex: 1 0 $width;
+  box-sizing: border-box;
+  width: $width;
+  margin: $margin-vertical $margin-horizontal;
+}
+
+$image-width: 50px;
+$image-width_facade: 80px;
+$image-margin: 2px;
+$image-margin_facade: 5px;
+
+
+@mixin grid($width-delta, $margin-delta) {
+  &__grid {
+    display: flex;
+    flex-flow: row wrap;
+    padding: $image-margin + $margin-delta;
+
+    &_facade {
+      padding: $image-margin_facade + $margin-delta;
+    }
+
+    .product-options__hidden-flex {
+      @include flex-item($image-width + $width-delta, 0, $image-margin + $margin-delta);
+
+      &_facade {
+        @include flex-item($image-width_facade + $width-delta, 0, $image-margin_facade + $margin-delta);
+      }
+    }
+  }
+
+  &__image {
+    cursor: pointer;
+
+    @include flex-item($image-width + $width-delta, $image-margin + $margin-delta, $image-margin + $margin-delta);
+
+    &_facade {
+      @include flex-item($image-width_facade + $width-delta, $image-margin_facade + $margin-delta, $image-margin_facade + $margin-delta);
+    }
+  }
+}
+
+:host {
+  height: 100%;
+}
+
+::ng-deep .mat-tooltip-panel {
+  transform: translateY(20px);
+}
+
+.product-options {
+  display: block;
+  height: 100%;
+  padding: 0;
+
+  @include grid(0, 0);
+
+  &::ng-deep .mat-expansion-panel:not([class*=mat-elevation-z]) {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: none;
+  }
+
+  &::ng-deep .mat-tab-body-wrapper {
+    height: calc(100% - #{$update-button-height-mobile});
+  }
+
+  &::ng-deep .mat-expansion-panel-body {
+    padding: 0;
+  }
+
+  &::ng-deep .mat-tab-label {
+    height: $update-button-height-mobile;
+  }
+
+  &__group-name {
+    background-color: $backgroun-color-primary !important;
+
+    user-select: none;
+
+    &.mat-expanded {
+      background-color: $backgroun-color-primary;
+    }
+  }
+}
+
+@media screen and (min-width: map-get($breakpoints, tablet) - 120px) {
+  .product-options {
+    @include grid(20px, 0);
+  }
+}
+
+@media screen and (min-width: map-get($breakpoints, tablet-portrait) - 100px) {
+  .product-options {
+    &::ng-deep .mat-tab-body-content {
+      max-height: 553px;
+    }
+  }
+}
+
+@media screen and (min-width: map-get($breakpoints, tablet)) {
+  .product-options {
+    &::ng-deep .mat-tab-body-content {
+      max-height: 70vh;
+    }
+  }
+}
