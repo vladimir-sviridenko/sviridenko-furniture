@@ -1,9 +1,14 @@
-<div class="products-table" 
-    [class.products-table_hidden]='this.shopFacadeService.isShopLoading$ | async' *ngIf='album'>
-  <app-product-card
-      class="products-table__card"
-      *ngFor='let product of album.products'
-      [albumId]='album.id'
-      [product]='product'>
-  </app-product-card>
+<div class="products-table">
+	<div class="products-table__loader" >
+		<mat-spinner [diameter]='50'
+				*ngIf='shopFacadeService.isShopLoading$ | async'></mat-spinner>
+	</div>
+	<ng-container *ngIf="album">
+		<app-product-card class="products-table__card" [class.products-table__card_hidden]='this.shopFacadeService.isShopLoading$ | async'
+		class="products-table__card"
+		*ngFor='let product of album.products'
+		[albumId]='album.id'
+		[product]='product'>
+	</app-product-card>
+	</ng-container>
 </div>

@@ -16,10 +16,18 @@
       </mat-expansion-panel-header>
       <ng-container *ngTemplateOutlet="navBar"></ng-container>
     </mat-expansion-panel>
-  </mat-accordion>
-  <mat-spinner class="shop__loader" [diameter]='50'
-    	*ngIf='shopFacadeService.isShopLoading$ | async'></mat-spinner>
-  <router-outlet></router-outlet>
+	</mat-accordion>
+	<div class="shop__tools">
+		<button mat-mini-fab color="primary"  class="shop__button shop__button_cart">
+			<mat-icon>shopping_cart</mat-icon>
+		</button>
+		<button mat-icon-button color="primary" class="shop__button shop__button_scroll-top" (click)="scrollTop()">
+			<mat-icon>arrow_upward</mat-icon>
+		</button>
+	</div>
+	<div class="shop__content">
+		<router-outlet></router-outlet>
+	</div>
 </div>
 
 <ng-template #navBar>

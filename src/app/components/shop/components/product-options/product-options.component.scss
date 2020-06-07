@@ -133,10 +133,10 @@ $image-margin_facade: 5px;
 @media screen and (min-width: map-get($breakpoints, tablet)) {
   .product-options {
 		&_loading {
-			height: 70vh;
+			height: 64vh;
 		}
     &::ng-deep .mat-tab-body-content {
-      max-height: 70vh;
+      max-height: calc(64vh - #{$update-button-height-mobile});
 		}
 		&__image {
 			&_checked {
@@ -145,4 +145,15 @@ $image-margin_facade: 5px;
 			}
 		}
   }
+}
+
+@media screen and (min-width: map-get($breakpoints, laptop) - 100px) {
+	.product-options {
+		&_loading {
+			height: 74vh;
+		}
+    &::ng-deep .mat-tab-body-content {
+      max-height: calc(74vh - #{$update-button-height-mobile});
+		}
+	}
 }
