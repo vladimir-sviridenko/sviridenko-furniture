@@ -3,11 +3,11 @@
 		<mat-spinner [diameter]='50'
 				*ngIf="shopFacadeService.isShopLoading$ | async"></mat-spinner>
 	</div>
-	<ng-container *ngIf="album">
+	<ng-container *ngIf="album$ | async">
 		<app-product-card class="products-table__card" [class.products-table__card_hidden]="this.shopFacadeService.isShopLoading$ | async"
 		class="products-table__card"
-		*ngFor='let product of album.products'
-		[albumId]='album.id'
+		*ngFor='let product of (album$ | async).products'
+		[albumId]='(album$ | async).id'
 		[product]='product'>
 	</app-product-card>
 	</ng-container>

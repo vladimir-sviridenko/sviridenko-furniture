@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChildren, QueryList, AfterViewInit, OnDestroy } from '@angular/core';
 import { ProductCardComponent } from '../product-card/product-card.component';
-import { Subject } from 'rxjs';
+import { Subject, ReplaySubject } from 'rxjs';
 import { takeUntil, delay } from 'rxjs/operators';
 import { Album } from '@shop/models/Album';
 import { ShopFacadeService } from '@store/facades/shop.facade';
@@ -15,7 +15,7 @@ export class ProductsTableComponent implements OnInit, AfterViewInit, OnDestroy 
 	@ViewChildren(ProductCardComponent)
 	private productCardComponents: QueryList<ProductCardComponent>;
 
-	public album: Album;
+	public album$: ReplaySubject<Album> = new ReplaySubject<Album>();
 
 	public unsubscriber$: Subject<void> = new Subject();
 
@@ -47,7 +47,7 @@ export class ProductsTableComponent implements OnInit, AfterViewInit, OnDestroy 
 				takeUntil(this.unsubscriber$)
 			)
 			.subscribe((album: Album) => {
-				this.album = album;
+				this.album$.next(album);
 			});
 	}
 
