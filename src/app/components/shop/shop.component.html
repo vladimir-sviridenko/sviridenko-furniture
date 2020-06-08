@@ -2,7 +2,13 @@
   <app-header></app-header>
   <div class="shop__navigation">
     <ng-container *ngTemplateOutlet="navBar"></ng-container>
-  </div>
+	</div>
+	<button mat-icon-button class="shop__button shop__button_scroll-top" color="primary"
+			(click)="scrollTop()"
+			title="Пондятся вверх" 
+			aria-label="Scroll top">
+		<mat-icon>arrow_upward</mat-icon>
+	</button>
   <mat-accordion class="shop__navigation-mobile" [hideToggle]="true">
     <mat-expansion-panel class="shop__panel" #panel>
       <mat-expansion-panel-header 
@@ -17,18 +23,12 @@
       <ng-container *ngTemplateOutlet="navBar"></ng-container>
     </mat-expansion-panel>
 	</mat-accordion>
-	<div class="shop__tools">
+	<div class="shop__cart-container">
 		<app-cart></app-cart>
 		<button mat-mini-fab class="shop__button shop__button_cart" color="primary" 
 				(click)="cartFacadeService.openCart()"
 				aria-label="Open cart">
 			<mat-icon>shopping_cart</mat-icon>
-		</button>
-		<button mat-icon-button class="shop__button shop__button_scroll-top" color="primary"
-				(click)="scrollTop()"
-				title="Пондятся вверх" 
-				aria-label="Scroll top">
-			<mat-icon>arrow_upward</mat-icon>
 		</button>
 	</div>
 	<div class="shop__content">
