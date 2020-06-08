@@ -13,6 +13,7 @@ export class ShopComponent {
 	constructor(public shopFacadeService: ShopFacadeService, public cartFacadeService: CartFacadeService) {}
 
 	public scrollTop(): void {
+		document.body.scrollTop = 0;
 		window.scrollTo(0, 0);
 	}
 }
