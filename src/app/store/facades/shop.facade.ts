@@ -5,7 +5,7 @@ import { Observable  } from 'rxjs';
 import * as ActionShop from '../actions/shop.actions';
 import * as SelectorShop from '../selectors/shop.selectors';
 import { AppState } from '..';
-import { Album } from '@shop/models/Album';
+import { Album } from '@shop/models/album';
 import { CartFacadeService } from './cart.facade';
 import { take } from 'rxjs/operators';
 

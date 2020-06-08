@@ -1,8 +1,8 @@
 import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter, ViewChildren, ElementRef, QueryList, AfterViewInit } from '@angular/core';
 import { ProductsOptionsService } from 'src/app/components/shop/services/products-options.service';
 import { ProductFacadeService } from '@store/facades/product.facade';
-import { ProductOptionAlbum } from '@shop/models/ProductOptionAlbum';
-import { OptionType } from '@shop/models/enums/OptionType.enum';
+import { ProductOptionAlbum } from '@shop/models/product-option-album';
+import { OptionType } from '@shop/models/enums/option-type.enum';
 
 @Component({
 	selector: 'app-product-options',
@@ -42,10 +42,6 @@ export class ProductOptionsComponent implements AfterViewInit {
 			return new Promise((resolve: (value?: void | PromiseLike<void>) => void) => {
 				const image: HTMLImageElement = component.nativeElement;
 				image.onload = () => resolve();
-			  image.onerror = () => {
-					const elementToDelete: Element = document.querySelectorAll('.product-options__image')[index];
-					elementToDelete.parentNode.removeChild(elementToDelete);
-				};
 			});
 		});
 		Promise.all(loadingPhotos$).then(() => {

@@ -5,7 +5,7 @@ import { ProductsService } from 'src/app/components/shop/services/products.servi
 import { GalleryService } from 'src/app/components/shop/services/gallery.service';
 import { switchMap, share, map } from 'rxjs/operators';
 import { combineLatest } from 'rxjs';
-import { Album } from '@shop/models/Album';
+import { Album } from '@shop/models/album';
 import { AppState } from '..';
 import * as ShopAction from '../actions/shop.actions';
 

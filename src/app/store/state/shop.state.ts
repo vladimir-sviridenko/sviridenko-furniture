@@ -1,4 +1,4 @@
-import { Album } from 'src/app/components/shop/models/Album';
+import { Album } from '@shop/models/album';
 
 export interface ShopState {
   albums: Album[];

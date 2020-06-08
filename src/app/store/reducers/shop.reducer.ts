@@ -1,7 +1,7 @@
 import { createReducer, on, ActionReducer } from '@ngrx/store';
 import * as ActionShop from '../actions/shop.actions';
 import { initialShopState, ShopState } from '@store/state/shop.state';
-import { Album } from '@shop/models/Album';
+import { Album } from '@shop/models/album';
 
 export const reducer: ActionReducer<ShopState> = createReducer(
   initialShopState,

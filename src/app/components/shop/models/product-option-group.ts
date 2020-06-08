@@ -1,4 +1,4 @@
-import { ProductOption } from './ProductOption';
+import { ProductOption } from './product-option';
 
 export interface ProductOptionGroup {
 	name: string;

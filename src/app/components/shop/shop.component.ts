@@ -15,6 +15,6 @@ export class ShopComponent {
 
 	public scrollTop(): void {
 		window.scrollTo(0, 0);
-		document.body.scrollTop = 0;
+		document.body.scrollTop = 0; // 	for mobiles
 	}
 }

@@ -1,4 +1,4 @@
-import { VkPhoto } from './VkPhoto';
+import { VkPhoto } from './vk-photo';
 
 export interface VkAlbum {
 	id: number;

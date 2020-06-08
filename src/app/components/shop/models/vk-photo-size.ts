@@ -1,4 +1,4 @@
-import { VkPhotoQuality } from './enums/VkPhotoQuality.enum';
+import { VkPhotoQuality } from './enums/vk-photo-quality.enum';
 
 export interface VkPhotoSize {
 	type: VkPhotoQuality;

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { ProductOptionAlbum } from '@shop/models/ProductOptionAlbum';
-import { OptionType } from '@shop/models/enums/OptionType.enum';
-import { SelectedOption } from '@shop/models/SelectedOption';
-import { PhotoUrl } from '@shop/models/PhotoUrl';
-import { ProductOption } from '@shop/models/ProductOption';
+import { ProductOptionAlbum } from '@shop/models/product-option-album';
+import { OptionType } from '@shop/models/enums/option-type.enum';
+import { SelectedOption } from '@shop/models/selected-option';
+import { PhotoUrl } from '@shop/models/photo-url';
+import { ProductOption } from '@shop/models/product-option';
 
 export function getDefaultSelectedOption(albums: ProductOptionAlbum[]): SelectedOption[] {
 	return albums.map((album: ProductOptionAlbum) => {

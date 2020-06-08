@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { Product } from '@shop/models/Product';
+import { Product } from '@shop/models/product';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { RequestCallComponent } from '../request-call/request-call.component';
 import { MatSnackBar } from '@angular/material/snack-bar';

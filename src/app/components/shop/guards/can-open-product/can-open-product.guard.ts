@@ -3,8 +3,8 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Rout
 import { Observable, ReplaySubject } from 'rxjs';
 import { map, filter, take } from 'rxjs/operators';
 import { ShopFacadeService } from '@store/facades/shop.facade';
-import { Album } from '@shop/models/Album';
-import { Product } from '@shop/models/Product';
+import { Album } from '@shop/models/album';
+import { Product } from '@shop/models/product';
 import { ProductsService } from '@shop/services/products.service';
 import { ProductFacadeService } from '@store/facades/product.facade';
 

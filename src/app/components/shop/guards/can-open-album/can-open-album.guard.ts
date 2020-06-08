@@ -4,7 +4,7 @@ import { Observable, ReplaySubject } from 'rxjs';
 import { map, filter, take } from 'rxjs/operators';
 import { ShopFacadeService } from '@store/facades/shop.facade';
 import { ShopEffects } from '@store/effects/shop.effects';
-import { Album } from '@shop/models/Album';
+import { Album } from '@shop/models/album';
 
 @Injectable()
 export class CanOpenAlbumGuard implements CanActivate {

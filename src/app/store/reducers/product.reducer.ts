@@ -1,10 +1,10 @@
 import { createReducer, on, ActionReducer } from '@ngrx/store';
 import * as ActionProduct from '@store/actions/product.actions';
 import { initialProductState, ProductState } from '@store/state/product.state';
-import { SelectedOption } from '@shop/models/SelectedOption';
-import { Product } from '@shop/models/Product';
+import { SelectedOption } from '@shop/models/selected-option';
+import { Product } from '@shop/models/product';
 import { getDefaultSelectedOption } from '@shop/services/products-options.service';
-import { CategoryMultiplier } from '@shop/models/enums/CategoryMultiplier';
+import { CategoryMultiplier } from '@shop/models/enums/category-multiplier.enum';
 
 export const reducer: ActionReducer<ProductState> = createReducer(
 	initialProductState,

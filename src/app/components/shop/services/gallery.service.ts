@@ -3,16 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of, forkJoin } from 'rxjs';
 import { map, tap, catchError, mergeMap } from 'rxjs/operators';
 
-import { VkAlbum } from '@shop/models/VkAlbum';
-import { VkRequest } from '@shop/models/VkRequest';
-import { VkResponse } from '@shop/models/VkResponse';
-import { Product } from '@shop/models/Product';
-import { VkPhoto } from '@shop/models/VkPhoto';
+import { VkAlbum } from '@shop/models/vk-album';
+import { VkRequest } from '@shop/models/vk-request';
+import { VkResponse } from '@shop/models/vk-response';
+import { Product } from '@shop/models/product';
+import { VkPhoto } from '@shop/models/vk-photo';
 
-import { VkPhotoQuality } from '@shop/models/enums/VkPhotoQuality.enum';
-import { VkPhotoSize } from '@shop/models/VkPhotoSize';
-import { Album } from '@shop/models/Album';
-import { PhotoUrl } from '@shop/models/PhotoUrl';
+import { VkPhotoQuality } from '@shop/models/enums/vk-photo-quality.enum';
+import { VkPhotoSize } from '@shop/models/vk-photo-size';
+import { Album } from '@shop/models/album';
+import { PhotoUrl } from '@shop/models/photo-url';
 
 @Injectable()
 export class GalleryService {

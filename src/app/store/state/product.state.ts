@@ -1,4 +1,4 @@
-import { CartProduct } from '@shop/models/CartProduct';
+import { CartProduct } from '@shop/models/cart-product';
 
 export { CartProduct as ProductState };
 

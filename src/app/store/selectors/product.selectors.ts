@@ -1,8 +1,8 @@
 import { AppState, FeatureKey } from '../index';
 import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/store';
 import { ProductState } from '@store/state/product.state';
-import { SelectedOption } from '@shop/models/SelectedOption';
-import { Product } from '@shop/models/Product';
+import { SelectedOption } from '@shop/models/selected-option';
+import { Product } from '@shop/models/product';
 
 const selectProductState: MemoizedSelector<AppState, ProductState>
 		= createFeatureSelector<AppState, ProductState>(FeatureKey.Product);

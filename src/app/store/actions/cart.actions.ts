@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
-import { InjectAction } from '@shop/models/InjectAction';
-import { Action } from '@shop/models/Action';
-import { CartProduct } from '@shop/models/CartProduct';
+import { InjectAction } from '@shop/models/inject-action';
+import { Action } from '@shop/models/action';
+import { CartProduct } from '@shop/models/cart-product';
 
 export const addProduct: InjectAction<string, { product: CartProduct }> = createAction(
 	'[CART/API] Add product to cart',

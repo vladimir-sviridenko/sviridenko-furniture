@@ -1,5 +1,5 @@
-import { Product } from './Product';
-import { SelectedOption } from './SelectedOption';
+import { Product } from './product';
+import { SelectedOption } from './selected-option';
 
 export interface CartProduct {
 	product: Product;

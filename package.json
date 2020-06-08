@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "start:linux": "sudo ng serve",
+		"start:linux": "sudo ng serve",
 		"build:gh-pages": "sudo ng build --prod --base-href https://vladimir-sviridenko.github.io/sviridenko-furniture/",
 		"deploy:gh-pages": "sudo ngh --dir=dist/sviridenko-furniture",
     "build": "ng build",

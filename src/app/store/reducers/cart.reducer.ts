@@ -1,7 +1,7 @@
 import * as ActionCart from '@store/actions/cart.actions';
 import { createReducer, on, ActionReducer } from '@ngrx/store';
 import { initialCartState, CartState } from '@store/state/cart.state';
-import { CartProduct } from '@shop/models/CartProduct';
+import { CartProduct } from '@shop/models/cart-product';
 
 export const reducer: ActionReducer<CartState> = createReducer(
 	initialCartState,

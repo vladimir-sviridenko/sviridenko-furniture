@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChildren, QueryList, AfterViewInit, OnDestroy } 
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { Subject, ReplaySubject } from 'rxjs';
 import { takeUntil, delay } from 'rxjs/operators';
-import { Album } from '@shop/models/Album';
+import { Album } from '@shop/models/album';
 import { ShopFacadeService } from '@store/facades/shop.facade';
 
 @Component({
@@ -23,15 +23,10 @@ export class ProductsTableComponent implements OnInit, AfterViewInit, OnDestroy 
 
 	private showCardsAfterAllLoaded(): void {
 		const loadingPhotos$: Array<Promise<void>>
-				= this.productCardComponents.map((component: ProductCardComponent, index: number) => {
+				= this.productCardComponents.map((component: ProductCardComponent) => {
 			return new Promise((resolve: (value?: void | PromiseLike<void>) => void) => {
 				component.imageLoad.subscribe((isSuccessLoading: boolean) => {
-					if (isSuccessLoading) {
-						resolve();
-					} else {
-						const elementToDelete: Element = document.querySelectorAll('.products-table__card')[index];
-						elementToDelete.parentNode.removeChild(elementToDelete);
-					}
+					resolve();
 				});
 			});
 		});

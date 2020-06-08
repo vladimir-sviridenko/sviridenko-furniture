@@ -34,7 +34,7 @@
 	<div class="shop__content">
 		<div class="shop__cart-background" [class.shop__cart-background_enabled]="cartFacadeService.isCartOpened$ | async"
 				(click)="cartFacadeService.closeCart()"></div>
-		<router-outlet></router-outlet>
+		<router-outlet (activate)="scrollTop()"></router-outlet>
 	</div>
 </div>
 

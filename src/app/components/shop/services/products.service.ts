@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
-import { Product } from '@shop/models/Product';
-import { Size } from '@shop/models/Size';
-import { Album } from '@shop/models/Album';
-import { ProductOptionAlbum } from '@shop/models/ProductOptionAlbum';
-import { OptionType } from '@shop/models/enums/OptionType.enum';
+import { Product } from '@shop/models/product';
+import { Size } from '@shop/models/size';
+import { Album } from '@shop/models/album';
+import { ProductOptionAlbum } from '@shop/models/product-option-album';
+import { OptionType } from '@shop/models/enums/option-type.enum';
 import { ProductsOptionsService } from './products-options.service';
-import { PhotoUrl } from '@shop/models/PhotoUrl';
-import { SelectedOption } from '@shop/models/SelectedOption';
+import { PhotoUrl } from '@shop/models/photo-url';
+import { SelectedOption } from '@shop/models/selected-option';
 
 @Injectable()
 export class ProductsService {

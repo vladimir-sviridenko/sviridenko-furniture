@@ -1,4 +1,4 @@
-import { PhotoUrl } from './PhotoUrl';
+import { PhotoUrl } from './photo-url';
 
 export interface ProductOption {
 	id: string;

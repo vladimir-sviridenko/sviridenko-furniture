@@ -1,13 +1,9 @@
 @import "variables";
 
-html,
-body {
-	scroll-behavior: smooth;
-}
 body {
 	display: flex;
 	flex-flow: column nowrap;
-	align-items: flex-start;
+	align-items: stretch;
   margin: 0;
 	overflow-y: scroll;
 	overflow-x: hidden;
@@ -18,7 +14,13 @@ body {
 	background-color: $background-color-primary;
 }
 
-@media screen and (max-width: map-get($breakpoints, laptop) - 1px) {
+@media screen and (min-width: map-get($breakpoints, tablet)) {
+	html {
+		scroll-behavior: smooth;
+	}
+}
+
+@media screen and (pointer: coarse) {
 	html {
 		overflow-x: hidden;
 	}	

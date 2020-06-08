@@ -2,9 +2,9 @@ import { AppState } from '..';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ShopFacadeService } from './shop.facade';
-import { Product } from '@shop/models/Product';
+import { Product } from '@shop/models/product';
 import { Observable } from 'rxjs';
-import { SelectedOption } from '@shop/models/SelectedOption';
+import { SelectedOption } from '@shop/models/selected-option';
 import * as ActionProduct from '@store/actions/product.actions';
 import * as SelectorProduct from '@store/selectors/product.selectors';
 

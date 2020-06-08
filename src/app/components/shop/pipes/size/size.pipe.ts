@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Size } from '@shop/models/Size';
+import { Size } from '@shop/models/size';
 
 @Pipe({
 	name: 'size'
