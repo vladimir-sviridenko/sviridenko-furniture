@@ -1,15 +1,12 @@
 @import "variables";
 
-.shop__product-page {
-  width: 90vw;
-  margin: 0 auto;
-}
-
 .product-page {
   display: flex;
   flex-flow: row wrap;
   align-items: flex-start;
-  margin: 0 auto;
+  width: 90vw;
+	margin: 0 auto;
+	margin-top: 10px;
 
   &__options-card {
     height: 45vh;
@@ -17,6 +14,7 @@
   }
 
   &__image-card {
+		position: relative;
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
@@ -72,15 +70,17 @@
   }
 
   &__button {
-    width: 100%;
 
     &_back {
-      margin-top: 10px;
-
-      background-color: white;
+      position: absolute;
+			top: -10px;
+      left: 0;
+			z-index: 1;
+			color: $color-primary;
     }
 
     &_update-photo {
+			width: 100%;
       width: calc(100% - #{$update-button-height-mobile});
       height: $update-button-height-mobile;
 
@@ -97,12 +97,10 @@
 @media screen and (min-width: map-get($breakpoints, mobile) - 60px) {
   $image-width: 270px;
 
-  .shop__product-page {
-		width: 95vw;
-  }
-
   .product-page {
-    justify-content: flex-end;
+		justify-content: flex-end;
+		margin-top: 0;
+		width: 88vw;
 
     &:after {
       content: "";
@@ -123,13 +121,14 @@
     }
 
     &__total-card {
-      flex: 1 0 50%;
+      flex: 1 0 40%;
       order: 4;
       margin-left: - #{$update-button-height-mobile};
     }
 
     &__options-card-container {
-      flex: 1 0 50%;
+			flex: 1 0 40%;
+			width: 40%;
       height: unset;
       margin-top: 10px;
       margin-left: - #{$update-button-height-mobile};
@@ -137,7 +136,14 @@
 
     &__options-card {
       height: $image-width;
-    }
+		}
+
+		&__button {
+			&_back {
+				top: -3px;
+      	left: -15px;
+			}
+		}
   }
 }
 
@@ -145,7 +151,7 @@
   .product-page {
     flex-flow: column wrap;
     justify-content: flex-start;
-    align-items: flex-start;
+		align-items: flex-start;
     min-height: 608px;
     max-height: 800px;
 
@@ -182,7 +188,8 @@
   .product-page {
     flex-flow: row wrap;
     justify-content: flex-start;
-    min-height: unset;
+		min-height: unset;
+		width: 95vw;
 
     &__options-card-container {
       flex: 1 0 35%;

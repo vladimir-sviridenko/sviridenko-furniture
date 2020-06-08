@@ -44,14 +44,14 @@
     &_enabled {
       background-color: $background-color-dark;
 
-			pointer-events: auto;
+      pointer-events: auto;
     }
   }
 
   &__button {
     &_cart {
       margin-top: 8px;
-      margin-right: 5px;
+      margin-right: 15px;
     }
 
     &_scroll-top {
@@ -123,13 +123,23 @@
   }
 }
 
+@media screen and (min-width: map-get($breakpoints, mobile) - 60px) {
+  .shop {
+    &__button {
+      &_cart {
+        margin-right: 5px;
+      }
+    }
+  }
+}
+
 @media screen and (max-width: map-get($breakpoints, mobile) - 1) {
   .shop {
-		&__cart-background {
-			&_enabled {
-				background-color: transparentize($color: $background-color-primary, $amount: 0.4);
-			}
-		}
+    &__cart-background {
+      &_enabled {
+        background-color: transparentize($color: $background-color-primary, $amount: 0.4);
+      }
+    }
 
     &__buttons {
       border-top: 1px solid white;
