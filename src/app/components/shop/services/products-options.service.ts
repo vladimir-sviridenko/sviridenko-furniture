@@ -5,6 +5,15 @@ import { SelectedOption } from '@shop/models/SelectedOption';
 import { PhotoUrl } from '@shop/models/PhotoUrl';
 import { ProductOption } from '@shop/models/ProductOption';
 
+export function getDefaultSelectedOption(albums: ProductOptionAlbum[]): SelectedOption[] {
+	return albums.map((album: ProductOptionAlbum) => {
+		return {
+			type: album.type,
+			option: album.groups[0].options[0]
+		};
+	});
+}
+
 @Injectable()
 export class ProductsOptionsService {
 
@@ -211,14 +220,5 @@ export class ProductsOptionsService {
 	public getOptionAlbumsByTypes(types: OptionType[]): ProductOptionAlbum[] {
 		return this.optionAlbums.filter((album: ProductOptionAlbum) =>
 				types.some((type: OptionType) => type === album.type));
-	}
-
-	public getDefaultSelectedOption(albums: ProductOptionAlbum[]): SelectedOption[] {
-		return albums.map((album: ProductOptionAlbum) => {
-			return {
-				type: album.type,
-				option: album.groups[0].options[0]
-			};
-		});
 	}
 }

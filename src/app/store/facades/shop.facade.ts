@@ -6,12 +6,14 @@ import * as ActionShop from '../actions/shop.actions';
 import * as SelectorShop from '../selectors/shop.selectors';
 import { AppState } from '..';
 import { Album } from '@shop/models/Album';
+import { CartFacadeService } from './cart.facade';
+import { take } from 'rxjs/operators';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class ShopFacadeService {
-	constructor(private store: Store<AppState>) {
+	constructor(private store: Store<AppState>, private cartFacadeService: CartFacadeService) {
 		this.store.dispatch(ActionShop.initializeAlbums());
 	}
 
@@ -28,6 +30,11 @@ export class ShopFacadeService {
 	}
 
 	public changeCurrentAlbum(album: Album): void {
+		this.cartFacadeService.isCartOpened$.pipe(take(1)).subscribe((isCartOpened: boolean) => {
+			if (isCartOpened) {
+				this.cartFacadeService.closeCart();
+			}
+		});
 		this.store.dispatch(ActionShop.changeCurrentAlbum({ album }));
 	}
 

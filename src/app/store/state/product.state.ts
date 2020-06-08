@@ -1,5 +1,9 @@
-import { Product } from '../../components/shop/models/Product';
+import { CartProduct } from '@shop/models/CartProduct';
 
-export { Product as ProductState };
+export { CartProduct as ProductState };
 
-export const initialProductState: Product = null;
+export const initialProductState: CartProduct = {
+	product: null,
+	selectedOptions: null,
+	totalPrice: null
+};

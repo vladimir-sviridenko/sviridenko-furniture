@@ -15,11 +15,15 @@ export class ProductFacadeService {
 	constructor(private store: Store<AppState>, private shopFacadeService: ShopFacadeService) {}
 
 	public get product$(): Observable<Product> {
-		return this.store.select(SelectorProduct.selectCurrentProduct);
+		return this.store.select(SelectorProduct.selectProduct);
 	}
 
 	public get selectedOptions$(): Observable<SelectedOption[]> {
 		return this.store.select(SelectorProduct.selectSelectedOptions);
+	}
+
+	public get totalPrice$(): Observable<number> {
+		return this.store.select(SelectorProduct.selectTotalPrice);
 	}
 
 	public changeProduct(product: Product): void {
@@ -27,7 +31,8 @@ export class ProductFacadeService {
 		this.shopFacadeService.hideShopLoader();
 	}
 
-	public changeProductOption(option: SelectedOption): void {
-		this.store.dispatch(ActionProduct.changeProductOption({ option }));
+	public selectOption(option: SelectedOption): void {
+		this.store.dispatch(ActionProduct.selectOption({ option }));
+		this.store.dispatch(ActionProduct.updateTotalPrice());
 	}
 }

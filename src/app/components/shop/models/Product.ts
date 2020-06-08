@@ -10,5 +10,4 @@ export interface Product {
 	price: number;
 	photoUrl: PhotoUrl;
 	options: ProductOptionAlbum[];
-	selectedOptions: SelectedOption[];
 }

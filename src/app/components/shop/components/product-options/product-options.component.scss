@@ -85,12 +85,12 @@ $image-margin_facade: 5px;
 	}
 
   &__group-name {
-    background-color: $backgroun-color-primary !important;
+    background-color: $background-color-primary !important;
 
     user-select: none;
 
     &.mat-expanded {
-      background-color: $backgroun-color-primary;
+      background-color: $background-color-primary;
     }
 	}
 	
@@ -133,6 +133,7 @@ $image-margin_facade: 5px;
 @media screen and (min-width: map-get($breakpoints, tablet)) {
   .product-options {
 		&_loading {
+			min-height: 320px;
 			height: 64vh;
 		}
     &::ng-deep .mat-tab-body-content {
@@ -147,7 +148,9 @@ $image-margin_facade: 5px;
   }
 }
 
-@media screen and (min-width: map-get($breakpoints, laptop) - 100px) {
+
+
+@media screen and (min-width: map-get($breakpoints, desktop) - 200px) {
 	.product-options {
 		&_loading {
 			height: 74vh;

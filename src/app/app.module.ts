@@ -8,13 +8,11 @@ import { ErrorComponent } from './components/error/error.component';
 import { CanOpenErrorPageGuard } from 'src/app/guards/can-open-error-page/can-open-error-page.guard';
 import { MaterialModules } from './ui/material/material.modules';
 import { GlobalErrorHandler } from './interceptors/global-error-handler/global-error-handler';
-import { ToolbarComponent } from './toolbar/toolbar.component';
 
 @NgModule({
   declarations: [
 		AppComponent,
 		ErrorComponent,
-		ToolbarComponent,
   ],
   imports: [
 	  BrowserModule,

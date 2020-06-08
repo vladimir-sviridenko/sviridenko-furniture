@@ -18,14 +18,22 @@
     </mat-expansion-panel>
 	</mat-accordion>
 	<div class="shop__tools">
-		<button mat-mini-fab color="primary"  class="shop__button shop__button_cart">
+		<app-cart></app-cart>
+		<button mat-mini-fab class="shop__button shop__button_cart" color="primary" 
+				(click)="cartFacadeService.openCart()"
+				aria-label="Open cart">
 			<mat-icon>shopping_cart</mat-icon>
 		</button>
-		<button mat-icon-button color="primary" class="shop__button shop__button_scroll-top" (click)="scrollTop()">
+		<button mat-icon-button class="shop__button shop__button_scroll-top" color="primary"
+				(click)="scrollTop()"
+				title="Пондятся вверх" 
+				aria-label="Scroll top">
 			<mat-icon>arrow_upward</mat-icon>
 		</button>
 	</div>
 	<div class="shop__content">
+		<div class="shop__cart-background" [class.shop__cart-background_enabled]="cartFacadeService.isCartOpened$ | async"
+				(click)="cartFacadeService.closeCart()"></div>
 		<router-outlet></router-outlet>
 	</div>
 </div>

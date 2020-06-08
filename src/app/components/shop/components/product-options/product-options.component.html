@@ -21,7 +21,7 @@
 							*ngFor="let option of group.options; let firstColor = first" 
 							[src]="option.photoUrl.low" 
 							[alt]="option.name"
-              (click)="productFacadeService.changeProductOption({ type: optionAlbum.type, option: option })"
+              (click)="productFacadeService.selectOption({ type: optionAlbum.type, option: option })"
               (click)="onCheck($event, option.photoUrl.high)"
               [matTooltip]="option.name" [matTooltipTouchGestures]="'off'" [matTooltipPosition]="'above'"
 							[class.product-options__image_facade]="optionAlbum.type === optionTypeEnum.Facade"

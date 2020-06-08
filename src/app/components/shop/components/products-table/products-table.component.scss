@@ -3,38 +3,38 @@
 .products-table {
   display: flex;
   flex-flow: row wrap;
-  padding: 10px;
+	padding: 10px;
 
-	background-color: $backgroun-color-primary;
-	
-	&__card {
-		opacity: 1;
+  background-color: $background-color-primary;
 
-		transition: opacity 0.3s;
+  &__card {
+    opacity: 1;
 
-		pointer-events: auto;
+    transition: opacity 0.3s;
 
-		&_hidden {
-			height: 0;
-	
-			opacity: 0;
-	
-			transition: none;
-	
-			pointer-events: none;
-		}
-	}
+    pointer-events: auto;
 
-	&__loader {
-	position: absolute;
-	 top: 50%;
-	 left: 50%;
+    &_hidden {
+      height: 0;
 
-	 width: 50px;
-	 height: 50px;
+      opacity: 0;
 
-	 transform: translate(-50%, -50%);
- }
+      transition: none;
+
+      pointer-events: none;
+    }
+  }
+
+  &__loader {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+
+    width: 50px;
+    height: 50px;
+
+    transform: translate(-50%, -50%);
+  }
 
   &::after {
     content: "";

@@ -1,0 +1,37 @@
+.cart {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	background-color: white;
+	border-left: 1px solid rgba(0, 0, 0, 0.12);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 30vw;
+	min-height: 30vh;
+	z-index: 3;
+	transition: transform 0.3s;
+	transform: translateX(100%);
+
+	&__opened {
+		transform: translateX(0);
+	}
+
+	&__tools {
+		display: flex;
+		flex-flow: column nowrap;
+		justify-content: space-between;
+
+		padding: 8px 5px;
+	}
+
+	&__button {
+		&_close {
+		}
+	}
+
+	&__items {
+		padding: 10px;
+	}
+}

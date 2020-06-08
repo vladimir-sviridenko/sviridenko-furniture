@@ -71,16 +71,13 @@ export class ProductsService {
 		const size: Size = this.parseShortSize(shortSize);
 		const options: ProductOptionAlbum[] =
 			this.productsOptionsService.getOptionAlbumsByTypes([OptionType.Skin, OptionType.Facade]);
-		const selectedOptions: SelectedOption[] =
-			this.productsOptionsService.getDefaultSelectedOption(options);
 		return {
 			id: parseInt(id, 10),
 			name,
 			size,
 			price: parseInt(price, 10),
 			photoUrl,
-			options,
-			selectedOptions
+			options
 		};
 	}
 }
