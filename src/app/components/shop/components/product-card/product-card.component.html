@@ -18,7 +18,8 @@
     </mat-card-title>
   </mat-card-header>
   <mat-card-actions class="product-card__actions" *ngIf="product.price">
-    <button mat-flat-button class="product-card__button" color="primary">
+		<button mat-flat-button class="product-card__button" color="primary"
+				(click)="addProductToCart()">
       В корзину
     </button>
     <button mat-stroked-button class="product-card__button" color="primary" 

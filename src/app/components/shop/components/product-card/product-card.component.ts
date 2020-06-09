@@ -5,6 +5,9 @@ import { RequestCallComponent } from '../request-call/request-call.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Overlay } from '@angular/cdk/overlay';
 import { take } from 'rxjs/internal/operators/take';
+import { CartFacadeService } from '@store/facades/cart.facade';
+import { getDefaultSelectedOption } from '@shop/services/products-options.service';
+import { CartProduct } from '@shop/models/cart-product';
 
 @Component({
 	selector: 'app-product-card',
@@ -23,7 +26,19 @@ export class ProductCardComponent {
 	@Output()
 	public imageLoad: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-	constructor(private dialog: MatDialog, private requestStatusTip: MatSnackBar, private overlay: Overlay) { }
+	constructor(private dialog: MatDialog,
+							private requestStatusTip: MatSnackBar,
+							private overlay: Overlay,
+							private cartFacadeService: CartFacadeService) {}
+
+	public addProductToCart(): void {
+		const cartProduct: CartProduct = {
+			product: this.product,
+			selectedOptions: getDefaultSelectedOption(this.product.options),
+			totalPrice: this.product.price
+		};
+		this.cartFacadeService.addCartProduct(cartProduct);
+	}
 
 	public openRequestCallDialog(): void {
 		const dialogRef: MatDialogRef<RequestCallComponent> = this.dialog.open(RequestCallComponent, {

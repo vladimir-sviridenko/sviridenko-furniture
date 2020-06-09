@@ -35,12 +35,12 @@ export class CanOpenProductGuard implements CanActivate {
 			map((albums: Album[]) => {
 				let productToShow: Product = null;
 				let productsAlbum: Album = null;
-				for (const album of albums) {
+				albums.forEach((album: Album) => {
 					if (album.id === albumId && this.isAvailableAlbum(album.id)) {
 						productToShow = album.products.find((product: Product) => product.id === productId);
 						productsAlbum = productToShow ? album : null;
 					}
-				}
+				});
 				if (productToShow) {
 					this.shopFacadeService.changeCurrentAlbum(productsAlbum);
 					this.productFacadeService.changeProduct(productToShow);

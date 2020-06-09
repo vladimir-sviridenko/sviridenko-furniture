@@ -2,12 +2,12 @@ import { CartProduct } from '@shop/models/cart-product';
 
 export interface CartState {
 	isCartOpened: boolean;
-	products: CartProduct[];
+	cartProducts: CartProduct[];
   totalPrice: number;
 }
 
 export const initialCartState: CartState = {
 	isCartOpened: false,
-	products: [],
+	cartProducts: [],
   totalPrice: 0
 };

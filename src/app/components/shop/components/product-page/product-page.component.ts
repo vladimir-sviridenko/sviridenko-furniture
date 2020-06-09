@@ -4,14 +4,13 @@ import { ProductFacadeService } from '@store/facades/product.facade';
 import { Product } from '@shop/models/product';
 import { take } from 'rxjs/operators';
 import { ProductsOptionsService } from '@shop/services/products-options.service';
-import { Album } from '@shop/models/album';
 
 @Component({
 	selector: 'app-product-page',
 	templateUrl: './product-page.component.html',
 	styleUrls: ['./product-page.component.scss']
 })
-export class ProductPageComponent implements OnInit{
+export class ProductPageComponent implements OnInit {
 
 	public product: Product;
 	public photoUrl: string;

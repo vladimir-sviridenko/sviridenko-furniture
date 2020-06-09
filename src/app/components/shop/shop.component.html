@@ -25,14 +25,18 @@
 	</mat-accordion>
 	<div class="shop__cart-container">
 		<app-cart></app-cart>
-		<button mat-mini-fab class="shop__button shop__button_cart" color="primary" 
+		<button mat-mini-fab class="shop__button shop__button_cart"
+				[matBadge]="(cartFacadeService.isCartEmpty$ | async) ? '' : (cartFacadeService.cartProductsQuantity$ | async)"
+				matBadgeColor="accent"
+				matBadgeSize="small"
+				color="primary"
 				(click)="cartFacadeService.openCart()"
 				aria-label="Open cart">
 			<mat-icon>shopping_cart</mat-icon>
 		</button>
 	</div>
 	<div class="shop__content">
-		<div class="shop__cart-background" [class.shop__cart-background_enabled]="cartFacadeService.isCartOpened$ | async"
+		<div class="shop__background" [class.shop__background_cart-opened]="cartFacadeService.isCartOpened$ | async"
 				(click)="cartFacadeService.closeCart()"></div>
 		<router-outlet (activate)="scrollTop()"></router-outlet>
 	</div>

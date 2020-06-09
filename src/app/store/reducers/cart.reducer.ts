@@ -5,25 +5,25 @@ import { CartProduct } from '@shop/models/cart-product';
 
 export const reducer: ActionReducer<CartState> = createReducer(
 	initialCartState,
-	on(ActionCart.addProduct, (state: CartState, { product }: { product: CartProduct }) => {
+	on(ActionCart.addCartProduct, (state: CartState, { cartProduct }: { cartProduct: CartProduct }): CartState => {
 		return {
 			...state,
-			products: [...state.products, product]
+			cartProducts: [...state.cartProducts, cartProduct]
 		};
 	}),
-	on(ActionCart.removeProduct, (state: CartState, { productId }: { productId: number }) => {
+	on(ActionCart.removeCartProduct, (state: CartState, { productId }: { productId: number }): CartState => {
 		return {
 			...state,
-			products: state.products.filter((cartProduct: CartProduct) => cartProduct.product.id !== productId)
+			cartProducts: state.cartProducts.filter((cartProduct: CartProduct) => cartProduct.product.id !== productId)
 		};
 	}),
-	on(ActionCart.openCart, (state: CartState) => {
+	on(ActionCart.openCart, (state: CartState): CartState => {
 		return {
 			...state,
 			isCartOpened: true
 		};
 	}),
-	on(ActionCart.closeCart, (state: CartState) => {
+	on(ActionCart.closeCart, (state: CartState): CartState => {
 		return {
 			...state,
 			isCartOpened: false

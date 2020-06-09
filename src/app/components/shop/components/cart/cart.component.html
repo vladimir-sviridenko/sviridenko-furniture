@@ -1,20 +1,25 @@
 <div class="cart" [class.cart__opened]="(cartFacadeService.isCartOpened$ | async)">
-	<div class="cart__items">
-		<div class="cart__product">Продукт</div>
-	</div>
-	<div class="cart__tools">
-		<button mat-mini-fab class="cart__button_close"
+	
+	<mat-toolbar class="cart__toolbar">
+		<h2 class="cart__title">Корзина</h2>
+
+		<button mat-mini-fab class="cart__button cart__button_close"
 				(click)="cartFacadeService.closeCart()"
-				color="primary"
 				title="Закрыть корзину"
+				color="primary"
 				aria-label="Close cart">
 			<mat-icon>close</mat-icon>
 		</button>
-		<button mat-mini-fab class="cart__button_order"
-				color="accent"
-				title="Сделать заказ"
-				aria-label="Make order">
-			<mat-icon>done</mat-icon>
+		<button mat-stroked-button class="cart__button cart__button_close-mobile"
+				(click)="cartFacadeService.closeCart()"
+				title="Закрыть корзину"
+				color="primary"
+				aria-label="Close cart">
+			<mat-icon>close</mat-icon>
 		</button>
+	</mat-toolbar>
+	
+	<div class="cart__items">
+		<div class="cart__product">Продукт</div>
 	</div>
 </div>

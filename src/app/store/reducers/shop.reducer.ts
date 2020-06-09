@@ -5,19 +5,19 @@ import { Album } from '@shop/models/album';
 
 export const reducer: ActionReducer<ShopState> = createReducer(
   initialShopState,
-  on(ActionShop.setAlbums, (state: ShopState, { albums }: { albums: Album[] }) => {
+  on(ActionShop.setAlbums, (state: ShopState, { albums }: { albums: Album[] }): ShopState => {
 		return {
 			...state,
 			albums,
 		};
   }),
-  on(ActionShop.hideShopLoader, (state: ShopState) => {
+  on(ActionShop.hideShopLoader, (state: ShopState): ShopState => {
 		return {
 			...state,
 			isShopLoading: false,
   	};
   }),
-  on(ActionShop.changeCurrentAlbum, (state: ShopState, { album }: { album: Album }) => {
+  on(ActionShop.changeCurrentAlbum, (state: ShopState, { album }: { album: Album }): ShopState => {
   return {
   		...state,
   		currentAlbum: album,

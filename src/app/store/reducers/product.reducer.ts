@@ -8,7 +8,7 @@ import { CategoryMultiplier } from '@shop/models/enums/category-multiplier.enum'
 
 export const reducer: ActionReducer<ProductState> = createReducer(
 	initialProductState,
-	on(ActionProduct.changeProduct, (state: ProductState, { product }: { product: Product }) => {
+	on(ActionProduct.changeProduct, (state: ProductState, { product }: { product: Product }): ProductState => {
 		const selectedOptions: SelectedOption[] = getDefaultSelectedOption(product.options);
 		return {
 			...state,
@@ -17,7 +17,7 @@ export const reducer: ActionReducer<ProductState> = createReducer(
 			totalPrice: product.price
 		};
 	}),
-	on(ActionProduct.selectOption, (state: ProductState, { option }: { option: SelectedOption }) => {
+	on(ActionProduct.selectOption, (state: ProductState, { option }: { option: SelectedOption }): ProductState => {
 		const selectedOptions: SelectedOption[] = state.selectedOptions.map((selectedOption: SelectedOption) => {
 			return selectedOption.type === option.type ? option : selectedOption;
 		});
@@ -26,7 +26,7 @@ export const reducer: ActionReducer<ProductState> = createReducer(
 			selectedOptions
 		};
 	}),
-	on(ActionProduct.updateTotalPrice, (state: ProductState) => {
+	on(ActionProduct.updateTotalPrice, (state: ProductState): ProductState => {
 		const defaultPrice: number = state.product.price;
 		let priceIncrease: number = 0;
 		state.selectedOptions.forEach((selectedOption: SelectedOption) => {

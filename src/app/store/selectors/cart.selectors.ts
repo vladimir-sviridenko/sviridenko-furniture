@@ -6,11 +6,11 @@ import { CartProduct } from '@shop/models/cart-product';
 export const selectCartState: MemoizedSelector<AppState, CartState>
 		= createFeatureSelector<AppState, CartState>(FeatureKey.Cart);
 
-export const selectProducts: MemoizedSelector<AppState, CartProduct[]>
-		= createSelector(selectCartState, (state: CartState) => state.products);
-
-export const selectTotalPrice: MemoizedSelector<AppState, number>
-		= createSelector(selectCartState, (state: CartState) => state.totalPrice);
+export const selectCartProducts: MemoizedSelector<AppState, CartProduct[]>
+		= createSelector(selectCartState, (state: CartState) => state.cartProducts);
 
 export const selectIsCartOpened: MemoizedSelector<AppState, boolean>
 		= createSelector(selectCartState, (state: CartState) => state.isCartOpened);
+
+export const selectTotalPrice: MemoizedSelector<AppState, number>
+		= createSelector(selectCartState, (state: CartState) => state.totalPrice);

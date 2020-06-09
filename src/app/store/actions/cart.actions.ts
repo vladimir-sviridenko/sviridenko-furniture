@@ -3,12 +3,12 @@ import { InjectAction } from '@shop/models/inject-action';
 import { Action } from '@shop/models/action';
 import { CartProduct } from '@shop/models/cart-product';
 
-export const addProduct: InjectAction<string, { product: CartProduct }> = createAction(
+export const addCartProduct: InjectAction<string, { cartProduct: CartProduct }> = createAction(
 	'[CART/API] Add product to cart',
-	props<{ product: CartProduct }>()
+	props<{ cartProduct: CartProduct }>()
 );
 
-export const removeProduct: InjectAction<string, { productId: number }> = createAction(
+export const removeCartProduct: InjectAction<string, { productId: number }> = createAction(
 	'[CART/API] Remove product from cart',
 	props<{ productId: number }>()
 );

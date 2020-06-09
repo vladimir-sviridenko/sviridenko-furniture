@@ -59,9 +59,9 @@ export class GalleryService {
 
 	private generateVkRequestUrl(method: string, params: VkRequest): string {
 		let url: string = `${this.baseUrl}${method}?`;
-		for (const [key, value] of Object.entries(params)) {
-			url += `${key}=${value}&`;
-		}
+		Object.entries(params).forEach((param: string[]) => {
+			url += `${param[0]}=${param[1]}&`;
+		});
 		return url;
 	}
 
