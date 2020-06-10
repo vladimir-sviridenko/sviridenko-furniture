@@ -20,7 +20,7 @@
 		</button>
 	</mat-toolbar>
 	<div class="cart__product-list" *ngIf="!(cartFacadeService.isCartEmpty$ | async); else emptyProductList">
-		<div class="cart__product"
+		<div class="cart__product-container"
 				*ngFor="let productsPool of (cartFacadeService.cart$ | async).pools">
 			<div class="cart__product-info">
 				<div class="cart__product-name">{{productsPool.cartProduct.product.name}}</div>
@@ -35,7 +35,7 @@
 							[src]="selectedOption.option.photoUrl.low" alt="Skin color">
 				</div>
 			</div>
-			<div class="cart__product-price">
+			<div class="cart__price-container">
 				<div>{{productsPool.poolPrice | currency:"RUB":"code":"4.0":"ru"}}</div>
 				<div class="cart__quantity">
 					<button mat-icon-button class="cart__button_arrow-down" aria-label="Remove product to order"

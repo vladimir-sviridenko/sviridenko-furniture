@@ -107,7 +107,7 @@ $cart-product-font-size: 16px;
     }
   }
 
-  &__product {
+  &__product-container {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
@@ -138,7 +138,11 @@ $cart-product-font-size: 16px;
 
   &__product-size {
     color: rgba(0, 0, 0, 0.54);
-  }
+	}
+	
+	&__product-option {
+		white-space: nowrap;
+	}
 
   &__quantity {
     display: flex;
@@ -154,7 +158,7 @@ $cart-product-font-size: 16px;
     @include quantity-button-size();
   }
 
-  &__product-price {
+  &__price-container {
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-between;
