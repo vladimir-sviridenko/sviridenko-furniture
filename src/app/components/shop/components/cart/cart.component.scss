@@ -189,6 +189,10 @@ $cart-product-font-size: 16px;
       background-color: $color-primary;
     }
 
+		&__product-option {
+			white-space: unset;
+		}
+
     &__button {
       &_close {
         display: none;

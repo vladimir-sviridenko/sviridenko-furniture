@@ -1,22 +1,14 @@
 @import "variables";
 
 body {
-	display: flex;
-	flex-flow: column nowrap;
-	align-items: stretch;
   margin: 0;
 	overflow-y: scroll;
 	overflow-x: hidden;
-	height: 100vh;
+	height: 100%;
 
   font-family: Roboto, "Helvetica Neue", sans-serif;
 
 	background-color: $background-color-primary;
-}
-
-body > * { 
-	//	for cart background growing
-	flex-shrink: 0;
 }
 
 @media screen and (min-width: map-get($breakpoints, tablet)) {
@@ -29,6 +21,11 @@ body > * {
 	html {
 		//	hide cart on mobiles
 		height: 100vh;
-		overflow: hidden;
+		overflow-x: hidden;
+	}
+	body {
+		position: fixed;
+		top: 0;
+
 	}
 }
