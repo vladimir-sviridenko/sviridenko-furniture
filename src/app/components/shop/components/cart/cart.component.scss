@@ -167,6 +167,12 @@ $cart-product-font-size: 16px;
   }
 }
 
+@media screen and (max-width: map-get($breakpoints, laptop) - 1) {
+	.cart {
+		height: 72vh;
+	}
+}
+
 @media screen and (max-width: map-get($breakpoints, mobile) - 1) {
   .cart {
     position: fixed;
