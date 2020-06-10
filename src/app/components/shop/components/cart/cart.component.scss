@@ -26,6 +26,7 @@ $cart-product-font-size: 16px;
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
+  min-width: 400px;
   max-width: 460px;
   height: 75vh;
   max-height: 100vh;
@@ -47,7 +48,7 @@ $cart-product-font-size: 16px;
 
   user-select: none;
 
-  &__opened {
+  &_opened {
     transform: translateX(0);
   }
 
@@ -97,6 +98,13 @@ $cart-product-font-size: 16px;
 
   &__product-list {
     padding: 5px;
+
+    &_empty {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
   }
 
   &__product {
@@ -160,8 +168,9 @@ $cart-product-font-size: 16px;
     position: fixed;
 
     width: 100%;
+    min-width: unset;
     max-width: unset;
-    height: 100vh;
+    height: 100%;
 
     border: 0;
     border-bottom-left-radius: 0;

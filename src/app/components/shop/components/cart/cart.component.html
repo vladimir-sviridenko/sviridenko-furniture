@@ -1,9 +1,8 @@
-<div class="cart" [class.cart__opened]="(cartFacadeService.isCartOpened$ | async)">
-	
+<div class="cart" [class.cart_opened]="(cartFacadeService.isCartOpened$ | async)">
 	<mat-toolbar class="cart__toolbar">
 		<h2 class="cart__totalPrice">
 			<span>Итого: </span>
-			<span>{{(cartFacadeService.cart$ | async).totalPrice | currency:"RUB":"code":"4.0":"ru"}}</span>
+			<span>{{(cartFacadeService.cart$ | async).totalPrice | currency:"RUB":"code":"1.0":"ru"}}</span>
 		</h2>
 		<button mat-mini-fab class="cart__button cart__button_close"
 				(click)="cartFacadeService.closeCart()"
@@ -20,7 +19,7 @@
 			<mat-icon>close</mat-icon>
 		</button>
 	</mat-toolbar>
-	<div class="cart__product-list">
+	<div class="cart__product-list" *ngIf="!(cartFacadeService.isCartEmpty$ | async); else emptyProductList">
 		<div class="cart__product"
 				*ngFor="let productsPool of (cartFacadeService.cart$ | async).pools">
 			<div class="cart__product-info">
@@ -55,6 +54,17 @@
 		</div>
 	</div>
 	<div class="cart__order-button-container">
-		<button mat-raised-button class="cart__button cart__button_order" color="primary">Сделать заказ</button>
+		<button mat-raised-button 
+				class="cart__button cart__button_order" 
+				color="primary"
+				[disabled]="(cartFacadeService.isCartEmpty$ | async)">
+			Сделать заказ
+		</button>
 	</div>
 </div>
+
+<ng-template #emptyProductList>
+	<div class="cart__product-list cart__product-list_empty">
+		<h2>Корзина пустая.</h2>
+	</div>
+</ng-template>

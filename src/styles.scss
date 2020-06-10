@@ -7,11 +7,16 @@ body {
   margin: 0;
 	overflow-y: scroll;
 	overflow-x: hidden;
-  height: 100vh;
+	height: 100vh;
 
   font-family: Roboto, "Helvetica Neue", sans-serif;
 
 	background-color: $background-color-primary;
+}
+
+body > * { 
+	//	for cart background growing
+	flex-shrink: 0;
 }
 
 @media screen and (min-width: map-get($breakpoints, tablet)) {
@@ -22,10 +27,8 @@ body {
 
 @media screen and (pointer: coarse) {
 	html {
-		overflow-x: hidden;
-	}	
-}
-
-body > * {
-	flex-shrink: 0;
+		//	hide cart on mobiles
+		height: 100vh;
+		overflow: hidden;
+	}
 }
