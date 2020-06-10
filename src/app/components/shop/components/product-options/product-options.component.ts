@@ -1,8 +1,9 @@
-import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter, ViewChildren, ElementRef, QueryList, AfterViewInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChildren, ElementRef, QueryList, AfterViewInit } from '@angular/core';
 import { ProductsOptionsService } from 'src/app/components/shop/services/products-options.service';
 import { ProductFacadeService } from '@store/facades/product.facade';
 import { ProductOptionAlbum } from '@shop/models/product-option-album';
 import { OptionType } from '@shop/models/enums/option-type.enum';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
 	selector: 'app-product-options',
@@ -24,7 +25,7 @@ export class ProductOptionsComponent implements AfterViewInit {
 
 	public optionTypeEnum: typeof OptionType = OptionType;
 
-	public isOptionsLoaded: boolean = false;
+	public isOptionsLoaded$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
 	constructor(public productsOptionsService: ProductsOptionsService,
 							public productFacadeService: ProductFacadeService) { }
@@ -45,7 +46,8 @@ export class ProductOptionsComponent implements AfterViewInit {
 			});
 		});
 		Promise.all(loadingPhotos$).then(() => {
-			this.isOptionsLoaded = true;
+			this.isOptionsLoaded$.next(true);
+			this.isOptionsLoaded$.complete();
 		});
 	}
 

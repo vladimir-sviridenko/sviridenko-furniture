@@ -33,8 +33,8 @@ $image-margin_facade: 5px;
   }
 
   &__image {
-		cursor: pointer;
-		
+    cursor: pointer;
+
     @include flex-item($image-width + $width-delta, $image-margin + $margin-delta, $image-margin + $margin-delta);
 
     &_facade {
@@ -56,7 +56,7 @@ $image-margin_facade: 5px;
   height: 100%;
   padding: 0;
 
-	@include grid(0, 0);
+  @include grid(0, 0);
 
   &::ng-deep .mat-expansion-panel:not([class*=mat-elevation-z]) {
     border-bottom: 1px solid rgba(0, 0, 0, 0.12);
@@ -64,25 +64,33 @@ $image-margin_facade: 5px;
   }
 
   &::ng-deep .mat-tab-body-wrapper {
-		position: relative;
+    position: relative;
+
     height: calc(100% - #{$update-button-height-mobile});
   }
 
   &::ng-deep .mat-expansion-panel-body {
-		padding: 0;
+    padding: 0;
   }
 
   &::ng-deep .mat-tab-label {
     height: $update-button-height-mobile;
-	}
-	
-	&__content {
-		display: block;
+  }
 
-		&_hidden {
-			display: none;
-		}
-	}
+  &__content {
+    height: unset;
+
+    opacity: 1;
+
+    transition: opacity 0.3s;
+
+    &_hidden {
+      height: 0;
+      overflow: hidden;
+
+      opacity: 0;
+    }
+  }
 
   &__group-name {
     background-color: $background-color-primary !important;
@@ -92,16 +100,16 @@ $image-margin_facade: 5px;
     &.mat-expanded {
       background-color: $background-color-primary;
     }
-	}
-	
-	&__image {
-		&_checked {
-			border: 2px solid $color-accent;
-			border-radius: 2px;
-		}
-	}
+  }
 
-	&__loader { 
+  &__image {
+    &_checked {
+      border: 2px solid $color-accent;
+      border-radius: 2px;
+    }
+  }
+
+  &__loader {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -110,7 +118,7 @@ $image-margin_facade: 5px;
     height: 40px;
 
     transform: translate(-50%, -50%);
-	}
+  }
 }
 
 @media screen and (min-width: map-get($breakpoints, tablet) - 120px) {
@@ -121,42 +129,42 @@ $image-margin_facade: 5px;
 
 @media screen and (min-width: map-get($breakpoints, tablet-portrait) - 100px) {
   .product-options {
-		&_loading {
-			height: 320px;
-		}
+    &_loading {
+      height: 320px;
+    }
     &::ng-deep .mat-tab-body-content {
-      max-height: 553px;
+      max-height: 573px;
     }
   }
 }
 
 @media screen and (min-width: map-get($breakpoints, tablet)) {
   .product-options {
-		&_loading {
-			min-height: 320px;
-			height: 69vh;
-		}
+    &_loading {
+      height: 69vh;
+      min-height: 320px;
+    }
     &::ng-deep .mat-tab-body-content {
       max-height: calc(69vh - #{$update-button-height-mobile});
-		}
-		&__image {
-			&_checked {
-				border-width: 3px;
-				border-radius: 3px;
-			}
-		}
+    }
+    &__image {
+      &_checked {
+        border-width: 3px;
+        border-radius: 3px;
+      }
+    }
   }
 }
 
 
 
 @media screen and (min-width: map-get($breakpoints, desktop) - 200px) {
-	.product-options {
-		&_loading {
-			height: 80vh;
-		}
+  .product-options {
+    &_loading {
+      height: 80vh;
+    }
     &::ng-deep .mat-tab-body-content {
       max-height: calc(80vh - #{$update-button-height-mobile});
-		}
-	}
+    }
+  }
 }

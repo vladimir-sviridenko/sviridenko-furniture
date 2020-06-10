@@ -1,13 +1,13 @@
-import { CartProduct } from '@shop/models/cart-product';
+import { Cart } from '@shop/models/cart-product-pools';
 
 export interface CartState {
 	isCartOpened: boolean;
-	cartProducts: CartProduct[];
+	cart: Cart;
   totalPrice: number;
 }
 
 export const initialCartState: CartState = {
 	isCartOpened: false,
-	cartProducts: [],
+	cart: new Cart([]),
   totalPrice: 0
 };

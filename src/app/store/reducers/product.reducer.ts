@@ -3,39 +3,27 @@ import * as ActionProduct from '@store/actions/product.actions';
 import { initialProductState, ProductState } from '@store/state/product.state';
 import { SelectedOption } from '@shop/models/selected-option';
 import { Product } from '@shop/models/product';
-import { getDefaultSelectedOption } from '@shop/services/products-options.service';
 import { CategoryMultiplier } from '@shop/models/enums/category-multiplier.enum';
+import { CartProduct } from '@shop/models/cart-product';
 
 export const reducer: ActionReducer<ProductState> = createReducer(
 	initialProductState,
 	on(ActionProduct.changeProduct, (state: ProductState, { product }: { product: Product }): ProductState => {
-		const selectedOptions: SelectedOption[] = getDefaultSelectedOption(product.options);
+		const cartProduct: CartProduct = new CartProduct(product);
 		return {
 			...state,
-			product,
-			selectedOptions,
-			totalPrice: product.price
+			product: cartProduct.product,
+			selectedOptions: cartProduct.selectedOptions,
+			totalPrice: cartProduct.totalPrice
 		};
 	}),
 	on(ActionProduct.selectOption, (state: ProductState, { option }: { option: SelectedOption }): ProductState => {
-		const selectedOptions: SelectedOption[] = state.selectedOptions.map((selectedOption: SelectedOption) => {
-			return selectedOption.type === option.type ? option : selectedOption;
-		});
+		const cartProduct: CartProduct = new CartProduct(state.product, state.selectedOptions);
+		cartProduct.selectOption(option);
 		return {
 			...state,
-			selectedOptions
+			selectedOptions: cartProduct.selectedOptions,
+			totalPrice: cartProduct.totalPrice
 		};
-	}),
-	on(ActionProduct.updateTotalPrice, (state: ProductState): ProductState => {
-		const defaultPrice: number = state.product.price;
-		let priceIncrease: number = 0;
-		state.selectedOptions.forEach((selectedOption: SelectedOption) => {
-			priceIncrease += Math.floor(defaultPrice * CategoryMultiplier[selectedOption.option.category]);
-		});
-		const totalPrice: number = defaultPrice + priceIncrease;
-		return {
-			...state,
-			totalPrice
-		};
-	}),
+	})
 );

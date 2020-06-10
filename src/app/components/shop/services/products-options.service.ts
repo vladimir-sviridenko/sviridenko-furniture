@@ -1,18 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ProductOptionAlbum } from '@shop/models/product-option-album';
 import { OptionType } from '@shop/models/enums/option-type.enum';
-import { SelectedOption } from '@shop/models/selected-option';
 import { PhotoUrl } from '@shop/models/photo-url';
 import { ProductOption } from '@shop/models/product-option';
-
-export function getDefaultSelectedOption(albums: ProductOptionAlbum[]): SelectedOption[] {
-	return albums.map((album: ProductOptionAlbum) => {
-		return {
-			type: album.type,
-			option: album.groups[0].options[0]
-		};
-	});
-}
 
 @Injectable()
 export class ProductsOptionsService {
@@ -26,7 +16,6 @@ export class ProductsOptionsService {
 				{
 					name: 'Древесные матовые',
 					options: [
-						this.skinFabric('3T', 'Белое дерево', '1'),
 						this.skinFabric('3T', 'Белое дерево', '1'),
 						this.skinFabric('1441', 'Белый распил', '1'),
 						this.skinFabric('2584-2', 'Венге серебро', '1'),

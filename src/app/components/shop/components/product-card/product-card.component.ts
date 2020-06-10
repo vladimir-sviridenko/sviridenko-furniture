@@ -6,7 +6,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Overlay } from '@angular/cdk/overlay';
 import { take } from 'rxjs/internal/operators/take';
 import { CartFacadeService } from '@store/facades/cart.facade';
-import { getDefaultSelectedOption } from '@shop/services/products-options.service';
 import { CartProduct } from '@shop/models/cart-product';
 
 @Component({
@@ -32,11 +31,7 @@ export class ProductCardComponent {
 							private cartFacadeService: CartFacadeService) {}
 
 	public addProductToCart(): void {
-		const cartProduct: CartProduct = {
-			product: this.product,
-			selectedOptions: getDefaultSelectedOption(this.product.options),
-			totalPrice: this.product.price
-		};
+		const cartProduct: CartProduct = new CartProduct(this.product);
 		this.cartFacadeService.addCartProduct(cartProduct);
 	}
 

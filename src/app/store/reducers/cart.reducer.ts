@@ -2,19 +2,28 @@ import * as ActionCart from '@store/actions/cart.actions';
 import { createReducer, on, ActionReducer } from '@ngrx/store';
 import { initialCartState, CartState } from '@store/state/cart.state';
 import { CartProduct } from '@shop/models/cart-product';
+import { Cart } from '@shop/models/cart-product-pools';
 
 export const reducer: ActionReducer<CartState> = createReducer(
 	initialCartState,
-	on(ActionCart.addCartProduct, (state: CartState, { cartProduct }: { cartProduct: CartProduct }): CartState => {
+	on(ActionCart.addProduct, (state: CartState, { cartProduct }: { cartProduct: CartProduct }): CartState => {
+		const cart: Cart = new Cart(state.cart.pools);
+		cart.addProduct(cartProduct);
+		const totalPrice: number = cart.totalPrice;
 		return {
 			...state,
-			cartProducts: [...state.cartProducts, cartProduct]
+			cart,
+			totalPrice
 		};
 	}),
-	on(ActionCart.removeCartProduct, (state: CartState, { productId }: { productId: number }): CartState => {
+	on(ActionCart.removeProduct, (state: CartState, { cartProduct }: { cartProduct: CartProduct }): CartState => {
+		const cart: Cart = new Cart(state.cart.pools);
+		cart.removeProduct(cartProduct);
+		const totalPrice: number = cart.totalPrice;
 		return {
 			...state,
-			cartProducts: state.cartProducts.filter((cartProduct: CartProduct) => cartProduct.product.id !== productId)
+			cart,
+			totalPrice
 		};
 	}),
 	on(ActionCart.openCart, (state: CartState): CartState => {

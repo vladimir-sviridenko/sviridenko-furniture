@@ -57,7 +57,12 @@
 			<span>{{(productFacadeService.totalPrice$ | async) | currency:"RUB":"code":"4.0":"ru"}}</span>
 		</mat-card-title>
 		<mat-card-actions class="product-page__actions">
-			<button mat-flat-button  class="product-page__button"  *ngIf="product.price" color="primary">В корзину</button>
+			<button mat-flat-button  
+					class="product-page__button"  
+					*ngIf="product.price" 
+					color="primary"
+					(click)="addProductToCart()"
+					>В корзину</button>
 		</mat-card-actions>
 	</mat-card>
 </div>

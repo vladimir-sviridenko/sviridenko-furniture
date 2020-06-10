@@ -1,8 +1,10 @@
 <div class="cart" [class.cart__opened]="(cartFacadeService.isCartOpened$ | async)">
 	
 	<mat-toolbar class="cart__toolbar">
-		<h2 class="cart__title">Корзина</h2>
-
+		<h2 class="cart__totalPrice">
+			<span>Итого: </span>
+			<span>{{(cartFacadeService.cart$ | async).totalPrice | currency:"RUB":"code":"4.0":"ru"}}</span>
+		</h2>
 		<button mat-mini-fab class="cart__button cart__button_close"
 				(click)="cartFacadeService.closeCart()"
 				title="Закрыть корзину"
@@ -18,8 +20,41 @@
 			<mat-icon>close</mat-icon>
 		</button>
 	</mat-toolbar>
-	
-	<div class="cart__items">
-		<div class="cart__product">Продукт</div>
+	<div class="cart__product-list">
+		<div class="cart__product"
+				*ngFor="let productsPool of (cartFacadeService.cart$ | async).pools">
+			<div class="cart__product-info">
+				<div class="cart__product-name">{{productsPool.cartProduct.product.name}}</div>
+				<div class="cart__product-size" 
+						*ngIf="productsPool.cartProduct.product.size">
+					{{productsPool.cartProduct.product.size | size}}
+				</div>
+				<div class="cart__product-option" *ngFor="let selectedOption of productsPool.cartProduct.selectedOptions">
+					<span>{{selectedOption.type}}: </span> 
+					<span>{{selectedOption.option.name | titlecase}}</span>
+					<img *ngIf="optionTypeEnum.Skin === selectedOption.type" class="cart__skin-image" 
+							[src]="selectedOption.option.photoUrl.low" alt="Skin color">
+				</div>
+			</div>
+			<div class="cart__product-price">
+				<div>{{productsPool.poolPrice | currency:"RUB":"code":"4.0":"ru"}}</div>
+				<div class="cart__quantity">
+					<button mat-icon-button class="cart__button_arrow-down" aria-label="Remove product to order"
+							(click)="cartFacadeService.removeCartProduct(productsPool.cartProduct)">
+						<mat-icon>arrow_left</mat-icon>
+					</button>
+					<button mat-icon-button [disableRipple]="true" class="cart__quantity-number">
+						{{productsPool.quantity}}
+					</button>
+					<button mat-icon-button class="cart__button_arrow-up" aria-label="Add product to order"
+							(click)="cartFacadeService.addCartProduct(productsPool.cartProduct)">
+						<mat-icon>arrow_right</mat-icon>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="cart__order-button-container">
+		<button mat-raised-button class="cart__button cart__button_order" color="primary">Сделать заказ</button>
 	</div>
 </div>

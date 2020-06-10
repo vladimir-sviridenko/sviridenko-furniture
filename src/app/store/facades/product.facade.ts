@@ -33,6 +33,5 @@ export class ProductFacadeService {
 
 	public selectOption(option: SelectedOption): void {
 		this.store.dispatch(ActionProduct.selectOption({ option }));
-		this.store.dispatch(ActionProduct.updateTotalPrice());
 	}
 }
