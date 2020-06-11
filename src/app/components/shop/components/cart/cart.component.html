@@ -1,0 +1,70 @@
+<div class="cart" [class.cart_opened]="(cartFacadeService.isCartOpened$ | async)">
+	<mat-toolbar class="cart__toolbar">
+		<h2 class="cart__totalPrice">
+			<span>Итого: </span>
+			<span>{{(cartFacadeService.cart$ | async).totalPrice | currency:"RUB":"code":"1.0":"ru"}}</span>
+		</h2>
+		<button mat-mini-fab class="cart__button cart__button_close"
+				(click)="cartFacadeService.closeCart()"
+				title="Закрыть корзину"
+				color="primary"
+				aria-label="Close cart">
+			<mat-icon>close</mat-icon>
+		</button>
+		<button mat-stroked-button class="cart__button cart__button_close-mobile"
+				(click)="cartFacadeService.closeCart()"
+				title="Закрыть корзину"
+				color="primary"
+				aria-label="Close cart">
+			<mat-icon>close</mat-icon>
+		</button>
+	</mat-toolbar>
+	<div class="cart__product-list" *ngIf="!(cartFacadeService.isCartEmpty$ | async); else emptyProductList">
+		<div class="cart__product-container"
+				*ngFor="let productsPool of (cartFacadeService.cart$ | async).pools">
+			<div class="cart__product-info">
+				<div class="cart__product-name">{{productsPool.cartProduct.product.name}}</div>
+				<div class="cart__product-size" 
+						*ngIf="productsPool.cartProduct.product.size">
+					{{productsPool.cartProduct.product.size | size}}
+				</div>
+				<div class="cart__product-option" *ngFor="let selectedOption of productsPool.cartProduct.selectedOptions">
+					<span>{{selectedOption.type}}: </span> 
+					<span>{{selectedOption.option.name | titlecase}}</span>
+					<img *ngIf="optionTypeEnum.Skin === selectedOption.type" class="cart__skin-image" 
+							[src]="selectedOption.option.photoUrl.low" alt="Skin color">
+				</div>
+			</div>
+			<div class="cart__price-container">
+				<div>{{productsPool.poolPrice | currency:"RUB":"code":"4.0":"ru"}}</div>
+				<div class="cart__quantity">
+					<button mat-icon-button class="cart__button_arrow-down" aria-label="Remove product to order"
+							(click)="cartFacadeService.removeCartProduct(productsPool.cartProduct)">
+						<mat-icon>arrow_left</mat-icon>
+					</button>
+					<button mat-icon-button [disableRipple]="true" class="cart__quantity-number">
+						{{productsPool.quantity}}
+					</button>
+					<button mat-icon-button class="cart__button_arrow-up" aria-label="Add product to order"
+							(click)="cartFacadeService.addCartProduct(productsPool.cartProduct)">
+						<mat-icon>arrow_right</mat-icon>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="cart__order-button-container">
+		<button mat-raised-button 
+				class="cart__button cart__button_order" 
+				color="primary"
+				[disabled]="(cartFacadeService.isCartEmpty$ | async)">
+			Сделать заказ
+		</button>
+	</div>
+</div>
+
+<ng-template #emptyProductList>
+	<div class="cart__product-list cart__product-list_empty">
+		<h2>Корзина пустая.</h2>
+	</div>
+</ng-template>

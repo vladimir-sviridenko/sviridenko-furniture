@@ -1,0 +1,37 @@
+<mat-tab-group class="product-options"
+		[class.product-options_loading]="!(isOptionsLoaded$ | async)"
+		mat-align-tabs="start">
+  <mat-tab [label]="optionAlbum.type"
+			*ngFor="let optionAlbum of optionAlbums">
+		<div class="product-options__loader" *ngIf='!(isOptionsLoaded$ | async)'>
+			<mat-spinner [diameter]="50"></mat-spinner>
+		</div>
+		<div class="product-options__content" [class.product-options__content_hidden]="!(isOptionsLoaded$ | async)">
+			<mat-accordion [displayMode]="'flat'" multi >
+				<mat-expansion-panel [expanded] = "true"
+						*ngFor="let group of optionAlbum.groups; let firstGroup = first">
+					<mat-expansion-panel-header class="product-options__group-name" 
+							[expandedHeight]="'34px'" [collapsedHeight]="'34px'">
+						{{group.name}}
+					</mat-expansion-panel-header>
+					<div class="product-options__grid" 
+							[class.product-options__grid_facade]="optionAlbum.type === optionTypeEnum.Facade">
+						<img class="product-options__image" #optionImage
+								*ngFor="let option of group.options; let firstColor = first" 
+								[src]="option.photoUrl.low" 
+								[alt]="option.name"
+								(click)="productFacadeService.selectOption({ type: optionAlbum.type, option: option })"
+								(click)="onCheck($event, option.photoUrl.high)"
+								[matTooltip]="option.name" [matTooltipTouchGestures]="'off'" [matTooltipPosition]="'above'"
+								[class.product-options__image_facade]="optionAlbum.type === optionTypeEnum.Facade"
+								[class.product-options__image_checked]="firstColor && firstGroup">
+						<div class="product-options__hidden-flex" 
+								*ngFor="let quantity of [].constructor(20)"
+								[class.product-options__hidden-flex_facade]="optionAlbum.type === optionTypeEnum.Facade">
+						</div>
+					</div>
+				</mat-expansion-panel>
+			</mat-accordion>
+		</div>
+  </mat-tab>
+</mat-tab-group>

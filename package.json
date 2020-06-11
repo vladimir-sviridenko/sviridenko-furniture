@@ -3,8 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "start:linux": "sudo ng serve",
+    "start": "sudo ng serve",
+		"start:host": "sudo ng serve --host 192.168.100.3",
+		"build:gh-pages": "sudo ng build --prod --base-href https://vladimir-sviridenko.github.io/sviridenko-furniture/",
+		"deploy:gh-pages": "sudo ngh --dir=dist/sviridenko-furniture",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

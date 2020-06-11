@@ -1,14 +1,31 @@
 @import "variables";
 
-html,
-body {
-  height: 100%;
-}
 body {
   margin: 0;
-  overflow-y: scroll;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	height: 100vh;
 
   font-family: Roboto, "Helvetica Neue", sans-serif;
 
-  background-color: $backgroun-color-primary;
+	background-color: $background-color-primary;
+}
+
+
+@media screen and (min-width: map-get($breakpoints, tablet)) {
+	html {
+		scroll-behavior: smooth;
+	}
+}
+
+@media screen and (pointer: coarse) {
+	html {
+		//	hide cart on mobiles
+		height: 100vh;
+		overflow-x: hidden;
+	}
+	body {
+		position: fixed;
+		top: 0;
+	}
 }

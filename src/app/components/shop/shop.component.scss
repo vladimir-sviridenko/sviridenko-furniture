@@ -1,0 +1,194 @@
+@import "variables";
+
+.shop {
+	position: relative;
+  display: flex;
+  flex-flow: column nowrap;
+	min-height: 100%;
+
+  background-color: $background-color-primary;
+
+  & > * {
+    flex-shrink: 0;
+  }
+
+  &__cart-container {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+
+    height: 0;
+    overflow: visible;
+
+    text-align: right;
+  }
+
+  &__content {
+    position: relative;
+
+    flex-grow: 1;
+    width: 100%;
+  }
+
+  &__background {
+    position: absolute;
+    z-index: 2;
+
+    width: 100%;
+    height: 100%;
+
+    transition: background-color 0.4s;
+
+    user-select: none;
+    pointer-events: none;
+
+    &_cart-opened {
+      background-color: $background-color-dark;
+
+      pointer-events: auto;
+    }
+  }
+
+  &__button {
+    &_cart {
+      margin-top: 8px;
+			margin-right: 15px;
+
+			&.mat-badge-small::ng-deep .mat-badge-content {
+				top: -3px;
+				right: -1px;
+			}
+    }
+
+    &_scroll-top {
+      position: fixed;
+      right: 0;
+      bottom: 10px;
+      z-index: 1;
+
+      margin: 0;
+    }
+  }
+
+  &__main {
+    flex: 1 0 90%;
+    min-height: 100%;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    height: auto;
+    min-height: 60px;
+    margin-right: -10px;
+    padding: 8px 9px 8px 15px;
+  }
+
+  &__navigation {
+    display: block;
+  }
+
+  &__navigation-mobile {
+    display: none;
+  }
+
+  &__link {
+    flex: 1 0 auto;
+    max-width: 300px;
+    margin: 6px 0;
+    margin-right: 10px;
+
+    line-height: 30px;
+
+    border-color: white;
+
+    transition: background-color 0.3s;
+    &:hover {
+      background-color: transparentize($color: black, $amount: 0.9);
+    }
+
+    &.mat-badge-small::ng-deep .mat-badge-content {
+      top: -4px;
+      right: -6px;
+
+      width: auto;
+      height: 8px;
+
+      line-height: 8px;
+
+      border-radius: 0;
+    }
+
+    &_online-product {
+      &.mat-badge-small::ng-deep .mat-badge-content {
+        color: $color-accent;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: map-get($breakpoints, mobile) - 60px) {
+  .shop {
+    &__button {
+      &_cart {
+        margin-right: 5px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: map-get($breakpoints, mobile) - 1) {
+  .shop {
+    &__background {
+      &_cart-opened {
+        background-color: transparentize($color: $background-color-primary, $amount: 0.4);
+      }
+    }
+
+    &__buttons {
+      border-top: 1px solid white;
+    }
+
+    &__navigation {
+      display: none;
+    }
+
+    &__navigation-mobile {
+      display: block;
+
+      &::ng-deep .mat-expansion-panel-header {
+        background-color: $color-primary !important;
+      }
+    }
+
+    &__panel-header {
+      font-size: 18px;
+
+      border-radius: 0;
+
+      user-select: none;
+
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+    }
+
+    &__panel {
+      z-index: 1;
+
+      margin-right: 15px;
+      margin-left: 15px;
+      &::ng-deep .mat-expansion-panel-body {
+        padding: 0;
+      }
+    }
+
+    &__panel-title {
+      display: flex;
+      justify-content: space-between;
+      margin-right: 0;
+
+      color: white;
+    }
+  }
+}
