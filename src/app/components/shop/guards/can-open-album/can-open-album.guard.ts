@@ -23,7 +23,7 @@ export class CanOpenAlbumGuard implements CanActivate {
 		return this.albums$.pipe(
 			map((albums: Album[]) => {
 				for (const album of albums) {
-					if (album.id === albumId) {
+					if (album.id === albumId) { // some
 						this.shopFacadeService.changeCurrentAlbum(album);
 						return true;
 					}

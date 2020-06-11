@@ -39,7 +39,7 @@ export class ProductCardComponent {
 		const dialogRef: MatDialogRef<RequestCallComponent> = this.dialog.open(RequestCallComponent, {
 			width: '320px',
 			scrollStrategy: this.overlay.scrollStrategies.noop(),
-			data: this.product.photoUrl,
+			data: this.product.photoUrl.low,
 			maxHeight: '90vh'
 		});
 
