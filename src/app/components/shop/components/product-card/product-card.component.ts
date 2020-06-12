@@ -8,6 +8,9 @@ import { CartFacadeService } from '@store/facades/cart.facade';
 import { CartProduct } from '@shop/models/cart-product';
 import { ContactsFormComponent } from '../contacts-form/contacts-form.component';
 import { ContactsFormType } from '@shop/models/enums/contacts-form-type';
+import { EmailJSResponseStatus } from 'emailjs-com';
+import { UserContacts } from '@shop/models/user-contacts';
+import { EmailService } from '@shop/services/email.service';
 
 @Component({
 	selector: 'app-product-card',
@@ -29,6 +32,7 @@ export class ProductCardComponent {
 	constructor(private dialog: MatDialog,
 							private requestStatusTip: MatSnackBar,
 							private overlay: Overlay,
+							private emailService: EmailService,
 							private cartFacadeService: CartFacadeService) {}
 
 	public addProductToCart(): void {
@@ -37,10 +41,13 @@ export class ProductCardComponent {
 	}
 
 	public openRequestCallDialog(): void {
+		const submitMethod: (contacts: UserContacts) => Promise<EmailJSResponseStatus> = (contacts: UserContacts) => {
+			return this.emailService.sendCallRequest.call(this.emailService, contacts, this.product.photoUrl.low);
+		};
 		const dialogRef: MatDialogRef<ContactsFormComponent> = this.dialog.open(ContactsFormComponent, {
 			width: '320px',
 			scrollStrategy: this.overlay.scrollStrategies.noop(),
-			data: { formType: ContactsFormType.RequestCall, data: this.product.photoUrl.low },
+			data: submitMethod,
 			maxHeight: '90vh'
 		});
 

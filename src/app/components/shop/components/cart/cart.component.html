@@ -57,6 +57,7 @@
 		<button mat-raised-button 
 				class="cart__button cart__button_order" 
 				color="primary"
+				(click)="openMakeOrderDialog()"
 				[disabled]="(cartFacadeService.isCartEmpty$ | async)">
 			Сделать заказ
 		</button>

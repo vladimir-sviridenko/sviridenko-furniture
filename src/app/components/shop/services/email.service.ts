@@ -38,6 +38,6 @@ export class EmailService {
 	}
 
 	public sendOrder(user: UserContacts, cart: Cart): Promise<EmailJSResponseStatus> {
-		
+		console.log("Ok");
 	}
 }

@@ -1,11 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { EmailService } from '@shop/services/email.service';
 import { UserContacts } from '@shop/models/user-contacts';
-import { ContactsDialogData } from '@shop/models/contacts-dialog-data';
-import { ContactsFormType } from '@shop/models/enums/contacts-form-type';
-import { Cart } from '@shop/models/cart-product-pools';
 import { EmailJSResponseStatus } from 'emailjs-com';
 
 @Component({
@@ -13,7 +9,7 @@ import { EmailJSResponseStatus } from 'emailjs-com';
 	templateUrl: './contacts-form.component.html',
 	styleUrls: ['./contacts-form.component.scss']
 })
-export class ContactsFormComponent implements OnInit {
+export class ContactsFormComponent {
 
 	public isLoading: boolean = false;
 
@@ -31,25 +27,14 @@ export class ContactsFormComponent implements OnInit {
 		};
 	}
 
-	public submit: () => Promise<EmailJSResponseStatus>;
-
-	constructor(private emailService: EmailService,
-							private dialogRef: MatDialogRef<ContactsFormComponent>,
-							@Inject(MAT_DIALOG_DATA) public dialogData: ContactsDialogData) { }
-
-	public ngOnInit(): void {
-		if (this.dialogData.formType === ContactsFormType.RequestCall) {
-			this.submit = () => this.emailService.sendCallRequest(this.userContacts, this.dialogData.data as string);
-		} else if (this.dialogData.formType === ContactsFormType.MakeOrder) {
-			this.submit = () => this.emailService.sendOrder(this.userContacts, this.dialogData.data as Cart);
-		}
-	}
+	constructor(private dialogRef: MatDialogRef<ContactsFormComponent>,
+							@Inject(MAT_DIALOG_DATA) public submit: (contacts: UserContacts) => Promise<EmailJSResponseStatus>) { }
 
 	public submitForm(event: Event): void {
 		this.contactsForm.disable();
 		this.dialogRef.disableClose = true;
 		this.isLoading = true;
-		this.submit()
+		this.submit(this.userContacts)
 			.then(() => {
 				this.dialogRef.close(true);
 			})
