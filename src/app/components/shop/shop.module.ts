@@ -10,9 +10,9 @@ import { HeaderComponent } from './components/header/header.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
 import { ShopComponent } from './shop.component';
 import { ProductCardComponent} from './components/product-card/product-card.component';
+import { ContactsFormComponent } from './components/contacts-form/contacts-form.component';
 import { LazyImageComponent } from './components/lazy-image/lazy-image.component';
 import { ProductOptionsComponent } from './components/product-options/product-options.component';
-import { RequestCallComponent } from './components/request-call/request-call.component';
 import { CartComponent } from './components/cart/cart.component';
 
 import { GalleryService } from './services/gallery.service';
@@ -47,7 +47,7 @@ import ru from '@angular/common/locales/ru';
 		ProductsTableComponent,
 		LazyImageComponent,
 		ProductOptionsComponent,
-		RequestCallComponent,
+		ContactsFormComponent,
 		CartComponent,
 		SizePipe,
 		NotFoundComponent,

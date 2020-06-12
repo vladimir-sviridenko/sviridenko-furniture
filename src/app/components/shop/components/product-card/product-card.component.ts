@@ -1,12 +1,13 @@
 import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from '@shop/models/product';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { RequestCallComponent } from '../request-call/request-call.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Overlay } from '@angular/cdk/overlay';
 import { take } from 'rxjs/internal/operators/take';
 import { CartFacadeService } from '@store/facades/cart.facade';
 import { CartProduct } from '@shop/models/cart-product';
+import { ContactsFormComponent } from '../contacts-form/contacts-form.component';
+import { ContactsFormType } from '@shop/models/enums/contacts-form-type';
 
 @Component({
 	selector: 'app-product-card',
@@ -36,10 +37,10 @@ export class ProductCardComponent {
 	}
 
 	public openRequestCallDialog(): void {
-		const dialogRef: MatDialogRef<RequestCallComponent> = this.dialog.open(RequestCallComponent, {
+		const dialogRef: MatDialogRef<ContactsFormComponent> = this.dialog.open(ContactsFormComponent, {
 			width: '320px',
 			scrollStrategy: this.overlay.scrollStrategies.noop(),
-			data: this.product.photoUrl.low,
+			data: { formType: ContactsFormType.RequestCall, data: this.product.photoUrl.low },
 			maxHeight: '90vh'
 		});
 

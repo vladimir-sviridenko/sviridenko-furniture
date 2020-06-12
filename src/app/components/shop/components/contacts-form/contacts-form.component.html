@@ -1,0 +1,46 @@
+<div class="contacts-form">
+  <form class="contacts-form__form" novalidate 
+  	  [formGroup]="contactsForm" 
+			(ngSubmit)="submitForm($event)">
+    <div mat-dialog-title>Заказать звонок?</div>
+    <mat-form-field appearance="outline" class="contacts-form__form-field">
+      <mat-label>Ваше имя</mat-label>
+      <input formControlName="name" name="name" matInput>
+      <mat-error>
+				<span>Пожалуйста введите имя.</span>
+      </mat-error>
+      <mat-icon matSuffix>person</mat-icon>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="contacts-form__form-field">
+      <mat-label>Ваш телефон</mat-label>
+      <input formControlName="phone" name="phone" matInput>
+      <mat-error 
+          *ngIf="contactsForm.get('phone').hasError('pattern') 
+            && !contactsForm.get('phone').hasError('required')">
+        <span>Некорректный номер.</span>
+      </mat-error>
+      <mat-error *ngIf="contactsForm.get('phone').hasError('required')">
+        <span>Пожалуйста введите номер.</span>
+      </mat-error>
+      <mat-icon matSuffix>phone</mat-icon>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="contacts-form__form-field">
+      <mat-label>Email</mat-label>
+      <input formControlName="email" name="email" matInput>
+      <mat-error 
+          *ngIf="contactsForm.get('email').hasError('pattern') 
+            && !contactsForm.get('email').hasError('required')">
+				<span>Некорректный email.</span>
+      </mat-error>
+      <mat-error *ngIf="contactsForm.get('email').hasError('required')">
+				<span>Пожалуйста введите email.</span>
+      </mat-error>
+      <mat-icon matSuffix>email</mat-icon>
+    </mat-form-field>
+    <mat-progress-bar mode="buffer" [style.visibility]="isLoading ? 'visible' : 'hidden'"></mat-progress-bar>
+    <mat-dialog-actions>
+      <button mat-flat-button color="primary" [disabled]="contactsForm.invalid || isLoading">Заказать</button>
+      <button mat-stroked-button [mat-dialog-close]="undefined" [disabled]="isLoading">Отмена</button>
+    </mat-dialog-actions>
+  </form>
+</div>

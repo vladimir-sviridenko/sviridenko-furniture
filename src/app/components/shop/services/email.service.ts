@@ -37,7 +37,7 @@ export class EmailService {
 		return emailjs.send(this.serviceId, this.templateId, emailParams, this.userId);
 	}
 
-	public sendOrder(user: UserContacts, cart: Cart) {
+	public sendOrder(user: UserContacts, cart: Cart): Promise<EmailJSResponseStatus> {
 		
 	}
 }
