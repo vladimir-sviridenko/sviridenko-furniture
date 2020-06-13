@@ -1,8 +1,8 @@
 <mat-card class="product-card">
   <div mat-card-image class="product-card__image-container">
     <img class="product-card__image"
-        alt="Furniture Photo"
-        (load)="imageLoad.emit(true)" 
+    		alt="Furniture Photo"
+      	(load)="imageLoad.emit(true)" 
         (error)="imageLoad.emit(false)" 
         [attr.src]="product.photoUrl.low">
   </div>

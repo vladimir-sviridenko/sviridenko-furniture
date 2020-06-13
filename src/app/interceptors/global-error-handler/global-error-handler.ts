@@ -1,4 +1,4 @@
-import { ErrorHandler, Injectable, NgZone } from '@angular/core';
+import { ErrorHandler, Injectable, NgZone, isDevMode } from '@angular/core';
 import { Router } from '@angular/router';
 import { CanOpenErrorPageGuard } from 'src/app/guards/can-open-error-page/can-open-error-page.guard';
 import { EmailService } from '@shop/services/email.service';
@@ -13,10 +13,11 @@ export class GlobalErrorHandler implements ErrorHandler {
 		this.canOpenErrorPageGuard.isErrorThrown = true;
 		this.zone.run(() => {
 			this.router.navigate(['/error']);
-			//this.emailService.sendErrorMessage(error);
+			if (isDevMode()) {
+				throw error;
+			} else {
+				this.emailService.sendErrorMessage(error);
+			}
 		});
-		console.log(error.name);
-		console.log(error.message)
-		console.log(error.stack);
 	}
 }

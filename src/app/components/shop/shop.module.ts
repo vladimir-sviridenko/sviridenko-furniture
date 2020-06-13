@@ -37,6 +37,7 @@ import { reducers } from '@store/.';
 
 import ru from '@angular/common/locales/ru';
 import { DialogService } from './services/dialog.service';
+import { HideUntilImagesLoadedDirective } from './directives/hide-until-images-loaded.directive';
 
 @NgModule({
 	declarations: [
@@ -51,6 +52,7 @@ import { DialogService } from './services/dialog.service';
 		ContactsFormComponent,
 		CartComponent,
 		SizePipe,
+		HideUntilImagesLoadedDirective,
 		NotFoundComponent,
 	],
 	imports: [

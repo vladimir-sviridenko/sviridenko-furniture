@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChildren, QueryList, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList, AfterViewInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { Subject, ReplaySubject } from 'rxjs';
 import { takeUntil, delay } from 'rxjs/operators';
@@ -8,7 +8,8 @@ import { ShopFacadeService } from '@store/facades/shop.facade';
 @Component({
 	selector: 'app-products-table',
 	templateUrl: './products-table.component.html',
-	styleUrls: ['./products-table.component.scss']
+	styleUrls: ['./products-table.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductsTableComponent implements OnInit, AfterViewInit, OnDestroy {
 

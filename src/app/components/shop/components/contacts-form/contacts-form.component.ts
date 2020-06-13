@@ -1,17 +1,19 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserContacts } from '@shop/models/user-contacts';
 import { EmailJSResponseStatus } from 'emailjs-com';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
 	selector: 'app-contacts-form',
 	templateUrl: './contacts-form.component.html',
-	styleUrls: ['./contacts-form.component.scss']
+	styleUrls: ['./contacts-form.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContactsFormComponent {
 
-	public isLoading: boolean = false;
+	public isSubmiting$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
 	public contactsForm: FormGroup = new FormGroup({
 		name: new FormControl('', [Validators.required, Validators.pattern('^(?!\\s*$).+')]),
@@ -33,7 +35,8 @@ export class ContactsFormComponent {
 	public submitForm(event: Event): void {
 		this.contactsForm.disable();
 		this.dialogRef.disableClose = true;
-		this.isLoading = true;
+		this.isSubmiting$.next(true);
+		this.isSubmiting$.complete();
 		this.submitMethod(this.userContacts)
 			.then(() => {
 				this.dialogRef.close(true);

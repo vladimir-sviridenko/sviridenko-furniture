@@ -1,16 +1,16 @@
-import { Component, Input, Output, EventEmitter, ViewChildren, ElementRef, QueryList, AfterViewInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChildren, ElementRef, QueryList, ChangeDetectionStrategy } from '@angular/core';
 import { ProductsOptionsService } from 'src/app/components/shop/services/products-options.service';
 import { ProductFacadeService } from '@store/facades/product.facade';
 import { ProductOptionAlbum } from '@shop/models/product-option-album';
 import { OptionType } from '@shop/models/enums/option-type.enum';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
 	selector: 'app-product-options',
 	templateUrl: './product-options.component.html',
-	styleUrls: ['./product-options.component.scss']
+	styleUrls: ['./product-options.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductOptionsComponent implements AfterViewInit {
+export class ProductOptionsComponent {
 
 	@ViewChildren('optionImage')
 	private optionImages: QueryList<ElementRef>;
@@ -25,7 +25,7 @@ export class ProductOptionsComponent implements AfterViewInit {
 
 	public optionTypeEnum: typeof OptionType = OptionType;
 
-	public isOptionsLoaded$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+	public isOptionsLoaded: boolean = false;
 
 	constructor(public productsOptionsService: ProductsOptionsService,
 							public productFacadeService: ProductFacadeService) { }
@@ -35,24 +35,6 @@ export class ProductOptionsComponent implements AfterViewInit {
 		if (checkedOption) {
 			checkedOption.classList.remove(this.checkedClass);
 		}
-	}
-
-	private showOptionsAfterAllLoaded(): void {
-		const loadingPhotos$: Array<Promise<void>>
-				= this.optionImages.map((component: ElementRef, index: number) => {
-			return new Promise((resolve: (value?: void | PromiseLike<void>) => void) => {
-				const image: HTMLImageElement = component.nativeElement;
-				image.onload = () => resolve();
-			});
-		});
-		Promise.all(loadingPhotos$).then(() => {
-			this.isOptionsLoaded$.next(true);
-			this.isOptionsLoaded$.complete();
-		});
-	}
-
-	public ngAfterViewInit(): void {
-		this.showOptionsAfterAllLoaded();
 	}
 
 	public onCheck($event: Event, photo: string): void {

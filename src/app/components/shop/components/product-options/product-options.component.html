@@ -1,12 +1,12 @@
 <mat-tab-group class="product-options"
-		[class.product-options_loading]="!(isOptionsLoaded$ | async)"
+		[class.product-options_loading]="!isOptionsLoaded"
 		mat-align-tabs="start">
   <mat-tab [label]="optionAlbum.type"
 			*ngFor="let optionAlbum of optionAlbums">
-		<div class="product-options__loader" *ngIf='!(isOptionsLoaded$ | async)'>
+		<div class="product-options__loader" *ngIf="!isOptionsLoaded">
 			<mat-spinner [diameter]="50"></mat-spinner>
 		</div>
-		<div class="product-options__content" [class.product-options__content_hidden]="!(isOptionsLoaded$ | async)">
+		<div appHideUntilImagesLoaded (loaded)="isOptionsLoaded = true">
 			<mat-accordion [displayMode]="'flat'" multi >
 				<mat-expansion-panel [expanded] = "true"
 						*ngFor="let group of optionAlbum.groups; let firstGroup = first">

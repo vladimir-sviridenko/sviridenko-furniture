@@ -74,7 +74,7 @@ export class HTMLGenerator {
 			const numberCell: HTMLTableCellElement = orderTableHtml.rows[index].insertCell(0);
 			numberCell.innerHTML = (index + 1).toString();
 			numberCell.setAttribute('style', 'text-align: center');
-			const priceCell: HTMLTableCellElement = orderTableHtml.rows[index].insertCell(3);
+			const priceCell: HTMLTableCellElement = orderTableHtml.rows[index].insertCell(Number('3'));
 			priceCell.setAttribute('style', 'text-align: right; vertical-align: bottom;');
 			priceCell.innerHTML = `<div>${pool.quantity} x ${pool.cartProduct.totalPrice}</div>`;
 		});
@@ -89,9 +89,9 @@ export class HTMLGenerator {
 
 		orderTableHtml.innerHTML += `
 		<tr>
-			<td>#</td>
+			<td style="text-align: center;>#</td>
 			<td colspan="2" style="text-align: right;">Итого к оплате: </td>
-			<td style="text-align: right;">${cart.totalPrice}</td>
+			<td style="text-align: right;">${cart.totalPrice} RUB</td>
 		</tr>`;
 
 		orderContainer.innerHTML += orderTableHtml.outerHTML;

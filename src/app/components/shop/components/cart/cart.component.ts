@@ -1,10 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CartFacadeService } from '@store/facades/cart.facade';
 import { OptionType } from '@shop/models/enums/option-type.enum';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Overlay } from '@angular/cdk/overlay';
-import { ContactsFormComponent } from '../contacts-form/contacts-form.component';
 import { take } from 'rxjs/operators';
 import { Cart } from '@shop/models/cart-product-pools';
 import { EmailJSResponseStatus } from 'emailjs-com';

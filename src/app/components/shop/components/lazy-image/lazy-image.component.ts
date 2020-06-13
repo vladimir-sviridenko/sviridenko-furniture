@@ -1,9 +1,10 @@
-import { Component, Input, OnChanges, SimpleChanges, ElementRef, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
 	selector: 'app-lazy-image',
 	templateUrl: './lazy-image.component.html',
 	styleUrls: ['./lazy-image.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LazyImageComponent implements OnChanges {
 

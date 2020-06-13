@@ -75,23 +75,8 @@ $image-margin_facade: 5px;
 
   &::ng-deep .mat-tab-label {
     height: $update-button-height-mobile;
-  }
-
-  &__content {
-    height: unset;
-
-    opacity: 1;
-
-    transition: opacity 0.3s;
-
-    &_hidden {
-      height: 0;
-      overflow: hidden;
-
-      opacity: 0;
-    }
-  }
-
+	}
+	
   &__group-name {
     background-color: $background-color-primary !important;
 
@@ -133,7 +118,7 @@ $image-margin_facade: 5px;
       height: 320px;
     }
     &::ng-deep .mat-tab-body-content {
-      max-height: 573px;
+      max-height: 553px;
     }
   }
 }

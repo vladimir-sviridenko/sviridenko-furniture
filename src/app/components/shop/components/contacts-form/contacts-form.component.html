@@ -37,10 +37,10 @@
       </mat-error>
       <mat-icon matSuffix>email</mat-icon>
     </mat-form-field>
-    <mat-progress-bar mode="buffer" [style.visibility]="isLoading ? 'visible' : 'hidden'"></mat-progress-bar>
+    <mat-progress-bar mode="buffer" [style.visibility]="(isSubmiting$ | async) ? 'visible' : 'hidden'"></mat-progress-bar>
     <mat-dialog-actions>
-      <button mat-flat-button color="primary" [disabled]="contactsForm.invalid || isLoading">Заказать</button>
-      <button mat-stroked-button [mat-dialog-close]="undefined" [disabled]="isLoading">Отмена</button>
+      <button mat-flat-button color="primary" [disabled]="contactsForm.invalid || (isSubmiting$ | async)">Заказать</button>
+      <button mat-stroked-button [mat-dialog-close]="undefined" [disabled]="(isSubmiting$ | async)">Отмена</button>
     </mat-dialog-actions>
   </form>
 </div>
