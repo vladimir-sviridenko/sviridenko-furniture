@@ -22,6 +22,9 @@
 	<div class="cart__product-list" *ngIf="!(cartFacadeService.isCartEmpty$ | async); else emptyProductList">
 		<div class="cart__product-container"
 				*ngFor="let productsPool of (cartFacadeService.cart$ | async).pools">
+			<div class="cart__product-image-container">
+				<img class="cart__product-image" [src]="productsPool.cartProduct.product.photoUrl.low" alt="Фото продукта">
+			</div>
 			<div class="cart__product-info">
 				<div class="cart__product-name">{{productsPool.cartProduct.product.name}}</div>
 				<div class="cart__product-size" 
@@ -31,8 +34,10 @@
 				<div class="cart__product-option" *ngFor="let selectedOption of productsPool.cartProduct.selectedOptions">
 					<span>{{selectedOption.type}}: </span> 
 					<span>{{selectedOption.option.name | titlecase}}</span>
-					<img *ngIf="optionTypeEnum.Skin === selectedOption.type" class="cart__skin-image" 
-							[src]="selectedOption.option.photoUrl.low" alt="Skin color">
+					<div class="cart__skin-image-container" *ngIf="optionTypeEnum.Skin === selectedOption.type" >
+						<img class="cart__skin-image" 
+						[src]="selectedOption.option.photoUrl.low" alt="Skin color">
+					</div>
 				</div>
 			</div>
 			<div class="cart__price-container">

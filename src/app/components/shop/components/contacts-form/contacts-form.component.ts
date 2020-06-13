@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserContacts } from '@shop/models/user-contacts';
@@ -28,13 +28,13 @@ export class ContactsFormComponent {
 	}
 
 	constructor(private dialogRef: MatDialogRef<ContactsFormComponent>,
-							@Inject(MAT_DIALOG_DATA) public submit: (contacts: UserContacts) => Promise<EmailJSResponseStatus>) { }
+							@Inject(MAT_DIALOG_DATA) public submitMethod: (contacts: UserContacts) => Promise<EmailJSResponseStatus>) { }
 
 	public submitForm(event: Event): void {
 		this.contactsForm.disable();
 		this.dialogRef.disableClose = true;
 		this.isLoading = true;
-		this.submit(this.userContacts)
+		this.submitMethod(this.userContacts)
 			.then(() => {
 				this.dialogRef.close(true);
 			})

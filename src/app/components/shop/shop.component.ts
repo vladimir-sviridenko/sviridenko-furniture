@@ -2,7 +2,6 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { ShopFacadeService } from '@store/facades/shop.facade';
 import { CartFacadeService } from '@store/facades/cart.facade';
-import { EmailService } from './services/email.service';
 
 @Component({
 	selector: 'app-shop',

@@ -13,6 +13,7 @@ export class EmailService {
 	private userId: string = 'user_QZnzCIxRa5wxvW6sLg46x';
 	private templateId: string = 'main';
 	private sendTo: string = Email.Developer;
+	private sendCopyTo: string = '';
 
 	private htmlGenerator: HTMLGenerator = new HTMLGenerator();
 
@@ -21,23 +22,33 @@ export class EmailService {
 		const emailParams: EmailParams = {
 			subject: 'Uncaught Error!',
 			sendTo: Email.Developer,
+			sendCopyTo: this.sendCopyTo,
 			htmlMessage
 		};
 		return emailjs.send(this.serviceId, this.templateId, emailParams, this.userId);
 	}
 
-	public sendCallRequest(userContacts: UserContacts, targetPhotoUrl: string): Promise<EmailJSResponseStatus> {
-		const htmlMessage: string = this.htmlGenerator.getRequestCallHtml(userContacts, targetPhotoUrl).outerHTML;
+	public sendCallRequest(user: UserContacts, targetPhotoUrl: string): Promise<EmailJSResponseStatus> {
+		const htmlMessage: string = this.htmlGenerator.getRequestCallMessageHtml(user, targetPhotoUrl).outerHTML;
 
 		const emailParams: EmailParams = {
 			subject: 'Клиент запросил звонок!',
 			sendTo: this.sendTo,
+			sendCopyTo: this.sendCopyTo,
 			htmlMessage
 		};
 		return emailjs.send(this.serviceId, this.templateId, emailParams, this.userId);
 	}
 
 	public sendOrder(user: UserContacts, cart: Cart): Promise<EmailJSResponseStatus> {
-		console.log("Ok");
+		const htmlMessage: string = this.htmlGenerator.getOrderMessageHtml(user, cart).outerHTML;
+
+		const emailParams: EmailParams = {
+			subject: 'Новый заказ!',
+			sendTo: this.sendTo,
+			sendCopyTo: this.sendCopyTo,
+			htmlMessage
+		};
+		return emailjs.send(this.serviceId, this.templateId, emailParams, this.userId);
 	}
 }

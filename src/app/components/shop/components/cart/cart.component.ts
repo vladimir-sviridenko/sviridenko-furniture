@@ -7,10 +7,10 @@ import { Overlay } from '@angular/cdk/overlay';
 import { ContactsFormComponent } from '../contacts-form/contacts-form.component';
 import { take } from 'rxjs/operators';
 import { Cart } from '@shop/models/cart-product-pools';
-import { ContactsFormType } from '@shop/models/enums/contacts-form-type';
 import { EmailJSResponseStatus } from 'emailjs-com';
 import { EmailService } from '@shop/services/email.service';
 import { UserContacts } from '@shop/models/user-contacts';
+import { DialogService } from '@shop/services/dialog.service';
 
 @Component({
   selector: 'app-cart',
@@ -22,10 +22,8 @@ export class CartComponent {
 
 	public optionTypeEnum: typeof OptionType = OptionType;
 
-	constructor(private dialog: MatDialog,
-							private requestStatusTip: MatSnackBar,
+	constructor(private dialogService: DialogService,
 							private emailService: EmailService,
-							private overlay: Overlay,
 							public cartFacadeService: CartFacadeService) {}
 
 	public openMakeOrderDialog(): void {
@@ -39,11 +37,6 @@ export class CartComponent {
 			return this.emailService.sendOrder.call(this.emailService, contacts, currentCart);
 		};
 
-		const dialogRef: MatDialogRef<ContactsFormComponent> = this.dialog.open(ContactsFormComponent, {
-			width: '320px',
-			scrollStrategy: this.overlay.scrollStrategies.noop(),
-			data: submitMethod,
-			maxHeight: '90vh'
-		});
+		this.dialogService.openContactsDialog(submitMethod);
 	}
 }

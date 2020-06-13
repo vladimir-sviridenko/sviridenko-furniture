@@ -7,10 +7,10 @@ import { take } from 'rxjs/internal/operators/take';
 import { CartFacadeService } from '@store/facades/cart.facade';
 import { CartProduct } from '@shop/models/cart-product';
 import { ContactsFormComponent } from '../contacts-form/contacts-form.component';
-import { ContactsFormType } from '@shop/models/enums/contacts-form-type';
 import { EmailJSResponseStatus } from 'emailjs-com';
 import { UserContacts } from '@shop/models/user-contacts';
 import { EmailService } from '@shop/services/email.service';
+import { DialogService } from '@shop/services/dialog.service';
 
 @Component({
 	selector: 'app-product-card',
@@ -29,9 +29,7 @@ export class ProductCardComponent {
 	@Output()
 	public imageLoad: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-	constructor(private dialog: MatDialog,
-							private requestStatusTip: MatSnackBar,
-							private overlay: Overlay,
+	constructor(private dialogService: DialogService,
 							private emailService: EmailService,
 							private cartFacadeService: CartFacadeService) {}
 
@@ -44,25 +42,7 @@ export class ProductCardComponent {
 		const submitMethod: (contacts: UserContacts) => Promise<EmailJSResponseStatus> = (contacts: UserContacts) => {
 			return this.emailService.sendCallRequest.call(this.emailService, contacts, this.product.photoUrl.low);
 		};
-		const dialogRef: MatDialogRef<ContactsFormComponent> = this.dialog.open(ContactsFormComponent, {
-			width: '320px',
-			scrollStrategy: this.overlay.scrollStrategies.noop(),
-			data: submitMethod,
-			maxHeight: '90vh'
-		});
 
-		dialogRef.afterClosed().pipe(take(1)).subscribe((requestSuccess: boolean | undefined) => {
-			if (requestSuccess !== undefined) {
-				requestSuccess
-					? this.requestStatusTip.open('Запрос успешно отправлен', 'Ок', {
-						duration: 5000
-					})
-					: this.requestStatusTip.open('Ошибка запроса', 'Ок', {
-						duration: 10000
-					});
-			} else {  // when dialog closed by user
-				return;
-			}
-		});
+		this.dialogService.openContactsDialog(submitMethod);
 	}
 }

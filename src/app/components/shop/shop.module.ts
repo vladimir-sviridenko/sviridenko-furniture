@@ -36,6 +36,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { reducers } from '@store/.';
 
 import ru from '@angular/common/locales/ru';
+import { DialogService } from './services/dialog.service';
 
 @NgModule({
 	declarations: [
@@ -69,6 +70,7 @@ import ru from '@angular/common/locales/ru';
 		ProductsService,
 		ProductsOptionsService,
 		EmailService,
+		DialogService,
 		CanOpenProductGuard,
 		CanOpenAlbumGuard
 	],

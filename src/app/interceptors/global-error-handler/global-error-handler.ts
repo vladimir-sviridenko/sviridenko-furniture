@@ -15,5 +15,8 @@ export class GlobalErrorHandler implements ErrorHandler {
 			this.router.navigate(['/error']);
 			//this.emailService.sendErrorMessage(error);
 		});
+		console.log(error.name);
+		console.log(error.message)
+		console.log(error.stack);
 	}
 }
