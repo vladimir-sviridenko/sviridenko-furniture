@@ -1,35 +1,31 @@
 @import "variables";
 
 .dialog {
-	&__full-photo-background {
-		background-color: $background-color-dark;
-	}
+  &__full-photo-background {
+    background-color: $background-color-dark;
+  }
 
-	&__full-photo {
-		height: 90vh;
+  &__full-photo {
+    & .mat-dialog-container {
+      padding: 0;
+      overflow: hidden;
+    }
+  }
 
-		& .mat-dialog-container {
-			padding: 0;
-		}
-	}
-
-	&__contacts {
-			display: none;
-	}
+  &__contacts {
+    display: none;
+  }
 }
 
 @media screen and (max-width: map-get($breakpoints, mobile) - 1) {
-	.dialog {
-		&__full-photo {
-		}
-	
-		&__contacts {
-			display: block;
-			& .mat-dialog-container {
-				position: relative;
-	
-				background-color: $background-color-primary;
-			}
-		}
-	}
+  .dialog {
+    &__contacts {
+      display: block;
+      & .mat-dialog-container {
+        position: relative;
+
+        background-color: $background-color-primary;
+      }
+    }
+  }
 }

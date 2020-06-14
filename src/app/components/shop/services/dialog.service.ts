@@ -74,11 +74,11 @@ export class DialogService {
 
 		this.dialog.open(FullPhotoComponent, {
 			scrollStrategy: this.overlay.scrollStrategies.noop(),
-			autoFocus: false,
 			panelClass: 'dialog__full-photo',
 			backdropClass: 'dialog__full-photo-background',
+			maxHeight: '90vh',
+			maxWidth: '90vw',
 			data:	isDesktop ? photoUrl.high : photoUrl.low,
-			maxHeight: '90vh'
 		});
 	}
 }

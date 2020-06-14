@@ -1,7 +1,7 @@
 <div class="image">
   <div class="image__loader">
     <mat-spinner 
-        *ngIf="!isImageLoaded"
+        *ngIf="!isImageLoaded "
         [diameter]="40">
     </mat-spinner>
   </div>
@@ -9,6 +9,6 @@
       [class.image__content_shown]="isImageLoaded" 
       [title]="title"
       [src]="src"
-      (load)="isImageLoaded = true"
+      (load)="onLoad()"
       alt="Product photo">
 </div>

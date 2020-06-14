@@ -1,66 +1,84 @@
 @import "variables";
 
 :host {
-	display: flex;
-	width: 100%;
-	@media screen and (min-width: map-get($breakpoints, mobile-portrait)) {
-		width: 50%;
-	}
-	@media screen and (min-width: map-get($breakpoints, mobile)) {
-		width: 33.3%;
-	}
-	@media screen and (min-width: map-get($breakpoints, tablet)) {
-		width: 25%;
-	}
-	@media screen and (min-width: map-get($breakpoints, laptop)) {
-		width: 20%;
-	}
-	@media screen and (min-width: map-get($breakpoints, desktop)) {
-		width: 16.66%;
-	}
+  display: flex;
+  width: 100%;
+  @media screen and (min-width: map-get($breakpoints, mobile-portrait)) {
+    width: 50%;
+  }
+  @media screen and (min-width: map-get($breakpoints, mobile)) {
+    width: 33.3%;
+  }
+  @media screen and (min-width: map-get($breakpoints, tablet)) {
+    width: 25%;
+  }
+  @media screen and (min-width: map-get($breakpoints, laptop)) {
+    width: 20%;
+  }
+  @media screen and (min-width: map-get($breakpoints, desktop)) {
+    width: 16.66%;
+  }
+}
+
+@media screen and (max-width: map-get($breakpoints, mobile-portrait) - 1) {
+  .product-card {
+    &__image-container {
+      pointer-events: none;
+    }
+  }
+}
+
+@media screen and (max-width: map-get($breakpoints, tablet-portrait) - 1px) {
+  .product-card {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
 }
 
 .product-card {
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	margin: 5px;
-	margin-bottom: 10px;
-	overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 5px;
+  margin-bottom: 10px;
+  overflow: hidden;
 
-	&_priceless {
-		padding-left: 10px;
-		padding-right: 10px;
-	}
+  &_priceless {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
 
-	&__image-container {
-		height: 100%;
-		min-height: 170px;
-		cursor: pointer;
+  &__image-container {
+    height: 100%;
+    min-height: 170px;
 
-		&_priceless {
-			margin-bottom: 0;
-		}
-	}
+    cursor: pointer;
 
-	&__image {
-		width: 100%;
-		height: 100%;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
 
-		object-fit: cover;
-	}
+    &_priceless {
+      margin-bottom: 0;
+    }
+  }
 
-	&__actions {
-		margin: auto 0;
-	}
+  &__image {
+    width: 100%;
+    height: 100%;
 
-	&__button {
-		width: 100%;
+    object-fit: cover;
+  }
 
-		&.mat-stroked-button {
-			margin-top: 8px;
-			margin-right: 0;
-			margin-left: 0;
-		}
-	}
+  &__actions {
+    margin: auto 0;
+  }
+
+  &__button {
+    width: 100%;
+
+    &.mat-stroked-button {
+      margin-top: 8px;
+      margin-right: 0;
+      margin-left: 0;
+    }
+  }
 }

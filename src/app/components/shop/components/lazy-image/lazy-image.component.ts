@@ -19,4 +19,8 @@ export class LazyImageComponent implements OnChanges {
 	public ngOnChanges(): void {
 		this.isImageLoaded = false;
 	}
+
+	public onLoad(): void {
+		this.isImageLoaded = true;
+	}
 }

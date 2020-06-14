@@ -10,5 +10,4 @@ export class FullPhotoComponent {
 
   constructor(public dialogRef: MatDialogRef<FullPhotoComponent>,
 							@Inject(MAT_DIALOG_DATA) public url: string) {}
-
 }
