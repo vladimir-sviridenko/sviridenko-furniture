@@ -43,6 +43,6 @@ export class ProductCardComponent {
 			return this.emailService.sendCallRequest.call(this.emailService, contacts, this.product.photoUrl.low);
 		};
 
-		this.dialogService.openContactsDialog(submitMethod);
+		this.dialogService.openContactsFormDialog(submitMethod);
 	}
 }

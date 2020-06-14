@@ -33,6 +33,6 @@ export class CartComponent {
 			return this.emailService.sendOrder.call(this.emailService, contacts, currentCart);
 		};
 
-		this.dialogService.openContactsDialog(submitMethod);
+		this.dialogService.openContactsFormDialog(submitMethod);
 	}
 }

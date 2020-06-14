@@ -5,8 +5,11 @@ import { Overlay } from '@angular/cdk/overlay';
 import { ContactsFormComponent } from '@shop/components/contacts-form/contacts-form.component';
 import { UserContacts } from '@shop/models/user-contacts';
 import { EmailJSResponseStatus } from 'emailjs-com';
-import { take } from 'rxjs/operators';
+import { take, last } from 'rxjs/operators';
 import { CartFacadeService } from '@store/facades/cart.facade';
+import { ContactsComponent } from '@shop/components/contacts/contacts.component';
+import { BreakpointState, BreakpointObserver } from '@angular/cdk/layout';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class DialogService {
@@ -14,9 +17,10 @@ export class DialogService {
 	constructor(private dialog: MatDialog,
 							private requestStatusTip: MatSnackBar,
 							private overlay: Overlay,
+							private breakpointObserver: BreakpointObserver,
 							private cartFacadeService: CartFacadeService) {}
 
-	public openContactsDialog(submitMethod: (contacts: UserContacts) => Promise<EmailJSResponseStatus>): void {
+	public openContactsFormDialog(submitMethod: (contacts: UserContacts) => Promise<EmailJSResponseStatus>): void {
 		const dialogRef: MatDialogRef<ContactsFormComponent> = this.dialog.open(ContactsFormComponent, {
 			width: '320px',
 			scrollStrategy: this.overlay.scrollStrategies.noop(),
@@ -37,6 +41,24 @@ export class DialogService {
 			} else {  // when dialog closed by user
 				return;
 			}
+		});
+	}
+
+	public openContactsDialog(): void {
+		const dialogRef: MatDialogRef<ContactsComponent> = this.dialog.open(ContactsComponent, {
+			width: '270px',
+			scrollStrategy: this.overlay.scrollStrategies.noop(),
+			autoFocus: false,
+			panelClass: 'header__contacts-dialog',
+			maxHeight: '90vh'
+		});
+
+		const layoutChanges: Observable<BreakpointState> = this.breakpointObserver.observe([
+			'(min-width: 600px)',
+		]);
+
+		layoutChanges.pipe(take(2), last()).subscribe(() => {
+			dialogRef.close();
 		});
 	}
 }
