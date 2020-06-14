@@ -1,0 +1,21 @@
+.not-found {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 60vh;
+	min-height: 200px;
+
+	&__card {
+		display: flex;
+		flex-flow: column nowrap;
+		align-items: center;
+	}
+
+	&__content {
+		margin-bottom: 4px;
+	}
+
+	&__button {
+		width: 100%;
+	}
+}
