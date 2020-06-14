@@ -1,9 +1,5 @@
 @import "variables";
 
-::ng-deep .header__contacts-dialog {
-  display: none;
-}
-
 .header {
 	overflow: hidden;
 
@@ -60,16 +56,6 @@
 }
 
 @media screen and (max-width: map-get($breakpoints, mobile) - 1) {
-  ::ng-deep .header__contacts-dialog {
-    display: block;
-
-    & .mat-dialog-container {
-      position: relative;
-
-      background-color: $background-color-primary;
-    }
-  }
-
   .header {
     margin-bottom: 14px;
 

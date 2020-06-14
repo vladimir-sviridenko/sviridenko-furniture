@@ -32,7 +32,7 @@ export class ContactsFormComponent {
 	constructor(private dialogRef: MatDialogRef<ContactsFormComponent>,
 							@Inject(MAT_DIALOG_DATA) public submitMethod: (contacts: UserContacts) => Promise<EmailJSResponseStatus>) { }
 
-	public submitForm(event: Event): void {
+	public submitForm(): void {
 		this.contactsForm.disable();
 		this.dialogRef.disableClose = true;
 		this.isSubmiting$.next(true);

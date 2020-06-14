@@ -38,6 +38,7 @@ import { reducers } from '@store/.';
 import ru from '@angular/common/locales/ru';
 import { DialogService } from './services/dialog.service';
 import { HideUntilImagesLoadedDirective } from './directives/hide-until-images-loaded.directive';
+import { FullPhotoComponent } from './components/full-photo/full-photo.component';
 
 @NgModule({
 	declarations: [
@@ -51,6 +52,7 @@ import { HideUntilImagesLoadedDirective } from './directives/hide-until-images-l
 		ProductOptionsComponent,
 		ContactsFormComponent,
 		CartComponent,
+		FullPhotoComponent,
 		SizePipe,
 		HideUntilImagesLoadedDirective,
 		NotFoundComponent,

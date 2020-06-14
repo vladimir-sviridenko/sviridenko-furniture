@@ -29,9 +29,9 @@ export class ProductCardComponent {
 	@Output()
 	public imageLoad: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-	constructor(private dialogService: DialogService,
-							private emailService: EmailService,
-							private cartFacadeService: CartFacadeService) {}
+	constructor(private emailService: EmailService,
+							private cartFacadeService: CartFacadeService,
+							public dialogService: DialogService) {}
 
 	public addProductToCart(): void {
 		const cartProduct: CartProduct = new CartProduct(this.product);
@@ -40,9 +40,9 @@ export class ProductCardComponent {
 
 	public openRequestCallDialog(): void {
 		const submitMethod: (contacts: UserContacts) => Promise<EmailJSResponseStatus> = (contacts: UserContacts) => {
-			return this.emailService.sendCallRequest.call(this.emailService, contacts, this.product.photoUrl.low);
+			return this.emailService.sendCallRequest.call(this.emailService, contacts, this.product.photoUrl);
 		};
 
-		this.dialogService.openContactsFormDialog(submitMethod);
+		this.dialogService.openContactsForm(submitMethod);
 	}
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
 	selector: 'app-lazy-image',
@@ -16,9 +16,7 @@ export class LazyImageComponent implements OnChanges {
 
 	public isImageLoaded: boolean = false;
 
-	public ngOnChanges(changes: SimpleChanges): void {
-		if (changes.src.previousValue !== changes.src.currentValue && !changes.src.isFirstChange()) {
-			this.isImageLoaded = false;
-		}
+	public ngOnChanges(): void {
+		this.isImageLoaded = false;
 	}
 }

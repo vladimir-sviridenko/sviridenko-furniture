@@ -1,7 +1,7 @@
 <div class="contacts-form">
   <form class="contacts-form__form" novalidate 
   	  [formGroup]="contactsForm" 
-			(ngSubmit)="submitForm($event)">
+			(ngSubmit)="submitForm()">
     <div mat-dialog-title>Ваши контакты</div>
     <mat-form-field appearance="outline" class="contacts-form__form-field">
       <mat-label>Ваше имя</mat-label>

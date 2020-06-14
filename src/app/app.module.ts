@@ -12,7 +12,7 @@ import { GlobalErrorHandler } from './interceptors/global-error-handler/global-e
 @NgModule({
   declarations: [
 		AppComponent,
-		ErrorComponent,
+		ErrorComponent
   ],
   imports: [
 	  BrowserModule,

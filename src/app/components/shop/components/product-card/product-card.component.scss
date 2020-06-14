@@ -28,9 +28,19 @@
 	margin-bottom: 10px;
 	overflow: hidden;
 
+	&_priceless {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+
 	&__image-container {
 		height: 100%;
 		min-height: 170px;
+		cursor: pointer;
+
+		&_priceless {
+			margin-bottom: 0;
+		}
 	}
 
 	&__image {

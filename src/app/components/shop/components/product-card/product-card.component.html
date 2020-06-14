@@ -1,5 +1,8 @@
-<mat-card class="product-card">
-  <div mat-card-image class="product-card__image-container">
+<mat-card class="product-card" [class.product-card_priceless]="!product.price">
+	<div mat-card-image class="product-card__image-container"
+				[class.product-card__image-container_priceless]="!product.price"
+			title="Посмотреть фото"	
+			(click)="dialogService.openPhoto(product.photoUrl)">
     <img class="product-card__image"
     		alt="Furniture Photo"
       	(load)="imageLoad.emit(true)" 
@@ -31,9 +34,6 @@
     <button mat-flat-button class="product-card__button" color="primary" 
         (click)="openRequestCallDialog()">
         Заказать звонок
-    </button>
-    <button mat-stroked-button class="product-card__button" color="primary">
-      Открыть фото
     </button>
   </mat-card-actions>
 </mat-card>
