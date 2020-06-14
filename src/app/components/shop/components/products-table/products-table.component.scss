@@ -42,3 +42,11 @@
     flex: auto;
   }
 }
+
+@media screen and (max-width: map-get($breakpoints, tablet-portrait) - 1px) and (orientation: landscape) {
+	.products-table {
+		&__loader {
+			top: 70%;
+		}
+	}
+}

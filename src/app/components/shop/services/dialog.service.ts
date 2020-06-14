@@ -28,7 +28,7 @@ export class DialogService {
 		]);
 	}
 
-	public openContactsForm(submitMethod: (contacts: UserContacts) => Promise<EmailJSResponseStatus>): void {
+	public openContactsForm(submitMethod: (contacts: UserContacts) => Promise<EmailJSResponseStatus[]>): void {
 		const dialogRef: MatDialogRef<ContactsFormComponent> = this.dialog.open(ContactsFormComponent, {
 			width: '320px',
 			scrollStrategy: this.overlay.scrollStrategies.noop(),

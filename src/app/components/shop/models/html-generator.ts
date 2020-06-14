@@ -89,7 +89,7 @@ export class HTMLGenerator {
 
 		orderTableHtml.innerHTML += `
 		<tr>
-			<td style="text-align: center;>#</td>
+			<td style="text-align: center;">#</td>
 			<td colspan="2" style="text-align: right;">Итого к оплате: </td>
 			<td style="text-align: right;">${cart.totalPrice} RUB</td>
 		</tr>`;
@@ -120,7 +120,17 @@ export class HTMLGenerator {
 		return this.getTwoColumnsTableHtml(errorContent);
 	}
 
-	public getRequestCallMessageHtml(user: UserContacts, targetPhotoUrl: string): HTMLElement {
+	public getOrderConfirmationMessageHtml(cart: Cart): HTMLDivElement {
+		const container: HTMLDivElement = document.createElement('div');
+		container.setAttribute('style', this.containerStyle);
+		const title: string = '<p>Спасибо за заказ. Ожидайте звонка.</p>';
+		const order: string = this.getOrderHtml(cart).outerHTML;
+
+		container.innerHTML = title + order;
+		return container;
+	}
+
+	public getRequestCallMessageHtml(user: UserContacts, targetPhotoUrl: string): HTMLDivElement {
 		const container: HTMLDivElement = document.createElement('div');
 		container.setAttribute('style', this.containerStyle);
 		const title: string = '<p>Потенциальный клиент <strong>запросил звонок!</strong></p>';
@@ -130,7 +140,7 @@ export class HTMLGenerator {
 		return container;
 	}
 
-	public getOrderMessageHtml(user: UserContacts, cart: Cart): HTMLElement {
+	public getOrderMessageHtml(user: UserContacts, cart: Cart): HTMLDivElement {
 		const container: HTMLDivElement = document.createElement('div');
 		container.setAttribute('style', this.containerStyle);
 

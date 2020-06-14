@@ -40,6 +40,18 @@ export class EmailService {
 		return emailjs.send(this.serviceId, this.templateId, emailParams, this.userId);
 	}
 
+	public sendOrderConfirmation(user: UserContacts, cart: Cart): Promise<EmailJSResponseStatus> {
+		const htmlMessage: string = this.htmlGenerator.getOrderConfirmationMessageHtml(cart).outerHTML;
+
+		const emailParams: EmailParams = {
+			subject: 'Ваш заказ мебели',
+			sendTo: user.email,
+			sendCopyTo: this.sendCopyTo,
+			htmlMessage
+		};
+		return emailjs.send(this.serviceId, this.templateId, emailParams, this.userId);
+	}
+
 	public sendOrder(user: UserContacts, cart: Cart): Promise<EmailJSResponseStatus> {
 		const htmlMessage: string = this.htmlGenerator.getOrderMessageHtml(user, cart).outerHTML;
 

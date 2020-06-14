@@ -39,8 +39,8 @@ export class ProductCardComponent {
 	}
 
 	public openRequestCallDialog(): void {
-		const submitMethod: (contacts: UserContacts) => Promise<EmailJSResponseStatus> = (contacts: UserContacts) => {
-			return this.emailService.sendCallRequest.call(this.emailService, contacts, this.product.photoUrl);
+		const submitMethod: (contacts: UserContacts) => Promise<EmailJSResponseStatus[]> = (contacts: UserContacts) => {
+			return Promise.all([this.emailService.sendCallRequest.call(this.emailService, contacts, this.product.photoUrl.low)]);
 		};
 
 		this.dialogService.openContactsForm(submitMethod);

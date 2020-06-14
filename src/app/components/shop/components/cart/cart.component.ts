@@ -29,8 +29,9 @@ export class CartComponent {
 				currentCart = cart;
 			});
 
-		const submitMethod: (contacts: UserContacts) => Promise<EmailJSResponseStatus> = (contacts: UserContacts) => {
-			return this.emailService.sendOrder.call(this.emailService, contacts, currentCart);
+		const submitMethod: (contacts: UserContacts) => Promise<EmailJSResponseStatus[]> = (contacts: UserContacts) => {
+			return Promise.all([this.emailService.sendOrder.call(this.emailService, contacts, currentCart),
+													this.emailService.sendOrderConfirmation.call(this.emailService, contacts, currentCart)]);
 		};
 
 		this.dialogService.openContactsForm(submitMethod);
