@@ -6,14 +6,14 @@ import * as ActionCart from '@store/actions/cart.actions';
 import * as SelectorCart from '@store/selectors/cart.selectors';
 import { CartProduct } from '@shop/models/cart-product';
 import { map } from 'rxjs/operators';
-import { CartProductsPool } from '@shop/models/cart-products-pool';
-import { Cart } from '@shop/models/cart-product-pools';
+import { Cart } from '@shop/models/cart';
+import { LocalStorageService } from '@shop/services/local-storage.service';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class CartFacadeService {
-	constructor(private store: Store<AppState>) {}
+	constructor(private store: Store<AppState>, private localStorageService: LocalStorageService) {}
 
 	get cart$(): Observable<Cart> {
 		return this.store.select(SelectorCart.selectCart);
@@ -39,10 +39,16 @@ export class CartFacadeService {
 
 	public addCartProduct(cartProduct: CartProduct): void {
 		this.store.dispatch(ActionCart.addProduct({ cartProduct }));
+		this.store.dispatch(ActionCart.saveCart({ storageApi: this.localStorageService }));
 	}
 
 	public removeCartProduct(cartProduct: CartProduct): void {
 		this.store.dispatch(ActionCart.removeProduct({ cartProduct }));
+		this.store.dispatch(ActionCart.saveCart({ storageApi: this.localStorageService }));
+	}
+
+	public loadCart(): void {
+		this.store.dispatch(ActionCart.loadCart({ storageApi: this.localStorageService }));
 	}
 
 	public openCart(): void {

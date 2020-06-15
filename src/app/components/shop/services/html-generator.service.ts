@@ -1,11 +1,13 @@
-import { UserContacts } from './user-contacts';
-import { Cart } from './cart-product-pools';
-import { CartProductsPool } from './cart-products-pool';
-import { CartProduct } from './cart-product';
-import { SelectedOption } from './selected-option';
-import { ProductOption } from './product-option';
+import { UserContacts } from '@shop/models/user-contacts';
+import { Cart } from '@shop/models/cart';
+import { CartProductsPool } from '@shop/models/cart-products-pool';
+import { CartProduct } from '@shop/models/cart-product';
+import { SelectedOption } from '@shop/models/selected-option';
+import { ProductOption } from '@shop/models/product-option';
+import { Injectable } from '@angular/core';
 
-export class HTMLGenerator {
+@Injectable()
+export class HTMLGeneratorService {
 
 	private containerStyle: string = 'padding:12px 15px;background:#f5f5f5;font-size:14px;color:#333';
 	private baseHref: string = 'https://vladimir-sviridenko.github.io/sviridenko-furniture/';
@@ -62,7 +64,7 @@ export class HTMLGenerator {
 		// create main columns
 		cart.pools.forEach((pool: CartProductsPool, index: number) => {
 			const photoUrl: string = this.baseHref + pool.cartProduct.product.photoUrl.low.slice(1);
-			const productPhoto: string = `<img height="130" src="${photoUrl}" alt="Фото продукта">`;
+			const productPhoto: string = `<img height="90" src="${photoUrl}" alt="Фото продукта">`;
 			const itemIndex: string = `<span style="font-size: 0;">${index + 1}</span>`;
 			const productDescriptin: string = this.getProductDescriptionHtml(pool.cartProduct).outerHTML;
 			orderContent.set(productPhoto + itemIndex, productDescriptin);

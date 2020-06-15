@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import emailjs, { EmailJSResponseStatus } from 'emailjs-com';
 import { Email } from '@shop/models/enums/email.enum';
 import { EmailParams } from '@shop/models/email-params';
-import { HTMLGenerator } from '@shop/models/html-generator';
 import { UserContacts } from '@shop/models/user-contacts';
-import { Cart } from '@shop/models/cart-product-pools';
+import { Cart } from '@shop/models/cart';
+import { HTMLGeneratorService } from './html-generator.service';
 
 @Injectable()
 export class EmailService {
@@ -15,7 +15,7 @@ export class EmailService {
 	private sendTo: string = Email.Developer;
 	private sendCopyTo: string = '';
 
-	private htmlGenerator: HTMLGenerator = new HTMLGenerator();
+	constructor(private htmlGenerator: HTMLGeneratorService) {}
 
 	public sendErrorMessage(error: Error): Promise<EmailJSResponseStatus> {
 		const htmlMessage: string = this.htmlGenerator.getErrorHtml(error).outerHTML;

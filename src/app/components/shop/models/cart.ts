@@ -20,8 +20,8 @@ export class Cart {
 		}, 0);
 	}
 
-	constructor(pools: CartProductsPool[]) {
-		this._pools = pools;
+	constructor(pools?: CartProductsPool[]) {
+		this._pools = pools ? pools : [];
 	}
 
 	public addProduct(cartProduct: CartProduct): void {

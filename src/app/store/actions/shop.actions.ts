@@ -3,8 +3,8 @@ import { Album } from '@shop/models/album';
 import { Action } from '@shop/models/action';
 import { InjectAction } from '@shop/models/inject-action';
 
-export const initializeAlbums: Action<string> = createAction(
-	'[SHOP/API] Initialize albums'
+export const loadAlbums: Action<string> = createAction(
+	'[SHOP/API] Load albums'
 );
 
 export const setAlbums: InjectAction<string, { albums: Album[] }> = createAction(

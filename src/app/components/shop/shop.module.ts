@@ -25,7 +25,6 @@ import { CanOpenAlbumGuard } from 'src/app/components/shop/guards/can-open-album
 
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
-import { ShopEffects } from '@store/effects/shop.effects';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
@@ -39,6 +38,9 @@ import ru from '@angular/common/locales/ru';
 import { DialogService } from './services/dialog.service';
 import { HideUntilImagesLoadedDirective } from './directives/hide-until-images-loaded.directive';
 import { FullPhotoComponent } from './components/full-photo/full-photo.component';
+import { HTMLGeneratorService } from './services/html-generator.service';
+import { LocalStorageService } from './services/local-storage.service';
+import { ShopEffects } from '@store/effects/shop.effects';
 
 @NgModule({
 	declarations: [
@@ -75,6 +77,8 @@ import { FullPhotoComponent } from './components/full-photo/full-photo.component
 		ProductsOptionsService,
 		EmailService,
 		DialogService,
+		HTMLGeneratorService,
+		LocalStorageService,
 		CanOpenProductGuard,
 		CanOpenAlbumGuard
 	],

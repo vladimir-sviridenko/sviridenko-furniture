@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector, MemoizedSelector, DefaultProjectorFn } from '@ngrx/store';
 import { AppState, FeatureKey } from '..';
 import { CartState } from '@store/state/cart.state';
-import { Cart } from '@shop/models/cart-product-pools';
+import { Cart } from '@shop/models/cart';
 
 export const selectCartState: MemoizedSelector<AppState, CartState>
 		= createFeatureSelector<AppState, CartState>(FeatureKey.Cart);

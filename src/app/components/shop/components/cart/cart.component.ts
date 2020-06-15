@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CartFacadeService } from '@store/facades/cart.facade';
 import { OptionType } from '@shop/models/enums/option-type.enum';
 import { take } from 'rxjs/operators';
-import { Cart } from '@shop/models/cart-product-pools';
+import { Cart } from '@shop/models/cart';
 import { EmailJSResponseStatus } from 'emailjs-com';
 import { EmailService } from '@shop/services/email.service';
 import { UserContacts } from '@shop/models/user-contacts';
