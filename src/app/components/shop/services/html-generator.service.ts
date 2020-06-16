@@ -1,6 +1,6 @@
 import { UserContacts } from '@shop/models/user-contacts';
 import { Cart } from '@shop/models/cart';
-import { CartProductsPool } from '@shop/models/cart-products-pool';
+import { ProductPool } from '@shop/models/product-pool';
 import { CartProduct } from '@shop/models/cart-product';
 import { SelectedOption } from '@shop/models/selected-option';
 import { ProductOption } from '@shop/models/product-option';
@@ -62,7 +62,7 @@ export class HTMLGeneratorService {
 		const orderContent: Map<string, string> = new Map();
 
 		// create main columns
-		cart.pools.forEach((pool: CartProductsPool, index: number) => {
+		cart.pools.forEach((pool: ProductPool, index: number) => {
 			const photoUrl: string = this.baseHref + pool.cartProduct.product.photoUrl.low.slice(1);
 			const productPhoto: string = `<img height="90" src="${photoUrl}" alt="Фото продукта">`;
 			const itemIndex: string = `<span style="font-size: 0;">${index + 1}</span>`;
@@ -72,7 +72,7 @@ export class HTMLGeneratorService {
 
 		// create first and last table columns
 		const orderTableHtml: HTMLTableElement = this.getTwoColumnsTableHtml(orderContent);
-		cart.pools.forEach((pool: CartProductsPool, index: number) => {
+		cart.pools.forEach((pool: ProductPool, index: number) => {
 			const numberCell: HTMLTableCellElement = orderTableHtml.rows[index].insertCell(0);
 			numberCell.innerHTML = (index + 1).toString();
 			numberCell.setAttribute('style', 'text-align: center');

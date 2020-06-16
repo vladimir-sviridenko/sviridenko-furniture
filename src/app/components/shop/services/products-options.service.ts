@@ -3,6 +3,7 @@ import { ProductOptionAlbum } from '@shop/models/product-option-album';
 import { OptionType } from '@shop/models/enums/option-type.enum';
 import { PhotoUrl } from '@shop/models/photo-url';
 import { ProductOption } from '@shop/models/product-option';
+import { ProductOptionGroup } from '@shop/models/product-option-group';
 
 @Injectable()
 export class ProductsOptionsService {
@@ -201,9 +202,27 @@ export class ProductsOptionsService {
 		};
 		return { id, name, category: parseInt(category, 10), photoUrl };
 	}
-
+	
 	public getOptionAlbumByType(type: OptionType): ProductOptionAlbum {
 		return this.optionAlbums.find((album: ProductOptionAlbum) => album.type === type);
+	}
+
+	public getOptionBy(type: OptionType, id: string): ProductOption {
+		let resultOption: ProductOption = null;
+		this.optionAlbums.slice(0).forEach((album: ProductOptionAlbum, albumIndex: number, albums: ProductOptionAlbum[]) => {
+			album.groups.forEach((group: ProductOptionGroup, groupIndex: number, groups: ProductOptionGroup[]) => {
+				const productOption: ProductOption = group.options.find((option: ProductOption) =>
+					(album.type === type && option.id === id)
+				);
+				if (Boolean(productOption)) {
+					albums.splice(0);	// stop outer loops
+					groups.splice(0);
+					resultOption = productOption;
+				}
+			});
+		});
+
+		return resultOption;
 	}
 
 	public getOptionAlbumsByTypes(types: OptionType[]): ProductOptionAlbum[] {

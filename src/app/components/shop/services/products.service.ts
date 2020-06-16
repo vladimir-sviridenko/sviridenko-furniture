@@ -40,8 +40,8 @@ export class ProductsService {
 		{
 			id: 375686981,
 			title: 'Кухонные шкафы',
-			description: '', products:
-				this.kitchenKabitents
+			description: '',
+			products: this.kitchenKabitents
 		}
 	];
 
@@ -79,5 +79,17 @@ export class ProductsService {
 			photoUrl,
 			options
 		};
+	}
+
+	public getProductById(id: number): Product {
+		return this.albums.slice(0).reduce((result: Product, album: Album, index: number, albums: Album[]) => {
+			result = album.products.find((product: Product) => product.id === id);
+			if (Boolean(result)) {
+				albums.splice(0); // break out of loop
+				return result;
+			} else {
+				return null;
+			}
+		}, null);
 	}
 }

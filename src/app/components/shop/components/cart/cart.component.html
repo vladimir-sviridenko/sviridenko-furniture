@@ -21,17 +21,17 @@
 	</mat-toolbar>
 	<div class="cart__product-list" *ngIf="!(cartFacadeService.isCartEmpty$ | async); else emptyProductList">
 		<div class="cart__product-container"
-				*ngFor="let productsPool of (cartFacadeService.cart$ | async).pools">
+				*ngFor="let productPool of (cartFacadeService.cart$ | async).pools">
 			<div class="cart__product-image-container">
-				<img class="cart__product-image" [src]="productsPool.cartProduct.product.photoUrl.low" alt="Фото продукта">
+				<img class="cart__product-image" [src]="productPool.cartProduct.product.photoUrl.low" alt="Фото продукта">
 			</div>
 			<div class="cart__product-info">
-				<div class="cart__product-name">{{productsPool.cartProduct.product.name}}</div>
+				<div class="cart__product-name">{{productPool.cartProduct.product.name}}</div>
 				<div class="cart__product-size" 
-						*ngIf="productsPool.cartProduct.product.size">
-					{{productsPool.cartProduct.product.size | size}}
+						*ngIf="productPool.cartProduct.product.size">
+					{{productPool.cartProduct.product.size | size}}
 				</div>
-				<div class="cart__product-option" *ngFor="let selectedOption of productsPool.cartProduct.selectedOptions">
+				<div class="cart__product-option" *ngFor="let selectedOption of productPool.cartProduct.selectedOptions">
 					<span>{{selectedOption.type}}: </span> 
 					<span>{{selectedOption.option.name | titlecase}}</span>
 					<div class="cart__skin-image-container" *ngIf="optionTypeEnum.Skin === selectedOption.type" >
@@ -41,17 +41,17 @@
 				</div>
 			</div>
 			<div class="cart__price-container">
-				<div>{{productsPool.poolPrice | currency:"RUB":"code":"4.0":"ru"}}</div>
+				<div>{{productPool.poolPrice | currency:"RUB":"code":"4.0":"ru"}}</div>
 				<div class="cart__quantity">
 					<button mat-icon-button class="cart__button_arrow-down" aria-label="Remove product to order"
-							(click)="cartFacadeService.removeCartProduct(productsPool.cartProduct)">
+							(click)="cartFacadeService.removeCartProduct(productPool.cartProduct)">
 						<mat-icon>arrow_left</mat-icon>
 					</button>
 					<button mat-icon-button [disableRipple]="true" class="cart__quantity-number">
-						{{productsPool.quantity}}
+						{{productPool.quantity}}
 					</button>
 					<button mat-icon-button class="cart__button_arrow-up" aria-label="Add product to order"
-							(click)="cartFacadeService.addCartProduct(productsPool.cartProduct)">
+							(click)="cartFacadeService.addCartProduct(productPool.cartProduct)">
 						<mat-icon>arrow_right</mat-icon>
 					</button>
 				</div>
