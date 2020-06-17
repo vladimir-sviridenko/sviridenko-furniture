@@ -34,4 +34,9 @@ export class ProductFacadeService {
 	public selectOption(option: SelectedOption): void {
 		this.store.dispatch(ActionProduct.selectOption({ option }));
 	}
+
+	public closeProduct(): void {
+		this.store.dispatch(ActionProduct.closeProduct());
+	}
+
 }

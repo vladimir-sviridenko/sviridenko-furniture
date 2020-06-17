@@ -5,9 +5,6 @@
 			</mat-spinner>
 	</div>
 	<ng-container *ngIf="album$ | async">
-		<div class="products-table__title-container" *ngIf="!(shopFacadeService.isShopLoading$ | async)">
-			<h1 class="products-table__title">{{(album$ | async).title}}</h1>
-		</div>
 		<div class="products-table__cards-container">
 			<app-product-card class="products-table__card" 
 					*ngFor='let product of (album$ | async).products'

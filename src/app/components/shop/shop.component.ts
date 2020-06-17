@@ -2,6 +2,7 @@ import { Component, ChangeDetectionStrategy, isDevMode } from '@angular/core';
 
 import { ShopFacadeService } from '@store/facades/shop.facade';
 import { CartFacadeService } from '@store/facades/cart.facade';
+import { ProductFacadeService } from '@store/facades/product.facade';
 
 @Component({
 	selector: 'app-shop',
@@ -11,7 +12,9 @@ import { CartFacadeService } from '@store/facades/cart.facade';
 })
 export class ShopComponent {
 
-	constructor(public shopFacadeService: ShopFacadeService, public cartFacadeService: CartFacadeService) {}
+	constructor(public shopFacadeService: ShopFacadeService,
+							public cartFacadeService: CartFacadeService,
+							public productFacadeService: ProductFacadeService) {}
 
 	public scrollTop(): void {
 		window.scrollTo(0, 0);

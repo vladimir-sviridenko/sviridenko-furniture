@@ -59,15 +59,11 @@ $cart-product-font-size: 16px;
     display: flex;
     flex-shrink: 0;
     justify-content: space-between;
-    height: 57px;
-    padding-right: 0;
   }
 
   &__button {
     &_close {
-      position: absolute;
-      top: 8px;
-      right: 5px;
+      display: block;
     }
     &_close-mobile {
       display: none;
@@ -205,9 +201,6 @@ $cart-product-font-size: 16px;
 		}
 
     &__toolbar {
-      height: 58px;
-      padding-right: 20px;
-
       color: white;
 
       background-color: $color-primary;

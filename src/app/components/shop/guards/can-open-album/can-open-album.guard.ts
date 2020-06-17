@@ -5,13 +5,16 @@ import { map, filter, take } from 'rxjs/operators';
 import { ShopFacadeService } from '@store/facades/shop.facade';
 import { ShopEffects } from '@store/effects/shop.effects';
 import { Album } from '@shop/models/album';
+import { ProductFacadeService } from '@store/facades/product.facade';
 
 @Injectable()
 export class CanOpenAlbumGuard implements CanActivate {
 
 	private albums$: ReplaySubject<Album[]> = new ReplaySubject<Album[]>();
 
-	constructor(private shopFacadeService: ShopFacadeService, private router: Router, private shopEffects: ShopEffects) {
+	constructor(private shopFacadeService: ShopFacadeService,
+							private productFacadeService: ProductFacadeService,
+							private router: Router, private shopEffects: ShopEffects) {
 		this.shopFacadeService.albums$.pipe(take(2), filter((albums: Album[]) => !!albums)).subscribe(this.albums$);
 	}
 
@@ -25,6 +28,7 @@ export class CanOpenAlbumGuard implements CanActivate {
 				for (const album of albums) {
 					if (album.id === albumId) { // some
 						this.shopFacadeService.changeCurrentAlbum(album);
+						this.productFacadeService.closeProduct();
 						return true;
 					}
 				}
