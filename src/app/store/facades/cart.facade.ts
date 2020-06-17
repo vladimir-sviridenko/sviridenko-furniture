@@ -47,6 +47,11 @@ export class CartFacadeService {
 		this.store.dispatch(ActionCart.saveCart({ storageApi: this.localStorageService }));
 	}
 
+	public clearCart(): void {
+		this.store.dispatch(ActionCart.сlearCart());
+		this.store.dispatch(ActionCart.saveCart( {storageApi: this.localStorageService } ));
+	}
+
 	public loadCart(): void {
 		this.store.dispatch(ActionCart.loadCart({ storageApi: this.localStorageService }));
 	}

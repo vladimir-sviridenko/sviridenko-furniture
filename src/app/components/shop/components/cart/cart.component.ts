@@ -7,6 +7,8 @@ import { EmailJSResponseStatus } from 'emailjs-com';
 import { EmailService } from '@shop/services/email.service';
 import { UserContacts } from '@shop/models/user-contacts';
 import { DialogService } from '@shop/services/dialog.service';
+import { ContactsSubmit } from '@shop/models/contacts-submit';
+import { SubmitType } from '@shop/models/enums/submit-type.enum';
 
 @Component({
   selector: 'app-cart',
@@ -34,6 +36,11 @@ export class CartComponent {
 													this.emailService.sendOrderConfirmation.call(this.emailService, contacts, currentCart)]);
 		};
 
-		this.dialogService.openContactsForm(submitMethod);
+		const contactsSubmit: ContactsSubmit = {
+			type: SubmitType.MakeOrder,
+			method: submitMethod
+		};
+
+		this.dialogService.openContactsForm(contactsSubmit);
 	}
 }

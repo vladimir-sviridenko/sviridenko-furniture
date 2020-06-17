@@ -2,8 +2,10 @@ import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserContacts } from '@shop/models/user-contacts';
-import { EmailJSResponseStatus } from 'emailjs-com';
 import { BehaviorSubject } from 'rxjs';
+import { SubmitType } from '@shop/models/enums/submit-type.enum';
+import { SubmitStatus } from '@shop/models/submit-status';
+import { ContactsSubmit } from '@shop/models/contacts-submit';
 
 @Component({
 	selector: 'app-contacts-form',
@@ -30,18 +32,21 @@ export class ContactsFormComponent {
 	}
 
 	constructor(private dialogRef: MatDialogRef<ContactsFormComponent>,
-							@Inject(MAT_DIALOG_DATA) public submitMethod: (contacts: UserContacts) => Promise<EmailJSResponseStatus[]>) { }
+							@Inject(MAT_DIALOG_DATA) public contactsSubmit: ContactsSubmit) { }
 
 	public submitForm(): void {
+		const submitType: SubmitType = this.contactsSubmit.type;
 		this.contactsForm.disable();
 		this.dialogRef.disableClose = true;
 		this.isSubmiting$.next(true);
 		this.isSubmiting$.complete();
-		this.submitMethod(this.userContacts)
+		this.contactsSubmit.method(this.userContacts)
 			.then(() => {
-				this.dialogRef.close(true);
+				const submitStatus: SubmitStatus = { success: true, submitType };
+				this.dialogRef.close(submitStatus);
 			})
 			.catch(() => {
+				const submitStatus: SubmitStatus = { success: false, submitType };
 				this.dialogRef.close(false);
 			});
 	}

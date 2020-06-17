@@ -14,6 +14,12 @@ export class ProductOptionsComponent {
 
 	private checkedClass: string = 'product-options__image_checked';
 
+	@Input()
+	public optionAlbums: OptionAlbum[];
+
+	@Output()
+	public check: EventEmitter<string> = new EventEmitter<string>();
+
 	public optionTypeEnum: typeof OptionType = OptionType;
 
 	public isOptionsLoaded: boolean = false;
