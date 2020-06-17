@@ -1,12 +1,12 @@
 import { Product } from './product';
 import { SelectedOption, SerializedSelectedOption } from './selected-option';
 import { CategoryMultiplier } from './enums/category-multiplier.enum';
-import { ProductOptionAlbum } from './product-option-album';
+import { OptionAlbum } from './option-album';
 import { ProductsService } from '@shop/services/products.service';
 import { Injectable, Injector } from '@angular/core';
 import { ProductsOptionsService } from '@shop/services/products-options.service';
 import { ReturnStatement } from '@angular/compiler';
-import { ProductOption } from './product-option';
+import { Option } from './option';
 import { OptionType } from './enums/option-type.enum';
 
 export interface SerializedCartProduct {
@@ -14,7 +14,6 @@ export interface SerializedCartProduct {
 	selectedOptions: SerializedSelectedOption[];
 }
 
-@Injectable()
 export class CartProduct {
 	private _product: Product;
 	private _selectedOptions: SelectedOption[];
@@ -66,7 +65,7 @@ export class CartProduct {
 			.map((serializedOption: SerializedSelectedOption) => {
 				const type: OptionType = serializedOption.type;
 				const optionId: string = serializedOption.optionId;
-				const option: ProductOption = productsOptionsService.getOptionBy(type, optionId);
+				const option: Option = productsOptionsService.getOptionBy(type, optionId);
 				if (option === null) {
 					throw new Error('Serialized data is not valid');
 				}
@@ -87,8 +86,8 @@ export class CartProduct {
 		return new CartProduct(product, selectedOptions);
 	}
 
-	private getDefaultSelectedOption(albums: ProductOptionAlbum[]): SelectedOption[] {
-		return albums.map((album: ProductOptionAlbum) => {
+	private getDefaultSelectedOption(albums: OptionAlbum[]): SelectedOption[] {
+		return albums.map((album: OptionAlbum) => {
 			return {
 				type: album.type,
 				option: album.groups[0].options[0]

@@ -1,6 +1,6 @@
 import { PhotoUrl } from './photo-url';
 
-export interface ProductOption {
+export interface Option {
 	id: string;
 	name: string;
 	category: number;

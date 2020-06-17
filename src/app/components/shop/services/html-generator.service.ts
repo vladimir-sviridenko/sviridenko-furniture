@@ -3,7 +3,7 @@ import { Cart } from '@shop/models/cart';
 import { ProductPool } from '@shop/models/product-pool';
 import { CartProduct } from '@shop/models/cart-product';
 import { SelectedOption } from '@shop/models/selected-option';
-import { ProductOption } from '@shop/models/product-option';
+import { Option } from '@shop/models/option';
 import { Injectable } from '@angular/core';
 
 @Injectable()
@@ -46,7 +46,7 @@ export class HTMLGeneratorService {
 			['Глубина: ', cartProduct.product.size.depth.toString()]
 		]);
 		cartProduct.selectedOptions.forEach((selectedOption: SelectedOption) => {
-			const option: ProductOption = selectedOption.option;
+			const option: Option = selectedOption.option;
 			const optionDescription: string = `<div>${option.id} ${option.name} К${option.category}</div>`;
 			tableContent.set(`${selectedOption.type}: `, optionDescription);
 		});

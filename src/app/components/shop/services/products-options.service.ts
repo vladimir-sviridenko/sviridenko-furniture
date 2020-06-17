@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { ProductOptionAlbum } from '@shop/models/product-option-album';
+import { OptionAlbum } from '@shop/models/option-album';
 import { OptionType } from '@shop/models/enums/option-type.enum';
 import { PhotoUrl } from '@shop/models/photo-url';
-import { ProductOption } from '@shop/models/product-option';
-import { ProductOptionGroup } from '@shop/models/product-option-group';
+import { Option } from '@shop/models/option';
+import { OptionGroup } from '@shop/models/option-group';
 
 @Injectable()
 export class ProductsOptionsService {
 
 	private baseUrl: string = './assets/images/options';
 
-	private optionAlbums: ProductOptionAlbum[] = [
+	private optionAlbums: OptionAlbum[] = [
 		{
 			type: OptionType.Skin,
 			groups: [
@@ -187,7 +187,7 @@ export class ProductsOptionsService {
 		}
 	];
 
-	private facadeFabric(id: string, name: string, category: string): ProductOption {
+	private facadeFabric(id: string, name: string, category: string): Option {
 		const photoUrl: PhotoUrl = {
 			low: `${this.baseUrl}/facade/low/${category}/${id}.jpg`,
 			high: `${this.baseUrl}/facade/high/${category}/${id}.jpg`
@@ -195,7 +195,7 @@ export class ProductsOptionsService {
 		return { id, name, category: parseInt(category, 10), photoUrl };
 	}
 
-	private skinFabric(id: string, name: string, category: string): ProductOption  {
+	private skinFabric(id: string, name: string, category: string): Option  {
 		const photoUrl: PhotoUrl = {
 			low: `${this.baseUrl}/skin/low/${category}/${id}.jpg`,
 			high: `${this.baseUrl}/skin/high/${category}/${id}.jpg`
@@ -203,15 +203,15 @@ export class ProductsOptionsService {
 		return { id, name, category: parseInt(category, 10), photoUrl };
 	}
 	
-	public getOptionAlbumByType(type: OptionType): ProductOptionAlbum {
-		return this.optionAlbums.find((album: ProductOptionAlbum) => album.type === type);
+	public getOptionAlbumByType(type: OptionType): OptionAlbum {
+		return this.optionAlbums.find((album: OptionAlbum) => album.type === type);
 	}
 
-	public getOptionBy(type: OptionType, id: string): ProductOption {
-		let resultOption: ProductOption = null;
-		this.optionAlbums.slice(0).forEach((album: ProductOptionAlbum, albumIndex: number, albums: ProductOptionAlbum[]) => {
-			album.groups.forEach((group: ProductOptionGroup, groupIndex: number, groups: ProductOptionGroup[]) => {
-				const productOption: ProductOption = group.options.find((option: ProductOption) =>
+	public getOptionBy(type: OptionType, id: string): Option {
+		let resultOption: Option = null;
+		this.optionAlbums.slice(0).forEach((album: OptionAlbum, albumIndex: number, albums: OptionAlbum[]) => {
+			album.groups.forEach((group: OptionGroup, groupIndex: number, groups: OptionGroup[]) => {
+				const productOption: Option = group.options.find((option: Option) =>
 					(album.type === type && option.id === id)
 				);
 				if (Boolean(productOption)) {
@@ -225,8 +225,8 @@ export class ProductsOptionsService {
 		return resultOption;
 	}
 
-	public getOptionAlbumsByTypes(types: OptionType[]): ProductOptionAlbum[] {
-		return this.optionAlbums.filter((album: ProductOptionAlbum) =>
+	public getOptionAlbumsByTypes(types: OptionType[]): OptionAlbum[] {
+		return this.optionAlbums.filter((album: OptionAlbum) =>
 				types.some((type: OptionType) => type === album.type));
 	}
 }

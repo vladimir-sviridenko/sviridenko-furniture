@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { Product } from '@shop/models/product';
 import { Size } from '@shop/models/size';
 import { Album } from '@shop/models/album';
-import { ProductOptionAlbum } from '@shop/models/product-option-album';
+import { OptionAlbum } from '@shop/models/option-album';
 import { OptionType } from '@shop/models/enums/option-type.enum';
 import { ProductsOptionsService } from './products-options.service';
 import { PhotoUrl } from '@shop/models/photo-url';
@@ -69,7 +69,7 @@ export class ProductsService {
 			high: commonUrl
 		};
 		const size: Size = this.parseShortSize(shortSize);
-		const options: ProductOptionAlbum[] =
+		const options: OptionAlbum[] =
 			this.productsOptionsService.getOptionAlbumsByTypes([OptionType.Skin, OptionType.Facade]);
 		return {
 			id: parseInt(id, 10),

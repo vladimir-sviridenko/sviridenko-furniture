@@ -1,5 +1,5 @@
 import { Size } from './size';
-import { ProductOptionAlbum } from './product-option-album';
+import { OptionAlbum } from './option-album';
 import { PhotoUrl } from './photo-url';
 
 export interface Product {
@@ -8,5 +8,5 @@ export interface Product {
 	size: Size;
 	price: number;
 	photoUrl: PhotoUrl;
-	options: ProductOptionAlbum[];
+	options: OptionAlbum[];
 }
