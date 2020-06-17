@@ -40,6 +40,17 @@ export class GalleryService {
 		this.productAlbums$ = this.fetchAlbums();
 	}
 
+	private sortPhotosByPortrait(albums: VkAlbum[]) {
+		albums.forEach((album: VkAlbum) => {
+		album.photos.sort((photo: VkPhoto, nextPhoto: VkPhoto) => {
+				const photoMinHeight: number = Number(photo.sizes[0].height);
+				const nextPhotoMinHeight: number = Number(nextPhoto.sizes[0].height);
+				return nextPhotoMinHeight - photoMinHeight;
+			});
+		});
+		return albums;
+	}
+
 	private getProductPhotoUrl(photo: VkPhoto): PhotoUrl {
 		function getVkPhotoSize(sizeType: VkPhotoQuality): VkPhotoSize {
 			return photo.sizes.find((size: VkPhotoSize) => size.type === sizeType);
@@ -122,6 +133,7 @@ export class GalleryService {
 			mergeMap((albums: VkAlbum[]) => {
 				return (albums.length === 0) ? of([]) : forkJoin(albums.map((album: VkAlbum) => this.fetchPhotosInto(album)));
 			}),
+			map((albums: VkAlbum[]) => this.sortPhotosByPortrait(albums)),
 			tap((albums: VkAlbum[]) => this.vkAlbums = albums),
 			map((albums: VkAlbum[]) => {
 				const productAlbums: Album[] = [];

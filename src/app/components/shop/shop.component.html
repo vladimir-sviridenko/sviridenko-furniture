@@ -25,6 +25,13 @@
 	</mat-accordion>
 	<div class="shop__cart-container">
 		<app-cart></app-cart>
+		<button mat-mini-fab class="shop__button shop__button_modeler"
+				disabled
+				color="primary"
+				aria-label="Modeler is developing"
+				title="Конструктор мебели в разработке">
+			<mat-icon>settings</mat-icon>
+		</button>
 		<button mat-mini-fab class="shop__button shop__button_cart"
 				[matBadge]="(cartFacadeService.isCartEmpty$ | async) ? '' : (cartFacadeService.cartProductsQuantity$ | async)"
 				matBadgeColor="accent"

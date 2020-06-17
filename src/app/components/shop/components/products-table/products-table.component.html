@@ -5,10 +5,16 @@
 			</mat-spinner>
 	</div>
 	<ng-container *ngIf="album$ | async">
-		<app-product-card class="products-table__card" [class.products-table__card_hidden]="shopFacadeService.isShopLoading$ | async"
-				*ngFor='let product of (album$ | async).products'
-				[albumId]='(album$ | async).id'
-				[product]='product'>
-		</app-product-card>
+		<div class="products-table__title-container" *ngIf="!(shopFacadeService.isShopLoading$ | async)">
+			<h1 class="products-table__title">{{(album$ | async).title}}</h1>
+		</div>
+		<div class="products-table__cards-container">
+			<app-product-card class="products-table__card" 
+					*ngFor='let product of (album$ | async).products'
+					[class.products-table__card_hidden]="shopFacadeService.isShopLoading$ | async"
+					[albumId]='(album$ | async).id'
+					[product]='product'>
+			</app-product-card>
+		</div>
 	</ng-container>
 </div>
