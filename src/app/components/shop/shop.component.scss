@@ -39,15 +39,15 @@
     display: inline-block;
     margin: 0;
     padding-right: 10px;
-		padding-left: 10px;
-		font-size: 22px;
+    padding-left: 10px;
+    overflow: hidden;
 
-		text-align: center;
-		
-		line-height: 27px;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		background-color: $background-color-primary;
+    font-size: 22px;
+    line-height: 27px;
+    text-align: center;
+    text-overflow: ellipsis;
+
+    background-color: $background-color-primary;
   }
 
 
@@ -59,25 +59,27 @@
     display: flex;
     justify-content: space-between;
 
-		background-color: $background-color-primary;
+    background-color: $background-color-primary;
 
-		&_static {
-			position: static;
-		}
+    &_height-0 {
+      height: 0;
+      overflow: visible;
+    }
   }
 
-	&__cart-container {
-		position: sticky;
-		top: 0;
-		overflow: visible;
-		z-index: 4;
-	}
+  &__cart-container {
+    position: sticky;
+    top: 0;
+    z-index: 4;
 
-	&__cart {
-		position: absolute;
-		top: 0;
-		right: 0;
-	}
+    overflow: visible;
+  }
+
+  &__cart {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
 
   &__content {
     position: relative;
@@ -107,16 +109,24 @@
 
   &__button {
     &_cart {
-			margin-left: 50px;
+      margin-left: 50px;
       &.mat-badge-small::ng-deep .mat-badge-content {
         top: -3px;
         right: -1px;
       }
-		}
-		
-		&_modeler {
-			margin-right: 50px;
-		}
+
+      &_absolute {
+        position: absolute;
+        top: 8px;
+        right: 15px;
+
+        margin: 0;
+      }
+    }
+
+    &_modeler {
+      margin-right: 50px;
+    }
 
     &_scroll-top {
       position: fixed;
@@ -193,17 +203,17 @@
       &_cart-opened {
         background-color: transparentize($color: $background-color-primary, $amount: 0.4);
       }
-		}
+    }
 
-		&__button {
-			&_cart {
-				margin-left: 15px;
-			}
-			
-			&_modeler {
-				margin-right: 15px;
-			}
-		}
+    &__button {
+      &_cart {
+        margin-left: 15px;
+      }
+
+      &_modeler {
+        margin-right: 15px;
+      }
+    }
 
     &__buttons {
       border-top: 1px solid white;
@@ -251,24 +261,42 @@
   }
 }
 
-@media screen and (max-width: map-get($breakpoints, mobile-portrait) - 30px) {
-	.shop {
-		&__features-toolbar {
-			white-space: unset;
+@media screen and (min-width: map-get($breakpoints, mobile) - 60px) {
+  .shop__button {
+		&_cart_absolute {
+			right: 4px;
 		}
 
-		&__album-title-container::after {
-			display: none;
-		}
-
-		&__button {
-			&_cart {
-				margin-left: 0;
-			}
-			
-			&_modeler {
-				margin-right: 0;
-			}
+		&_scroll-top {
+			right: 4px;
 		}
 	}
+}
+
+@media screen and (min-width: map-get($breakpoints, tablet-portrait)) {
+  .shop__button_cart_absolute {
+    right: 10px;
+  }
+}
+
+@media screen and (max-width: map-get($breakpoints, mobile-portrait) - 30px) {
+  .shop {
+    &__features-toolbar {
+      white-space: unset;
+    }
+
+    &__album-title-container::after {
+      display: none;
+    }
+
+    &__button {
+      &_cart {
+        margin-left: 0;
+      }
+
+      &_modeler {
+        margin-right: 0;
+      }
+    }
+  }
 }
