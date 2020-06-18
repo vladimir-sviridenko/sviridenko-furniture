@@ -11,6 +11,8 @@ import { EmailJSResponseStatus } from 'emailjs-com';
 import { UserContacts } from '@shop/models/user-contacts';
 import { EmailService } from '@shop/services/email.service';
 import { DialogService } from '@shop/services/dialog.service';
+import { ContactsSubmit } from '@shop/models/contacts-submit';
+import { SubmitType } from '@shop/models/enums/submit-type.enum';
 
 @Component({
 	selector: 'app-product-card',
@@ -43,6 +45,11 @@ export class ProductCardComponent {
 			return Promise.all([this.emailService.sendCallRequest.call(this.emailService, contacts, this.product.photoUrl.low)]);
 		};
 
-		this.dialogService.openContactsForm(submitMethod);
+		const contactsSubmit: ContactsSubmit = {
+			type: SubmitType.RequestCall,
+			method: submitMethod
+		};
+
+		this.dialogService.openContactsForm(contactsSubmit);
 	}
 }

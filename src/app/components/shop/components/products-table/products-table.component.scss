@@ -1,11 +1,15 @@
 @import "variables";
 
 .products-table {
-  display: flex;
-  flex-flow: row wrap;
 	padding: 10px;
+	padding-top: 0;
 
   background-color: $background-color-primary;
+
+  &__cards-container {
+    display: flex;
+    flex-flow: row wrap;
+  }
 
   &__card {
     opacity: 1;
@@ -43,10 +47,19 @@
   }
 }
 
-@media screen and (max-width: map-get($breakpoints, tablet-portrait) - 1px) and (orientation: landscape) {
+@media screen and (max-width: map-get($breakpoints, mobile) + 30px)  {
 	.products-table {
-		&__loader {
-			top: 70%;
+		&__title-container {
+			margin-left: 56px;
+			margin-right: 56px;
 		}
 	}
+}
+
+@media screen and (max-width: map-get($breakpoints, tablet-portrait) - 1px) and (orientation: landscape) {
+  .products-table {
+    &__loader {
+      top: 70%;
+    }
+  }
 }

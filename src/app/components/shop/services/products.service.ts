@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { Product } from '@shop/models/product';
 import { Size } from '@shop/models/size';
 import { Album } from '@shop/models/album';
-import { ProductOptionAlbum } from '@shop/models/product-option-album';
+import { OptionAlbum } from '@shop/models/option-album';
 import { OptionType } from '@shop/models/enums/option-type.enum';
 import { ProductsOptionsService } from './products-options.service';
 import { PhotoUrl } from '@shop/models/photo-url';
@@ -40,8 +40,8 @@ export class ProductsService {
 		{
 			id: 375686981,
 			title: 'Кухонные шкафы',
-			description: '', products:
-				this.kitchenKabitents
+			description: '',
+			products: this.kitchenKabitents
 		}
 	];
 
@@ -69,7 +69,7 @@ export class ProductsService {
 			high: commonUrl
 		};
 		const size: Size = this.parseShortSize(shortSize);
-		const options: ProductOptionAlbum[] =
+		const options: OptionAlbum[] =
 			this.productsOptionsService.getOptionAlbumsByTypes([OptionType.Skin, OptionType.Facade]);
 		return {
 			id: parseInt(id, 10),
@@ -79,5 +79,17 @@ export class ProductsService {
 			photoUrl,
 			options
 		};
+	}
+
+	public getProductById(id: number): Product {
+		return this.albums.slice(0).reduce((result: Product, album: Album, index: number, albums: Album[]) => {
+			result = album.products.find((product: Product) => product.id === id);
+			if (Boolean(result)) {
+				albums.splice(0); // break out of loop
+				return result;
+			} else {
+				return null;
+			}
+		}, null);
 	}
 }

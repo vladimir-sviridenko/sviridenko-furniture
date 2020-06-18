@@ -1,10 +1,11 @@
 @import "variables";
 
 .shop {
-	position: relative;
+  position: relative;
+
   display: flex;
   flex-flow: column nowrap;
-	min-height: 100%;
+  min-height: 100%;
 
   background-color: $background-color-primary;
 
@@ -12,15 +13,74 @@
     flex-shrink: 0;
   }
 
+  &__album-title-container {
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      z-index: 1;
+
+      width: 100%;
+      height: 2px;
+
+      background-color: black;
+    }
+  }
+
+  &__album-title {
+    z-index: 2;
+
+    display: inline-block;
+    margin: 0;
+    padding-right: 10px;
+    padding-left: 10px;
+    overflow: hidden;
+
+    font-size: 22px;
+    line-height: 27px;
+    text-align: center;
+    text-overflow: ellipsis;
+
+    background-color: $background-color-primary;
+  }
+
+
+  &__features-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+
+    display: flex;
+    justify-content: space-between;
+
+    background-color: $background-color-primary;
+
+    &_height-0 {
+      height: 0;
+      overflow: visible;
+    }
+  }
+
   &__cart-container {
     position: sticky;
     top: 0;
-    z-index: 3;
+    z-index: 4;
 
-    height: 0;
     overflow: visible;
 
-    text-align: right;
+    white-space: nowrap;
+  }
+
+  &__cart {
+    position: absolute;
+    top: 0;
+    right: 0;
   }
 
   &__content {
@@ -32,7 +92,7 @@
 
   &__background {
     position: absolute;
-    z-index: 2;
+    z-index: 3;
 
     width: 100%;
     height: 100%;
@@ -51,13 +111,23 @@
 
   &__button {
     &_cart {
-      margin-top: 8px;
-			margin-right: 15px;
+      margin-left: 50px;
+      &.mat-badge-small::ng-deep .mat-badge-content {
+        top: -3px;
+        right: -1px;
+      }
 
-			&.mat-badge-small::ng-deep .mat-badge-content {
-				top: -3px;
-				right: -1px;
-			}
+      &_absolute {
+        position: absolute;
+        top: 8px;
+        right: 15px;
+
+        margin: 0;
+      }
+    }
+
+    &_modeler {
+      margin-right: 50px;
     }
 
     &_scroll-top {
@@ -129,21 +199,25 @@
   }
 }
 
-@media screen and (min-width: map-get($breakpoints, mobile) - 60px) {
-  .shop {
-    &__button {
-      &_cart {
-        margin-right: 5px;
-      }
-    }
-  }
-}
-
-@media screen and (max-width: map-get($breakpoints, mobile) - 1) {
+@media screen and (max-width: map-get($breakpoints, mobile) - 1px) {
   .shop {
     &__background {
       &_cart-opened {
         background-color: transparentize($color: $background-color-primary, $amount: 0.4);
+      }
+    }
+
+    &__cart-container {
+      white-space: normal;
+    }
+
+    &__button {
+      &_cart {
+        margin-left: 15px;
+      }
+
+      &_modeler {
+        margin-right: 15px;
       }
     }
 
@@ -189,6 +263,50 @@
       margin-right: 0;
 
       color: white;
+    }
+  }
+}
+
+@media screen and (min-width: map-get($breakpoints, mobile) - 60px) {
+  .shop__button {
+    &_cart_absolute {
+      right: 4px;
+    }
+
+    &_scroll-top {
+      right: 4px;
+    }
+  }
+}
+
+@media screen and (min-width: map-get($breakpoints, tablet-portrait)) {
+  .shop__button_cart_absolute {
+    right: 10px;
+  }
+}
+
+@media screen and (max-width: map-get($breakpoints, mobile-portrait) - 30px) {
+  .shop {
+    &__features-toolbar {
+      white-space: unset;
+    }
+
+    &__album-title-container::after {
+      display: none;
+		}
+		
+		&__album-title {
+			background-color: transparent;
+		}
+
+    &__button {
+      &_cart {
+        margin-left: 0;
+      }
+
+      &_modeler {
+        margin-right: 0;
+      }
     }
   }
 }

@@ -14,7 +14,7 @@ import { take } from 'rxjs/operators';
 })
 export class ShopFacadeService {
 	constructor(private store: Store<AppState>, private cartFacadeService: CartFacadeService) {
-		this.store.dispatch(ActionShop.initializeAlbums());
+		this.store.dispatch(ActionShop.loadAlbums());
 	}
 
 	public get albums$(): Observable<Album[]> {

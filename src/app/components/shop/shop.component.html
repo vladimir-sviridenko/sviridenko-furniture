@@ -24,20 +24,38 @@
     </mat-expansion-panel>
 	</mat-accordion>
 	<div class="shop__cart-container">
-		<app-cart></app-cart>
-		<button mat-mini-fab class="shop__button shop__button_cart"
-				[matBadge]="(cartFacadeService.isCartEmpty$ | async) ? '' : (cartFacadeService.cartProductsQuantity$ | async)"
-				matBadgeColor="accent"
-				matBadgeSize="small"
-				color="primary"
-				(click)="cartFacadeService.openCart()"
-				aria-label="Open cart">
-			<mat-icon>shopping_cart</mat-icon>
-		</button>
+		<app-cart class="shop__cart"></app-cart>
 	</div>
 	<div class="shop__content">
 		<div class="shop__background" [class.shop__background_cart-opened]="cartFacadeService.isCartOpened$ | async"
-				(click)="cartFacadeService.closeCart()"></div>
+				(click)="cartFacadeService.closeCart()">
+		</div>
+		<mat-toolbar class="shop__features-toolbar"
+				[class.shop__features-toolbar_height-0]="productFacadeService.product$ | async"
+				*ngIf="!(shopFacadeService.isShopLoading$ | async)">
+			<button mat-mini-fab class="shop__button shop__button_modeler"
+					*ngIf="!(productFacadeService.product$ | async)"
+					disabled
+					color="primary"
+					aria-label="Modeler is developing"
+					title="Конструктор мебели в разработке">
+				<mat-icon>settings</mat-icon>
+			</button>
+			<div class="shop__album-title-container"
+					*ngIf="!(productFacadeService.product$ | async)">
+				<h1 class="shop__album-title">{{(shopFacadeService.currentAlbum$ | async).title}}</h1>
+			</div>
+			<button mat-mini-fab class="shop__button shop__button_cart"
+					[class.shop__button_cart_absolute]="productFacadeService.product$ | async"
+					[matBadge]="(cartFacadeService.isCartEmpty$ | async) ? '' : (cartFacadeService.cartProductsQuantity$ | async)"
+					matBadgeColor="accent"
+					matBadgeSize="small"
+					color="primary"
+					(click)="cartFacadeService.openCart()"
+					aria-label="Open cart">
+				<mat-icon>shopping_cart</mat-icon>
+			</button>
+		</mat-toolbar>
 		<router-outlet (activate)="scrollTop()"></router-outlet>
 	</div>
 </div>

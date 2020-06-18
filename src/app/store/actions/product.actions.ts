@@ -13,3 +13,7 @@ export const selectOption: InjectAction<string, { option: SelectedOption }> = cr
 	'[PRODUCT/API] Select product option',
 	props<{ option: SelectedOption }>()
 );
+
+export const closeProduct: Action<string> = createAction(
+	'[PRODUCT/API] Close product page'
+);
