@@ -293,7 +293,11 @@
 
     &__album-title-container::after {
       display: none;
-    }
+		}
+		
+		&__album-title {
+			background-color: transparent;
+		}
 
     &__button {
       &_cart {
