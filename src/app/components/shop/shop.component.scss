@@ -73,6 +73,8 @@
     z-index: 4;
 
     overflow: visible;
+
+    white-space: nowrap;
   }
 
   &__cart {
@@ -205,6 +207,10 @@
       }
     }
 
+    &__cart-container {
+      white-space: normal;
+    }
+
     &__button {
       &_cart {
         margin-left: 15px;
@@ -263,14 +269,14 @@
 
 @media screen and (min-width: map-get($breakpoints, mobile) - 60px) {
   .shop__button {
-		&_cart_absolute {
-			right: 4px;
-		}
+    &_cart_absolute {
+      right: 4px;
+    }
 
-		&_scroll-top {
-			right: 4px;
-		}
-	}
+    &_scroll-top {
+      right: 4px;
+    }
+  }
 }
 
 @media screen and (min-width: map-get($breakpoints, tablet-portrait)) {
