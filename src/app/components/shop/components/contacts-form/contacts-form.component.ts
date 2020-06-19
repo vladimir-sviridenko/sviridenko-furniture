@@ -47,7 +47,7 @@ export class ContactsFormComponent {
 			})
 			.catch(() => {
 				const submitStatus: SubmitStatus = { success: false, submitType };
-				this.dialogRef.close(false);
+				this.dialogRef.close(submitStatus);
 			});
 	}
 }
