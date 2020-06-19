@@ -57,8 +57,6 @@
 
 @media screen and (max-width: map-get($breakpoints, mobile) - 1) {
   .header {
-    margin-bottom: 14px;
-
     &__container {
       justify-content: space-between;
 
@@ -74,7 +72,7 @@
     &__contacts-switcher {
       display: block;
 
-      border-color: white;
+			border-color: white;
     }
 
     &__contacts-label {
@@ -83,6 +81,6 @@
 
     &__location {
       display: none;
-    }
+		}
   }
 }

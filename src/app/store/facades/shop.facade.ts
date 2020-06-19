@@ -25,6 +25,10 @@ export class ShopFacadeService {
 		return this.store.select(SelectorShop.selectCurrentAlbum);
 	}
 
+	public get pageTitle$(): Observable<string> {
+		return this.store.select(SelectorShop.selectPageTitle);
+	}
+
 	public get isShopLoading$(): Observable<boolean> {
 		return this.store.select(SelectorShop.selectIsShopLoading);
 	}
@@ -40,5 +44,9 @@ export class ShopFacadeService {
 
 	public hideShopLoader(): void {
 		this.store.dispatch(ActionShop.hideShopLoader());
+	}
+
+	public changePageTitle(pageTitle: string): void {
+		this.store.dispatch(ActionShop.changePageTitle({ pageTitle }));
 	}
 }

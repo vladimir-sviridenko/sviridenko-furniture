@@ -3,7 +3,7 @@
   <div class="shop__navigation">
     <ng-container *ngTemplateOutlet="navBar"></ng-container>
 	</div>
-	<button mat-icon-button class="shop__button shop__button_scroll-top" color="primary"
+	<button mat-mini-fab class="shop__button shop__button_scroll-top" color="primary"
 			(click)="scrollTop()"
 			title="Пондятся вверх" 
 			aria-label="Scroll top">
@@ -16,8 +16,12 @@
           [expandedHeight]="'40px'" 
           [collapsedHeight]="'40px'">
           <mat-panel-title class="shop__panel-title" aria-label="Categories">
-            <span>Категории</span>
-            <mat-icon>view_module</mat-icon>
+						<span class="shop__category-additional-label">Качественная мебель</span>
+						<span class="shop__category-label">Категории</span>
+						<button mat-stroked-button>
+							<mat-icon>view_module</mat-icon> 
+							<span class="shop__category-button-label">Категории</span>
+						</button>
           </mat-panel-title>
       </mat-expansion-panel-header>
       <ng-container *ngTemplateOutlet="navBar"></ng-container>
@@ -31,8 +35,8 @@
 				(click)="cartFacadeService.closeCart()">
 		</div>
 		<mat-toolbar class="shop__features-toolbar"
-				[class.shop__features-toolbar_height-0]="productFacadeService.product$ | async"
-				*ngIf="!(shopFacadeService.isShopLoading$ | async)">
+				[class.shop__features-toolbar_with-title]="!(productFacadeService.product$ | async)"
+				*ngIf="(shopFacadeService.albums$ | async)">
 			<button mat-mini-fab class="shop__button shop__button_modeler"
 					*ngIf="!(productFacadeService.product$ | async)"
 					disabled
@@ -43,7 +47,7 @@
 			</button>
 			<div class="shop__album-title-container"
 					*ngIf="!(productFacadeService.product$ | async)">
-				<h1 class="shop__album-title">{{(shopFacadeService.currentAlbum$ | async).title}}</h1>
+				<h1 class="shop__album-title">{{shopFacadeService.pageTitle$ | async}}</h1>
 			</div>
 			<button mat-mini-fab class="shop__button shop__button_cart"
 					[class.shop__button_cart_absolute]="productFacadeService.product$ | async"

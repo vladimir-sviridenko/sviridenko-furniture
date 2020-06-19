@@ -14,3 +14,6 @@ export const selectCurrentAlbum: MemoizedSelector<AppState, Album>
 
 export const selectIsShopLoading: MemoizedSelector<AppState, boolean>
 		= createSelector(selectShopState, (state: ShopState) => state.isShopLoading);
+
+export const selectPageTitle: MemoizedSelector<AppState, string>
+		= createSelector(selectShopState, (state: ShopState) => state.pageTitle);

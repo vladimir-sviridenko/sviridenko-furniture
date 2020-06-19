@@ -26,7 +26,7 @@ export const reducer: ActionReducer<ProductState> = createReducer(
 			totalPrice: cartProduct.totalPrice
 		};
 	}),
-	on(ActionProduct.closeProduct, (state: ProductState): ProductState => {
+	on(ActionProduct.clearProduct, (state: ProductState): ProductState => {
 		return {
 			...state,
 			product: null

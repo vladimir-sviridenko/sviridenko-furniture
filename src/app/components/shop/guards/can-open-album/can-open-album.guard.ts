@@ -28,7 +28,6 @@ export class CanOpenAlbumGuard implements CanActivate {
 				for (const album of albums) {
 					if (album.id === albumId) { // some
 						this.shopFacadeService.changeCurrentAlbum(album);
-						this.productFacadeService.closeProduct();
 						return true;
 					}
 				}

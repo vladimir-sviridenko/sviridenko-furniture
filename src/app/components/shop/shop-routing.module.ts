@@ -7,15 +7,20 @@ import { CanOpenAlbumGuard } from 'src/app/components/shop/guards/can-open-album
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ProductsTableComponent } from './components/products-table/products-table.component';
 import { ProductPageComponent } from './components/product-page/product-page.component';
+import { CanCloseProductPageGuard } from './guards/can-close-product-page/can-close-product-page.guard';
 
 const shopChildrenRoutes: Routes = [
   {path: '404', component: NotFoundComponent },
   {path: 'shop/:albumId', component: ProductsTableComponent, canActivate: [CanOpenAlbumGuard]},
-  {path: 'shop/:albumId/:productId', component: ProductPageComponent, canActivate: [CanOpenProductGuard]},
+	{
+		path: 'shop/:albumId/:productId', component: ProductPageComponent,
+		canActivate: [CanOpenProductGuard],
+		canDeactivate: [CanCloseProductPageGuard]
+	},
 ];
 
 const routes: Routes = [
-  {path: '', redirectTo: 'shop/375686981', pathMatch: 'full'},
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: '', component: ShopComponent, children: shopChildrenRoutes}
 ];
 

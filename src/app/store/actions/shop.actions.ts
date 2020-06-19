@@ -20,3 +20,8 @@ export const changeCurrentAlbum: InjectAction<string, { album: Album }> = create
 export const hideShopLoader: Action<string> = createAction(
 	'[SHOP/API] Hide shop loader'
 );
+
+export const changePageTitle: InjectAction<string, { pageTitle: string }> = createAction(
+	'[SHOP/API] Change page title',
+	props<{ pageTitle: string }>()
+);

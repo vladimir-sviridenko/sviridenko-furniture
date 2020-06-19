@@ -11,13 +11,6 @@
 				aria-label="Close cart">
 			<mat-icon>close</mat-icon>
 		</button>
-		<button mat-stroked-button class="cart__button cart__button_close-mobile"
-				(click)="cartFacadeService.closeCart()"
-				title="Закрыть корзину"
-				color="primary"
-				aria-label="Close cart">
-			<mat-icon>close</mat-icon>
-		</button>
 	</mat-toolbar>
 	<div class="cart__product-list" *ngIf="!(cartFacadeService.isCartEmpty$ | async); else emptyProductList">
 		<div class="cart__product-container"

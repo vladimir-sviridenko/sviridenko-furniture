@@ -41,6 +41,8 @@ import { FullPhotoComponent } from './components/full-photo/full-photo.component
 import { HTMLGeneratorService } from './services/html-generator.service';
 import { LocalStorageService } from './services/local-storage.service';
 import { ShopEffects } from '@store/effects/shop.effects';
+import { HomePageComponent } from './components/home-page/home-page.component';
+import { CanCloseProductPageGuard } from './guards/can-close-product-page/can-close-product-page.guard';
 
 @NgModule({
 	declarations: [
@@ -55,6 +57,7 @@ import { ShopEffects } from '@store/effects/shop.effects';
 		ContactsFormComponent,
 		CartComponent,
 		FullPhotoComponent,
+		HomePageComponent,
 		SizePipe,
 		HideUntilImagesLoadedDirective,
 		NotFoundComponent,
@@ -80,7 +83,8 @@ import { ShopEffects } from '@store/effects/shop.effects';
 		HTMLGeneratorService,
 		LocalStorageService,
 		CanOpenProductGuard,
-		CanOpenAlbumGuard
+		CanOpenAlbumGuard,
+		CanCloseProductPageGuard
 	],
 	bootstrap: [ShopComponent]
 })

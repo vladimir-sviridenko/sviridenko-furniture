@@ -20,8 +20,15 @@ export const reducer: ActionReducer<ShopState> = createReducer(
   on(ActionShop.changeCurrentAlbum, (state: ShopState, { album }: { album: Album }): ShopState => {
   return {
   		...state,
-  		currentAlbum: album,
+			currentAlbum: album,
+			pageTitle: album.title,
   		isShopLoading: true
   	};
-  })
+	}),
+	on(ActionShop.changePageTitle, (state: ShopState, { pageTitle }: { pageTitle: string }): ShopState => {
+		return {
+			...state,
+			pageTitle
+		};
+	})
 );

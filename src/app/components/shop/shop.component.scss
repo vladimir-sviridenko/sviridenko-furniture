@@ -29,7 +29,7 @@
       width: 100%;
       height: 2px;
 
-      background-color: black;
+      background-color: white;
     }
   }
 
@@ -45,9 +45,10 @@
     font-size: 24px;
     line-height: 37px;
     text-align: center;
+    color: white;
     text-overflow: ellipsis;
 
-    background-color: $background-color-primary;
+    background-color: $color-primary;
   }
 
 
@@ -58,14 +59,15 @@
 
     display: flex;
     justify-content: space-between;
-    height: 44px;
-    margin-top: 2px;
+    height: 0;
+    overflow: visible;
 
-    background-color: $background-color-primary;
+    background-color: $color-primary;
 
-    &_height-0 {
-      height: 0;
-      overflow: visible;
+    &_with-title {
+      height: 52px;
+
+      box-shadow: 0 11px 14px 5px rgba(0, 0, 0, 0.5);
     }
   }
 
@@ -114,6 +116,11 @@
   &__button {
     &_cart {
       margin-left: 50px;
+
+      color: $color-primary;
+
+      background-color: white;
+      box-shadow: none;
       &.mat-badge-small::ng-deep .mat-badge-content {
         top: -3px;
         right: -1px;
@@ -121,15 +128,21 @@
 
       &_absolute {
         position: absolute;
-        top: 10px;
-        right: 15px;
+        top: 11px;
+        right: 16px;
 
         margin: 0;
+
+        box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2),
+        0 6px 10px 0 rgba(0, 0, 0, 0.14),
+        0 1px 18px 0 rgba(0, 0, 0, 0.12);
       }
     }
 
-    &_modeler {
+    &_modeler[disabled] {
       margin-right: 50px;
+
+      background-color: white;
     }
 
     &_scroll-top {
@@ -138,7 +151,9 @@
       bottom: 10px;
       z-index: 1;
 
-      margin: 0;
+			margin: 0;
+			background-color: white;
+			color: $color-primary;
     }
   }
 
@@ -160,6 +175,8 @@
 
   &__navigation {
     display: block;
+
+    border-bottom: 1px solid white;
   }
 
   &__navigation-mobile {
@@ -197,18 +214,27 @@
       &.mat-badge-small::ng-deep .mat-badge-content {
         color: $color-accent;
       }
-    }
+		}
   }
 }
 
 @media screen and (max-width: map-get($breakpoints, mobile) - 1px) {
-  .shop {
+  .shop {		
+		
+		&__category-additional-label {
+			display: block;
+		}
+
+		&__category-label {
+			display: none;
+		}
+
     &__background {
       &_cart-opened {
-        background-color: transparentize($color: $background-color-primary, $amount: 0.4);
+        display: none;
       }
-    }
-
+		}
+		
     &__cart-container {
       white-space: normal;
     }
@@ -223,6 +249,10 @@
       }
     }
 
+    &__features-toolbar {
+      font-size: 20px;
+    }
+
     &__buttons {
       border-top: 1px solid white;
     }
@@ -232,28 +262,27 @@
     }
 
     &__navigation-mobile {
-      display: block;
+			display: block;
+			z-index: 3;
 
       &::ng-deep .mat-expansion-panel-header {
-        background-color: $color-primary !important;
+        background-color: $background-color-primary !important;
       }
     }
 
     &__panel-header {
       font-size: 18px;
-
+			padding: 5px 20px;
       border-radius: 0;
 
-      user-select: none;
+			user-select: none;
 
       -webkit-tap-highlight-color: rgba(0,0,0,0);
     }
 
     &__panel {
-      z-index: 1;
-
-      margin-right: 15px;
-      margin-left: 15px;
+      border-radius: 0 !important;
+      box-shadow: none;
       &::ng-deep .mat-expansion-panel-body {
         padding: 0;
       }
@@ -261,10 +290,21 @@
 
     &__panel-title {
       display: flex;
-      justify-content: space-between;
+			justify-content: space-between;
+			align-items: center;
       margin-right: 0;
 
-      color: white;
+      font-weight: 500;
+      font-size: 20px;
+			color: $color-primary;
+		}
+
+		&__buttons {
+			border-bottom: 2px solid white;
+		}
+		
+    &__album-title {
+      font-size: 20px;
     }
   }
 }
@@ -272,6 +312,7 @@
 @media screen and (min-width: map-get($breakpoints, mobile) - 60px) {
   .shop__button {
     &_cart_absolute {
+      top: 7px;
       right: 4px;
     }
 
@@ -282,12 +323,18 @@
 }
 
 @media screen and (min-width: map-get($breakpoints, tablet-portrait)) {
-  .shop__button_cart_absolute {
-    right: 10px;
-  }
+	.shop {
+		&__button {
+			&_cart {
+				&_absolute {
+					right: 16px;
+				}
+			} 
+		}
+	}
 }
 
-@media screen and (max-width: map-get($breakpoints, mobile-portrait)) {
+@media screen and (max-width: map-get($breakpoints, mobile-portrait) - 1px) {
   .shop {
     &__features-toolbar {
       white-space: unset;
@@ -298,13 +345,26 @@
     }
 
     &__album-title {
-      background-color: transparent;
+			background-color: transparent;
+			padding-left: 0;
     }
 
     &__album-title-container {
       justify-content: flex-start;
     }
 
+		&__category-additional-label {
+			display: none;
+		}
+
+		&__category-label {
+			display: block;
+		}
+
+		&__category-button-label {
+			display: none;
+		}	
+		
     &__button {
       &_cart {
         margin-left: 0;

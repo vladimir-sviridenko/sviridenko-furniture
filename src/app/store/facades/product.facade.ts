@@ -35,8 +35,7 @@ export class ProductFacadeService {
 		this.store.dispatch(ActionProduct.selectOption({ option }));
 	}
 
-	public closeProduct(): void {
-		this.store.dispatch(ActionProduct.closeProduct());
+	public clearProduct(): void {
+		this.store.dispatch(ActionProduct.clearProduct());
 	}
-
 }
