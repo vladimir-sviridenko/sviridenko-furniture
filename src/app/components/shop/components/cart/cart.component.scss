@@ -26,7 +26,7 @@ $cart-product-font-size: 16px;
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
-	min-width: 400px;
+  min-width: 400px;
   height: 75vh;
   max-height: 100vh;
   overflow-y: auto;
@@ -59,6 +59,9 @@ $cart-product-font-size: 16px;
     display: flex;
     flex-shrink: 0;
     justify-content: space-between;
+    height: 46px;
+    padding-right: 15px;
+    padding-left: 15px;
   }
 
   &__button {
@@ -100,19 +103,20 @@ $cart-product-font-size: 16px;
       align-items: center;
       height: 100%;
     }
-	}
-	
-	&__product-image-container {
-		width: 90px;
-		flex-shrink: 0;
-	}
+  }
 
-	&__product-image {
-		object-fit: cover;
-		width: 100%;
-		height: 100%;
-		margin-left: -6px;
-	}
+  &__product-image-container {
+    flex-shrink: 0;
+    width: 90px;
+  }
+
+  &__product-image {
+    width: 100%;
+    height: 100%;
+    margin-left: -6px;
+
+    object-fit: cover;
+  }
 
   &__product-container {
     display: flex;
@@ -127,12 +131,12 @@ $cart-product-font-size: 16px;
     border-radius: 4px;
   }
 
-	&__skin-image-container {
-		display: inline-block;
-		width: 0;
-		height: 0;
-		overflow: visible;
-	}
+  &__skin-image-container {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    overflow: visible;
+  }
 
   &__skin-image {
     width: 20px;
@@ -151,7 +155,7 @@ $cart-product-font-size: 16px;
 
   &__product-size {
     color: rgba(0, 0, 0, 0.54);
-	}
+  }
 
   &__quantity {
     display: flex;
@@ -170,17 +174,17 @@ $cart-product-font-size: 16px;
   &__price-container {
     display: flex;
     flex-flow: column nowrap;
-		justify-content: space-between;
-		margin-left: auto;
+    justify-content: space-between;
+    margin-left: auto;
 
     font-size: $cart-product-font-size + 1px;
   }
 }
 
 @media screen and (max-width: map-get($breakpoints, laptop) - 1) {
-	.cart {
-		height: 72vh;
-	}
+  .cart {
+    height: 72vh;
+  }
 }
 
 @media screen and (max-width: map-get($breakpoints, mobile) - 1) {
@@ -196,9 +200,9 @@ $cart-product-font-size: 16px;
     border-bottom-left-radius: 0;
     box-shadow: none;
 
-		&__product-image-container { 
-			display: none;
-		}
+    &__product-image-container {
+      display: none;
+    }
 
     &__toolbar {
       color: white;
@@ -206,9 +210,9 @@ $cart-product-font-size: 16px;
       background-color: $color-primary;
     }
 
-		&__product-option {
-			white-space: unset;
-		}
+    &__product-option {
+      white-space: unset;
+    }
 
     &__button {
       &_close {

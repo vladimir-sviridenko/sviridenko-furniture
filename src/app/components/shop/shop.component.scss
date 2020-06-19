@@ -42,8 +42,8 @@
     padding-left: 10px;
     overflow: hidden;
 
-    font-size: 22px;
-    line-height: 27px;
+    font-size: 24px;
+    line-height: 37px;
     text-align: center;
     text-overflow: ellipsis;
 
@@ -58,6 +58,8 @@
 
     display: flex;
     justify-content: space-between;
+    height: 44px;
+    margin-top: 2px;
 
     background-color: $background-color-primary;
 
@@ -288,20 +290,20 @@
 @media screen and (max-width: map-get($breakpoints, mobile-portrait)) {
   .shop {
     &__features-toolbar {
-			white-space: unset;
+      white-space: unset;
     }
 
     &__album-title-container::after {
       display: none;
-		}
-		
-		&__album-title {
-			background-color: transparent;
-		}
+    }
 
-		&__album-title-container {
-			justify-content: flex-start;
-		}
+    &__album-title {
+      background-color: transparent;
+    }
+
+    &__album-title-container {
+      justify-content: flex-start;
+    }
 
     &__button {
       &_cart {
@@ -309,7 +311,7 @@
       }
 
       &_modeler {
-				display: none;
+        display: none;
         margin-right: 0;
       }
     }

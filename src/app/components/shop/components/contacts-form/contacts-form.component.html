@@ -36,7 +36,7 @@
 				<span>Пожалуйста введите email.</span>
       </mat-error>
       <mat-icon matSuffix>email</mat-icon>
-    </mat-form-field>
+		</mat-form-field>
     <mat-progress-bar mode="buffer" [style.visibility]="(isSubmiting$ | async) ? 'visible' : 'hidden'"></mat-progress-bar>
     <mat-dialog-actions>
       <button mat-flat-button color="primary" [disabled]="contactsForm.invalid || (isSubmiting$ | async)">Заказать</button>
