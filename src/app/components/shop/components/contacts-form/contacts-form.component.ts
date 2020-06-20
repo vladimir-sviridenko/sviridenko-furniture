@@ -32,10 +32,11 @@ export class ContactsFormComponent {
 	}
 
 	constructor(private dialogRef: MatDialogRef<ContactsFormComponent>,
-							@Inject(MAT_DIALOG_DATA) public contactsSubmit: ContactsSubmit) { }
+							@Inject(MAT_DIALOG_DATA) public contactsSubmit: ContactsSubmit) {}
 
 	public submitForm(): void {
 		const submitType: SubmitType = this.contactsSubmit.type;
+		document.body.classList.add('waiting');
 		this.contactsForm.disable();
 		this.dialogRef.disableClose = true;
 		this.isSubmiting$.next(true);
@@ -48,6 +49,9 @@ export class ContactsFormComponent {
 			.catch(() => {
 				const submitStatus: SubmitStatus = { success: false, submitType };
 				this.dialogRef.close(submitStatus);
+			})
+			.finally(() => {
+				document.body.classList.remove('waiting');
 			});
 	}
 }

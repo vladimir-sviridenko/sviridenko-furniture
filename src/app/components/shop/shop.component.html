@@ -10,7 +10,7 @@
 		<mat-icon>arrow_upward</mat-icon>
 	</button>
   <mat-accordion class="shop__navigation-mobile" [hideToggle]="true">
-    <mat-expansion-panel class="shop__panel" #panel>
+    <mat-expansion-panel class="shop__panel" #panel (click)="panel.toggle();">
 			<mat-expansion-panel-header 
           class="shop__panel-header"
           [expandedHeight]="'46px'" 
@@ -18,7 +18,7 @@
           <mat-panel-title class="shop__panel-title" aria-label="Categories">
 						<span class="shop__category-additional-label">Качественная мебель</span>
 						<span class="shop__category-label">Категории</span>
-						<button mat-stroked-button class="shop__button shop__button_category">
+						<button mat-stroked-button class="shop__button shop__button_category" (click)="panel.toggle(); $event.stopPropagation();">
 							<mat-icon>view_module</mat-icon> 
 							<span class="shop__category-button-label">Категории</span>
 						</button>
@@ -66,9 +66,9 @@
 
 <ng-template #navBar>
   <mat-toolbar class="shop__buttons" color="primary">
-    <button mat-stroked-button
+		<button mat-stroked-button
 				*ngFor="let album of shopFacadeService.albums$ | async"
-				(click)="panel.close()"
+				(click)="panel.close(); $event.stopPropagation()"
 				[routerLink]="['/shop', album.id]"
 				[matBadge]='album.products[0].price ? "Онлайн" : "Под заказ"'
 				matBadgeSize="small"

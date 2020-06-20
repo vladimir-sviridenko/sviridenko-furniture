@@ -1,8 +1,7 @@
 <mat-card class="product-card" [class.product-card_priceless]="!product.price">
 	<div mat-card-image class="product-card__image-container"
 				[class.product-card__image-container_priceless]="!product.price"
-			title="Посмотреть фото"	
-			(click)="dialogService.openPhoto(product.photoUrl)">
+				(click)="dialogService.openPhoto(product.photoUrl)">
     <img class="product-card__image"
     		alt="Furniture Photo"
       	(load)="imageLoad.emit(true)" 

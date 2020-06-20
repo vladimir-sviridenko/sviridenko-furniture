@@ -7,7 +7,7 @@
   </div>
   <img class="image__content"
       [class.image__content_shown]="isImageLoaded" 
-      [title]="title"
+      [title]="title ? title : ''"
       [src]="src"
       (load)="onLoad()"
       alt="Product photo">

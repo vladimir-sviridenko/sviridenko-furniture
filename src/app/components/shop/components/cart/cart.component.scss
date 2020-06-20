@@ -57,7 +57,7 @@ $cart-product-font-size: 16px;
     display: flex;
     flex-shrink: 0;
     justify-content: space-between;
-    height: 48px;
+    height: 52px;
     padding-right: 15px;
     padding-left: 15px;
 
@@ -131,7 +131,7 @@ $cart-product-font-size: 16px;
 
     line-height: $cart-product-line-height;
 
-    border: 1px solid rgba(0, 0, 0, 0.12);
+    border: 1px solid $color-primary;
     border-radius: 4px;
   }
 

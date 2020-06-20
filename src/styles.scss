@@ -30,3 +30,10 @@ body {
 		top: 0;
 	}
 }
+
+.waiting { 
+	cursor: wait;
+	& *{
+		cursor: wait !important;
+	}
+}
