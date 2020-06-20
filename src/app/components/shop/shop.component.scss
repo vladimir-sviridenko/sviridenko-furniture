@@ -151,9 +151,11 @@
       bottom: 10px;
       z-index: 1;
 
-			margin: 0;
-			background-color: white;
-			color: $color-primary;
+      margin: 0;
+
+      color: $color-primary;
+
+      background-color: white;
     }
   }
 
@@ -214,43 +216,48 @@
       &.mat-badge-small::ng-deep .mat-badge-content {
         color: $color-accent;
       }
-		}
+    }
   }
 }
 
 @media screen and (max-width: map-get($breakpoints, mobile) - 1px) {
-  .shop {		
-		
-		&__category-additional-label {
-			display: block;
-		}
+  .shop {
+    &__category-additional-label {
+      display: block;
+    }
 
-		&__category-label {
-			display: none;
-		}
+    &__category-label {
+      display: none;
+    }
 
     &__background {
       &_cart-opened {
         display: none;
       }
-		}
-		
+    }
+
     &__cart-container {
       white-space: normal;
     }
 
     &__button {
+      &_modeler[disabled] {
+        margin-right: 15px;
+      }
+
       &_cart {
         margin-left: 15px;
       }
 
-      &_modeler {
-        margin-right: 15px;
+      &_category {
+        border: 1px solid white;
       }
     }
 
     &__features-toolbar {
-      font-size: 20px;
+			font-size: 20px;
+			border-top: 2px solid white;
+			top: -2px;
     }
 
     &__buttons {
@@ -262,26 +269,30 @@
     }
 
     &__navigation-mobile {
-			display: block;
-			z-index: 3;
+      z-index: 3;
+
+      display: block;
 
       &::ng-deep .mat-expansion-panel-header {
-        background-color: $background-color-primary !important;
+        background-color: $color-primary !important;
       }
     }
 
     &__panel-header {
+      padding: 5px 20px;
+
       font-size: 18px;
-			padding: 5px 20px;
+
       border-radius: 0;
 
-			user-select: none;
+      user-select: none;
 
       -webkit-tap-highlight-color: rgba(0,0,0,0);
     }
 
     &__panel {
-      border-radius: 0 !important;
+			border-radius: 0 !important;
+			border-top: 2px solid white;
       box-shadow: none;
       &::ng-deep .mat-expansion-panel-body {
         padding: 0;
@@ -290,19 +301,19 @@
 
     &__panel-title {
       display: flex;
-			justify-content: space-between;
-			align-items: center;
+      justify-content: space-between;
+      align-items: center;
       margin-right: 0;
 
       font-weight: 500;
       font-size: 20px;
-			color: $color-primary;
-		}
+      color: white;
+    }
 
-		&__buttons {
-			border-bottom: 2px solid white;
-		}
-		
+    &__buttons {
+      border-bottom: 2px solid white;
+    }
+
     &__album-title {
       font-size: 20px;
     }
@@ -311,6 +322,10 @@
 
 @media screen and (min-width: map-get($breakpoints, mobile) - 60px) {
   .shop__button {
+    &_feature-toolbar {
+      padding: 0 20px;
+    }
+
     &_cart_absolute {
       top: 7px;
       right: 4px;
@@ -323,15 +338,15 @@
 }
 
 @media screen and (min-width: map-get($breakpoints, tablet-portrait)) {
-	.shop {
-		&__button {
-			&_cart {
-				&_absolute {
-					right: 16px;
-				}
-			} 
-		}
-	}
+  .shop {
+    &__button {
+      &_cart {
+        &_absolute {
+          right: 16px;
+        }
+      }
+    }
+  }
 }
 
 @media screen and (max-width: map-get($breakpoints, mobile-portrait) - 1px) {
@@ -345,26 +360,27 @@
     }
 
     &__album-title {
-			background-color: transparent;
-			padding-left: 0;
+      padding-left: 0;
+
+      background-color: transparent;
     }
 
     &__album-title-container {
       justify-content: flex-start;
     }
 
-		&__category-additional-label {
-			display: none;
-		}
+    &__category-additional-label {
+      display: none;
+    }
 
-		&__category-label {
-			display: block;
-		}
+    &__category-label {
+      display: block;
+    }
 
-		&__category-button-label {
-			display: none;
-		}	
-		
+    &__category-button-label {
+      display: none;
+    }
+
     &__button {
       &_cart {
         margin-left: 0;
