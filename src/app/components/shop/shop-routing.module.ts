@@ -9,9 +9,10 @@ import { ProductsTableComponent } from './components/products-table/products-tab
 import { ProductPageComponent } from './components/product-page/product-page.component';
 import { CanCloseProductPageGuard } from './guards/can-close-product-page/can-close-product-page.guard';
 import { HomePageComponent } from './components/home-page/home-page.component';
+import { CanOpenHomePageGuard } from './guards/can-open-home-page/can-open-home-page.guard';
 
 const shopChildrenRoutes: Routes = [
-	{path: 'home', component: HomePageComponent},
+	{path: 'home', component: HomePageComponent, canActivate: [CanOpenHomePageGuard]},
   {path: '404', component: NotFoundComponent },
   {path: 'shop/:albumId', component: ProductsTableComponent, canActivate: [CanOpenAlbumGuard]},
 	{

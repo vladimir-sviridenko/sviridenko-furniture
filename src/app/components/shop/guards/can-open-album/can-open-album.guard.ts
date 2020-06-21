@@ -13,8 +13,7 @@ export class CanOpenAlbumGuard implements CanActivate {
 	private albums$: ReplaySubject<Album[]> = new ReplaySubject<Album[]>();
 
 	constructor(private shopFacadeService: ShopFacadeService,
-							private productFacadeService: ProductFacadeService,
-							private router: Router, private shopEffects: ShopEffects) {
+							private router: Router) {
 		this.shopFacadeService.albums$.pipe(take(2), filter((albums: Album[]) => !!albums)).subscribe(this.albums$);
 	}
 

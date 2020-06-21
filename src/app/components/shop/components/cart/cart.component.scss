@@ -28,7 +28,7 @@ $cart-product-font-size: 16px;
   justify-content: space-between;
   min-width: 400px;
   height: 75vh;
-  max-height: 100vh;
+  max-height: 770px;
   overflow-y: auto;
 
   font-size: $cart-product-font-size;
@@ -194,7 +194,8 @@ $cart-product-font-size: 16px;
 
     width: 100%;
     min-width: unset;
-    max-width: unset;
+		max-width: unset;
+		max-height: 100%;
     height: 100%;
 
     border: 0;
