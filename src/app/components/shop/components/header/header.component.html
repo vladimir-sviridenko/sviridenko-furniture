@@ -1,13 +1,53 @@
 <header class="header">
   <mat-toolbar class="header__container">
     <div class="header__logo-container" title="На главную">
-      <h1 class="header__logo" [routerLink]="['/home']">Sviridenko Furniture</h1>
+			<h1 class="header__logo" [routerLink]="['/home']">Sviridenko Furniture</h1>
       <button mat-stroked-button class="header__location" disableRipple>Москва и МО</button>
     </div>
-    <app-contacts class="header__contacts"></app-contacts>
-    <button mat-stroked-button class="header__contacts-switcher" title="Contacts" (click)="dialogService.openHeaderContacts()">
-      <mat-icon aria-label="Seller's contacts">contact_phone</mat-icon>
-      <span class="header__contacts-label">Контакты</span>
-    </button>
-  </mat-toolbar>
+		<app-contacts class="header__contacts"></app-contacts>
+		<button mat-stroked-button class="header__button header__button_home" 
+				[routerLink]="['/home']"
+				(click)="panel.close()"
+				aria-label="Open home page">
+			<mat-icon>home</mat-icon> 
+			<span class="header__label_home">Главная</span>
+		</button>
+		<button mat-stroked-button class="header__button header__button_contacts" 
+				title="Contacts" 
+				(click)="dialogService.openHeaderContacts()" 
+				aria-label="Show Seller's contacts">
+      <mat-icon>contact_phone</mat-icon>
+      <span class="header__label_contacts">Контакты</span>
+		</button>
+		<button mat-stroked-button class="header__button header__button_category" 
+				(click)="panel.toggle(); $event.stopPropagation();"
+				aria-label="Show furniture categories">
+			<mat-icon aria-label="">view_module</mat-icon> 
+			<span class="header__label_category">Категории</span>
+		</button>
+	</mat-toolbar>
+	<div class="header__navigation">
+    <ng-container *ngTemplateOutlet="navBar"></ng-container>
+	</div>
+	<mat-accordion class="header__navigation-mobile">    
+		<mat-expansion-panel class="header__panel" #panel (click)="panel.toggle();" [hideToggle]="true">
+			<ng-container *ngTemplateOutlet="navBar"></ng-container>
+		</mat-expansion-panel>
+	</mat-accordion>
 </header>
+
+<ng-template #navBar>
+  <mat-toolbar class="header__buttons" color="primary">
+		<button mat-stroked-button
+				*ngFor="let album of shopFacadeService.albums$ | async"
+				(click)="panel.close(); $event.stopPropagation()"
+				[routerLink]="['/shop', album.id]"
+				[matBadge]='album.products[0].price ? "Онлайн" : "Под заказ"'
+				matBadgeSize="small"
+				[routerLink]="['/shop', album.id]"
+				class="header__link"
+				[class.header__link_online-product] = "album.products[0].price">
+			{{album.title}}
+		</button>
+  </mat-toolbar>
+</ng-template>

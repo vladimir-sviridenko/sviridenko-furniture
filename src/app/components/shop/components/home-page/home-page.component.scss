@@ -31,16 +31,10 @@
 
     object-fit: cover;
     object-position: 50% 90%;
-  }
 
-  &__title {
-    max-width: 365px;
-    padding: 6px;
-
-    text-align: center;
-    color: white;
-
-    background-color: transparentize($color: black, $amount: 0.7);
+    &_mobile {
+      display: none;
+    }
   }
 
   &__cards {
@@ -49,13 +43,27 @@
   }
 
   &__card {
-    width: 20%;
-    padding-top: 4px;
-
     color: white;
 
-    background-color: transparentize($color: black, $amount: 0.7);
-  }
+		background-color: transparentize($color: black, $amount: 0.4);
+
+    &_title {
+      width: 100%;
+      max-width: 500px;
+			padding: 6px;
+
+			text-align: center;
+		}
+
+		&_feature {
+			width: 20%;
+			padding-top: 4px;
+		}
+	}
+	
+	&__slogan {
+		font-weight: 500;
+	}
 
   &__card-description {
     font-size: 15px;
@@ -76,14 +84,27 @@
 @media screen and (min-width: map-get($breakpoints, desktop)) {
   .home-page {
     &__card-description {
-      font-size: 16px;
+			font-size: 16px;
+			line-height: 24px;
     }
   }
 }
 
 @media screen and (max-width: map-get($breakpoints, laptop) - 100px) {
   .home-page {
-    height: unset;
+		&__card {
+			&_feature {
+				width: 26%;
+			}
+		}
+	}
+    
+}
+
+@media screen and (max-width: map-get($breakpoints, tablet)) {
+  .home-page {
+
+		height: unset;
     min-height: calc(100% - #{$features-toolbar-height});
     &__cards {
       flex-flow: column nowrap;
@@ -91,18 +112,22 @@
       align-items: center;
     }
 
-    &__title {
-      width: 70%;
-      max-width: unset;
-      margin: 60px 0;
-
-      font-size: 25px;
-    }
-
     &__card {
-      width: 70%;
-      margin-top: 20px;
-      margin-bottom: 20px;
+			width: 70%;
+			box-sizing: border-box;
+      &_title {
+				max-width: unset;
+        margin-top: 70px;
+        margin-bottom: 40px;
+
+        font-size: 25px;
+      }
+
+			&_feature {
+				width: 70%;
+				margin-top: 20px;
+				margin-bottom: 20px;
+			}
     }
 
 
@@ -110,21 +135,40 @@
       font-size: 16px;
       line-height: 24px;
     }
+
+		&__card {
+			&_title {
+				border: 2px solid transparentize($color: white, $amount: 0.2);
+			}
+		}
+
+    &__background-image {
+      display: none;
+
+      &_mobile {
+        display: inline-block;
+      }
+    }
   }
 }
 
 @media screen and (max-width: map-get($breakpoints, mobile) - 1px) {
   .home-page {
     &__card {
-      box-sizing: border-box;
-      width: 100%;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      width: 90%;
       padding-top: 12px;
-    }
 
-    &__title {
-			margin: 20px 0;
-      box-sizing: border-box;
-      width: 100%;
-    }
+      &_title {
+				margin-top: 30px;
+				margin-bottom: 10px;
+				padding: 4px;
+      }
+		}
+		
+		&__slogan {
+			font-size: 22px;
+		}
   }
 }
