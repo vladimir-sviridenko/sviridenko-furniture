@@ -66,7 +66,7 @@
     background-color: $color-primary;
 
     &_with-title {
-      height: 52px;
+      height: $features-toolbar-height;
 
       box-shadow: 0 11px 14px 5px rgba(0, 0, 0, 0.5);
     }
@@ -177,7 +177,8 @@
   }
 
   &__navigation {
-    display: block;
+		display: block;
+		z-index: 4;
 
     border-bottom: 1px solid white;
   }

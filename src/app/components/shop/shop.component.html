@@ -35,8 +35,7 @@
 				(click)="cartFacadeService.closeCart()">
 		</div>
 		<mat-toolbar class="shop__features-toolbar"
-				[class.shop__features-toolbar_with-title]="!(productFacadeService.product$ | async)"
-				*ngIf="(shopFacadeService.albums$ | async)">
+				[class.shop__features-toolbar_with-title]="!(productFacadeService.product$ | async)">
 			<button mat-mini-fab class="shop__button shop__button_modeler"
 					*ngIf="!(productFacadeService.product$ | async)"
 					disabled
@@ -54,6 +53,7 @@
 					[matBadge]="(cartFacadeService.isCartEmpty$ | async) ? '' : (cartFacadeService.cartProductsQuantity$ | async)"
 					matBadgeColor="accent"
 					matBadgeSize="small"
+					title="Открыть корзину"
 					color="primary"
 					(click)="cartFacadeService.openCart()"
 					aria-label="Open cart">

@@ -8,8 +8,10 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ProductsTableComponent } from './components/products-table/products-table.component';
 import { ProductPageComponent } from './components/product-page/product-page.component';
 import { CanCloseProductPageGuard } from './guards/can-close-product-page/can-close-product-page.guard';
+import { HomePageComponent } from './components/home-page/home-page.component';
 
 const shopChildrenRoutes: Routes = [
+	{path: 'home', component: HomePageComponent},
   {path: '404', component: NotFoundComponent },
   {path: 'shop/:albumId', component: ProductsTableComponent, canActivate: [CanOpenAlbumGuard]},
 	{
@@ -20,7 +22,7 @@ const shopChildrenRoutes: Routes = [
 ];
 
 const routes: Routes = [
-  {path: '', redirectTo: 'home', pathMatch: 'full'},
+	{path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: '', component: ShopComponent, children: shopChildrenRoutes}
 ];
 

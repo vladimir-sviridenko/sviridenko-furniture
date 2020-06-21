@@ -18,12 +18,18 @@
     max-width: 310px;
     min-height: 48px;
 
+    cursor: pointer;
+
 		justify-items: center;
   }
 
   &__logo {
     display: inline-block;
 		margin-right: 10px;
+		
+		&:focus {
+			outline: none;
+		}
   }
 
   &__location {
@@ -31,11 +37,10 @@
 
     background-color: white;
     border-radius: 50px;
-		cursor: default;
 
-		::ng-deep .mat-button-focus-overlay {
-			background-color: white;
-		}
+    ::ng-deep .mat-button-focus-overlay {
+      background-color: white;
+    }
   }
 
   &__contacts {
@@ -72,7 +77,7 @@
     &__contacts-switcher {
       display: block;
 
-			border-color: white;
+      border-color: white;
     }
 
     &__contacts-label {
@@ -81,6 +86,6 @@
 
     &__location {
       display: none;
-		}
+    }
   }
 }

@@ -1,7 +1,7 @@
 <header class="header">
   <mat-toolbar class="header__container">
-    <div class="header__logo-container">
-      <h1 class="header__logo">Sviridenko Furniture</h1>
+    <div class="header__logo-container" title="На главную">
+      <h1 class="header__logo" [routerLink]="['/home']">Sviridenko Furniture</h1>
       <button mat-stroked-button class="header__location" disableRipple>Москва и МО</button>
     </div>
     <app-contacts class="header__contacts"></app-contacts>
