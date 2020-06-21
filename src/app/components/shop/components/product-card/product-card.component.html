@@ -20,19 +20,23 @@
     </mat-card-title>
   </mat-card-header>
   <mat-card-actions class="product-card__actions" *ngIf="product.price">
-		<button mat-flat-button class="product-card__button" color="primary"
+		<button mat-flat-button class="product-card__button product-card__button_to-cart" color="primary"
 				(click)="addProductToCart()">
       В корзину
     </button>
-    <button mat-stroked-button class="product-card__button" color="primary" 
+		<button mat-stroked-button class="product-card__button product-card__button_to-product" color="primary" 
         [routerLink]="['/shop', albumId, product.id]">
       Подробнее
-    </button>
+		</button>
   </mat-card-actions>
   <mat-card-actions class="product-card__actions" *ngIf="!product.price">
-    <button mat-flat-button class="product-card__button" color="primary" 
+		<button mat-stroked-button class="product-card__button product-card__button_open-photo" color="primary" 
+        (click)="dialogService.openPhoto(product.photoUrl)">
+      Открыть фото
+    </button>
+    <button mat-flat-button class="product-card__button product-card__button_request-call" color="primary" 
         (click)="openRequestCallDialog()">
         Заказать звонок
-    </button>
+		</button>
   </mat-card-actions>
 </mat-card>
