@@ -224,7 +224,6 @@
 
 @media screen and (max-width: map-get($breakpoints, mobile-portrait) - 1) {
   .header {
-
     &__label {
       &_home {
         display: none;

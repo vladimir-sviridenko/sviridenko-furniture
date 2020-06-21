@@ -12,18 +12,18 @@
 			<mat-icon>home</mat-icon> 
 			<span class="header__label_home">Главная</span>
 		</button>
+		<button mat-stroked-button class="header__button header__button_category" 
+				(click)="panel.toggle(); $event.stopPropagation();"
+				aria-label="Show furniture categories">
+			<mat-icon aria-label="">view_module</mat-icon> 
+			<span class="header__label_category">Категории</span>
+		</button>
 		<button mat-stroked-button class="header__button header__button_contacts" 
 				title="Contacts" 
 				(click)="dialogService.openHeaderContacts()" 
 				aria-label="Show Seller's contacts">
       <mat-icon>contact_phone</mat-icon>
       <span class="header__label_contacts">Контакты</span>
-		</button>
-		<button mat-stroked-button class="header__button header__button_category" 
-				(click)="panel.toggle(); $event.stopPropagation();"
-				aria-label="Show furniture categories">
-			<mat-icon aria-label="">view_module</mat-icon> 
-			<span class="header__label_category">Категории</span>
 		</button>
 	</mat-toolbar>
 	<div class="header__navigation">
