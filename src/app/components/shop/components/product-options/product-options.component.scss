@@ -4,6 +4,7 @@
   flex: 1 0 $width;
   box-sizing: border-box;
   width: $width;
+  height: 100%;
   margin: $margin-vertical $margin-horizontal;
 }
 
@@ -75,8 +76,8 @@ $image-margin_facade: 5px;
 
   &::ng-deep .mat-tab-label {
     height: $update-button-height-mobile;
-	}
-	
+  }
+
   &__group-name {
     background-color: $background-color-primary !important;
 
