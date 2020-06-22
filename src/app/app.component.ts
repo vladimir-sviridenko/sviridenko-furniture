@@ -1,4 +1,7 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewChild, AfterViewInit } from '@angular/core';
+import { RecaptchaComponent } from 'ng-recaptcha';
+import { RecaptchaFacadeService } from '@store/facades/recaptcha.facade';
+import { RecaptchaService } from './services/recaptcha.service';
 
 @Component({
 	selector: 'app-root',
@@ -6,6 +9,14 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 	styleUrls: ['./app.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent {
-	public appTitle: string = 'sviridenko-furniture';
+export class AppComponent implements AfterViewInit {
+
+	@ViewChild(RecaptchaComponent)
+	public recaptcha: RecaptchaComponent;
+
+	constructor(private recaptchaService: RecaptchaService) {}
+
+	public ngAfterViewInit(): void {
+		this.recaptchaService.recaptcha$.next(this.recaptcha);
+	}
 }

@@ -37,6 +37,11 @@
       </mat-error>
       <mat-icon matSuffix>email</mat-icon>
 		</mat-form-field>
+		<div class="contacts-form__terms">
+			This site is protected by reCAPTCHA and the Google
+			<a href="https://policies.google.com/privacy">Privacy Policy</a> and
+			<a href="https://policies.google.com/terms">Terms of Service</a> apply.
+		</div>
     <mat-progress-bar mode="buffer" [style.visibility]="(isSubmiting$ | async) ? 'visible' : 'hidden'"></mat-progress-bar>
     <mat-dialog-actions>
       <button mat-flat-button color="primary" [disabled]="contactsForm.invalid || (isSubmiting$ | async)">Заказать</button>

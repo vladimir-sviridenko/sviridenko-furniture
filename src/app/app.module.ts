@@ -9,6 +9,8 @@ import { CanOpenErrorPageGuard } from 'src/app/guards/can-open-error-page/can-op
 import { MaterialModules } from './ui/material/material.modules';
 import { GlobalErrorHandler } from './interceptors/global-error-handler/global-error-handler';
 
+import { RecaptchaModule, RECAPTCHA_LANGUAGE, RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
+
 @NgModule({
   declarations: [
 		AppComponent,
@@ -18,15 +20,24 @@ import { GlobalErrorHandler } from './interceptors/global-error-handler/global-e
 	  BrowserModule,
 		ShopModule,
 		AppRoutingModule,
+		RecaptchaModule,
   	...MaterialModules,
   ],
   providers: [
-  {
-  	provide: ErrorHandler,
-  	useClass: GlobalErrorHandler
-  },
-  	CanOpenErrorPageGuard
-  ],
-		bootstrap: [AppComponent]
+		{
+			provide: ErrorHandler,
+			useClass: GlobalErrorHandler
+		},
+		{
+			provide: RECAPTCHA_SETTINGS,
+			useValue: { siteKey: '6Le-FqYZAAAAAIlYg4uhQ-_-_slP_xKXkHvNpx1L' } as RecaptchaSettings,
+		},
+		{
+			provide: RECAPTCHA_LANGUAGE,
+			useValue: 'ru',
+		},
+			CanOpenErrorPageGuard
+	],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }

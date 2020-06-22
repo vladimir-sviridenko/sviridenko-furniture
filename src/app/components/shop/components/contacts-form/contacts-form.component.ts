@@ -6,6 +6,10 @@ import { BehaviorSubject } from 'rxjs';
 import { SubmitType } from '@shop/models/enums/submit-type.enum';
 import { SubmitStatus } from '@shop/models/submit-status';
 import { ContactsSubmit } from '@shop/models/contacts-submit';
+import { RecaptchaFacadeService } from '@store/facades/recaptcha.facade';
+import { RecaptchaComponent } from 'ng-recaptcha';
+import { filter, tap, take } from 'rxjs/operators';
+import { RecaptchaService } from 'src/app/services/recaptcha.service';
 
 @Component({
 	selector: 'app-contacts-form',
@@ -14,6 +18,8 @@ import { ContactsSubmit } from '@shop/models/contacts-submit';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContactsFormComponent {
+
+	public recaptcha: RecaptchaComponent;
 
 	public isSubmiting$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
@@ -41,17 +47,16 @@ export class ContactsFormComponent {
 		this.dialogRef.disableClose = true;
 		this.isSubmiting$.next(true);
 		this.isSubmiting$.complete();
-		this.contactsSubmit.method(this.userContacts)
-			.then(() => {
-				const submitStatus: SubmitStatus = { success: true, submitType };
-				this.dialogRef.close(submitStatus);
-			})
-			.catch(() => {
-				const submitStatus: SubmitStatus = { success: false, submitType };
-				this.dialogRef.close(submitStatus);
-			})
-			.finally(() => {
-				document.body.classList.remove('waiting');
-			});
+		this.contactsSubmit.method(this.userContacts).subscribe(
+		() => {
+			const submitStatus: SubmitStatus = { success: true, submitType };
+			this.dialogRef.close(submitStatus);
+			document.body.classList.remove('waiting');
+		},
+		() => {
+			const submitStatus: SubmitStatus = { success: false, submitType };
+			this.dialogRef.close(submitStatus);
+			document.body.classList.remove('waiting');
+		});
 	}
 }

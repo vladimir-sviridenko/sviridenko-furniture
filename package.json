@@ -4,9 +4,9 @@
   "scripts": {
     "ng": "ng",
     "start": "sudo ng serve",
-		"start:host": "sudo ng serve --host 192.168.100.3",
-		"build:gh-pages": "sudo ng build --prod --base-href https://vladimir-sviridenko.github.io/sviridenko-furniture/",
-		"deploy:gh-pages": "sudo ngh --dir=dist/sviridenko-furniture",
+    "start:host": "sudo ng serve --host 192.168.100.3",
+    "build:gh-pages": "sudo ng build --prod --base-href https://vladimir-sviridenko.github.io/sviridenko-furniture/",
+    "deploy:gh-pages": "sudo ngh --dir=dist/sviridenko-furniture",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -30,6 +30,7 @@
     "@ngrx/store": "^9.2.0",
     "@ngrx/store-devtools": "^9.2.0",
     "emailjs-com": "^2.4.1",
+    "ng-recaptcha": "^5.0.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
@@ -54,5 +55,5 @@
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~3.8.3"
-	}
+  }
 }

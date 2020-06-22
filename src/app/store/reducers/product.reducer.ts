@@ -3,7 +3,6 @@ import * as ActionProduct from '@store/actions/product.actions';
 import { initialProductState, ProductState } from '@store/state/product.state';
 import { SelectedOption } from '@shop/models/selected-option';
 import { Product } from '@shop/models/product';
-import { CategoryMultiplier } from '@shop/models/enums/category-multiplier.enum';
 import { CartProduct } from '@shop/models/cart-product';
 
 export const reducer: ActionReducer<ProductState> = createReducer(
