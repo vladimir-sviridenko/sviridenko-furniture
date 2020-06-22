@@ -34,6 +34,7 @@ export class EmailService {
 
 	public sendResolvedEmail(emailParams: EmailParams): Observable<EmailJSResponseStatus> {
 		this.recaptcha.execute();
+		this.setRecaptchaStyles();
 		return this.recaptcha.resolved.pipe(
 			take(1),
 			switchMap(() => {
@@ -41,6 +42,16 @@ export class EmailService {
 			}),
 			tap(() => this.recaptcha.reset())
 		);
+	}
+
+	public setRecaptchaStyles(): void {
+		const recaptchaIframe: HTMLElement = document.querySelector('iframe[title="recaptcha challenge"]');
+		if (recaptchaIframe) {
+			const recaptchaContainer: HTMLElement = recaptchaIframe.parentElement;
+			recaptchaContainer.classList.add('recaptcha__challenge-container');
+			const overlay: HTMLElement = recaptchaContainer.previousElementSibling as HTMLElement;
+			overlay.classList.add('recaptcha__overlay');
+		}
 	}
 
 	public sendErrorMessage(error: Error): Observable<EmailJSResponseStatus> {

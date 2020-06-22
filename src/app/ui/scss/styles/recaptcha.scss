@@ -1,0 +1,15 @@
+@import "variables";
+
+.recaptcha {
+	&__challenge-container {
+		position: fixed !important;
+		top: 50% !important;
+		left: 50% !important;
+		margin: 0 !important;
+		transform: translate(-50%, -50%);
+	}
+
+	&__overlay {
+		pointer-events: none;;
+	}
+}

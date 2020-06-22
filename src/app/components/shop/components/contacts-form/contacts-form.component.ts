@@ -19,8 +19,6 @@ import { RecaptchaService } from 'src/app/services/recaptcha.service';
 })
 export class ContactsFormComponent {
 
-	public recaptcha: RecaptchaComponent;
-
 	public isSubmiting$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
 	public contactsForm: FormGroup = new FormGroup({
