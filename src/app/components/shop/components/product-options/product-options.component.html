@@ -22,7 +22,10 @@
 								[alt]="option.name"
 								(click)="productFacadeService.selectOption({ type: optionAlbum.type, option: option })"
 								(click)="onCheck($event, option.photoUrl.high)"
-								[matTooltip]="option.name" [matTooltipTouchGestures]="'off'" [matTooltipPosition]="'above'"
+								[matTooltip]="option.name" 
+								[matTooltipTouchGestures]="'off'" 
+								[matTooltipPosition]="'above'"
+								[matTooltipClass]="'product-options__tooltip'"
 								[class.product-options__image_facade]="optionAlbum.type === optionTypeEnum.Facade"
 								[class.product-options__image_checked]="firstColor && firstGroup">
 						<div class="product-options__hidden-flex" 
