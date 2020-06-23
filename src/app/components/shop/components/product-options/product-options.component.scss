@@ -17,7 +17,8 @@ $image-margin_facade: 5px;
 @mixin grid($width-delta, $margin-delta) {
   &__grid {
     display: flex;
-    flex-flow: row wrap;
+		flex-flow: row wrap;
+		align-items: center;
     padding: $image-margin + $margin-delta;
 
     &_facade {

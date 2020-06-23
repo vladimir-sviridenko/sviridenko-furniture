@@ -14,7 +14,7 @@ export class ShopEffects {
 	public loadAlbums$ = createEffect(
 		() => this.actions$.pipe(
 			ofType(ShopAction.loadAlbums),
-			switchMap(() => combineLatest([this.productsService.albums$, this.galleryService.productAlbums$]).pipe(
+			switchMap(() => combineLatest([this.galleryService.productAlbums$, this.productsService.albums$]).pipe(
 				map(([album1, album2]: [Album[], Album[]]) => [...album1, ...album2]),
 				map((albums: Album[]) => ShopAction.setAlbums({ albums })),
 				tap(() => this.cartFacadeService.loadCart()),

@@ -3,13 +3,16 @@
 .products-table {
   margin-top: 5px;
   padding: 10px;
-  padding-top: 0;
+  padding-top: 10px;
 
   background-color: $background-color-primary;
 
   &__cards-container {
     display: flex;
-    flex-flow: row wrap;
+		flex-flow: row wrap;
+		@media screen and (max-width: map-get($breakpoints, mobile-portrait) - 1px) {
+			justify-content: center;
+		}
   }
 
   &__card {
@@ -63,4 +66,10 @@
       top: 70%;
     }
   }
+}
+
+@media screen and (pointer: coarse) {
+	.products-table {
+		padding-bottom: 60px;
+	}
 }

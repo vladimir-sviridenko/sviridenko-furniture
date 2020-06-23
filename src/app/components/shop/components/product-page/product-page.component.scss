@@ -44,7 +44,7 @@
     box-sizing: border-box;
     max-height: 430px;
     margin-bottom: 10px;
-    overflow: hidden;
+		overflow: hidden;
   }
 
   &__options-card-container {
@@ -236,4 +236,10 @@
       }
     }
   }
+}
+
+@media screen and (pointer: coarse) {
+	.product-page {
+		padding-bottom: 50px;
+	}
 }

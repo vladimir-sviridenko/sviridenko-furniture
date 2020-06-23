@@ -2,7 +2,7 @@
 
 :host {
   display: flex;
-  width: 100%;
+  width: 85%;
   @media screen and (min-width: map-get($breakpoints, mobile-portrait)) {
     width: 50%;
   }
@@ -54,49 +54,59 @@
   }
 
   &__actions {
-		margin-top: 6px;
     margin: auto 0;
   }
 
   &__button {
-		width: 100%;
+    width: 100%;
 
-		&_to-product {
-			&.mat-stroked-button {
-				margin-top: 8px;
-				margin-left: 0;
-				margin-right: 0;
-			}
-		}
-		
-		&_to-cart {
-			margin-top: 0;
-		}
+    &_to-product {
+      &.mat-stroked-button {
+        margin-top: 0;
+        margin-right: 0;
+        margin-left: 0;
+      }
+    }
+
+    &_to-cart {
+      margin-top: 8px;
+    }
 
     &_open-photo {
       display: none;
-		}
+    }
 
-		&_request-call {
-			margin-top: 0;
-		}
+    &_request-call {
+      margin-top: 0;
+    }
   }
 }
 
 @media screen and (pointer: coarse) {
-	.product-card {
-    &__image-container {
-      pointer-events: none;
-    }
+  .product-card {
+    margin: 10px;
 
     &__button {
       &_open-photo {
         display: block;
-			}	
+      }
 
-			&_request-call {
-				margin-top: 8px;
-			}
+      &_request-call {
+        margin-top: 8px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: map-get($breakpoints, mobile-portrait)) {
+  .product-card {
+    &__image-container {
+      align-self: center;
+      max-width: 300px;
+      max-height: 300px;
+      &_priceless {
+        max-width: unset;
+      }
     }
   }
 }

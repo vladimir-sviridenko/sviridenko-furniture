@@ -14,7 +14,25 @@
     &::ng-deep .mat-input-element {
       line-height: 16px;
     }
-  }
+	}
+	
+	&__terms {
+		& a {
+			color: transparentize($color: #0366d6, $amount: 0.2);
+			text-decoration: none;
+		}
+		line-height: 14px;
+		font-size: 11px;
+		color: transparentize($color: black, $amount: 0.4);
+	}
+
+	&__loader {
+		padding-top: 8px;
+	}
+
+	&__actions {
+		padding-top: 0;
+	}
 }
 
 input:-webkit-autofill,

@@ -36,7 +36,8 @@ export class DialogService {
 			width: '320px',
 			scrollStrategy: this.overlay.scrollStrategies.noop(),
 			data: contactsSubmit,
-			maxHeight: '90vh'
+			maxHeight: '90vh',
+			maxWidth: '95vw'
 		});
 
 		dialogRef.afterClosed().pipe(take(1)).subscribe((submitStatus: SubmitStatus | undefined) => {
