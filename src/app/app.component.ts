@@ -1,6 +1,5 @@
 import { Component, ChangeDetectionStrategy, ViewChild, AfterViewInit } from '@angular/core';
 import { RecaptchaComponent } from 'ng-recaptcha';
-import { RecaptchaFacadeService } from '@store/facades/recaptcha.facade';
 import { RecaptchaService } from './services/recaptcha.service';
 
 @Component({

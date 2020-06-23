@@ -1,29 +1,32 @@
+// Modules
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { ShopModule } from './components/shop/shop.module';
-import { ErrorComponent } from './components/error/error.component';
-import { CanOpenErrorPageGuard } from 'src/app/guards/can-open-error-page/can-open-error-page.guard';
 import { MaterialModules } from './ui/material/material.modules';
+import { RecaptchaModule, RECAPTCHA_LANGUAGE, RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
+// Components
+import { AppComponent } from './app.component';
+import { ErrorComponent } from './components/error/error.component';
+// Guards
+import { CanOpenErrorPageGuard } from 'src/app/guards/can-open-error-page/can-open-error-page.guard';
+import { RecaptchaService } from './services/recaptcha.service';
+// Intercaptors
 import { GlobalErrorHandler } from './interceptors/global-error-handler/global-error-handler';
 
-import { RecaptchaModule, RECAPTCHA_LANGUAGE, RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
-
 @NgModule({
-  declarations: [
+	declarations: [
 		AppComponent,
 		ErrorComponent
-  ],
-  imports: [
-	  BrowserModule,
+	],
+	imports: [
+		BrowserModule,
 		ShopModule,
 		AppRoutingModule,
 		RecaptchaModule,
-  	...MaterialModules,
-  ],
-  providers: [
+		...MaterialModules,
+	],
+	providers: [
 		{
 			provide: ErrorHandler,
 			useClass: GlobalErrorHandler
@@ -36,7 +39,8 @@ import { RecaptchaModule, RECAPTCHA_LANGUAGE, RECAPTCHA_SETTINGS, RecaptchaSetti
 			provide: RECAPTCHA_LANGUAGE,
 			useValue: 'ru',
 		},
-			CanOpenErrorPageGuard
+		RecaptchaService,
+		CanOpenErrorPageGuard
 	],
 	bootstrap: [AppComponent]
 })

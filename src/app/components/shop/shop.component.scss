@@ -35,7 +35,6 @@
 
   &__album-title {
     z-index: 2;
-		user-select: none;
 
     display: inline-block;
     margin: 0;
@@ -50,6 +49,8 @@
     text-overflow: ellipsis;
 
     background-color: $color-primary;
+
+    user-select: none;
   }
 
 
@@ -90,7 +91,7 @@
 
   &__content {
     position: relative;
-		z-index: 0;
+    z-index: 0;
 
     flex-grow: 1;
     width: 100%;
@@ -169,7 +170,6 @@
 
 @media screen and (max-width: map-get($breakpoints, mobile) - 1px) {
   .shop {
-   
     &__background {
       &_cart-opened {
         display: none;
@@ -187,11 +187,11 @@
 
       &_cart {
         margin-left: 15px;
-			}
-			
-			&_scroll-top {
-				bottom: 4px;
-			}
+      }
+
+      &_scroll-top {
+        bottom: 4px;
+      }
     }
 
     &__features-toolbar {
@@ -200,7 +200,7 @@
       font-size: 20px;
 
       border-top: 1px solid white;
-    }  
+    }
   }
 }
 
@@ -216,7 +216,7 @@
     }
 
     &_scroll-top {
-			right: 4px;
+      right: 4px;
     }
   }
 }
@@ -251,8 +251,8 @@
 
     &__album-title-container {
       justify-content: flex-start;
-		}
-		
+    }
+
     &__button {
       &_cart {
         margin-left: 0;
@@ -261,6 +261,11 @@
       &_modeler {
         display: none;
         margin-right: 0;
+      }
+
+      &_scroll-top {
+        right: 2px;
+        bottom: 2px;
       }
     }
   }

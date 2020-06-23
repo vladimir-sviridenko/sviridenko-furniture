@@ -14,30 +14,30 @@
     &::ng-deep .mat-input-element {
       line-height: 16px;
     }
-	}
-	
-	&__terms {
-		& a {
-			color: transparentize($color: #0366d6, $amount: 0.2);
-			text-decoration: none;
-		}
-		line-height: 14px;
-		font-size: 11px;
-		color: transparentize($color: black, $amount: 0.4);
-	}
+  }
 
-	&__loader {
-		padding-top: 8px;
-	}
+  &__terms {
+    font-size: 11px;
+    line-height: 14px;
+    color: transparentize($color: black, $amount: 0.4);
+    & a {
+      color: transparentize($color: #0366d6, $amount: 0.2);
+      text-decoration: none;
+    }
+  }
 
-	&__actions {
-		padding-top: 0;
-	}
+  &__loader {
+    padding-top: 8px;
+  }
+
+  &__actions {
+    padding-top: 0;
+  }
 }
 
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
-input:-webkit-autofill:active  {
-    -webkit-box-shadow: 0 0 0 30px white inset !important;
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
 }

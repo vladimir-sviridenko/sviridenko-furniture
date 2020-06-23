@@ -13,7 +13,7 @@ import { LocalStorageService } from '@shop/services/local-storage.service';
 	providedIn: 'root'
 })
 export class CartFacadeService {
-	constructor(private store: Store<AppState>, private localStorageService: LocalStorageService) {}
+	constructor(private store: Store<AppState>, private localStorageService: LocalStorageService) { }
 
 	get cart$(): Observable<Cart> {
 		return this.store.select(SelectorCart.selectCart);
@@ -49,7 +49,7 @@ export class CartFacadeService {
 
 	public clearCart(): void {
 		this.store.dispatch(ActionCart.сlearCart());
-		this.store.dispatch(ActionCart.saveCart( {storageApi: this.localStorageService } ));
+		this.store.dispatch(ActionCart.saveCart({ storageApi: this.localStorageService }));
 	}
 
 	public loadCart(): void {

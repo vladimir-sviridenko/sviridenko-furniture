@@ -44,7 +44,7 @@
     box-sizing: border-box;
     max-height: 430px;
     margin-bottom: 10px;
-		overflow: hidden;
+    overflow: hidden;
   }
 
   &__options-card-container {
@@ -103,9 +103,9 @@
 
   .product-page {
     justify-content: flex-end;
-    width: 85vw;
-		margin-top: 0;
-		margin-right: 48px;
+    width: 88vw;
+    margin-top: 0;
+    margin-right: 48px;
 
     &:after {
       content: "";
@@ -158,7 +158,7 @@
     justify-content: flex-start;
     align-items: flex-start;
     min-height: 608px;
-		max-height: 800px;
+    max-height: 800px;
 
     &__options-card {
       height: unset;
@@ -190,9 +190,9 @@
 }
 
 @media screen and (min-width: map-get($breakpoints, tablet-portrait)) {
-	.product-page {
-		margin-right: auto;
-	}
+  .product-page {
+    margin-right: auto;
+  }
 }
 
 @media screen and (min-width: map-get($breakpoints, tablet)) {
@@ -200,7 +200,7 @@
     flex-flow: row wrap;
     justify-content: flex-start;
     width: 95vw;
-		min-height: unset;
+    min-height: unset;
 
     &__options-card-container {
       flex: 1 0 35%;
@@ -239,7 +239,7 @@
 }
 
 @media screen and (pointer: coarse) {
-	.product-page {
-		padding-bottom: 50px;
-	}
+  .product-page {
+    padding-bottom: 50px;
+  }
 }

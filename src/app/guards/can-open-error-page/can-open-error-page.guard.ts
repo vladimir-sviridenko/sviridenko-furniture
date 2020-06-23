@@ -12,6 +12,7 @@ export class CanOpenErrorPageGuard implements CanActivate {
 	public canActivate(
 		next: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+
 		if (!this.isErrorThrown) {
 			this.router.navigate(['']);
 		}

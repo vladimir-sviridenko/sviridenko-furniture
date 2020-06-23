@@ -12,9 +12,9 @@ import { HomePageComponent } from './components/home-page/home-page.component';
 import { CanOpenHomePageGuard } from './guards/can-open-home-page/can-open-home-page.guard';
 
 const shopChildrenRoutes: Routes = [
-	{path: 'home', component: HomePageComponent, canActivate: [CanOpenHomePageGuard]},
-  {path: '404', component: NotFoundComponent },
-  {path: 'shop/:albumId', component: ProductsTableComponent, canActivate: [CanOpenAlbumGuard]},
+	{ path: 'home', component: HomePageComponent, canActivate: [CanOpenHomePageGuard] },
+	{ path: '404', component: NotFoundComponent },
+	{ path: 'shop/:albumId', component: ProductsTableComponent, canActivate: [CanOpenAlbumGuard] },
 	{
 		path: 'shop/:albumId/:productId', component: ProductPageComponent,
 		canActivate: [CanOpenProductGuard],
@@ -23,12 +23,12 @@ const shopChildrenRoutes: Routes = [
 ];
 
 const routes: Routes = [
-	{path: '', redirectTo: 'home', pathMatch: 'full'},
-  {path: '', component: ShopComponent, children: shopChildrenRoutes}
+	{ path: '', redirectTo: 'home', pathMatch: 'full' },
+	{ path: '', component: ShopComponent, children: shopChildrenRoutes }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+	imports: [RouterModule.forChild(routes)],
+	exports: [RouterModule]
 })
 export class ShopRoutingModule { }

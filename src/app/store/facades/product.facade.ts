@@ -12,7 +12,7 @@ import * as SelectorProduct from '@store/selectors/product.selectors';
 	providedIn: 'root'
 })
 export class ProductFacadeService {
-	constructor(private store: Store<AppState>, private shopFacadeService: ShopFacadeService) {}
+	constructor(private store: Store<AppState>, private shopFacadeService: ShopFacadeService) { }
 
 	public get product$(): Observable<Product> {
 		return this.store.select(SelectorProduct.selectProduct);

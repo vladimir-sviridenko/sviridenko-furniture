@@ -75,10 +75,10 @@ export class CartProduct {
 				};
 			});
 		// check, does type options from product and type of selected options equial
-		const isSelectedOptionsValid: boolean =	selectedOptions
-		.every((selectedOption: SelectedOption, index: number) =>
-			(product.options[index].type === selectedOption.type)
-		);
+		const isSelectedOptionsValid: boolean = selectedOptions
+			.every((selectedOption: SelectedOption, index: number) =>
+				(product.options[index].type === selectedOption.type)
+			);
 		if (!isSelectedOptionsValid) {
 			throw new Error('Serialized data is not valid');
 		}
@@ -99,7 +99,7 @@ export class CartProduct {
 		const defaultPrice: number = this.product.price;
 		this._totalPrice = defaultPrice + this.selectedOptions.reduce((priceIncrease: number, selectedOption: SelectedOption) =>
 			priceIncrease += Math.floor(defaultPrice * CategoryMultiplier[selectedOption.option.category])
-		, 0);
+			, 0);
 	}
 
 	public equals(cartProduct: CartProduct): boolean {
@@ -122,12 +122,12 @@ export class CartProduct {
 
 	public toJSON(): SerializedCartProduct {
 		const selectedOptions: SerializedSelectedOption[] =
-		this.selectedOptions.map((selectedOption: SelectedOption) => {
-			return {
-				type: selectedOption.type,
-				optionId: selectedOption.option.id
-			};
-		});
+			this.selectedOptions.map((selectedOption: SelectedOption) => {
+				return {
+					type: selectedOption.type,
+					optionId: selectedOption.option.id
+				};
+			});
 		return {
 			productId: this.product.id,
 			selectedOptions

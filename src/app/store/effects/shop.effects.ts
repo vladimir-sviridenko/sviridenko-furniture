@@ -23,8 +23,8 @@ export class ShopEffects {
 		)
 	);
 
-	constructor(private actions$: Actions, 
-							private productsService: ProductsService, 
-							private galleryService: GalleryService,
-							private cartFacadeService: CartFacadeService) { }
+	constructor(private actions$: Actions,
+		private productsService: ProductsService,
+		private galleryService: GalleryService,
+		private cartFacadeService: CartFacadeService) { }
 }

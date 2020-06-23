@@ -13,14 +13,21 @@ export class CanOpenHomePageGuard implements CanActivate {
 	private albums$: ReplaySubject<Album[]> = new ReplaySubject<Album[]>();
 
 	constructor(private shopFacadeService: ShopFacadeService) {
-		this.shopFacadeService.albums$.pipe(take(2), filter((albums: Album[]) => !!albums)).subscribe(this.albums$);
+		this.shopFacadeService.albums$
+			.pipe(
+				filter((albums: Album[]) => Boolean(albums)),
+				take(1)
+			)
+			.subscribe(this.albums$);
 	}
 
 	public canActivate(
 		next: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-		return this.albums$.pipe(
-			map(() => true)
-		);
+
+		return this.albums$
+			.pipe(
+				map(() => true)
+			);
 	}
 }

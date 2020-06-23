@@ -24,13 +24,13 @@ export class ProductsTableComponent implements OnInit, AfterViewInit, OnDestroy 
 
 	private showCardsAfterAllLoaded(): void {
 		const loadingPhotos$: Array<Promise<void>>
-				= this.productCardComponents.map((component: ProductCardComponent) => {
-			return new Promise((resolve: (value?: void | PromiseLike<void>) => void) => {
-				component.imageLoad.subscribe((isSuccessLoading: boolean) => {
-					resolve();
+			= this.productCardComponents.map((component: ProductCardComponent) => {
+				return new Promise((resolve: (value?: void | PromiseLike<void>) => void) => {
+					component.imageLoad.subscribe((isSuccessLoading: boolean) => {
+						resolve();
+					});
 				});
 			});
-		});
 		Promise.all(loadingPhotos$).then(() => {
 			this.shopFacadeService.hideShopLoader();
 		});

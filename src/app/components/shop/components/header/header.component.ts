@@ -12,8 +12,8 @@ import { ShopFacadeService } from '@store/facades/shop.facade';
 export class HeaderComponent implements AfterViewInit {
 
 	constructor(public dialogService: DialogService,
-							private focusMonitor: FocusMonitor,
-							public shopFacadeService: ShopFacadeService) { }
+		private focusMonitor: FocusMonitor,
+		public shopFacadeService: ShopFacadeService) { }
 
 	public ngAfterViewInit(): void {
 		this.focusMonitor.stopMonitoring(document.querySelector('.header__contacts-switcher'));

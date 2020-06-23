@@ -4,10 +4,10 @@ import { routerReducer } from '@ngrx/router-store';
 import { ActionReducer } from '@ngrx/store';
 
 export interface MergedRouter {
-  url: string;
-  queryParams: Params;
-  params: Params;
-  data: Data;
+	url: string;
+	queryParams: Params;
+	params: Params;
+	data: Data;
 }
 
 export type RouterState = RouterReducerState<MergedRouter>;

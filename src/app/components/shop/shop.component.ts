@@ -13,8 +13,8 @@ import { ProductFacadeService } from '@store/facades/product.facade';
 export class ShopComponent {
 
 	constructor(public shopFacadeService: ShopFacadeService,
-							public cartFacadeService: CartFacadeService,
-							public productFacadeService: ProductFacadeService) {}
+		public cartFacadeService: CartFacadeService,
+		public productFacadeService: ProductFacadeService) { }
 
 	public scrollTop(): void {
 		window.scrollTo(0, 0);

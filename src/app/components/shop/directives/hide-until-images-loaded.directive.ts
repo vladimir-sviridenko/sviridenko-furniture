@@ -3,14 +3,14 @@ import { Observable, Subscriber, forkJoin } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 @Directive({
-  selector: '[appHideUntilImagesLoaded]'
+	selector: '[appHideUntilImagesLoaded]'
 })
 export class HideUntilImagesLoadedDirective implements AfterViewInit {
 
 	@Output()
 	public loaded: EventEmitter<void> = new EventEmitter<void>();
 
-  constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
+	constructor(private elementRef: ElementRef, private renderer: Renderer2) { }
 
 	private hideElement(): void {
 		this.renderer.setStyle(this.elementRef.nativeElement, 'opacity', 0);
@@ -40,10 +40,11 @@ export class HideUntilImagesLoadedDirective implements AfterViewInit {
 				};
 			});
 		});
-		forkJoin(imagesLoading).pipe(take(1)).subscribe(() => {
-			this.loaded.next();
-			this.loaded.complete();
-			this.showElement();
-		});
+		forkJoin(imagesLoading).pipe(take(1))
+			.subscribe(() => {
+				this.loaded.next();
+				this.loaded.complete();
+				this.showElement();
+			});
 	}
 }

@@ -13,11 +13,16 @@ export class CanOpenProductGuard implements CanActivate {
 
 	private albums$: ReplaySubject<Album[]> = new ReplaySubject<Album[]>();
 
-	constructor(private shopFacadeService: ShopFacadeService,
-							private productFacadeService: ProductFacadeService,
-							private router: Router,
-							private productsService: ProductsService) {
-		this.shopFacadeService.albums$.pipe(take(2), filter((albums: Album[]) => !!albums)).subscribe(this.albums$);
+	constructor(private router: Router,
+		private shopFacadeService: ShopFacadeService,
+		private productFacadeService: ProductFacadeService,
+		private productsService: ProductsService) {
+
+		this.shopFacadeService.albums$
+			.pipe(
+				filter((albums: Album[]) => Boolean(albums)),
+				take(1))
+			.subscribe(this.albums$);
 	}
 
 	private isAvailableAlbum(albumId: number): boolean {
@@ -33,6 +38,7 @@ export class CanOpenProductGuard implements CanActivate {
 
 		return this.albums$.pipe(
 			map((albums: Album[]) => {
+				// find selected product and album in data base
 				let productToShow: Product = null;
 				let productsAlbum: Album = null;
 				albums.forEach((album: Album) => {
@@ -41,6 +47,7 @@ export class CanOpenProductGuard implements CanActivate {
 						productsAlbum = productToShow ? album : null;
 					}
 				});
+				// give access if product exists
 				if (productToShow) {
 					this.shopFacadeService.changeCurrentAlbum(productsAlbum);
 					this.productFacadeService.changeProduct(productToShow);

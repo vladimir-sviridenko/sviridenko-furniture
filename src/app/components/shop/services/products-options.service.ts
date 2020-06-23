@@ -195,14 +195,14 @@ export class ProductsOptionsService {
 		return { id, name, category: parseInt(category, 10), photoUrl };
 	}
 
-	private skinFabric(id: string, name: string, category: string): Option  {
+	private skinFabric(id: string, name: string, category: string): Option {
 		const photoUrl: PhotoUrl = {
 			low: `${this.baseUrl}/skin/low/${category}/${id}.jpg`,
 			high: `${this.baseUrl}/skin/high/${category}/${id}.jpg`
 		};
 		return { id, name, category: parseInt(category, 10), photoUrl };
 	}
-	
+
 	public getOptionAlbumByType(type: OptionType): OptionAlbum {
 		return this.optionAlbums.find((album: OptionAlbum) => album.type === type);
 	}
@@ -210,12 +210,12 @@ export class ProductsOptionsService {
 	public getOptionBy(type: OptionType, id: string): Option {
 		let resultOption: Option = null;
 		this.optionAlbums.slice(0).forEach((album: OptionAlbum, albumIndex: number, albums: OptionAlbum[]) => {
-			album.groups.forEach((group: OptionGroup, groupIndex: number, groups: OptionGroup[]) => {
+			album.groups.slice(0).forEach((group: OptionGroup, groupIndex: number, groups: OptionGroup[]) => {
 				const productOption: Option = group.options.find((option: Option) =>
 					(album.type === type && option.id === id)
 				);
 				if (Boolean(productOption)) {
-					albums.splice(0);	// stop outer loops
+					albums.splice(0);	// go out of loops
 					groups.splice(0);
 					resultOption = productOption;
 				}
@@ -227,6 +227,6 @@ export class ProductsOptionsService {
 
 	public getOptionAlbumsByTypes(types: OptionType[]): OptionAlbum[] {
 		return this.optionAlbums.filter((album: OptionAlbum) =>
-				types.some((type: OptionType) => type === album.type));
+			types.some((type: OptionType) => type === album.type));
 	}
 }

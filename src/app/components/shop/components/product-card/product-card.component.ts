@@ -13,8 +13,7 @@ import { EmailService } from '@shop/services/email.service';
 import { DialogService } from '@shop/services/dialog.service';
 import { ContactsSubmit } from '@shop/models/contacts-submit';
 import { SubmitType } from '@shop/models/enums/submit-type.enum';
-import { forkJoin, Observable } from 'rxjs';
-import { share } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'app-product-card',
@@ -34,8 +33,8 @@ export class ProductCardComponent {
 	public imageLoad: EventEmitter<boolean> = new EventEmitter<boolean>();
 
 	constructor(private emailService: EmailService,
-							private cartFacadeService: CartFacadeService,
-							public dialogService: DialogService) {}
+		private cartFacadeService: CartFacadeService,
+		public dialogService: DialogService) { }
 
 	public addProductToCart(): void {
 		const cartProduct: CartProduct = new CartProduct(this.product);
@@ -46,7 +45,6 @@ export class ProductCardComponent {
 		const submitMethod: (contacts: UserContacts) => Observable<EmailJSResponseStatus> = (contacts: UserContacts) => {
 			return this.emailService.sendCallRequest.call(this.emailService, contacts, this.product.photoUrl.low);
 		};
-
 		const contactsSubmit: ContactsSubmit = {
 			type: SubmitType.RequestCall,
 			method: submitMethod

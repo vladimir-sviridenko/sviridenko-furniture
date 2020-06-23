@@ -56,7 +56,7 @@ export class Cart {
 	public removeProduct(cartProduct: CartProduct): void {
 		const updatedPools: ProductPool[] = [];
 		this.pools.forEach((pool: ProductPool) => {
-			if (pool.cartProduct.equals(cartProduct))  {
+			if (pool.cartProduct.equals(cartProduct)) {
 				if (pool.quantity > 1) {
 					const updatedPool: ProductPool = new ProductPool(pool.cartProduct, pool.quantity - 1);
 					updatedPools.push(updatedPool);	// change products quantity
@@ -72,13 +72,13 @@ export class Cart {
 
 	public toJSON(): SerializedCart {
 		const serializedProductPools: SerializedProductPool[] =
-		this.pools.map((pool: ProductPool) => {
-			const cartProduct: SerializedCartProduct = pool.cartProduct.toJSON();
-			return {
-				cartProduct,
-				quantity: pool.quantity
-			};
-		});
+			this.pools.map((pool: ProductPool) => {
+				const cartProduct: SerializedCartProduct = pool.cartProduct.toJSON();
+				return {
+					cartProduct,
+					quantity: pool.quantity
+				};
+			});
 
 		return {
 			pools: serializedProductPools

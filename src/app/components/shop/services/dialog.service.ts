@@ -20,10 +20,10 @@ import { SubmitType } from '@shop/models/enums/submit-type.enum';
 export class DialogService {
 
 	constructor(private dialog: MatDialog,
-							private statusTip: MatSnackBar,
-							private overlay: Overlay,
-							private breakpointObserver: BreakpointObserver,
-							private cartFacadeService: CartFacadeService) {}
+		private statusTip: MatSnackBar,
+		private overlay: Overlay,
+		private breakpointObserver: BreakpointObserver,
+		private cartFacadeService: CartFacadeService) { }
 
 	private get mobileLayoutChange$(): Observable<BreakpointState> {
 		return this.breakpointObserver.observe([
@@ -42,30 +42,29 @@ export class DialogService {
 
 		dialogRef.afterClosed().pipe(take(1)).subscribe((submitStatus: SubmitStatus | undefined) => {
 			if (submitStatus !== undefined) { // dialog wasn't closed by user
-				switch (submitStatus.submitType) {
-					case SubmitType.MakeOrder:
-						if (submitStatus.success) {
+				if (submitStatus.success) {
+					switch (submitStatus.submitType) {
+						case SubmitType.MakeOrder:
 							this.cartFacadeService.closeCart();
 							setTimeout(() => {
 								this.cartFacadeService.clearCart();
 							}, Number('300'));
 							this.statusTip.open('Заказ успешно выполнен', 'Ок', { duration: 5000 })
-								.afterDismissed().subscribe(() => {
+								.afterDismissed()
+								.subscribe(() => {
 									this.statusTip.open('Расчётный лист отправлен на указанную почту', 'Ок', { duration: 5000 });
 								});
-						} else {
-							this.statusTip.open('Ошибка запроса', 'Ок', { duration: 5000 });
-						}
-					break;
-					case SubmitType.RequestCall:
-						submitStatus.success
-						? this.statusTip.open('Запрос успешно отправлен', 'Ок', {
-							duration: 5000
-						})
-						: this.statusTip.open('Ошибка запроса', 'Ок', {
-							duration: 5000
-						});
-					break;
+							break;
+						case SubmitType.RequestCall:
+							this.statusTip.open('Запрос успешно отправлен', 'Ок', {
+								duration: 5000
+							});
+							break;
+					}
+				} else {
+					this.statusTip.open('Ошибка запроса', 'Ок', {
+						duration: 5000
+					});
 				}
 			}
 		});
@@ -97,7 +96,7 @@ export class DialogService {
 			backdropClass: 'dialog__full-photo-background',
 			maxHeight: '90vh',
 			maxWidth: '90vw',
-			data:	isDesktop ? photoUrl.high : photoUrl.low,
+			data: isDesktop ? photoUrl.high : photoUrl.low,
 		});
 	}
 }

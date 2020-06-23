@@ -40,9 +40,9 @@ export class GalleryService {
 		this.productAlbums$ = this.fetchAlbums();
 	}
 
-	private sortPhotosByPortrait(albums: VkAlbum[]) {
+	private sortPhotosByPortrait(albums: VkAlbum[]): VkAlbum[] {
 		albums.forEach((album: VkAlbum) => {
-		album.photos.sort((photo: VkPhoto, nextPhoto: VkPhoto) => {
+			album.photos.sort((photo: VkPhoto, nextPhoto: VkPhoto) => {
 				const photoMinHeight: number = Number(photo.sizes[0].height);
 				const nextPhotoMinHeight: number = Number(nextPhoto.sizes[0].height);
 				return nextPhotoMinHeight - photoMinHeight;
@@ -121,7 +121,8 @@ export class GalleryService {
 			v: this.apiVersion
 		});
 
-		return this.http.jsonp(url, 'callback').pipe(
+		return this.http.jsonp(url, 'callback')
+		.pipe(
 			catchError((): Observable<VkResponse<VkAlbum[]>> => of(this.emptyVkResponse)),
 			map((vkResponse: VkResponse<VkAlbum[]>) => {
 				const albums: VkAlbum[] = vkResponse.response.items;
@@ -131,11 +132,13 @@ export class GalleryService {
 				});
 			}),
 			mergeMap((albums: VkAlbum[]) => {
+				// fetch Photos for each fetched album
 				return (albums.length === 0) ? of([]) : forkJoin(albums.map((album: VkAlbum) => this.fetchPhotosInto(album)));
 			}),
 			map((albums: VkAlbum[]) => this.sortPhotosByPortrait(albums)),
 			tap((albums: VkAlbum[]) => this.vkAlbums = albums),
 			map((albums: VkAlbum[]) => {
+				// turn VKAlbums to the products Album interface
 				const productAlbums: Album[] = [];
 				albums.forEach((album: VkAlbum) => {
 					productAlbums.push({

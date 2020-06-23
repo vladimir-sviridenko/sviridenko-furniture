@@ -19,17 +19,17 @@ export class ProductPageComponent implements OnInit {
 	public product: Product;
 	public photoUrl: string;
 
-	constructor(public shopFacadeService: ShopFacadeService,
-							public productFacadeService: ProductFacadeService,
-							public cartFacadeService: CartFacadeService,
-							public productsOptionsService: ProductsOptionsService) { }
+	constructor(public productsOptionsService: ProductsOptionsService,
+		public shopFacadeService: ShopFacadeService,
+		public productFacadeService: ProductFacadeService,
+		public cartFacadeService: CartFacadeService) { }
 
 	public ngOnInit(): void {
 		this.productFacadeService.product$.pipe(take(1))
 			.subscribe((currentProduct: Product) => {
 				this.product = currentProduct;
 				this.photoUrl = currentProduct.photoUrl.high;
-		});
+			});
 	}
 
 	public addProductToCart(): void {

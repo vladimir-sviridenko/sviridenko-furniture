@@ -6,10 +6,8 @@ import { BehaviorSubject } from 'rxjs';
 import { SubmitType } from '@shop/models/enums/submit-type.enum';
 import { SubmitStatus } from '@shop/models/submit-status';
 import { ContactsSubmit } from '@shop/models/contacts-submit';
-import { RecaptchaFacadeService } from '@store/facades/recaptcha.facade';
-import { RecaptchaComponent } from 'ng-recaptcha';
-import { filter, tap, take } from 'rxjs/operators';
-import { RecaptchaService } from 'src/app/services/recaptcha.service';
+import { EmailJSResponseStatus } from 'emailjs-com';
+import { take } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-contacts-form',
@@ -36,25 +34,35 @@ export class ContactsFormComponent {
 	}
 
 	constructor(private dialogRef: MatDialogRef<ContactsFormComponent>,
-							@Inject(MAT_DIALOG_DATA) public contactsSubmit: ContactsSubmit) {}
+		@Inject(MAT_DIALOG_DATA) public contactsSubmit: ContactsSubmit) { }
 
-	public submitForm(): void {
-		const submitType: SubmitType = this.contactsSubmit.type;
+	private disableForm(): void {
 		document.body.classList.add('waiting');
 		this.contactsForm.disable();
 		this.dialogRef.disableClose = true;
 		this.isSubmiting$.next(true);
 		this.isSubmiting$.complete();
-		this.contactsSubmit.method(this.userContacts).subscribe(
-		() => {
-			const submitStatus: SubmitStatus = { success: true, submitType };
-			this.dialogRef.close(submitStatus);
-			document.body.classList.remove('waiting');
-		},
-		() => {
-			const submitStatus: SubmitStatus = { success: false, submitType };
-			this.dialogRef.close(submitStatus);
-			document.body.classList.remove('waiting');
-		});
+	}
+
+	public submitForm(): void {
+		this.disableForm();
+		const submitType: SubmitType = this.contactsSubmit.type;
+
+		this.contactsSubmit.method(this.userContacts)
+			.pipe(
+				take(1)
+			)
+			.subscribe(
+				(response: EmailJSResponseStatus) => {
+					const submitStatus: SubmitStatus = { success: true, submitType };
+					this.dialogRef.close(submitStatus);
+					document.body.classList.remove('waiting');
+				},
+				(error: EmailJSResponseStatus) => {
+					const submitStatus: SubmitStatus = { success: false, submitType };
+					this.dialogRef.close(submitStatus);
+					document.body.classList.remove('waiting');
+				}
+			);
 	}
 }

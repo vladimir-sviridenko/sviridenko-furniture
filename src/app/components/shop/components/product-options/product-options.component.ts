@@ -25,7 +25,7 @@ export class ProductOptionsComponent {
 	public isOptionsLoaded: boolean = false;
 
 	constructor(public productsOptionsService: ProductsOptionsService,
-							public productFacadeService: ProductFacadeService) { }
+		public productFacadeService: ProductFacadeService) { }
 
 	private uncheckPrevious(): void {
 		const checkedOption: HTMLImageElement = document.querySelector(`.${this.checkedClass}`);

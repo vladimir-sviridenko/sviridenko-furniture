@@ -5,7 +5,9 @@ import { ProductPageComponent } from '@shop/components/product-page/product-page
 
 @Injectable()
 export class CanCloseProductPageGuard implements CanDeactivate<ProductPageComponent> {
-	constructor(private productFacadeService: ProductFacadeService) {}
+
+	constructor(private productFacadeService: ProductFacadeService) { }
+
 	public canDeactivate(): boolean {
 		this.productFacadeService.clearProduct();
 		return true;

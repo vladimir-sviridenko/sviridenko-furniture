@@ -6,8 +6,9 @@ import { EmailService } from '@shop/services/email.service';
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler {
 
-	constructor(private router: Router, private canOpenErrorPageGuard: CanOpenErrorPageGuard, private zone: NgZone,
-							private emailService: EmailService) { }
+	constructor(private router: Router, private zone: NgZone,
+		private canOpenErrorPageGuard: CanOpenErrorPageGuard,
+		private emailService: EmailService) { }
 
 	public handleError(error: Error): void {
 		this.canOpenErrorPageGuard.isErrorThrown = true;

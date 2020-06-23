@@ -13,8 +13,8 @@ import { forkJoin } from 'rxjs/internal/observable/forkJoin';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-cart',
-  templateUrl: './cart.component.html',
+	selector: 'app-cart',
+	templateUrl: './cart.component.html',
 	styleUrls: ['./cart.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -23,8 +23,8 @@ export class CartComponent {
 	public optionTypeEnum: typeof OptionType = OptionType;
 
 	constructor(private dialogService: DialogService,
-							private emailService: EmailService,
-							public cartFacadeService: CartFacadeService) {}
+		private emailService: EmailService,
+		public cartFacadeService: CartFacadeService) { }
 
 	public openMakeOrderDialog(): void {
 		let currentCart: Cart;
@@ -35,9 +35,9 @@ export class CartComponent {
 
 		const submitMethod: (contacts: UserContacts) => Observable<EmailJSResponseStatus> = (contacts: UserContacts) => {
 			return this.emailService.sendOrder.call(this.emailService, contacts, currentCart)
-			.pipe(
-				switchMap(() => this.emailService.sendOrderConfirmation.call(this.emailService, contacts, currentCart))
-			);
+				.pipe(
+					switchMap(() => this.emailService.sendOrderConfirmation.call(this.emailService, contacts, currentCart))
+				);
 		};
 
 		const contactsSubmit: ContactsSubmit = {

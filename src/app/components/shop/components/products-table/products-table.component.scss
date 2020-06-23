@@ -9,10 +9,10 @@
 
   &__cards-container {
     display: flex;
-		flex-flow: row wrap;
-		@media screen and (max-width: map-get($breakpoints, mobile-portrait) - 1px) {
-			justify-content: center;
-		}
+    flex-flow: row wrap;
+    @media screen and (max-width: map-get($breakpoints, mobile-portrait) - 1px) {
+      justify-content: center;
+    }
   }
 
   &__card {
@@ -60,7 +60,7 @@
   }
 }
 
-@media screen and (max-width: map-get($breakpoints, tablet-portrait) - 1px) and (orientation: landscape) {
+@media screen and (max-width: map-get($breakpoints, tablet) - 1px) and (orientation: landscape) {
   .products-table {
     &__loader {
       top: 70%;
@@ -69,7 +69,7 @@
 }
 
 @media screen and (pointer: coarse) {
-	.products-table {
-		padding-bottom: 60px;
-	}
+  .products-table {
+    padding-bottom: 60px;
+  }
 }
