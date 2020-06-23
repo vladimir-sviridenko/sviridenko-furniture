@@ -1,0 +1,17 @@
+{
+  "hosting": {
+		"site": "sviridenkofurniture",
+    "public": "dist/sviridenko-furniture",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
