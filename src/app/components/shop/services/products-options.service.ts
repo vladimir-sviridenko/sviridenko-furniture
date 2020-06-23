@@ -209,19 +209,14 @@ export class ProductsOptionsService {
 
 	public getOptionBy(type: OptionType, id: string): Option {
 		let resultOption: Option = null;
-		this.optionAlbums.slice(0).forEach((album: OptionAlbum, albumIndex: number, albums: OptionAlbum[]) => {
-			album.groups.slice(0).forEach((group: OptionGroup, groupIndex: number, groups: OptionGroup[]) => {
-				const productOption: Option = group.options.find((option: Option) =>
-					(album.type === type && option.id === id)
-				);
-				if (Boolean(productOption)) {
-					albums.splice(0);	// go out of loops
-					groups.splice(0);
-					resultOption = productOption;
-				}
+		this.optionAlbums.some((album: OptionAlbum) => {
+			album.groups.some((group: OptionGroup) => {
+				resultOption = group.options.find((option: Option) =>
+					(album.type === type && option.id === id));
+				return Boolean(resultOption);
 			});
+			return Boolean(resultOption);
 		});
-
 		return resultOption;
 	}
 
