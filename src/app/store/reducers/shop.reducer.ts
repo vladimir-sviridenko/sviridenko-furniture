@@ -11,6 +11,12 @@ export const reducer: ActionReducer<ShopState> = createReducer(
 			albums,
 		};
 	}),
+	on(ActionShop.showShopLoader, (state: ShopState): ShopState => {
+		return {
+			...state,
+			isShopLoading: true
+		};
+	}),
 	on(ActionShop.hideShopLoader, (state: ShopState): ShopState => {
 		return {
 			...state,
@@ -21,8 +27,7 @@ export const reducer: ActionReducer<ShopState> = createReducer(
 		return {
 			...state,
 			currentAlbum: album,
-			pageTitle: album.title,
-			isShopLoading: true
+			pageTitle: album.title
 		};
 	}),
 	on(ActionShop.changePageTitle, (state: ShopState, { pageTitle }: { pageTitle: string }): ShopState => {

@@ -17,6 +17,10 @@ export const changeCurrentAlbum: InjectAction<string, { album: Album }> = create
 	props<{ album: Album }>()
 );
 
+export const showShopLoader: Action<string> = createAction(
+	'[SHOP/API] Show shop loader'
+);
+
 export const hideShopLoader: Action<string> = createAction(
 	'[SHOP/API] Hide shop loader'
 );

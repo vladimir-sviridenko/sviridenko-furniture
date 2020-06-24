@@ -1,9 +1,11 @@
-import { Component, OnInit, ViewChildren, QueryList, AfterViewInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList, AfterViewInit, OnDestroy, ChangeDetectionStrategy, ViewChild } from '@angular/core';
 import { ProductCardComponent } from '../product-card/product-card.component';
-import { Subject, ReplaySubject } from 'rxjs';
-import { takeUntil, delay } from 'rxjs/operators';
+import { Subject, BehaviorSubject } from 'rxjs';
+import { takeUntil, delay, take, filter } from 'rxjs/operators';
 import { Album } from '@shop/models/album';
 import { ShopFacadeService } from '@store/facades/shop.facade';
+import { PageEvent, MatPaginator } from '@angular/material/paginator';
+import { Product } from '@shop/models/product';
 
 @Component({
 	selector: 'app-products-table',
@@ -11,18 +13,21 @@ import { ShopFacadeService } from '@store/facades/shop.facade';
 	styleUrls: ['./products-table.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductsTableComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ProductsTableComponent implements AfterViewInit, OnDestroy {
 
 	@ViewChildren(ProductCardComponent)
 	private productCardComponents: QueryList<ProductCardComponent>;
 
-	public album$: ReplaySubject<Album> = new ReplaySubject<Album>();
+	@ViewChild(MatPaginator)
+	private paginator: MatPaginator;
+
+	public products$: BehaviorSubject<Product[]> = new BehaviorSubject<Product[]>(null);
 
 	public unsubscriber$: Subject<void> = new Subject();
 
-	constructor(public shopFacadeService: ShopFacadeService) { }
+	constructor(public shopFacadeService: ShopFacadeService) {}
 
-	private showCardsAfterAllLoaded(): void {
+	private shopProductsAfterAllLoaded(): void {
 		const loadingPhotos$: Array<Promise<void>>
 			= this.productCardComponents.map((component: ProductCardComponent) => {
 				return new Promise((resolve: (value?: void | PromiseLike<void>) => void) => {
@@ -36,25 +41,40 @@ export class ProductsTableComponent implements OnInit, AfterViewInit, OnDestroy 
 		});
 	}
 
-	public ngOnInit(): void {
+	public ngAfterViewInit(): void {
 		this.shopFacadeService.currentAlbum$
 			.pipe(
-				delay(0),
+				filter((album: Album) => Boolean(album)),
 				takeUntil(this.unsubscriber$)
 			)
-			.subscribe((album: Album) => {
-				this.album$.next(album);
+			.subscribe(() => {
+				const firstPageEvent: PageEvent = new PageEvent();
+				firstPageEvent.length = this.paginator.length;
+				firstPageEvent.pageSize = this.paginator.pageSize;
+				firstPageEvent.pageIndex = 0;
+				this.paginator.firstPage();
+				this.paginator.page.next(firstPageEvent);
 			});
-	}
 
-	public ngAfterViewInit(): void {
+		this.products$.subscribe(() => {
+			this.shopFacadeService.showShopLoader();
+		});
 		this.productCardComponents.changes.pipe(takeUntil(this.unsubscriber$)).subscribe(() => {
-			this.showCardsAfterAllLoaded();
+			this.shopProductsAfterAllLoaded();
 		});
 	}
 
 	public ngOnDestroy(): void {
 		this.unsubscriber$.next();
 		this.unsubscriber$.complete();
+	}
+
+	public onPageEvent($event: PageEvent): void {
+		this.shopFacadeService.currentAlbum$.pipe(filter((album: Album) => Boolean(album)),	take(1)).subscribe((album: Album) => {
+			const firstProductIndex: number = ($event.pageIndex) * ($event.pageSize );
+			const lastProductIndex: number = firstProductIndex + $event.pageSize;
+			const paginatedProducts: Product[] = album.products.slice(firstProductIndex, lastProductIndex);
+			this.products$.next(paginatedProducts);
+		});
 	}
 }

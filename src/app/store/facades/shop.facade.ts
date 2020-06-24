@@ -42,6 +42,10 @@ export class ShopFacadeService {
 		this.store.dispatch(ActionShop.changeCurrentAlbum({ album }));
 	}
 
+	public showShopLoader(): void {
+		this.store.dispatch(ActionShop.showShopLoader());
+	}
+
 	public hideShopLoader(): void {
 		this.store.dispatch(ActionShop.hideShopLoader());
 	}
