@@ -21,10 +21,6 @@
 
     object-fit: cover;
     object-position: 50% 90%;
-
-    &_mobile {
-      display: none;
-    }
   }
 
   &__cards {
@@ -137,14 +133,6 @@
     &__card {
       &_title {
         border: 2px solid transparentize($color: white, $amount: 0.2);
-      }
-    }
-
-    &__background-image {
-      display: none;
-
-      &_mobile {
-        display: block;
       }
     }
   }

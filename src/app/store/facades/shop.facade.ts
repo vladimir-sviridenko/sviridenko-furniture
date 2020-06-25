@@ -8,6 +8,7 @@ import { AppState } from '..';
 import { Album } from '@shop/models/album';
 import { CartFacadeService } from './cart.facade';
 import { take } from 'rxjs/operators';
+import { Product } from '@shop/models/product';
 
 @Injectable({
 	providedIn: 'root'
@@ -25,6 +26,10 @@ export class ShopFacadeService {
 		return this.store.select(SelectorShop.selectCurrentAlbum);
 	}
 
+	public get currentProducts$(): Observable<Product[]> {
+		return this.store.select(SelectorShop.selectCurrentProducts);
+	}
+
 	public get pageTitle$(): Observable<string> {
 		return this.store.select(SelectorShop.selectPageTitle);
 	}
@@ -39,7 +44,13 @@ export class ShopFacadeService {
 				this.cartFacadeService.closeCart();
 			}
 		});
+		this.store.dispatch(ActionShop.showShopLoader());
 		this.store.dispatch(ActionShop.changeCurrentAlbum({ album }));
+	}
+
+	public changeCurrentProducts(products: Product[]): void {
+		this.store.dispatch(ActionShop.showShopLoader());
+		this.store.dispatch(ActionShop.changeCurrentProducts({ products }));
 	}
 
 	public showShopLoader(): void {

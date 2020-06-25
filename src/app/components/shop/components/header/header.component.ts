@@ -16,6 +16,6 @@ export class HeaderComponent implements AfterViewInit {
 		public shopFacadeService: ShopFacadeService) { }
 
 	public ngAfterViewInit(): void {
-		this.focusMonitor.stopMonitoring(document.querySelector('.header__contacts-switcher'));
+		this.focusMonitor.stopMonitoring(document.querySelector('.header__button_contacts'));
 	}
 }

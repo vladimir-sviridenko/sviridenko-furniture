@@ -2,6 +2,7 @@ import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/s
 import { AppState, FeatureKey } from '..';
 import { ShopState } from '@store/state/shop.state';
 import { Album } from '@shop/models/album';
+import { Product } from '@shop/models/product';
 
 export const selectShopState: MemoizedSelector<AppState, ShopState>
 	= createFeatureSelector<AppState, ShopState>(FeatureKey.Shop);
@@ -12,8 +13,12 @@ export const selectAlbums: MemoizedSelector<AppState, Album[]>
 export const selectCurrentAlbum: MemoizedSelector<AppState, Album>
 	= createSelector(selectShopState, (state: ShopState) => state.currentAlbum);
 
+export const selectCurrentProducts: MemoizedSelector<AppState, Product[]>
+= createSelector(selectShopState, (state: ShopState) => state.currentProducts);
+
 export const selectIsShopLoading: MemoizedSelector<AppState, boolean>
 	= createSelector(selectShopState, (state: ShopState) => state.isShopLoading);
 
 export const selectPageTitle: MemoizedSelector<AppState, string>
 	= createSelector(selectShopState, (state: ShopState) => state.pageTitle);
+

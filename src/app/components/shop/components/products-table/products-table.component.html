@@ -5,10 +5,10 @@
 			</mat-spinner>
 	</div>
 	<ng-container *ngIf="shopFacadeService.currentAlbum$ | async">
-	<mat-paginator [length]="(shopFacadeService.currentAlbum$| async).products.length" [pageSize]="10" (page)="onPageEvent($event)"></mat-paginator>
+	<mat-paginator [length]="(shopFacadeService.currentAlbum$| async).products.length" [pageSize]="12" (page)="onPageEvent($event)"></mat-paginator>
 		<div class="products-table__cards-container">
 			<app-product-card class="products-table__card"
-					*ngFor="let product of (products$ | async)"
+					*ngFor="let product of (shopFacadeService.currentProducts$ | async)"
 					[class.products-table__card_hidden]="shopFacadeService.isShopLoading$ | async"
 					[albumId]="(shopFacadeService.currentAlbum$ | async).id"
 					[product]="product">

@@ -21,13 +21,11 @@ export class ProductsTableComponent implements AfterViewInit, OnDestroy {
 	@ViewChild(MatPaginator)
 	private paginator: MatPaginator;
 
-	public products$: BehaviorSubject<Product[]> = new BehaviorSubject<Product[]>(null);
-
 	public unsubscriber$: Subject<void> = new Subject();
 
 	constructor(public shopFacadeService: ShopFacadeService) {}
 
-	private shopProductsAfterAllLoaded(): void {
+	private showProductsAfterAllLoaded(): void {
 		const loadingPhotos$: Array<Promise<void>>
 			= this.productCardComponents.map((component: ProductCardComponent) => {
 				return new Promise((resolve: (value?: void | PromiseLike<void>) => void) => {
@@ -45,6 +43,7 @@ export class ProductsTableComponent implements AfterViewInit, OnDestroy {
 		this.shopFacadeService.currentAlbum$
 			.pipe(
 				filter((album: Album) => Boolean(album)),
+				delay(0),
 				takeUntil(this.unsubscriber$)
 			)
 			.subscribe(() => {
@@ -56,17 +55,9 @@ export class ProductsTableComponent implements AfterViewInit, OnDestroy {
 				this.paginator.page.next(firstPageEvent);
 			});
 
-		this.products$.subscribe(() => {
-			this.shopFacadeService.showShopLoader();
-		});
 		this.productCardComponents.changes.pipe(takeUntil(this.unsubscriber$)).subscribe(() => {
-			this.shopProductsAfterAllLoaded();
+			this.showProductsAfterAllLoaded();
 		});
-	}
-
-	public ngOnDestroy(): void {
-		this.unsubscriber$.next();
-		this.unsubscriber$.complete();
 	}
 
 	public onPageEvent($event: PageEvent): void {
@@ -74,7 +65,12 @@ export class ProductsTableComponent implements AfterViewInit, OnDestroy {
 			const firstProductIndex: number = ($event.pageIndex) * ($event.pageSize );
 			const lastProductIndex: number = firstProductIndex + $event.pageSize;
 			const paginatedProducts: Product[] = album.products.slice(firstProductIndex, lastProductIndex);
-			this.products$.next(paginatedProducts);
+			this.shopFacadeService.changeCurrentProducts(paginatedProducts);
 		});
+	}
+
+	public ngOnDestroy(): void {
+		this.unsubscriber$.next();
+		this.unsubscriber$.complete();
 	}
 }
