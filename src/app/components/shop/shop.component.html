@@ -1,15 +1,15 @@
 <div class="shop">
   <app-header></app-header>
-	<button mat-mini-fab class="shop__button shop__button_scroll-top" color="primary"
-			(click)="scrollTop()"
-			title="Пондятся вверх" 
-			aria-label="Scroll top">
-		<mat-icon>arrow_upward</mat-icon>
-	</button>
 	<div class="shop__cart-container">
 		<app-cart class="shop__cart"></app-cart>
 	</div>
 	<div class="shop__content">
+		<button mat-mini-fab class="shop__button shop__button_scroll-top" color="primary"
+				(click)="scrollTop()"
+				title="Пондятся вверх" 
+				aria-label="Scroll top">
+			<mat-icon>arrow_upward</mat-icon>
+		</button>
 		<div class="shop__background" [class.shop__background_cart-opened]="cartFacadeService.isCartOpened$ | async"
 				(click)="cartFacadeService.closeCart()">
 		</div>

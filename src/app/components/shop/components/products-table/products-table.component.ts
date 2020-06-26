@@ -18,9 +18,6 @@ export class ProductsTableComponent implements AfterViewInit, OnDestroy {
 	@ViewChildren(ProductCardComponent)
 	private productCardComponents: QueryList<ProductCardComponent>;
 
-	@ViewChild(MatPaginator)
-	private paginator: MatPaginator;
-
 	public unsubscriber$: Subject<void> = new Subject();
 
 	constructor(public shopFacadeService: ShopFacadeService) {}
@@ -40,32 +37,8 @@ export class ProductsTableComponent implements AfterViewInit, OnDestroy {
 	}
 
 	public ngAfterViewInit(): void {
-		this.shopFacadeService.currentAlbum$
-			.pipe(
-				filter((album: Album) => Boolean(album)),
-				delay(0),
-				takeUntil(this.unsubscriber$)
-			)
-			.subscribe(() => {
-				const firstPageEvent: PageEvent = new PageEvent();
-				firstPageEvent.length = this.paginator.length;
-				firstPageEvent.pageSize = this.paginator.pageSize;
-				firstPageEvent.pageIndex = 0;
-				this.paginator.firstPage();
-				this.paginator.page.next(firstPageEvent);
-			});
-
 		this.productCardComponents.changes.pipe(takeUntil(this.unsubscriber$)).subscribe(() => {
 			this.showProductsAfterAllLoaded();
-		});
-	}
-
-	public onPageEvent($event: PageEvent): void {
-		this.shopFacadeService.currentAlbum$.pipe(filter((album: Album) => Boolean(album)),	take(1)).subscribe((album: Album) => {
-			const firstProductIndex: number = ($event.pageIndex) * ($event.pageSize );
-			const lastProductIndex: number = firstProductIndex + $event.pageSize;
-			const paginatedProducts: Product[] = album.products.slice(firstProductIndex, lastProductIndex);
-			this.shopFacadeService.changeCurrentProducts(paginatedProducts);
 		});
 	}
 

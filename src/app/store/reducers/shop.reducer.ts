@@ -28,13 +28,15 @@ export const reducer: ActionReducer<ShopState> = createReducer(
 		return {
 			...state,
 			currentAlbum: album,
-			pageTitle: album.title
+			pageTitle: album.title,
+			isShopLoading: true
 		};
 	}),
 	on(ActionShop.changeCurrentProducts, (state: ShopState, { products }: { products: Product[] }): ShopState => {
 		return {
 			...state,
-			currentProducts: products
+			currentProducts: products,
+			isShopLoading: true
 		};
 	}),
 	on(ActionShop.changePageTitle, (state: ShopState, { pageTitle }: { pageTitle: string }): ShopState => {

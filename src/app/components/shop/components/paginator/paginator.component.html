@@ -1,0 +1,13 @@
+<div class="paginator" *ngIf="(shopFacadeService.currentAlbum$| async)">
+	<mat-paginator class="paginator__material"
+			[length]="(shopFacadeService.currentAlbum$| async).products.length" 
+			[pageSize]="12" 
+			(page)="onPageEvent($event)">
+	</mat-paginator>
+	<div class="paginator__main">
+		<button mat-mini-fab	class="paginator__button" [color]="(currentPageIndex === pageIndex) ? 'accent' : 'primary'"
+				*ngFor="let pageIndex of (pageIndexes$ | async)" (click)="goToPage(pageIndex)">
+			{{pageIndex + 1}}
+		</button>
+	</div>
+</div>

@@ -3,25 +3,18 @@
 .products-table {
   margin-top: 5px;
   padding: 10px;
-  padding-top: 10px;
+	padding-top: 10px;
+	padding-bottom: 90px;
 
   background-color: $background-color-primary;
 
-  &__cards-container {
-    display: flex;
-    flex-flow: row wrap;
-    @media screen and (max-width: map-get($breakpoints, mobile-portrait) - 1px) {
-      justify-content: center;
-    }
-  }
-
-  &__card {
+	&__content {
     opacity: 1;
 
     transition: opacity 0.3s;
 
-    pointer-events: auto;
-
+		pointer-events: auto;
+		
     &_hidden {
       height: 0;
 
@@ -31,8 +24,16 @@
 
       pointer-events: none;
     }
-  }
+	}
 
+  &__cards-container {
+    display: flex;
+    flex-flow: row wrap;
+    @media screen and (max-width: map-get($breakpoints, mobile-portrait) - 1px) {
+      justify-content: center;
+    }
+	}
+	
   &__loader {
     position: fixed;
     top: 50%;
@@ -68,8 +69,8 @@
   }
 }
 
-@media screen and (pointer: coarse) {
-  .products-table {
-    padding-bottom: 60px;
-  }
+@media screen and (min-width: map-get($breakpoints, tablet-portrait)) and (pointer: coarse) {
+	.products-table {
+		padding-bottom: 130px;
+	}
 }

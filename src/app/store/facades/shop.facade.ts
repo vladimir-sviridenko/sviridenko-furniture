@@ -44,12 +44,10 @@ export class ShopFacadeService {
 				this.cartFacadeService.closeCart();
 			}
 		});
-		this.store.dispatch(ActionShop.showShopLoader());
 		this.store.dispatch(ActionShop.changeCurrentAlbum({ album }));
 	}
 
 	public changeCurrentProducts(products: Product[]): void {
-		this.store.dispatch(ActionShop.showShopLoader());
 		this.store.dispatch(ActionShop.changeCurrentProducts({ products }));
 	}
 

@@ -46,6 +46,7 @@ import { CanCloseProductPageGuard } from './guards/can-close-product-page/can-cl
 // Other
 import ru from '@angular/common/locales/ru';
 import { environment } from 'src/environments/environment';
+import { PaginatorComponent } from './components/paginator/paginator.component';
 
 @NgModule({
 	declarations: [
@@ -64,6 +65,7 @@ import { environment } from 'src/environments/environment';
 		SizePipe,
 		HideUntilImagesLoadedDirective,
 		NotFoundComponent,
+		PaginatorComponent
 	],
 	imports: [
 		CommonModule,
