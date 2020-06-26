@@ -7,7 +7,7 @@ import { Cart } from '@shop/models/cart';
 import { HTMLGeneratorService } from './html-generator.service';
 import { RecaptchaService } from 'src/app/services/recaptcha.service';
 import { RecaptchaComponent } from 'ng-recaptcha';
-import { take, filter, switchMap, tap } from 'rxjs/operators';
+import { take, filter, switchMap, tap, delay } from 'rxjs/operators';
 import { Observable, from } from 'rxjs';
 import { EmailTemplate } from '@shop/models/enums/email-template.enum';
 
@@ -38,6 +38,7 @@ export class EmailService {
 
 	public sendRecaptchedEmail(emailParams: EmailParams): Observable<EmailJSResponseStatus> {
 		this.recaptcha.execute();
+		this.recaptchaService.isRecaptchaExecuting$.next(true);
 		this.setRecaptchaStyles();
 		return this.recaptcha.resolved.pipe(
 			take(1),
@@ -54,7 +55,9 @@ export class EmailService {
 			const recaptchaContainer: HTMLElement = recaptchaIframe.parentElement;
 			recaptchaContainer.classList.add('recaptcha__challenge-container');
 			const overlay: HTMLElement = recaptchaContainer.previousElementSibling as HTMLElement;
-			overlay.classList.add('recaptcha__overlay');
+			overlay.onclick = () => {
+				this.recaptchaService.isRecaptchaCanceled$.next();
+			};
 		}
 	}
 
