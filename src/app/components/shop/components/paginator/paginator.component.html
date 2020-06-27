@@ -4,7 +4,7 @@
 			[pageSize]="12" 
 			(page)="onPageEvent($event)">
 	</mat-paginator>
-	<div class="paginator__main">
+	<div class="paginator__main" [class.paginator__main_hidden]="shopFacadeService.isShopLoading$ | async">
 		<button mat-mini-fab	class="paginator__button" [color]="(currentPageIndex === pageIndex) ? 'accent' : 'primary'"
 				[class.paginator__button_checked]="(currentPageIndex === pageIndex)"
 				*ngFor="let pageIndex of (pageIndexes$ | async)" 

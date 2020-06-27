@@ -1,4 +1,4 @@
-import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Inject, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserContacts } from '@shop/models/user-contacts';
@@ -7,9 +7,10 @@ import { SubmitType } from '@shop/models/enums/submit-type.enum';
 import { SubmitStatus } from '@shop/models/submit-status';
 import { ContactsSubmit } from '@shop/models/contacts-submit';
 import { EmailJSResponseStatus } from 'emailjs-com';
-import { take, tap, switchMap, takeUntil, finalize } from 'rxjs/operators';
+import { take, tap, switchMap, takeUntil } from 'rxjs/operators';
 import { RecaptchaService } from 'src/app/services/recaptcha.service';
 import { RecaptchaComponent } from 'ng-recaptcha';
+import { PlatformLocation } from '@angular/common';
 
 @Component({
 	selector: 'app-contacts-form',
@@ -17,7 +18,7 @@ import { RecaptchaComponent } from 'ng-recaptcha';
 	styleUrls: ['./contacts-form.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ContactsFormComponent {
+export class ContactsFormComponent implements OnInit {
 
 	public isLoading: boolean = false;
 	public formTitle$: BehaviorSubject<string> = new BehaviorSubject<string>('Ваши контакты');
@@ -38,7 +39,8 @@ export class ContactsFormComponent {
 
 	constructor(private dialogRef: MatDialogRef<ContactsFormComponent>,
 		private recaptchaService: RecaptchaService,
-		@Inject(MAT_DIALOG_DATA) public contactsSubmit: ContactsSubmit) { }
+		@Inject(MAT_DIALOG_DATA) public contactsSubmit: ContactsSubmit,
+		private location: PlatformLocation) { }
 
 	private resetFormState(): void {
 		this.dialogRef.disableClose = false;
@@ -76,6 +78,12 @@ export class ContactsFormComponent {
 
 		this.dialogRef.afterClosed().subscribe(() => {
 			document.body.classList.remove('waiting');
+		});
+	}
+
+	public ngOnInit(): void {
+		this.location.onPopState(() => {
+			this.recaptchaService.isRecaptchaCanceled$.next();
 		});
 	}
 

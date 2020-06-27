@@ -12,6 +12,17 @@
 
     background-color: transparentize($color: black, $amount: 0.8);
     border-radius: 10px;
+    opacity: 1;
+
+		pointer-events: auto;
+		
+		transition: opacity 0.3s;
+
+    &_hidden {
+      opacity: 0;
+
+      pointer-events: none;
+    }
   }
 
   &__material {
