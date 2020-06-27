@@ -1,23 +1,26 @@
-import { Component, ViewChildren, QueryList, AfterViewInit, OnDestroy, ChangeDetectionStrategy, ViewChild } from '@angular/core';
+import { Component, ViewChildren, QueryList, AfterViewInit, OnDestroy, Input, OnChanges, SimpleChanges, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, delay } from 'rxjs/operators';
 import { ShopFacadeService } from '@store/facades/shop.facade';
 import { Product } from '@shop/models/product';
 
 @Component({
 	selector: 'app-products-table',
 	templateUrl: './products-table.component.html',
-	styleUrls: ['./products-table.component.scss']
+	styleUrls: ['./products-table.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductsTableComponent implements AfterViewInit, OnDestroy {
+export class ProductsTableComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	@ViewChildren(ProductCardComponent)
 	private productCardComponents: QueryList<ProductCardComponent>;
 
+	public products$: Subject<Product[]> = new Subject<Product[]>();
+
 	public unsubscriber$: Subject<void> = new Subject();
 
-	constructor(public shopFacadeService: ShopFacadeService) {}
+	constructor(public shopFacadeService: ShopFacadeService) { }
 
 	private showProductsAfterAllLoaded(): void {
 		const loadingPhotos$: Array<Promise<void>>
@@ -31,6 +34,17 @@ export class ProductsTableComponent implements AfterViewInit, OnDestroy {
 		Promise.all(loadingPhotos$).then(() => {
 			this.shopFacadeService.hideShopLoader();
 		});
+	}
+
+	public ngOnInit(): void {
+		this.shopFacadeService.currentProducts$
+			.pipe(
+				delay(0),
+				takeUntil(this.unsubscriber$)
+			)
+			.subscribe((products: Product[]) => {
+				this.products$.next(products);
+			});
 	}
 
 	public ngAfterViewInit(): void {

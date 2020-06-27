@@ -7,7 +7,7 @@
 	<div class="products-table__content" [class.products-table__content_hidden]="shopFacadeService.isShopLoading$ | async">
 		<div class="products-table__cards-container">
 			<app-product-card class="products-table__card"
-				*ngFor="let product of (shopFacadeService.currentProducts$ | async)"
+				*ngFor="let product of (products$ | async)"
 				[product]="product">
 			</app-product-card>
 		</div>

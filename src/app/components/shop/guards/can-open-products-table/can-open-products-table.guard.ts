@@ -6,7 +6,7 @@ import { ShopFacadeService } from '@store/facades/shop.facade';
 import { Album } from '@shop/models/album';
 
 @Injectable()
-export class CanOpenAlbumGuard implements CanActivate {
+export class CanOpenProductsTableGuard implements CanActivate {
 
 	private albums$: ReplaySubject<Album[]> = new ReplaySubject<Album[]>();
 
