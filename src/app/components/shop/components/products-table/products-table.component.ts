@@ -18,6 +18,8 @@ export class ProductsTableComponent implements AfterViewInit, OnDestroy {
 	@ViewChildren(ProductCardComponent)
 	private productCardComponents: QueryList<ProductCardComponent>;
 
+	public products: Product[] = null;
+
 	public unsubscriber$: Subject<void> = new Subject();
 
 	constructor(public shopFacadeService: ShopFacadeService) {}

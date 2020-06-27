@@ -2,15 +2,15 @@ import { Component, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
 import { ShopFacadeService } from '@store/facades/shop.facade';
 import { Album } from '@shop/models/album';
 import { PageEvent, MatPaginator } from '@angular/material/paginator';
-import { take, filter, delay, takeUntil } from 'rxjs/operators';
+import { take, filter, delay, takeUntil, map } from 'rxjs/operators';
 import { Product } from '@shop/models/product';
-import { Subject } from 'rxjs';
+import { Subject, Observable, BehaviorSubject } from 'rxjs';
 import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
-  selector: 'app-paginator',
-  templateUrl: './paginator.component.html',
-  styleUrls: ['./paginator.component.scss']
+	selector: 'app-paginator',
+	templateUrl: './paginator.component.html',
+	styleUrls: ['./paginator.component.scss']
 })
 export class PaginatorComponent implements AfterViewInit, OnDestroy {
 
@@ -23,11 +23,11 @@ export class PaginatorComponent implements AfterViewInit, OnDestroy {
 
 	public unsubscriber$: Subject<void> = new Subject();
 
-  constructor(public shopFacadeService: ShopFacadeService, private router: ActivatedRoute) { }
+	constructor(public shopFacadeService: ShopFacadeService, public router: ActivatedRoute) { }
 
 	private initButtonsContents(): void {
-		const buttonsQuantity: number = Math.ceil(this.paginator.length / this.paginator.pageSize);
-		const pageIndexes: number[] = [...Array(buttonsQuantity).keys()];
+		const pagesQuantity: number = Math.ceil(this.paginator.length / this.paginator.pageSize);
+		const pageIndexes: number[] = [...Array(pagesQuantity).keys()];
 		this.pageIndexes$.next(pageIndexes);
 	}
 
@@ -59,8 +59,8 @@ export class PaginatorComponent implements AfterViewInit, OnDestroy {
 	public onPageEvent($event: PageEvent): void {
 		if (this.currentPageIndex !== $event.pageIndex) {
 			this.currentPageIndex = $event.pageIndex;
-			this.shopFacadeService.currentAlbum$.pipe(filter((album: Album) => Boolean(album)),	take(1)).subscribe((album: Album) => {
-				const firstProductIndex: number = ($event.pageIndex) * ($event.pageSize );
+			this.shopFacadeService.currentAlbum$.pipe(filter((album: Album) => Boolean(album)), take(1)).subscribe((album: Album) => {
+				const firstProductIndex: number = ($event.pageIndex) * ($event.pageSize);
 				const lastProductIndex: number = firstProductIndex + $event.pageSize;
 				const paginatedProducts: Product[] = album.products.slice(firstProductIndex, lastProductIndex);
 				this.shopFacadeService.changeCurrentProducts(paginatedProducts);

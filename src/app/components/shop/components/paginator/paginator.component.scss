@@ -3,7 +3,7 @@
 .paginator {
   display: flex;
   justify-content: center;
-  padding-top: 20px;
+  padding-top: 10px;
 
   &__main {
     display: inline-flex;
@@ -21,7 +21,7 @@
   &__button {
     margin: 5px 5px;
     &_checked {
-      border: 1px solid $color-accent;
+      pointer-events: none;
     }
   }
 }
@@ -32,16 +32,20 @@
     bottom: 30px;
     left: 50%;
 
+    padding-top: 20px;
     padding-top: 0;
 
-		transform: translate(-50%, 0);
-		
-		@media screen and (pointer: coarse) {
-			bottom: 60px;
-		}
+    transform: translate(-50%, 0);
+
+    &__main {
+      border-radius: 40px;
+    }
+
+    @media screen and (pointer: coarse) {
+      bottom: 60px;
+    }
   }
 }
-
 @media screen and (max-width: map-get($breakpoints, mobile-portrait) - 1px) {
   .paginator {
     width: 80%;

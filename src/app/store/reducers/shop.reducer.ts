@@ -39,6 +39,12 @@ export const reducer: ActionReducer<ShopState> = createReducer(
 			isShopLoading: true
 		};
 	}),
+	on(ActionShop.clearCurrentProducts, (state: ShopState): ShopState => {
+		return {
+			...state,
+			currentProducts: []
+		};
+	}),
 	on(ActionShop.changePageTitle, (state: ShopState, { pageTitle }: { pageTitle: string }): ShopState => {
 		return {
 			...state,

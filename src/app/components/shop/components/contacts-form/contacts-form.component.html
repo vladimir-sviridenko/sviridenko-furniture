@@ -43,11 +43,11 @@
 			<a href="https://policies.google.com/terms">Terms of Service</a> apply.
 		</div>
 		<mat-progress-bar class="contacts-form__loader" mode="buffer" 
-				[style.visibility]="isLoaderShown ? 'visible' : 'hidden'">
+				[style.visibility]="isLoading ? 'visible' : 'hidden'">
 		</mat-progress-bar>
     <mat-dialog-actions class="contacts-form__actions">
-      <button mat-flat-button color="primary" [disabled]="contactsForm.invalid || isActionsDisabled">Заказать</button>
-      <button mat-stroked-button [mat-dialog-close]="undefined" [disabled]="isActionsDisabled">Отмена</button>
+      <button mat-flat-button color="primary" [disabled]="contactsForm.invalid || isLoading">Заказать</button>
+      <button mat-stroked-button [mat-dialog-close]="undefined" [disabled]="isLoading">Отмена</button>
     </mat-dialog-actions>
   </form>
 </div>

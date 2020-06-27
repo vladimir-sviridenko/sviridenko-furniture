@@ -7,6 +7,7 @@ import { ProductsOptionsService } from '@shop/services/products-options.service'
 import { CartProduct } from '@shop/models/cart-product';
 import { SelectedOption } from '@shop/models/selected-option';
 import { CartFacadeService } from '@store/facades/cart.facade';
+import { Location } from '@angular/common';
 
 @Component({
 	selector: 'app-product-page',
@@ -22,7 +23,8 @@ export class ProductPageComponent implements OnInit {
 	constructor(public productsOptionsService: ProductsOptionsService,
 		public shopFacadeService: ShopFacadeService,
 		public productFacadeService: ProductFacadeService,
-		public cartFacadeService: CartFacadeService) { }
+		public cartFacadeService: CartFacadeService,
+		public location: Location) { }
 
 	public ngOnInit(): void {
 		this.productFacadeService.product$.pipe(take(1))

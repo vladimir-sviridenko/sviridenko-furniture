@@ -23,6 +23,10 @@ export const changeCurrentProducts: InjectAction<string, { products: Product[] }
 	props<{ products: Product[] }>()
 );
 
+export const clearCurrentProducts: Action<string> = createAction(
+	'[SHOP/API] Clear current products'
+);
+
 export const showShopLoader: Action<string> = createAction(
 	'[SHOP/API] Show shop loader'
 );

@@ -4,15 +4,14 @@
 				*ngIf="shopFacadeService.isShopLoading$ | async">
 			</mat-spinner>
 	</div>
-	<div class="products-table__content" 
-			[class.products-table__content_hidden]="shopFacadeService.isShopLoading$ | async" 
-			*ngIf="shopFacadeService.currentAlbum$ | async">
+	<div class="products-table__content" [class.products-table__content_hidden]="shopFacadeService.isShopLoading$ | async">
 		<div class="products-table__cards-container">
-			<app-product-card class="products-table__card"
+			<ng-container *ngIf="shopFacadeService.currentProducts$ | async">
+				<app-product-card class="products-table__card"
 					*ngFor="let product of (shopFacadeService.currentProducts$ | async)"
-					[albumId]="(shopFacadeService.currentAlbum$ | async).id"
 					[product]="product">
-			</app-product-card>
+				</app-product-card>
+			</ng-container>
 		</div>
 		<app-paginator class="products-table__paginator"></app-paginator>
 	</div>

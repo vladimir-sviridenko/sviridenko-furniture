@@ -19,8 +19,7 @@ import { RecaptchaComponent } from 'ng-recaptcha';
 })
 export class ContactsFormComponent {
 
-	public isLoaderShown: boolean = false;
-	public isActionsDisabled: boolean = false;
+	public isLoading: boolean = false;
 	public formTitle$: BehaviorSubject<string> = new BehaviorSubject<string>('Ваши контакты');
 
 	public contactsForm: FormGroup = new FormGroup({
@@ -43,16 +42,15 @@ export class ContactsFormComponent {
 
 	private resetFormState(): void {
 		this.dialogRef.disableClose = false;
-		this.isLoaderShown = false;
+		this.isLoading = false;
 		document.body.classList.remove('waiting');
-		this.isActionsDisabled = false;
 		this.formTitle$.next('Ваши контакты');
 	}
 
 	private infromUserAboutSubmitState(): void {
 		const recaptchaExecutingPreventer: Subject<void> = new Subject<void>();
 
-		this.recaptchaService.isRecaptchaCanceled$.subscribe(() => {
+		this.recaptchaService.isRecaptchaCanceled$.pipe(takeUntil(this.dialogRef.afterClosed())).subscribe(() => {
 			this.resetFormState();
 			recaptchaExecutingPreventer.next();
 			recaptchaExecutingPreventer.complete();
@@ -64,8 +62,7 @@ export class ContactsFormComponent {
 				takeUntil(recaptchaExecutingPreventer),
 				tap(() => {
 					this.dialogRef.disableClose = true;
-					this.isLoaderShown = true;
-					this.isActionsDisabled = true;
+					this.isLoading = true;
 					this.formTitle$.next('Проверка на робота...');
 				}),
 				switchMap(() => this.recaptchaService.recaptcha$),
@@ -75,10 +72,11 @@ export class ContactsFormComponent {
 					this.contactsForm.disable();
 					this.formTitle$.next('Отправка запроса...');
 				}),
-				finalize(() => {
-					this.resetFormState();
-				})
 			).subscribe();
+
+		this.dialogRef.afterClosed().subscribe(() => {
+			document.body.classList.remove('waiting');
+		});
 	}
 
 	public submitForm(): void {

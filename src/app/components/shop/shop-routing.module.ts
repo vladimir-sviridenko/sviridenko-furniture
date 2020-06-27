@@ -10,11 +10,16 @@ import { ProductPageComponent } from './components/product-page/product-page.com
 import { CanCloseProductPageGuard } from './guards/can-close-product-page/can-close-product-page.guard';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { CanOpenHomePageGuard } from './guards/can-open-home-page/can-open-home-page.guard';
+import { CanCloseProductsTableGuard } from './guards/can-close-products-table/can-close-products-table.guard';
 
 const shopChildrenRoutes: Routes = [
 	{ path: 'home', component: HomePageComponent, canActivate: [CanOpenHomePageGuard] },
 	{ path: '404', component: NotFoundComponent },
-	{ path: 'shop/:albumId', component: ProductsTableComponent, canActivate: [CanOpenAlbumGuard] },
+	{
+		path: 'shop/:albumId',
+		component: ProductsTableComponent,
+		canActivate: [CanOpenAlbumGuard],
+		canDeactivate: [CanCloseProductsTableGuard] },
 	{
 		path: 'shop/:albumId/:productId', component: ProductPageComponent,
 		canActivate: [CanOpenProductGuard],

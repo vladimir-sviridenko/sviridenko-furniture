@@ -51,6 +51,10 @@ export class ShopFacadeService {
 		this.store.dispatch(ActionShop.changeCurrentProducts({ products }));
 	}
 
+	public clearCurrentProducts(): void {
+		this.store.dispatch(ActionShop.clearCurrentProducts());
+	}
+
 	public showShopLoader(): void {
 		this.store.dispatch(ActionShop.showShopLoader());
 	}
