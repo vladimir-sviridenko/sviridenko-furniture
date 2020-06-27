@@ -1,4 +1,4 @@
-import { Component, Inject, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { Component, Inject, ChangeDetectionStrategy, OnInit, HostListener } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserContacts } from '@shop/models/user-contacts';
@@ -18,7 +18,7 @@ import { PlatformLocation } from '@angular/common';
 	styleUrls: ['./contacts-form.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ContactsFormComponent implements OnInit {
+export class ContactsFormComponent {
 
 	public isLoading: boolean = false;
 	public formTitle$: BehaviorSubject<string> = new BehaviorSubject<string>('Ваши контакты');
@@ -78,12 +78,6 @@ export class ContactsFormComponent implements OnInit {
 
 		this.dialogRef.afterClosed().subscribe(() => {
 			document.body.classList.remove('waiting');
-		});
-	}
-
-	public ngOnInit(): void {
-		this.location.onPopState(() => {
-			this.recaptchaService.isRecaptchaCanceled$.next();
 		});
 	}
 

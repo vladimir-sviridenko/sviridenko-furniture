@@ -1,24 +1,19 @@
-import { Component, OnInit, ViewChildren, QueryList, AfterViewInit, OnDestroy, ChangeDetectionStrategy, ViewChild } from '@angular/core';
+import { Component, ViewChildren, QueryList, AfterViewInit, OnDestroy, ChangeDetectionStrategy, ViewChild } from '@angular/core';
 import { ProductCardComponent } from '../product-card/product-card.component';
-import { Subject, BehaviorSubject } from 'rxjs';
-import { takeUntil, delay, take, filter } from 'rxjs/operators';
-import { Album } from '@shop/models/album';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { ShopFacadeService } from '@store/facades/shop.facade';
-import { PageEvent, MatPaginator } from '@angular/material/paginator';
 import { Product } from '@shop/models/product';
 
 @Component({
 	selector: 'app-products-table',
 	templateUrl: './products-table.component.html',
-	styleUrls: ['./products-table.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	styleUrls: ['./products-table.component.scss']
 })
 export class ProductsTableComponent implements AfterViewInit, OnDestroy {
 
 	@ViewChildren(ProductCardComponent)
 	private productCardComponents: QueryList<ProductCardComponent>;
-
-	public products: Product[] = null;
 
 	public unsubscriber$: Subject<void> = new Subject();
 

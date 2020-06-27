@@ -41,7 +41,7 @@
 		<button mat-stroked-button
 				*ngFor="let album of shopFacadeService.albums$ | async"
 				(click)="panel.close(); $event.stopPropagation()"
-				[routerLink]="['/shop', album.id]"
+				[routerLink]="['/shop', album.id]" [queryParams]="{ page: 1 }"
 				[matBadge]='album.products[0].price ? "Онлайн" : "Под заказ"'
 				matBadgeSize="small"
 				[routerLink]="['/shop', album.id]"

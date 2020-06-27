@@ -43,6 +43,9 @@ export class EmailService {
 		return this.recaptcha.resolved.pipe(
 			take(1),
 			switchMap(() => {
+				// debug
+				// return from(Promise.resolve(1) as unknown as Promise<EmailJSResponseStatus>);
+				// prod
 				return from(emailjs.send(this.serviceId, EmailTemplate.Main, emailParams, this.userId));
 			}),
 			tap(() => this.recaptcha.reset())

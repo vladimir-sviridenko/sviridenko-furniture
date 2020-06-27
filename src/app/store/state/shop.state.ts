@@ -12,7 +12,7 @@ export interface ShopState {
 export const initialShopState: ShopState = {
 	albums: null,
 	currentAlbum: null,
-	currentProducts: null,
+	currentProducts: [],
 	pageTitle: 'Sviridenko Furniture',
 	isShopLoading: true,
 };

@@ -6,12 +6,10 @@
 	</div>
 	<div class="products-table__content" [class.products-table__content_hidden]="shopFacadeService.isShopLoading$ | async">
 		<div class="products-table__cards-container">
-			<ng-container *ngIf="shopFacadeService.currentProducts$ | async">
-				<app-product-card class="products-table__card"
-					*ngFor="let product of (shopFacadeService.currentProducts$ | async)"
-					[product]="product">
-				</app-product-card>
-			</ng-container>
+			<app-product-card class="products-table__card"
+				*ngFor="let product of (shopFacadeService.currentProducts$ | async)"
+				[product]="product">
+			</app-product-card>
 		</div>
 		<app-paginator class="products-table__paginator"></app-paginator>
 	</div>
