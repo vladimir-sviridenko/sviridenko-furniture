@@ -31,6 +31,10 @@ export class PaginatorComponent implements OnInit, OnDestroy {
 		this.pageIndexes = [...Array(pagesQuantity).keys()];
 	}
 
+	public isCurrentPageIndex(pageIndex: number): boolean {
+		return this.currentPageIndex === pageIndex;
+	}
+
 	public ngOnInit(): void {
 		this.shopFacadeService.currentAlbum$
 			.pipe(
