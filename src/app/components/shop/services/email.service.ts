@@ -10,6 +10,7 @@ import { RecaptchaComponent } from 'ng-recaptcha';
 import { take, filter, switchMap, tap, delay } from 'rxjs/operators';
 import { Observable, from } from 'rxjs';
 import { EmailTemplate } from '@shop/models/enums/email-template.enum';
+import { CdkVirtualForOf } from '@angular/cdk/scrolling';
 
 @Injectable()
 export class EmailService {
@@ -44,7 +45,7 @@ export class EmailService {
 			take(1),
 			switchMap(() => {
 				// debug
-				// return from(Promise.resolve(1) as unknown as Promise<EmailJSResponseStatus>);
+				//return from(Promise.resolve(1) as unknown as Promise<EmailJSResponseStatus>);
 				// prod
 				return from(emailjs.send(this.serviceId, EmailTemplate.Main, emailParams, this.userId));
 			}),

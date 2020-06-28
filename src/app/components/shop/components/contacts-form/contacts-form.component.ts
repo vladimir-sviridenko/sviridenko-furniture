@@ -75,10 +75,6 @@ export class ContactsFormComponent {
 					this.formTitle$.next('Отправка запроса...');
 				}),
 			).subscribe();
-
-		this.dialogRef.afterClosed().subscribe(() => {
-			document.body.classList.remove('waiting');
-		});
 	}
 
 	public submitForm(): void {
@@ -93,10 +89,12 @@ export class ContactsFormComponent {
 			.subscribe(
 				(response: EmailJSResponseStatus) => {
 					const submitStatus: SubmitStatus = { success: true, submitType };
+					document.body.classList.remove('waiting');
 					this.dialogRef.close(submitStatus);
 				},
 				(error: EmailJSResponseStatus) => {
 					const submitStatus: SubmitStatus = { success: false, submitType };
+					document.body.classList.remove('waiting');
 					this.dialogRef.close(submitStatus);
 				}
 			);
