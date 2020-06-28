@@ -26,13 +26,14 @@ $cart-product-font-size: 16px;
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
-	overflow: hidden;
+  height: 0;
+  overflow: hidden;
+
   font-size: $cart-product-font-size;
   text-align: left;
 
   background-color: white;
-	border-bottom-left-radius: 4px;
-	height: 0;
+  border-bottom-left-radius: 4px;
   opacity: 0;
 
   transition: opacity 0.3s;
@@ -41,10 +42,10 @@ $cart-product-font-size: 16px;
   pointer-events: none;
 
   &_opened {
-		overflow-y: auto;
     min-width: 400px;
     height: 75vh;
     max-height: 770px;
+    overflow-y: auto;
 
     opacity: 1;
 
@@ -102,6 +103,7 @@ $cart-product-font-size: 16px;
 
   &__product-list {
     padding: 5px;
+    overflow-y: auto;
 
     &_empty {
       display: flex;
@@ -195,17 +197,18 @@ $cart-product-font-size: 16px;
 
 @media screen and (max-width: map-get($breakpoints, mobile) - 1) {
   .cart {
-    position: fixed;
-
     border: 0;
     border-bottom-left-radius: 0;
     box-shadow: none;
 
     &_opened {
+      position: fixed;
+
       width: 100%;
       min-width: unset;
       max-width: unset;
       height: 100%;
+      min-height: 100%;
       max-height: 100%;
     }
 

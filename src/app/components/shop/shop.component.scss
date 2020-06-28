@@ -166,7 +166,7 @@
   .shop {
     &__background {
       &_cart-opened {
-        display: none;
+        background-color: $background-color-primary;
       }
     }
 
