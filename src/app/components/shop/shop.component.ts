@@ -21,7 +21,7 @@ export class ShopComponent implements OnInit, OnDestroy {
 		public productFacadeService: ProductFacadeService) { }
 
 	public scrollTop(): void {
-		document.body.scrollTop = 0; // 	for mobile browsers
+		window.scrollTo(0, 0);
 	}
 
 	public ngOnInit(): void {

@@ -33,10 +33,6 @@
     &__buttons {
       border-radius: 40px;
     }
-
-    @media screen and (pointer: coarse) {
-      bottom: 60px;
-    }
   }
 }
 @media screen and (max-width: map-get($breakpoints, mobile-portrait) - 1px) {

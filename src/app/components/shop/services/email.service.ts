@@ -10,7 +10,6 @@ import { RecaptchaComponent } from 'ng-recaptcha';
 import { take, filter, switchMap, tap, delay } from 'rxjs/operators';
 import { Observable, from } from 'rxjs';
 import { EmailTemplate } from '@shop/models/enums/email-template.enum';
-import { CdkVirtualForOf } from '@angular/cdk/scrolling';
 
 @Injectable()
 export class EmailService {
