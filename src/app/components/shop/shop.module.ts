@@ -41,11 +41,13 @@ import { SizePipe } from 'src/app/components/shop/pipes/size/size.pipe';
 import { HideUntilImagesLoadedDirective } from './directives/hide-until-images-loaded.directive';
 // Guards
 import { CanOpenProductGuard } from 'src/app/components/shop/guards/can-open-product/can-open-product.guard';
-import { CanOpenAlbumGuard } from 'src/app/components/shop/guards/can-open-album/can-open-album.guard';
+import { CanCloseProductsTableGuard } from './guards/can-close-products-table/can-close-products-table.guard';
 import { CanCloseProductPageGuard } from './guards/can-close-product-page/can-close-product-page.guard';
 // Other
 import ru from '@angular/common/locales/ru';
 import { environment } from 'src/environments/environment';
+import { PaginatorComponent } from './components/paginator/paginator.component';
+import { CanOpenProductsTableGuard } from './guards/can-open-products-table/can-open-products-table.guard';
 
 @NgModule({
 	declarations: [
@@ -64,6 +66,7 @@ import { environment } from 'src/environments/environment';
 		SizePipe,
 		HideUntilImagesLoadedDirective,
 		NotFoundComponent,
+		PaginatorComponent
 	],
 	imports: [
 		CommonModule,
@@ -86,8 +89,9 @@ import { environment } from 'src/environments/environment';
 		HTMLGeneratorService,
 		LocalStorageService,
 		CanOpenProductGuard,
-		CanOpenAlbumGuard,
-		CanCloseProductPageGuard
+		CanOpenProductsTableGuard,
+		CanCloseProductPageGuard,
+		CanCloseProductsTableGuard
 	],
 	bootstrap: [ShopComponent]
 })

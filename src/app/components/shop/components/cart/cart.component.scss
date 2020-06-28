@@ -26,24 +26,30 @@ $cart-product-font-size: 16px;
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
-  min-width: 400px;
-  height: 75vh;
-  max-height: 770px;
-  overflow-y: auto;
+  height: 0;
+  overflow: hidden;
 
   font-size: $cart-product-font-size;
   text-align: left;
 
   background-color: white;
   border-bottom-left-radius: 4px;
-  transform: translateX(100%);
+  opacity: 0;
 
-  transition: transform 0.3s;
+  transition: opacity 0.3s;
 
   user-select: none;
+  pointer-events: none;
 
   &_opened {
-    transform: translateX(0);
+    min-width: 400px;
+    height: 75vh;
+    max-height: 770px;
+    overflow-y: auto;
+
+    opacity: 1;
+
+    pointer-events: auto;
   }
 
   &__toolbar {
@@ -97,6 +103,7 @@ $cart-product-font-size: 16px;
 
   &__product-list {
     padding: 5px;
+    overflow-y: auto;
 
     &_empty {
       display: flex;
@@ -183,24 +190,27 @@ $cart-product-font-size: 16px;
 }
 
 @media screen and (max-width: map-get($breakpoints, laptop) - 1) {
-  .cart {
+  .cart_opened {
     height: 72vh;
   }
 }
 
 @media screen and (max-width: map-get($breakpoints, mobile) - 1) {
   .cart {
-    position: fixed;
-
-    width: 100%;
-    min-width: unset;
-    max-width: unset;
-    height: 100%;
-    max-height: 100%;
-
     border: 0;
     border-bottom-left-radius: 0;
     box-shadow: none;
+
+    &_opened {
+      position: fixed;
+
+      width: 100%;
+      min-width: unset;
+      max-width: unset;
+      height: 100%;
+      min-height: 100%;
+      max-height: 100%;
+    }
 
     &__product-image-container {
       display: none;

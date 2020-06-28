@@ -22,8 +22,6 @@ export class ProductOptionsComponent {
 
 	public optionTypeEnum: typeof OptionType = OptionType;
 
-	public isOptionsLoaded: boolean = false;
-
 	constructor(public productsOptionsService: ProductsOptionsService,
 		public productFacadeService: ProductFacadeService) { }
 

@@ -84,8 +84,6 @@
 
 @media screen and (pointer: coarse) {
   .product-card {
-    margin: 10px;
-
     &__button {
       &_open-photo {
         display: block;
@@ -95,6 +93,19 @@
         margin-top: 8px;
       }
     }
+  }
+}
+
+@media screen and (max-width: map-get($breakpoints, mobile) - 1px) {
+	.product-card {
+		margin: 10px;
+	}
+}
+
+@media screen and (max-width: map-get($breakpoints, tablet-portrait) - 1px) {
+  .product-card {
+    padding-right: 10px;
+    padding-left: 10px;
   }
 }
 
@@ -108,12 +119,5 @@
         max-width: unset;
       }
     }
-  }
-}
-
-@media screen and (max-width: map-get($breakpoints, tablet-portrait) - 1px) {
-  .product-card {
-    padding-right: 10px;
-    padding-left: 10px;
   }
 }

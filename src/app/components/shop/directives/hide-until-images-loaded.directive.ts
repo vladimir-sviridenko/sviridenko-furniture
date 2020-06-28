@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Renderer2, Output, EventEmitter, AfterViewInit } from '@angular/core';
+import { Directive, ElementRef, Renderer2, Output, EventEmitter, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { Observable, Subscriber, forkJoin } from 'rxjs';
 import { take } from 'rxjs/operators';
 

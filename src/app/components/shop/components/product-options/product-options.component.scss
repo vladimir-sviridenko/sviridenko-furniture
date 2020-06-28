@@ -4,7 +4,7 @@
   flex: 1 0 $width;
   box-sizing: border-box;
   width: $width;
-  height: 100%;
+  height: auto;
   margin: $margin-vertical $margin-horizontal;
 }
 
@@ -50,7 +50,7 @@ $image-margin_facade: 5px;
 }
 
 ::ng-deep .mat-tooltip-panel {
-	transform: translateY(20px);
+  transform: translateY(20px);
 }
 
 .product-options {
@@ -90,11 +90,11 @@ $image-margin_facade: 5px;
   }
 
   &__image {
-		@media screen and (pointer: fine) {
-			&:hover {
-				outline: 2px solid transparentize($color: black, $amount: 0.5);
-			}
-		}
+    @media screen and (pointer: fine) {
+      &:hover {
+        outline: 2px solid transparentize($color: black, $amount: 0.5);
+      }
+    }
     &_checked {
       border: 2px solid $color-accent;
       border-radius: 2px;
@@ -117,11 +117,11 @@ $image-margin_facade: 5px;
 }
 
 @media screen and (min-width: map-get($breakpoints, tablet) - 120px) {
-	::ng-deep .mat-tooltip-panel {
-		& .product-options__tooltip {
-			font-size: 16px !important;
-		}
-	}
+  ::ng-deep .mat-tooltip-panel {
+    & .product-options__tooltip {
+      font-size: 16px !important;
+    }
+  }
   .product-options {
     @include grid(20px, 0);
   }
@@ -139,9 +139,9 @@ $image-margin_facade: 5px;
 }
 
 @media screen and (min-width: map-get($breakpoints, tablet)) {
-	::ng-deep .mat-tooltip-panel {
-		transform: translateY(7px);
-	}
+  ::ng-deep .mat-tooltip-panel {
+    transform: translateY(7px);
+  }
 
   .product-options {
     &_loading {

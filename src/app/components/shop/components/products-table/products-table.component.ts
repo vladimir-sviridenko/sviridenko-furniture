@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChildren, QueryList, AfterViewInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ViewChildren, QueryList, AfterViewInit, OnDestroy, Input, OnChanges, SimpleChanges, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ProductCardComponent } from '../product-card/product-card.component';
-import { Subject, ReplaySubject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntil, delay } from 'rxjs/operators';
-import { Album } from '@shop/models/album';
 import { ShopFacadeService } from '@store/facades/shop.facade';
+import { Product } from '@shop/models/product';
 
 @Component({
 	selector: 'app-products-table',
@@ -16,13 +16,13 @@ export class ProductsTableComponent implements OnInit, AfterViewInit, OnDestroy 
 	@ViewChildren(ProductCardComponent)
 	private productCardComponents: QueryList<ProductCardComponent>;
 
-	public album$: ReplaySubject<Album> = new ReplaySubject<Album>();
+	public products$: Subject<Product[]> = new Subject<Product[]>();
 
 	public unsubscriber$: Subject<void> = new Subject();
 
 	constructor(public shopFacadeService: ShopFacadeService) { }
 
-	private showCardsAfterAllLoaded(): void {
+	private showProductsAfterAllLoaded(): void {
 		const loadingPhotos$: Array<Promise<void>>
 			= this.productCardComponents.map((component: ProductCardComponent) => {
 				return new Promise((resolve: (value?: void | PromiseLike<void>) => void) => {
@@ -37,19 +37,19 @@ export class ProductsTableComponent implements OnInit, AfterViewInit, OnDestroy 
 	}
 
 	public ngOnInit(): void {
-		this.shopFacadeService.currentAlbum$
+		this.shopFacadeService.currentProducts$
 			.pipe(
 				delay(0),
 				takeUntil(this.unsubscriber$)
 			)
-			.subscribe((album: Album) => {
-				this.album$.next(album);
+			.subscribe((products: Product[]) => {
+				this.products$.next(products);
 			});
 	}
 
 	public ngAfterViewInit(): void {
 		this.productCardComponents.changes.pipe(takeUntil(this.unsubscriber$)).subscribe(() => {
-			this.showCardsAfterAllLoaded();
+			this.showProductsAfterAllLoaded();
 		});
 	}
 

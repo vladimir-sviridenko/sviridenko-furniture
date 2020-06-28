@@ -2,7 +2,7 @@
   <form class="contacts-form__form" novalidate 
   	  [formGroup]="contactsForm" 
 			(ngSubmit)="submitForm()">
-		<div mat-dialog-title>{{(isSubmiting$ | async) ? "Отправка заявки..." : "Ваши контакты"}}</div>
+		<div mat-dialog-title>{{formTitle$ | async}}</div>
     <mat-form-field appearance="outline" class="contacts-form__form-field">
       <mat-label>Ваше имя</mat-label>
       <input formControlName="name" name="name" matInput>
@@ -43,11 +43,11 @@
 			<a href="https://policies.google.com/terms">Terms of Service</a> apply.
 		</div>
 		<mat-progress-bar class="contacts-form__loader" mode="buffer" 
-				[style.visibility]="(isSubmiting$ | async) ? 'visible' : 'hidden'">
+				[style.visibility]="isLoading ? 'visible' : 'hidden'">
 		</mat-progress-bar>
     <mat-dialog-actions class="contacts-form__actions">
-      <button mat-flat-button color="primary" [disabled]="contactsForm.invalid || (isSubmiting$ | async)">Заказать</button>
-      <button mat-stroked-button [mat-dialog-close]="undefined" [disabled]="(isSubmiting$ | async)">Отмена</button>
+      <button mat-flat-button color="primary" [disabled]="contactsForm.invalid || isLoading">Заказать</button>
+      <button mat-stroked-button [mat-dialog-close]="undefined" [disabled]="isLoading">Отмена</button>
     </mat-dialog-actions>
   </form>
 </div>

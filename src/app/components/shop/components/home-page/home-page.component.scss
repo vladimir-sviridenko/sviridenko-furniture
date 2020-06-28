@@ -2,7 +2,7 @@
 
 .home-page {
   display: block;
-  min-height: 460px;
+	min-height: 460px;
 
   text-shadow: 1px 1px 1px black;
 
@@ -21,10 +21,6 @@
 
     object-fit: cover;
     object-position: 50% 90%;
-
-    &_mobile {
-      display: none;
-    }
   }
 
   &__cards {
@@ -139,14 +135,6 @@
         border: 2px solid transparentize($color: white, $amount: 0.2);
       }
     }
-
-    &__background-image {
-      display: none;
-
-      &_mobile {
-        display: block;
-      }
-    }
   }
 }
 
@@ -167,14 +155,6 @@
 
     &__slogan {
       font-size: 22px;
-    }
-  }
-}
-
-@media screen and (pointer: coarse) {
-  .home-page {
-    &:last-child {
-      margin-bottom: 70px;
     }
   }
 }

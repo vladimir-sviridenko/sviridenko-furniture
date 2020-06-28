@@ -1,13 +1,16 @@
-import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Inject, ChangeDetectionStrategy, OnInit, HostListener } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserContacts } from '@shop/models/user-contacts';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { SubmitType } from '@shop/models/enums/submit-type.enum';
 import { SubmitStatus } from '@shop/models/submit-status';
 import { ContactsSubmit } from '@shop/models/contacts-submit';
 import { EmailJSResponseStatus } from 'emailjs-com';
-import { take } from 'rxjs/operators';
+import { take, tap, switchMap, takeUntil } from 'rxjs/operators';
+import { RecaptchaService } from 'src/app/services/recaptcha.service';
+import { RecaptchaComponent } from 'ng-recaptcha';
+import { PlatformLocation } from '@angular/common';
 
 @Component({
 	selector: 'app-contacts-form',
@@ -17,7 +20,8 @@ import { take } from 'rxjs/operators';
 })
 export class ContactsFormComponent {
 
-	public isSubmiting$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+	public isLoading: boolean = false;
+	public formTitle$: BehaviorSubject<string> = new BehaviorSubject<string>('Ваши контакты');
 
 	public contactsForm: FormGroup = new FormGroup({
 		name: new FormControl('', [Validators.required, Validators.pattern('^(?!\\s*$).+')]),
@@ -34,34 +38,64 @@ export class ContactsFormComponent {
 	}
 
 	constructor(private dialogRef: MatDialogRef<ContactsFormComponent>,
-		@Inject(MAT_DIALOG_DATA) public contactsSubmit: ContactsSubmit) { }
+		private recaptchaService: RecaptchaService,
+		@Inject(MAT_DIALOG_DATA) public contactsSubmit: ContactsSubmit,
+		private location: PlatformLocation) { }
 
-	private disableForm(): void {
-		document.body.classList.add('waiting');
-		this.contactsForm.disable();
-		this.dialogRef.disableClose = true;
-		this.isSubmiting$.next(true);
-		this.isSubmiting$.complete();
+	private resetFormState(): void {
+		this.dialogRef.disableClose = false;
+		this.isLoading = false;
+		document.body.classList.remove('waiting');
+		this.formTitle$.next('Ваши контакты');
+	}
+
+	private infromUserAboutSubmitState(): void {
+		const recaptchaExecutingPreventer: Subject<void> = new Subject<void>();
+
+		this.recaptchaService.isRecaptchaCanceled$.pipe(takeUntil(this.dialogRef.afterClosed())).subscribe(() => {
+			this.resetFormState();
+			recaptchaExecutingPreventer.next();
+			recaptchaExecutingPreventer.complete();
+		});
+
+		this.recaptchaService.isRecaptchaExecuting$
+			.pipe(
+				takeUntil(this.dialogRef.afterClosed()),
+				takeUntil(recaptchaExecutingPreventer),
+				tap(() => {
+					this.dialogRef.disableClose = true;
+					this.isLoading = true;
+					this.formTitle$.next('Проверка на робота...');
+				}),
+				switchMap(() => this.recaptchaService.recaptcha$),
+				switchMap((recaptcha: RecaptchaComponent) => recaptcha.resolved),
+				tap((recaptchaKey: string) => {
+					document.body.classList.add('waiting');
+					this.contactsForm.disable();
+					this.formTitle$.next('Отправка запроса...');
+				}),
+			).subscribe();
 	}
 
 	public submitForm(): void {
-		this.disableForm();
+		this.infromUserAboutSubmitState();
 		const submitType: SubmitType = this.contactsSubmit.type;
 
 		this.contactsSubmit.method(this.userContacts)
 			.pipe(
-				take(1)
+				take(1),
+				takeUntil(this.dialogRef.afterClosed())
 			)
 			.subscribe(
 				(response: EmailJSResponseStatus) => {
 					const submitStatus: SubmitStatus = { success: true, submitType };
-					this.dialogRef.close(submitStatus);
 					document.body.classList.remove('waiting');
+					this.dialogRef.close(submitStatus);
 				},
 				(error: EmailJSResponseStatus) => {
 					const submitStatus: SubmitStatus = { success: false, submitType };
-					this.dialogRef.close(submitStatus);
 					document.body.classList.remove('waiting');
+					this.dialogRef.close(submitStatus);
 				}
 			);
 	}

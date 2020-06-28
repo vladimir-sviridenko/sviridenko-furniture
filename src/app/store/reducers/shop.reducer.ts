@@ -2,6 +2,7 @@ import { createReducer, on, ActionReducer } from '@ngrx/store';
 import * as ActionShop from '../actions/shop.actions';
 import { initialShopState, ShopState } from '@store/state/shop.state';
 import { Album } from '@shop/models/album';
+import { Product } from '@shop/models/product';
 
 export const reducer: ActionReducer<ShopState> = createReducer(
 	initialShopState,
@@ -9,6 +10,12 @@ export const reducer: ActionReducer<ShopState> = createReducer(
 		return {
 			...state,
 			albums,
+		};
+	}),
+	on(ActionShop.showShopLoader, (state: ShopState): ShopState => {
+		return {
+			...state,
+			isShopLoading: true
 		};
 	}),
 	on(ActionShop.hideShopLoader, (state: ShopState): ShopState => {
@@ -23,6 +30,19 @@ export const reducer: ActionReducer<ShopState> = createReducer(
 			currentAlbum: album,
 			pageTitle: album.title,
 			isShopLoading: true
+		};
+	}),
+	on(ActionShop.changeCurrentProducts, (state: ShopState, { products }: { products: Product[] }): ShopState => {
+		return {
+			...state,
+			currentProducts: products,
+			isShopLoading: true
+		};
+	}),
+	on(ActionShop.clearCurrentProducts, (state: ShopState): ShopState => {
+		return {
+			...state,
+			currentProducts: []
 		};
 	}),
 	on(ActionShop.changePageTitle, (state: ShopState, { pageTitle }: { pageTitle: string }): ShopState => {

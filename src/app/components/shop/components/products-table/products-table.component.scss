@@ -3,19 +3,16 @@
 .products-table {
   margin-top: 5px;
   padding: 10px;
-  padding-top: 10px;
+	padding-top: 10px;
+	padding-bottom: 90px;
 
-  background-color: $background-color-primary;
+	@media screen and (max-width: map-get($breakpoints, tablet-portrait) - 1px) {
+		padding-bottom: 20px;
+	}
 
-  &__cards-container {
-    display: flex;
-    flex-flow: row wrap;
-    @media screen and (max-width: map-get($breakpoints, mobile-portrait) - 1px) {
-      justify-content: center;
-    }
-  }
-
-  &__card {
+	background-color: $background-color-primary;
+	
+  &__content {
     opacity: 1;
 
     transition: opacity 0.3s;
@@ -30,6 +27,14 @@
       transition: none;
 
       pointer-events: none;
+    }
+  }
+
+  &__cards-container {
+    display: flex;
+    flex-flow: row wrap;
+    @media screen and (max-width: map-get($breakpoints, mobile-portrait) - 1px) {
+      justify-content: center;
     }
   }
 
@@ -57,19 +62,5 @@
       margin-right: 56px;
       margin-left: 56px;
     }
-  }
-}
-
-@media screen and (max-width: map-get($breakpoints, tablet) - 1px) and (orientation: landscape) {
-  .products-table {
-    &__loader {
-      top: 70%;
-    }
-  }
-}
-
-@media screen and (pointer: coarse) {
-  .products-table {
-    padding-bottom: 60px;
   }
 }

@@ -3,7 +3,7 @@
 		<button mat-mini-fab class="product-page__button product-page__button_back"
 				aria-label="Go back"
 				title="Назад"
-				[routerLink]="['/shop', (this.shopFacadeService.currentAlbum$ | async).id ]">
+				(click)="location.back()">
 			<mat-icon>arrow_back</mat-icon>
 		</button>
 		<mat-card class="product-page__image">
