@@ -15,13 +15,15 @@ export class HideUntilImagesLoadedDirective implements AfterViewInit {
 	private hideElement(): void {
 		this.renderer.setStyle(this.elementRef.nativeElement, 'opacity', 0);
 		this.renderer.setStyle(this.elementRef.nativeElement, 'height', 0);
+		this.renderer.setStyle(this.elementRef.nativeElement, 'width', 0);
 		this.renderer.setStyle(this.elementRef.nativeElement, 'overflow', 'hidden');
 	}
 
 	private showElement(): void {
-		this.renderer.setStyle(this.elementRef.nativeElement, 'height', 'unset');
-		this.renderer.setStyle(this.elementRef.nativeElement, 'overflow', 'unset');
 		this.renderer.setStyle(this.elementRef.nativeElement, 'opacity', 1);
+		this.renderer.setStyle(this.elementRef.nativeElement, 'height', 'unset');
+		this.renderer.setStyle(this.elementRef.nativeElement, 'width', 'unset');
+		this.renderer.setStyle(this.elementRef.nativeElement, 'overflow', 'unset');
 	}
 
 	public ngAfterViewInit(): void {
