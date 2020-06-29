@@ -52,12 +52,14 @@ export class PaginatorComponent implements OnInit, OnDestroy {
 	}
 
 	public goToPage(pageIndex: number): void {
-		this.currentPageIndex = pageIndex;
-		const firstProductIndex: number = pageIndex * this.pageSize;
-		const lastProductIndex: number = firstProductIndex + this.pageSize;
-		const paginatedProducts: Product[] = this.productsFullList.slice(firstProductIndex, lastProductIndex);
-		this.initPaginatorButtons();
-		this.shopFacadeService.changeCurrentProducts(paginatedProducts);
+		if (!this.isCurrentPageIndex(pageIndex)) {
+			this.currentPageIndex = pageIndex;
+			const firstProductIndex: number = pageIndex * this.pageSize;
+			const lastProductIndex: number = firstProductIndex + this.pageSize;
+			const paginatedProducts: Product[] = this.productsFullList.slice(firstProductIndex, lastProductIndex);
+			this.initPaginatorButtons();
+			this.shopFacadeService.changeCurrentProducts(paginatedProducts);
+		}
 	}
 
 	public ngOnDestroy(): void {
