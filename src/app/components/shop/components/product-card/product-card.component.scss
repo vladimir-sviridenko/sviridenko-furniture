@@ -27,14 +27,14 @@
   margin: 8px;
   margin-bottom: 10px;
   overflow: hidden;
-
+	
   &_priceless {
     padding-right: 10px;
     padding-left: 10px;
   }
 
   &__image-container {
-    height: 100%;
+    height: auto;
     min-height: 170px;
 
     cursor: zoom-in;
