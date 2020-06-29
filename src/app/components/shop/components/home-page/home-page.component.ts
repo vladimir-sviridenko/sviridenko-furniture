@@ -59,12 +59,19 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
 	}
 
 	public ngAfterViewInit(): void {
+		const background: HTMLImageElement = this.backgroundImage.nativeElement as HTMLImageElement;
+
+		// smooth apperance of background
+		background.onload = () => {
+			background.classList.remove('home-page__background-image_hidden');
+		};
+
+		//  change src on screen resize
 		this.tabletLayoutChange$
 			.pipe(
 				takeUntil(this.unsubscriber$)
 			)
 			.subscribe((breakpointState: BreakpointState) => {
-				const background: HTMLImageElement = this.backgroundImage.nativeElement as HTMLImageElement;
 				const src: string = background.dataset.src;
 				const srcMobile: string = background.dataset.srcMobile;
 				const selectedSrc: string = breakpointState.matches ? src : srcMobile;
