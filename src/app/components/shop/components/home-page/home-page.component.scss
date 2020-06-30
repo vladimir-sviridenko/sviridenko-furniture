@@ -21,15 +21,14 @@
     width: 100%;
     height: 100%;
 
-    opacity: 1;
-
+		opacity: 0;
     transition: opacity 0.5s;
 
     object-fit: cover;
     object-position: 50% 90%;
 
-    &_hidden {
-      opacity: 0;
+    &_visible {
+			opacity: 1;
     }
   }
 

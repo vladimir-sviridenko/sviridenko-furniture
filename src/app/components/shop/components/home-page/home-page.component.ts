@@ -1,21 +1,17 @@
-import { Component, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ProductsTableFacadeService } from '@store/facades/productsTable.facade';
 import { Feature } from '@shop/models/feature';
 import { BreakpointState, BreakpointObserver } from '@angular/cdk/layout';
-import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Component({
 	selector: 'app-home-page',
 	templateUrl: './home-page.component.html',
 	styleUrls: ['./home-page.component.scss']
 })
-export class HomePageComponent implements AfterViewInit, OnDestroy {
+export class HomePageComponent {
 
-	@ViewChild('backgroundImage')
-	private backgroundImage: ElementRef;
-
-	private unsubscriber$: Subject<void> = new Subject<void>();
+	public isBackgroundLoaded: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
 	public slogan: string = 'Мебель любой сложности';
 	public location: string = 'Москва и Московская область';
@@ -47,7 +43,7 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
 		}
 	];
 
-	get tabletLayoutChange$(): Observable<BreakpointState> {
+	get onTabletResize$(): Observable<BreakpointState> {
 		return this.breakpointObserver.observe([
 			'(min-width: 1000px)',
 		]);
@@ -57,31 +53,4 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
 		private breakpointObserver: BreakpointObserver) {
 		this.productsTableFacadeService.changePageTitle('Sviridenko Furniture');
 	}
-
-	public ngAfterViewInit(): void {
-		const background: HTMLImageElement = this.backgroundImage.nativeElement as HTMLImageElement;
-
-		// smooth apperance of background
-		background.onload = () => {
-			background.classList.remove('home-page__background-image_hidden');
-		};
-
-		//  change src on screen resize
-		this.tabletLayoutChange$
-			.pipe(
-				takeUntil(this.unsubscriber$)
-			)
-			.subscribe((breakpointState: BreakpointState) => {
-				const src: string = background.dataset.src;
-				const srcMobile: string = background.dataset.srcMobile;
-				const selectedSrc: string = breakpointState.matches ? src : srcMobile;
-				background.setAttribute('src', selectedSrc);
-			});
-	}
-
-	public ngOnDestroy(): void {
-		this.unsubscriber$.next();
-		this.unsubscriber$.complete();
-	}
-
 }

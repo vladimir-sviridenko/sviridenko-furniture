@@ -33,6 +33,7 @@ export class DialogService {
 		const dialogRef: MatDialogRef<ContactsFormComponent> = this.dialog.open(ContactsFormComponent, {
 			width: '320px',
 			scrollStrategy: this.overlay.scrollStrategies.noop(),
+			restoreFocus: false,
 			data: contactsSubmit,
 			maxHeight: '90vh',
 			maxWidth: '95vw'
@@ -72,6 +73,7 @@ export class DialogService {
 		const dialogRef: MatDialogRef<ContactsComponent> = this.dialog.open(ContactsComponent, {
 			width: '270px',
 			scrollStrategy: this.overlay.scrollStrategies.noop(),
+			restoreFocus: false,
 			autoFocus: false,
 			panelClass: 'dialog__contacts',
 			maxHeight: '90vh'
@@ -92,6 +94,7 @@ export class DialogService {
 			scrollStrategy: this.overlay.scrollStrategies.noop(),
 			panelClass: 'dialog__full-photo',
 			backdropClass: 'dialog__full-photo-background',
+			restoreFocus: false,
 			maxHeight: '90vh',
 			maxWidth: '90vw',
 			data: isDesktop ? photoUrl.high : photoUrl.low,

@@ -1,10 +1,10 @@
 <div class="home-page">
 	<div class="home-page__container">
 		<div class="home-page__background-container">
-			<img class="home-page__background-image home-page__background-image_hidden" #backgroundImage
-					src="./assets/images/home-page/background.jpg"
-					data-src="./assets/images/home-page/background.jpg"
-					data-src-mobile="./assets/images/home-page/background-mobile.jpg"
+			<img class="home-page__background-image"
+					[class.home-page__background-image_visible]="isBackgroundLoaded | async"
+					(load)="isBackgroundLoaded.next(true)" 
+					[src]="(onTabletResize$ | async).matches ? './assets/images/home-page/background.jpg' : './assets/images/home-page/background-mobile.jpg'"
 					alt="Background">
 		</div>
 		<mat-card class="home-page__card home-page__card_title">
@@ -14,7 +14,8 @@
 			</h1>
 		</mat-card>
 		<div class="home-page__cards">
-			<mat-card class="home-page__card home-page__card_feature" *ngFor="let feature of features">
+			<mat-card class="home-page__card home-page__card_feature" 
+					*ngFor="let feature of features">
 				<mat-card-header class="home-page__card-header">
 					<mat-icon mat-card-avatar class="home-page__card-icon" aria-label="Feature name">{{feature.icon}}</mat-icon>
 					<mat-card-title class="home-page__card-title">{{feature.title}}</mat-card-title>
