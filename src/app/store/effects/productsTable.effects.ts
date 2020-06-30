@@ -5,11 +5,11 @@ import { GalleryService } from 'src/app/components/shop/services/gallery.service
 import { switchMap, share, map, tap } from 'rxjs/operators';
 import { combineLatest } from 'rxjs';
 import { Album } from '@shop/models/album';
-import * as ShopAction from '../actions/shop.actions';
+import * as ShopAction from '../actions/productsTable.actions';
 import { CartFacadeService } from '@store/facades/cart.facade';
 
 @Injectable()
-export class ShopEffects {
+export class ProductsTableEffects {
 
 	public loadAlbums$ = createEffect(
 		() => this.actions$.pipe(

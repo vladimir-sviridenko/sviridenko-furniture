@@ -1,4 +1,4 @@
-<div class="product-page" *ngIf="!(this.shopFacadeService.isShopLoading$ | async)">
+<div class="product-page" *ngIf="!(this.productsTableFacadeService.isTableLoading$ | async)">
 	<div class="product-page__image-card">
 		<button mat-mini-fab class="product-page__button product-page__button_back"
 				aria-label="Go back"
@@ -46,7 +46,7 @@
 						<td>{{product.size.depth}} см</td>
 					</tr>
 				</ng-container>
-				<tr *ngFor="let selectedOption of productFacadeService.selectedOptions$ | async">
+				<tr *ngFor="let selectedOption of productPageFacadeService.selectedOptions$ | async">
 					<td>{{selectedOption.type}}: </td>
 					<td>{{selectedOption.option.name}}</td>
 				</tr>
@@ -54,7 +54,7 @@
 		</mat-card-content>
 		<mat-card-title class="product-page__price">
 			<span>Итого: </span> 
-			<span>{{(productFacadeService.totalPrice$ | async) | currency:"RUB":"code":"4.0":"ru"}}</span>
+			<span>{{(productPageFacadeService.totalPrice$ | async) | currency:"RUB":"code":"4.0":"ru"}}</span>
 		</mat-card-title>
 		<mat-card-actions class="product-page__actions">
 			<button mat-flat-button  

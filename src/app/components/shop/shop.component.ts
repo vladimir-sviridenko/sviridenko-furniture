@@ -1,8 +1,8 @@
 import { Component, ChangeDetectionStrategy, OnDestroy, OnInit } from '@angular/core';
 
-import { ShopFacadeService } from '@store/facades/shop.facade';
+import { ProductsTableFacadeService } from '@store/facades/productsTable.facade';
 import { CartFacadeService } from '@store/facades/cart.facade';
-import { ProductFacadeService } from '@store/facades/product.facade';
+import { ProductPageFacadeService } from '@store/facades/productPage.facade';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -16,16 +16,16 @@ export class ShopComponent implements OnInit, OnDestroy {
 
  	private unsubscriber$: Subject<void> = new Subject<void>();
 
-	constructor(public shopFacadeService: ShopFacadeService,
+	constructor(public productsTableFacadeService: ProductsTableFacadeService,
 		public cartFacadeService: CartFacadeService,
-		public productFacadeService: ProductFacadeService) { }
+		public productPageFacadeService: ProductPageFacadeService) { }
 
 	public scrollTop(): void {
 		window.scrollTo(0, 0);
 	}
 
 	public ngOnInit(): void {
-		this.shopFacadeService.currentProducts$
+		this.productsTableFacadeService.tableProducts$
 			.pipe(takeUntil(this.unsubscriber$))
 			.subscribe(() => {
 				this.scrollTop();

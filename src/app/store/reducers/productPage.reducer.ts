@@ -1,13 +1,13 @@
 import { createReducer, on, ActionReducer } from '@ngrx/store';
-import * as ActionProduct from '@store/actions/product.actions';
-import { initialProductState, ProductState } from '@store/state/product.state';
+import * as ActionProductPage from '@store/actions/productPage.actions';
+import { initialProductState, ProductPageState } from '@store/state/productPage.state';
 import { SelectedOption } from '@shop/models/selected-option';
 import { Product } from '@shop/models/product';
 import { CartProduct } from '@shop/models/cart-product';
 
-export const reducer: ActionReducer<ProductState> = createReducer(
+export const reducer: ActionReducer<ProductPageState> = createReducer(
 	initialProductState,
-	on(ActionProduct.changeProduct, (state: ProductState, { product }: { product: Product }): ProductState => {
+	on(ActionProductPage.changeProduct, (state: ProductPageState, { product }: { product: Product }): ProductPageState => {
 		const cartProduct: CartProduct = new CartProduct(product);
 		return {
 			...state,
@@ -16,7 +16,7 @@ export const reducer: ActionReducer<ProductState> = createReducer(
 			totalPrice: cartProduct.totalPrice
 		};
 	}),
-	on(ActionProduct.selectOption, (state: ProductState, { option }: { option: SelectedOption }): ProductState => {
+	on(ActionProductPage.selectOption, (state: ProductPageState, { option }: { option: SelectedOption }): ProductPageState => {
 		const cartProduct: CartProduct = new CartProduct(state.product, state.selectedOptions);
 		cartProduct.selectOption(option);
 		return {
@@ -25,7 +25,7 @@ export const reducer: ActionReducer<ProductState> = createReducer(
 			totalPrice: cartProduct.totalPrice
 		};
 	}),
-	on(ActionProduct.clearProduct, (state: ProductState): ProductState => {
+	on(ActionProductPage.clearProduct, (state: ProductPageState): ProductPageState => {
 		return {
 			...state,
 			product: null

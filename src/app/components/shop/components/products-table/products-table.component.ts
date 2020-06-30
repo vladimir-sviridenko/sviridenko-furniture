@@ -2,7 +2,7 @@ import { Component, ViewChildren, QueryList, AfterViewInit, OnDestroy, Input, On
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { Subject } from 'rxjs';
 import { takeUntil, delay } from 'rxjs/operators';
-import { ShopFacadeService } from '@store/facades/shop.facade';
+import { ProductsTableFacadeService } from '@store/facades/productsTable.facade';
 import { Product } from '@shop/models/product';
 
 @Component({
@@ -20,7 +20,7 @@ export class ProductsTableComponent implements OnInit, AfterViewInit, OnDestroy 
 
 	public unsubscriber$: Subject<void> = new Subject();
 
-	constructor(public shopFacadeService: ShopFacadeService) { }
+	constructor(public productsTableFacadeService: ProductsTableFacadeService) { }
 
 	private showProductsAfterAllLoaded(): void {
 		const loadingPhotos$: Array<Promise<void>>
@@ -32,12 +32,12 @@ export class ProductsTableComponent implements OnInit, AfterViewInit, OnDestroy 
 				});
 			});
 		Promise.all(loadingPhotos$).then(() => {
-			this.shopFacadeService.hideShopLoader();
+			this.productsTableFacadeService.hideTableLoader();
 		});
 	}
 
 	public ngOnInit(): void {
-		this.shopFacadeService.currentProducts$
+		this.productsTableFacadeService.tableProducts$
 			.pipe(
 				delay(0),
 				takeUntil(this.unsubscriber$)

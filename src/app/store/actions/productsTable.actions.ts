@@ -13,25 +13,25 @@ export const setAlbums: InjectAction<string, { albums: Album[] }> = createAction
 	props<{ albums: Album[] }>()
 );
 
-export const changeCurrentAlbum: InjectAction<string, { album: Album }> = createAction(
+export const changeTableAlbum: InjectAction<string, { album: Album }> = createAction(
 	'[SHOP/API] Change current album',
 	props<{ album: Album }>()
 );
 
-export const changeCurrentProducts: InjectAction<string, { products: Product[] }> = createAction(
+export const changeTableProducts: InjectAction<string, { products: Product[] }> = createAction(
 	'[SHOP/API] Change current products table',
 	props<{ products: Product[] }>()
 );
 
-export const clearCurrentProducts: Action<string> = createAction(
+export const clearTableProducts: Action<string> = createAction(
 	'[SHOP/API] Clear current products'
 );
 
-export const showShopLoader: Action<string> = createAction(
+export const showTableLoader: Action<string> = createAction(
 	'[SHOP/API] Show shop loader'
 );
 
-export const hideShopLoader: Action<string> = createAction(
+export const hideTableLoader: Action<string> = createAction(
 	'[SHOP/API] Hide shop loader'
 );
 

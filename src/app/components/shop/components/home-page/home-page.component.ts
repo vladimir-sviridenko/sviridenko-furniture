@@ -1,5 +1,5 @@
 import { Component, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { ShopFacadeService } from '@store/facades/shop.facade';
+import { ProductsTableFacadeService } from '@store/facades/productsTable.facade';
 import { Feature } from '@shop/models/feature';
 import { BreakpointState, BreakpointObserver } from '@angular/cdk/layout';
 import { Observable, Subject } from 'rxjs';
@@ -53,9 +53,9 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
 		]);
 	}
 
-	constructor(private shopFacadeService: ShopFacadeService,
+	constructor(private productsTableFacadeService: ProductsTableFacadeService,
 		private breakpointObserver: BreakpointObserver) {
-		this.shopFacadeService.changePageTitle('Sviridenko Furniture');
+		this.productsTableFacadeService.changePageTitle('Sviridenko Furniture');
 	}
 
 	public ngAfterViewInit(): void {

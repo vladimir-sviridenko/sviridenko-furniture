@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable, ReplaySubject } from 'rxjs';
 import { map, filter, take } from 'rxjs/operators';
-import { ShopFacadeService } from '@store/facades/shop.facade';
+import { ProductsTableFacadeService } from '@store/facades/productsTable.facade';
 import { Album } from '@shop/models/album';
 
 @Injectable()
@@ -10,8 +10,8 @@ export class CanOpenProductsTableGuard implements CanActivate {
 
 	private albums$: ReplaySubject<Album[]> = new ReplaySubject<Album[]>();
 
-	constructor(private shopFacadeService: ShopFacadeService, private router: Router) {
-		this.shopFacadeService.albums$
+	constructor(private productsTableFacadeService: ProductsTableFacadeService, private router: Router) {
+		this.productsTableFacadeService.albums$
 			.pipe(filter((albums: Album[]) => Boolean(albums)), take(1))
 			.subscribe(this.albums$);
 	}
@@ -27,7 +27,7 @@ export class CanOpenProductsTableGuard implements CanActivate {
 				map((albums: Album[]) => {
 					const existingAlbum: Album = albums.find((album: Album) => album.id === albumId);
 					if (existingAlbum) {
-						this.shopFacadeService.changeCurrentAlbum(existingAlbum);
+						this.productsTableFacadeService.changeTableAlbum(existingAlbum);
 						return true;
 					} else {
 						this.router.navigate(['/404']);

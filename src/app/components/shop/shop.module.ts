@@ -3,14 +3,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
-import { MaterialModules } from '../../ui/material/material.modules';
+import { MaterialModules } from '../ui/material/material.modules';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 // Store
 import { reducers } from '@store/.';
-import { ShopEffects } from '@store/effects/shop.effects';
+import { ProductsTableEffects } from '@store/effects/productsTable.effects';
 // Routing
 import { ShopRoutingModule } from './shop-routing.module';
 // Components
@@ -77,7 +77,7 @@ import { CanOpenProductsTableGuard } from './guards/can-open-products-table/can-
 		...MaterialModules,
 		StoreModule.forRoot(reducers),
 		StoreRouterConnectingModule.forRoot(),
-		EffectsModule.forRoot([ShopEffects]),
+		EffectsModule.forRoot([ProductsTableEffects]),
 		StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
 	],
 	providers: [

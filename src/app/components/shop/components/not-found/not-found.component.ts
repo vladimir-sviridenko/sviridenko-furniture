@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { ShopFacadeService } from '@store/facades/shop.facade';
+import { ProductsTableFacadeService } from '@store/facades/productsTable.facade';
 
 @Component({
 	selector: 'app-not-found',
@@ -9,8 +9,8 @@ import { ShopFacadeService } from '@store/facades/shop.facade';
 })
 export class NotFoundComponent {
 
-	constructor(private shopFacadeService: ShopFacadeService) {
-		this.shopFacadeService.hideShopLoader();
-		this.shopFacadeService.changePageTitle('Ошибка 404');
+	constructor(private productsTableFacadeService: ProductsTableFacadeService) {
+		this.productsTableFacadeService.hideTableLoader();
+		this.productsTableFacadeService.changePageTitle('Ошибка 404');
 	}
 }

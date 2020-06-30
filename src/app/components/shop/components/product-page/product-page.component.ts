@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ShopFacadeService } from '@store/facades/shop.facade';
-import { ProductFacadeService } from '@store/facades/product.facade';
+import { ProductsTableFacadeService } from '@store/facades/productsTable.facade';
+import { ProductPageFacadeService } from '@store/facades/productPage.facade';
 import { Product } from '@shop/models/product';
 import { take } from 'rxjs/operators';
 import { ProductsOptionsService } from '@shop/services/products-options.service';
@@ -21,13 +21,13 @@ export class ProductPageComponent implements OnInit {
 	public photoUrl: string;
 
 	constructor(public productsOptionsService: ProductsOptionsService,
-		public shopFacadeService: ShopFacadeService,
-		public productFacadeService: ProductFacadeService,
+		public productsTableFacadeService: ProductsTableFacadeService,
+		public productPageFacadeService: ProductPageFacadeService,
 		public cartFacadeService: CartFacadeService,
 		public location: Location) { }
 
 	public ngOnInit(): void {
-		this.productFacadeService.product$.pipe(take(1))
+		this.productPageFacadeService.product$.pipe(take(1))
 			.subscribe((currentProduct: Product) => {
 				this.product = currentProduct;
 				this.photoUrl = currentProduct.photoUrl.high;
@@ -35,7 +35,7 @@ export class ProductPageComponent implements OnInit {
 	}
 
 	public addProductToCart(): void {
-		this.productFacadeService.selectedOptions$.pipe(take(1))
+		this.productPageFacadeService.selectedOptions$.pipe(take(1))
 			.subscribe((selectedOptions: SelectedOption[]) => {
 				const cartProduct: CartProduct = new CartProduct(this.product, selectedOptions);
 				this.cartFacadeService.addCartProduct(cartProduct);

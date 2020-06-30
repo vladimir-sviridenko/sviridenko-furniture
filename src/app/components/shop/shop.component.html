@@ -14,9 +14,9 @@
 				(click)="cartFacadeService.closeCart()">
 		</div>
 		<mat-toolbar class="shop__features-toolbar"
-				[class.shop__features-toolbar_with-title]="!(productFacadeService.product$ | async)">
+				[class.shop__features-toolbar_with-title]="!(productPageFacadeService.product$ | async)">
 			<button mat-mini-fab class="shop__button shop__button_modeler"
-					*ngIf="!(productFacadeService.product$ | async)"
+					*ngIf="!(productPageFacadeService.product$ | async)"
 					disabled
 					color="primary"
 					aria-label="Modeler is developing"
@@ -24,11 +24,11 @@
 				<mat-icon>settings</mat-icon>
 			</button>
 			<div class="shop__album-title-container"
-					*ngIf="!(productFacadeService.product$ | async)">
-				<h1 class="shop__album-title">{{shopFacadeService.pageTitle$ | async}}</h1>
+					*ngIf="!(productPageFacadeService.product$ | async)">
+				<h1 class="shop__album-title">{{productsTableFacadeService.pageTitle$ | async}}</h1>
 			</div>
 			<button mat-mini-fab class="shop__button shop__button_cart"
-					[class.shop__button_cart_absolute]="productFacadeService.product$ | async"
+					[class.shop__button_cart_absolute]="productPageFacadeService.product$ | async"
 					[matBadge]="(cartFacadeService.isCartEmpty$ | async) ? '' : (cartFacadeService.cartProductsQuantity$ | async)"
 					matBadgeColor="accent"
 					matBadgeSize="small"

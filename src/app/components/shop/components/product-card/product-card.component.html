@@ -21,7 +21,7 @@
 	</mat-card-header>
   <mat-card-actions class="product-card__actions" *ngIf="product.price">
 		<button mat-stroked-button class="product-card__button product-card__button_to-product" color="primary" 
-        [routerLink]="['/shop', (shopFacadeService.currentAlbum$ | async).id, product.id]">
+        [routerLink]="['/shop', (productsTableFacadeService.tableAlbum$ | async).id, product.id]">
       Подробнее
 		</button>
 		<button mat-flat-button class="product-card__button product-card__button_to-cart" color="primary"

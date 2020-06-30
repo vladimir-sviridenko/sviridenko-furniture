@@ -39,7 +39,7 @@
 <ng-template #navBar>
   <mat-toolbar class="header__buttons" color="primary">
 		<button mat-stroked-button
-				*ngFor="let album of shopFacadeService.albums$ | async"
+				*ngFor="let album of productsTableFacadeService.albums$ | async"
 				(click)="panel.close(); $event.stopPropagation()"
 				[routerLink]="['/shop', album.id]" [queryParams]="{ page: 1 }"
 				[matBadge]='album.products[0].price ? "Онлайн" : "Под заказ"'
