@@ -1,4 +1,4 @@
-import { createFeatureSelector, createSelector, MemoizedSelector, DefaultProjectorFn } from '@ngrx/store';
+import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/store';
 import { AppState, FeatureKey } from '..';
 import { CartState } from '@store/state/cart.state';
 import { Cart } from '@shop/models/cart';

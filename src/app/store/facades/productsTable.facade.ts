@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-
 import * as ActionProductsTable from '../actions/productsTable.actions';
 import * as SelectorProductsTable from '../selectors/productsTable.selectors';
 import { AppState } from '..';

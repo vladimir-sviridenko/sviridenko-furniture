@@ -5,37 +5,37 @@ import { InjectAction } from '@shop/models/inject-action';
 import { Product } from '@shop/models/product';
 
 export const loadAlbums: Action<string> = createAction(
-	'[SHOP/API] Load albums'
+	'[PRODUCTS TABLE] Load albums'
 );
 
 export const setAlbums: InjectAction<string, { albums: Album[] }> = createAction(
-	'[SHOP/API] Set albums',
+	'[PRODUCTS TABLE] Set albums',
 	props<{ albums: Album[] }>()
 );
 
 export const changeTableAlbum: InjectAction<string, { album: Album }> = createAction(
-	'[SHOP/API] Change current album',
+	'[PRODUCTS TABLE] Change current table album',
 	props<{ album: Album }>()
 );
 
 export const changeTableProducts: InjectAction<string, { products: Product[] }> = createAction(
-	'[SHOP/API] Change current products table',
+	'[PRODUCTS TABLE] Change current table products',
 	props<{ products: Product[] }>()
 );
 
 export const clearTableProducts: Action<string> = createAction(
-	'[SHOP/API] Clear current products'
+	'[PRODUCTS TABLE] Clear current table products'
 );
 
 export const showTableLoader: Action<string> = createAction(
-	'[SHOP/API] Show shop loader'
+	'[PRODUCTS TABLE] Show products table loader'
 );
 
 export const hideTableLoader: Action<string> = createAction(
-	'[SHOP/API] Hide shop loader'
+	'[PRODUCTS TABLE] Hide products table loader'
 );
 
 export const changePageTitle: InjectAction<string, { pageTitle: string }> = createAction(
-	'[SHOP/API] Change page title',
+	'[PRODUCTS TABLE] Change page title',
 	props<{ pageTitle: string }>()
 );
