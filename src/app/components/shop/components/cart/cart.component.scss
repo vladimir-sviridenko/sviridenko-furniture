@@ -18,15 +18,11 @@ $cart-product-font-size: 16px;
 }
 
 .cart {
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 3;
-
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
-  height: 0;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
 
   font-size: $cart-product-font-size;
@@ -34,23 +30,8 @@ $cart-product-font-size: 16px;
 
   background-color: white;
   border-bottom-left-radius: 4px;
-  opacity: 0;
-
-  transition: opacity 0.3s;
 
   user-select: none;
-  pointer-events: none;
-
-  &_opened {
-    min-width: 400px;
-    height: 75vh;
-    max-height: 770px;
-    overflow-y: auto;
-
-    opacity: 1;
-
-    pointer-events: auto;
-  }
 
   &__toolbar {
     position: sticky;
@@ -189,28 +170,11 @@ $cart-product-font-size: 16px;
   }
 }
 
-@media screen and (max-width: map-get($breakpoints, laptop) - 1) {
-  .cart_opened {
-    height: 72vh;
-  }
-}
-
 @media screen and (max-width: map-get($breakpoints, mobile) - 1) {
   .cart {
     border: 0;
     border-bottom-left-radius: 0;
     box-shadow: none;
-
-    &_opened {
-      position: fixed;
-
-      width: 100%;
-      min-width: unset;
-      max-width: unset;
-      height: 100%;
-      min-height: 100%;
-      max-height: 100%;
-    }
 
     &__product-image-container {
       display: none;

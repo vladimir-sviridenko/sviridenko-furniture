@@ -1,16 +1,18 @@
 <div class="products-table">
-	<div class="products-table__loader" >
-		<mat-spinner [diameter]='50'
-				*ngIf="productsTableFacadeService.isTableLoading$ | async">
-			</mat-spinner>
-	</div>
-	<div class="products-table__content" [class.products-table__content_hidden]="productsTableFacadeService.isTableLoading$ | async">
-		<div class="products-table__cards-container">
-			<app-product-card class="products-table__card"
-				*ngFor="let product of (products$ | async)"
-				[product]="product">
-			</app-product-card>
+	<div class="products-table__container">
+		<div class="products-table__loader" >
+			<mat-spinner [diameter]='50'
+					*ngIf="productsTableFacadeService.isTableLoading$ | async">
+				</mat-spinner>
 		</div>
-		<app-paginator class="products-table__paginator"></app-paginator>
+		<div class="products-table__content" [class.products-table__content_hidden]="productsTableFacadeService.isTableLoading$ | async">
+			<div class="products-table__cards-container">
+				<app-product-card class="products-table__card"
+					*ngFor="let product of (products$ | async)"
+					[product]="product">
+				</app-product-card>
+			</div>
+			<app-paginator class="products-table__paginator"></app-paginator>
+		</div>
 	</div>
 </div>

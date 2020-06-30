@@ -1,7 +1,7 @@
 <div class="shop">
   <app-header></app-header>
 	<div class="shop__cart-container">
-		<app-cart class="shop__cart"></app-cart>
+		<app-cart class="shop__cart" [class.shop__cart_opened]="(cartFacadeService.isCartOpened$ | async)"></app-cart>
 	</div>
 	<div class="shop__content">
 		<button mat-mini-fab class="shop__button shop__button_scroll-top" color="primary"

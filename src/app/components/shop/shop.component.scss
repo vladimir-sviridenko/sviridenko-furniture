@@ -1,17 +1,11 @@
 @import "variables";
 
 .shop {
-  position: relative;
-
   display: flex;
   flex-flow: column nowrap;
   min-height: 100%;
 
   background-color: $background-color-primary;
-
-  & > * {
-    flex-shrink: 0;
-  }
 
   &__album-title-container {
     position: relative;
@@ -53,7 +47,6 @@
     user-select: none;
   }
 
-
   &__features-toolbar {
     position: sticky;
     top: 0;
@@ -81,6 +74,31 @@
     overflow: visible;
 
     white-space: nowrap;
+	}
+	
+	&__cart {
+		position: absolute;
+		top: 0;
+		right: 0;
+		z-index: 3;
+
+		height: 0;
+		opacity: 0;
+
+		transition: opacity 0.3s;
+	
+		pointer-events: none;
+	}
+
+	&__cart_opened {
+    min-width: 400px;
+    height: 75vh;
+    max-height: 770px;
+    overflow-y: auto;
+
+    opacity: 1;
+
+    pointer-events: auto;
   }
 
   &__content {
@@ -162,6 +180,14 @@
   }
 }
 
+@media screen and (max-width: map-get($breakpoints, laptop) - 1) {
+	.shop {
+		&__cart_opened {
+			height: 72vh;
+		}
+	}
+}
+
 @media screen and (max-width: map-get($breakpoints, mobile) - 1px) {
   .shop {
     &__background {
@@ -172,7 +198,20 @@
 
     &__cart-container {
       white-space: normal;
-    }
+		}
+		
+		&__cart {
+			position: fixed;
+		}
+
+		&__cart_opened {
+      width: 100%;
+      min-width: unset;
+      max-width: unset;
+      height: 100%;
+      min-height: 100%;
+      max-height: 100%;
+		}
 
     &__button {
       &_modeler[disabled] {
@@ -215,7 +254,7 @@
   }
 }
 
-@media screen and (min-width: map-get($breakpoints, tablet-portrait)) {
+@media screen and (min-width: map-get($breakpoints, tablet)) {
   .shop {
     &__button {
       &_cart {

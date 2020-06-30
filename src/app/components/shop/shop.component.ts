@@ -14,7 +14,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class ShopComponent implements OnInit, OnDestroy {
 
- 	private unsubscriber$: Subject<void> = new Subject<void>();
+	private unsubscriber$: Subject<void> = new Subject<void>();
 
 	constructor(public productsTableFacadeService: ProductsTableFacadeService,
 		public cartFacadeService: CartFacadeService,
