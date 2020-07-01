@@ -23,7 +23,7 @@
 				<app-product-options
 					*ngIf="product.options.length > 0"
 					[optionAlbums]="product.options"
-					(check)="photoUrl = $event">
+					(checkedPhoto)="photoUrl = $event">
 				</app-product-options>
 			</mat-card>
 		</div>

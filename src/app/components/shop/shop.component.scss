@@ -74,23 +74,24 @@
     overflow: visible;
 
     white-space: nowrap;
-	}
-	
-	&__cart {
-		position: absolute;
-		top: 0;
-		right: 0;
-		z-index: 3;
+  }
 
-		height: 0;
-		opacity: 0;
+  &__cart {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 3;
 
-		transition: opacity 0.3s;
-	
-		pointer-events: none;
-	}
+    height: 0;
 
-	&__cart_opened {
+    opacity: 0;
+
+    transition: opacity 0.3s;
+
+    pointer-events: none;
+  }
+
+  &__cart_opened {
     min-width: 400px;
     height: 75vh;
     max-height: 770px;
@@ -181,11 +182,11 @@
 }
 
 @media screen and (max-width: map-get($breakpoints, laptop) - 1) {
-	.shop {
-		&__cart_opened {
-			height: 72vh;
-		}
-	}
+  .shop {
+    &__cart_opened {
+      height: 72vh;
+    }
+  }
 }
 
 @media screen and (max-width: map-get($breakpoints, mobile) - 1px) {
@@ -198,20 +199,20 @@
 
     &__cart-container {
       white-space: normal;
-		}
-		
-		&__cart {
-			position: fixed;
-		}
+    }
 
-		&__cart_opened {
+    &__cart {
+      position: fixed;
+    }
+
+    &__cart_opened {
       width: 100%;
       min-width: unset;
       max-width: unset;
       height: 100%;
       min-height: 100%;
       max-height: 100%;
-		}
+    }
 
     &__button {
       &_modeler[disabled] {

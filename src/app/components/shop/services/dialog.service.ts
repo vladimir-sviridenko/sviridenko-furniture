@@ -23,7 +23,7 @@ export class DialogService {
 		private breakpointObserver: BreakpointObserver,
 		private cartFacadeService: CartFacadeService) { }
 
-	private get mobileLayoutChange$(): Observable<BreakpointState> {
+	private get onMobileResize$(): Observable<BreakpointState> {
 		return this.breakpointObserver.observe([
 			'(min-width: 600px)',
 		]);
@@ -79,14 +79,14 @@ export class DialogService {
 			maxHeight: '90vh'
 		});
 
-		this.mobileLayoutChange$.pipe(take(2), last(), takeUntil(dialogRef.afterClosed())).subscribe(() => {
+		this.onMobileResize$.pipe(take(2), last(), takeUntil(dialogRef.afterClosed())).subscribe(() => {
 			dialogRef.close();
 		});
 	}
 
 	public openPhoto(photoUrl: PhotoUrl): void {
 		let isDesktop: boolean;
-		this.mobileLayoutChange$.pipe(take(1)).subscribe((breakpointState: BreakpointState) => {
+		this.onMobileResize$.pipe(take(1)).subscribe((breakpointState: BreakpointState) => {
 			isDesktop = breakpointState.matches;
 		});
 

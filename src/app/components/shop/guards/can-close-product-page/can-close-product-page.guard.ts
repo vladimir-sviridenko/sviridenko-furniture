@@ -9,7 +9,7 @@ export class CanCloseProductPageGuard implements CanDeactivate<ProductPageCompon
 	constructor(private productPageFacadeService: ProductPageFacadeService) { }
 
 	public canDeactivate(): boolean {
-		this.productPageFacadeService.clearProduct();
+		this.productPageFacadeService.clearProductPage();
 		return true;
 	}
 }

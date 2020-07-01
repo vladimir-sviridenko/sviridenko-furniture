@@ -37,8 +37,6 @@ import { LocalStorageService } from './services/local-storage.service';
 import { ProductsOptionsService } from 'src/app/components/shop/services/products-options.service';
 // Pipes
 import { SizePipe } from 'src/app/components/shop/pipes/size/size.pipe';
-// Directives
-import { HideUntilImagesLoadedDirective } from './directives/hide-until-images-loaded.directive';
 // Guards
 import { CanOpenProductGuard } from 'src/app/components/shop/guards/can-open-product/can-open-product.guard';
 import { CanCloseProductsTableGuard } from './guards/can-close-products-table/can-close-products-table.guard';
@@ -64,7 +62,6 @@ import { CanOpenProductsTableGuard } from './guards/can-open-products-table/can-
 		FullPhotoComponent,
 		HomePageComponent,
 		SizePipe,
-		HideUntilImagesLoadedDirective,
 		NotFoundComponent,
 		PaginatorComponent
 	],

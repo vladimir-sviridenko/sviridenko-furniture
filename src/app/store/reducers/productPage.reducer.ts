@@ -25,7 +25,7 @@ export const reducer: ActionReducer<ProductPageState> = createReducer(
 			totalPrice: cartProduct.totalPrice
 		};
 	}),
-	on(ActionProductPage.clearProduct, (state: ProductPageState): ProductPageState => {
+	on(ActionProductPage.clearProductPage, (state: ProductPageState): ProductPageState => {
 		return {
 			...state,
 			product: null

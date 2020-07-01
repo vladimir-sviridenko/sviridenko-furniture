@@ -10,7 +10,7 @@ import { Injectable } from '@angular/core';
 export class HTMLGeneratorService {
 
 	private containerStyle: string = 'padding:12px 15px;background:#f5f5f5;font-size:14px;color:#333';
-	private baseHref: string = 'https://vladimir-sviridenko.github.io/sviridenko-furniture/';
+	private baseHref: string = 'https://https://sviridenkofurniture.web.app/';
 
 	private getTwoColumnsTableHtml(tableContent: Map<string, string>): HTMLTableElement {
 		const table: HTMLTableElement = document.createElement('table');

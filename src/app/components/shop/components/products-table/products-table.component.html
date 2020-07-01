@@ -1,9 +1,7 @@
 <div class="products-table">
 	<div class="products-table__container">
-		<div class="products-table__loader" >
-			<mat-spinner [diameter]='50'
-					*ngIf="productsTableFacadeService.isTableLoading$ | async">
-				</mat-spinner>
+		<div class="products-table__loader" *ngIf="productsTableFacadeService.isTableLoading$ | async">
+			<mat-spinner [diameter]='50'></mat-spinner>
 		</div>
 		<div class="products-table__content" [class.products-table__content_hidden]="productsTableFacadeService.isTableLoading$ | async">
 			<div class="products-table__cards-container">

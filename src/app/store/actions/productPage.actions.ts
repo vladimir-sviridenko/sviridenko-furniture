@@ -14,6 +14,6 @@ export const selectOption: InjectAction<string, { option: SelectedOption }> = cr
 	props<{ option: SelectedOption }>()
 );
 
-export const clearProduct: Action<string> = createAction(
+export const clearProductPage: Action<string> = createAction(
 	'[PRODUCT PAGE] Clear product page'
 );
