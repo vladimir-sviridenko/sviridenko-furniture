@@ -88,18 +88,18 @@
 
     transition: opacity 0.3s;
 
-    pointer-events: none;
-  }
-
-  &__cart_opened {
-    min-width: 400px;
-    height: 75vh;
-    max-height: 770px;
-    overflow-y: auto;
-
-    opacity: 1;
-
-    pointer-events: auto;
+		pointer-events: none;
+		
+		&_opened {
+			min-width: 400px;
+			height: 75vh;
+			max-height: 770px;
+			overflow-y: auto;
+	
+			opacity: 1;
+	
+			pointer-events: auto;
+		}
   }
 
   &__content {
@@ -201,11 +201,9 @@
       white-space: normal;
     }
 
-    &__cart {
-      position: fixed;
-    }
-
     &__cart_opened {
+			position: fixed;
+			
       width: 100%;
       min-width: unset;
       max-width: unset;
