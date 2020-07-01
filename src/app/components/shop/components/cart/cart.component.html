@@ -13,6 +13,12 @@
 		</button>
 	</mat-toolbar>
 	<div class="cart__product-list" *ngIf="!(cartFacadeService.isCartEmpty$ | async); else emptyProductList">
+		<button mat-stroked-button
+				class="cart__button cart__button_clear-cart"
+				color="primary"
+				(click)="cartFacadeService.clearCart()">
+			Очистить корзину
+		</button>
 		<div class="cart__product-container"
 				*ngFor="let productPool of (cartFacadeService.cart$ | async).pools">
 			<div class="cart__product-image-container">

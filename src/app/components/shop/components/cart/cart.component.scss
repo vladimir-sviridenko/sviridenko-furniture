@@ -59,6 +59,11 @@ $cart-product-font-size: 16px;
       background-color: white;
       box-shadow: none;
     }
+
+    &_clear-cart {
+      width: 100%;
+    }
+
     &_order {
       width: 100%;
     }
@@ -83,7 +88,7 @@ $cart-product-font-size: 16px;
   }
 
   &__product-list {
-    padding: 5px;
+    padding: 5px 13px;
     overflow-y: auto;
 
     &_empty {
@@ -110,8 +115,8 @@ $cart-product-font-size: 16px;
   &__product-container {
     display: flex;
     flex-flow: row nowrap;
-    justify-content: flex-start;
-    margin: 8px;
+		justify-content: flex-start;
+		margin: 8px 0;
     padding: 8px 10px;
 
     line-height: $cart-product-line-height;
