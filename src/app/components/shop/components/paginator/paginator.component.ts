@@ -25,9 +25,8 @@ export class PaginatorComponent implements OnInit, OnDestroy {
 
 	constructor(public productsTableFacadeService: ProductsTableFacadeService, public router: ActivatedRoute) { }
 
-	private initPaginatorButtons(): void {
-		const pagesQuantity: number = Math.ceil(this.productsFullList.length / this.pageSize);
-		this.pageIndexes = [...Array(pagesQuantity).keys()];
+	get pagesQuantity(): number {
+		return Math.ceil(this.productsFullList.length / this.pageSize);
 	}
 
 	public isCurrentPageIndex(pageIndex: number): boolean {
@@ -44,21 +43,20 @@ export class PaginatorComponent implements OnInit, OnDestroy {
 				this.productsFullList = currentAlbum.products;
 				this.router.queryParams.subscribe((queryParams: Params) => {
 					this.currentPageIndex = null;
-					const pageIndex: number = queryParams['page'] ? (parseInt(queryParams['page'], 10) - 1) : 0;
+					const pageIndexQuery: number = queryParams['page'] ? (parseInt(queryParams['page'], 10) - 1) : 0;
+					const pageIndex: number = (pageIndexQuery < this.pagesQuantity && pageIndexQuery > 0) ? pageIndexQuery : 0;
 					this.goToPage(pageIndex);
 				});
 			});
 	}
 
 	public goToPage(pageIndex: number): void {
-		if (!this.isCurrentPageIndex(pageIndex)) {
-			this.currentPageIndex = pageIndex;
-			const firstProductIndex: number = pageIndex * this.pageSize;
-			const lastProductIndex: number = firstProductIndex + this.pageSize;
-			const paginatedProducts: Product[] = this.productsFullList.slice(firstProductIndex, lastProductIndex);
-			this.initPaginatorButtons();
-			this.productsTableFacadeService.changeTableProducts(paginatedProducts);
-		}
+		this.currentPageIndex = pageIndex;
+		const firstProductIndex: number = pageIndex * this.pageSize;
+		const lastProductIndex: number = firstProductIndex + this.pageSize;
+		const paginatedProducts: Product[] = this.productsFullList.slice(firstProductIndex, lastProductIndex);
+		this.pageIndexes = [...Array(this.pagesQuantity).keys()];
+		this.productsTableFacadeService.changeTableProducts(paginatedProducts);
 	}
 
 	public ngOnDestroy(): void {

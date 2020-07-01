@@ -17,6 +17,8 @@
     margin: 5px 5px;
     &_checked {
       cursor: default;
+
+      pointer-events: none;
     }
   }
 }

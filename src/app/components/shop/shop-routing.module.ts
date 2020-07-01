@@ -22,7 +22,8 @@ const shopChildrenRoutes: Routes = [
 		canDeactivate: [CanCloseProductsTableGuard]
 	},
 	{
-		path: 'shop/:albumId/:productId', component: ProductPageComponent,
+		path: 'shop/:albumId/:productId',
+		component: ProductPageComponent,
 		canActivate: [CanOpenProductGuard],
 		canDeactivate: [CanCloseProductPageGuard]
 	},
