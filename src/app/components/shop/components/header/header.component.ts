@@ -1,7 +1,6 @@
-import { Component, ChangeDetectionStrategy, AfterViewInit } from '@angular/core';
-import { FocusMonitor } from '@angular/cdk/a11y';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DialogService } from '@shop/services/dialog.service';
-import { ShopFacadeService } from '@store/facades/shop.facade';
+import { ProductsTableFacadeService } from '@store/facades/productsTable.facade';
 
 @Component({
 	selector: 'app-header',
@@ -9,13 +8,8 @@ import { ShopFacadeService } from '@store/facades/shop.facade';
 	styleUrls: ['./header.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HeaderComponent implements AfterViewInit {
+export class HeaderComponent {
 
 	constructor(public dialogService: DialogService,
-		private focusMonitor: FocusMonitor,
-		public shopFacadeService: ShopFacadeService) { }
-
-	public ngAfterViewInit(): void {
-		this.focusMonitor.stopMonitoring(document.querySelector('.header__button_contacts'));
-	}
+		public productsTableFacadeService: ProductsTableFacadeService) { }
 }

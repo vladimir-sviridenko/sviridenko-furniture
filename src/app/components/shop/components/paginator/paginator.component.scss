@@ -3,7 +3,6 @@
 .paginator {
   display: flex;
   justify-content: center;
-  padding-top: 10px;
 
   &__buttons {
     display: inline-flex;
@@ -24,23 +23,8 @@
 
 @media screen and (min-width: map-get($breakpoints, tablet-portrait)) {
   .paginator {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-
-    padding-top: 20px;
-    padding-top: 0;
-
-    transform: translate(-50%, 0);
-
     &__buttons {
       border-radius: 40px;
     }
-  }
-}
-@media screen and (max-width: map-get($breakpoints, mobile-portrait) - 1px) {
-  .paginator {
-    width: 80%;
-    margin: 0 auto;
   }
 }

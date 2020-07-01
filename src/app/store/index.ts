@@ -1,30 +1,30 @@
 import { ActionReducerMap } from '@ngrx/store';
-import { reducer as shopReducer } from '@store/reducers/shop.reducer';
-import { reducer as productReducer } from '@store/reducers/product.reducer';
+import { reducer as shopReducer } from '@store/reducers/productsTable.reducer';
+import { reducer as productReducer } from '@store/reducers/productPage.reducer';
 import { reducer as cartReducer } from '@store/reducers/cart.reducer';
 import { reducer as routerReducer } from '@store/reducers/router.reducer';
 import { RouterState } from '@store/reducers/router.reducer';
-import { ProductState } from './state/product.state';
-import { ShopState } from './state/shop.state';
+import { ProductPageState } from './state/productPage.state';
+import { ProductsTableState } from './state/productsTable.state';
 import { CartState } from './state/cart.state';
 
 export const enum FeatureKey {
-  Shop = 'shop',
-  Product = 'product',
+  ProductsTable = 'productsTable',
+  ProductPage = 'productPage',
   Cart = 'cart',
 	Router = 'router',
 }
 
 export interface AppState {
-  [FeatureKey.Shop]: ShopState;
-  [FeatureKey.Product]: ProductState;
+  [FeatureKey.ProductsTable]: ProductsTableState;
+  [FeatureKey.ProductPage]: ProductPageState;
   [FeatureKey.Cart]: CartState;
 	[FeatureKey.Router]: RouterState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
-  [FeatureKey.Shop]: shopReducer,
-  [FeatureKey.Product]: productReducer,
+  [FeatureKey.ProductsTable]: shopReducer,
+  [FeatureKey.ProductPage]: productReducer,
   [FeatureKey.Cart]: cartReducer,
 	[FeatureKey.Router]: routerReducer,
 };

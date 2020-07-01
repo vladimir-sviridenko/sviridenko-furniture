@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CartFacadeService } from '@store/facades/cart.facade';
 import { OptionType } from '@shop/models/enums/option-type.enum';
-import { take, delay, mergeMap, switchMap } from 'rxjs/operators';
+import { take, switchMap } from 'rxjs/operators';
 import { Cart } from '@shop/models/cart';
 import { EmailJSResponseStatus } from 'emailjs-com';
 import { EmailService } from '@shop/services/email.service';
@@ -9,7 +9,6 @@ import { UserContacts } from '@shop/models/user-contacts';
 import { DialogService } from '@shop/services/dialog.service';
 import { ContactsSubmit } from '@shop/models/contacts-submit';
 import { SubmitType } from '@shop/models/enums/submit-type.enum';
-import { forkJoin } from 'rxjs/internal/observable/forkJoin';
 import { Observable } from 'rxjs';
 
 @Component({

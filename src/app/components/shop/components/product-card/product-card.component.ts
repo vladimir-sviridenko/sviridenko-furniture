@@ -9,7 +9,7 @@ import { DialogService } from '@shop/services/dialog.service';
 import { ContactsSubmit } from '@shop/models/contacts-submit';
 import { SubmitType } from '@shop/models/enums/submit-type.enum';
 import { Observable } from 'rxjs';
-import { ShopFacadeService } from '@store/facades/shop.facade';
+import { ProductsTableFacadeService } from '@store/facades/productsTable.facade';
 
 @Component({
 	selector: 'app-product-card',
@@ -27,7 +27,7 @@ export class ProductCardComponent {
 
 	constructor(private emailService: EmailService,
 		private cartFacadeService: CartFacadeService,
-		public shopFacadeService: ShopFacadeService,
+		public productsTableFacadeService: ProductsTableFacadeService,
 		public dialogService: DialogService) { }
 
 	public addProductToCart(): void {

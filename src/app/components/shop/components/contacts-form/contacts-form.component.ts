@@ -1,4 +1,4 @@
-import { Component, Inject, ChangeDetectionStrategy, OnInit, HostListener } from '@angular/core';
+import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserContacts } from '@shop/models/user-contacts';
@@ -10,7 +10,6 @@ import { EmailJSResponseStatus } from 'emailjs-com';
 import { take, tap, switchMap, takeUntil } from 'rxjs/operators';
 import { RecaptchaService } from 'src/app/services/recaptcha.service';
 import { RecaptchaComponent } from 'ng-recaptcha';
-import { PlatformLocation } from '@angular/common';
 
 @Component({
 	selector: 'app-contacts-form',
@@ -39,8 +38,7 @@ export class ContactsFormComponent {
 
 	constructor(private dialogRef: MatDialogRef<ContactsFormComponent>,
 		private recaptchaService: RecaptchaService,
-		@Inject(MAT_DIALOG_DATA) public contactsSubmit: ContactsSubmit,
-		private location: PlatformLocation) { }
+		@Inject(MAT_DIALOG_DATA) public contactsSubmit: ContactsSubmit) { }
 
 	private resetFormState(): void {
 		this.dialogRef.disableClose = false;
@@ -84,17 +82,18 @@ export class ContactsFormComponent {
 		this.contactsSubmit.method(this.userContacts)
 			.pipe(
 				take(1),
-				takeUntil(this.dialogRef.afterClosed())
+				takeUntil(this.dialogRef.afterClosed()),
+				tap(() => {
+					document.body.classList.remove('waiting');
+				})
 			)
 			.subscribe(
 				(response: EmailJSResponseStatus) => {
 					const submitStatus: SubmitStatus = { success: true, submitType };
-					document.body.classList.remove('waiting');
 					this.dialogRef.close(submitStatus);
 				},
 				(error: EmailJSResponseStatus) => {
 					const submitStatus: SubmitStatus = { success: false, submitType };
-					document.body.classList.remove('waiting');
 					this.dialogRef.close(submitStatus);
 				}
 			);

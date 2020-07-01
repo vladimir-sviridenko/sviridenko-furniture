@@ -23,7 +23,7 @@ export class DialogService {
 		private breakpointObserver: BreakpointObserver,
 		private cartFacadeService: CartFacadeService) { }
 
-	private get mobileLayoutChange$(): Observable<BreakpointState> {
+	private get onMobileResize$(): Observable<BreakpointState> {
 		return this.breakpointObserver.observe([
 			'(min-width: 600px)',
 		]);
@@ -33,6 +33,7 @@ export class DialogService {
 		const dialogRef: MatDialogRef<ContactsFormComponent> = this.dialog.open(ContactsFormComponent, {
 			width: '320px',
 			scrollStrategy: this.overlay.scrollStrategies.noop(),
+			restoreFocus: false,
 			data: contactsSubmit,
 			maxHeight: '90vh',
 			maxWidth: '95vw'
@@ -72,19 +73,20 @@ export class DialogService {
 		const dialogRef: MatDialogRef<ContactsComponent> = this.dialog.open(ContactsComponent, {
 			width: '270px',
 			scrollStrategy: this.overlay.scrollStrategies.noop(),
+			restoreFocus: false,
 			autoFocus: false,
 			panelClass: 'dialog__contacts',
 			maxHeight: '90vh'
 		});
 
-		this.mobileLayoutChange$.pipe(take(2), last(), takeUntil(dialogRef.afterClosed())).subscribe(() => {
+		this.onMobileResize$.pipe(take(2), last(), takeUntil(dialogRef.afterClosed())).subscribe(() => {
 			dialogRef.close();
 		});
 	}
 
 	public openPhoto(photoUrl: PhotoUrl): void {
 		let isDesktop: boolean;
-		this.mobileLayoutChange$.pipe(take(1)).subscribe((breakpointState: BreakpointState) => {
+		this.onMobileResize$.pipe(take(1)).subscribe((breakpointState: BreakpointState) => {
 			isDesktop = breakpointState.matches;
 		});
 
@@ -92,6 +94,7 @@ export class DialogService {
 			scrollStrategy: this.overlay.scrollStrategies.noop(),
 			panelClass: 'dialog__full-photo',
 			backdropClass: 'dialog__full-photo-background',
+			restoreFocus: false,
 			maxHeight: '90vh',
 			maxWidth: '90vw',
 			data: isDesktop ? photoUrl.high : photoUrl.low,

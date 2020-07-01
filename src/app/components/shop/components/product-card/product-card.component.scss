@@ -1,39 +1,17 @@
 @import "variables";
 
-:host {
-  display: flex;
-  width: 85%;
-  @media screen and (min-width: map-get($breakpoints, mobile-portrait)) {
-    width: 50%;
-  }
-  @media screen and (min-width: map-get($breakpoints, mobile)) {
-    width: 33.3%;
-  }
-  @media screen and (min-width: map-get($breakpoints, tablet)) {
-    width: 25%;
-  }
-  @media screen and (min-width: map-get($breakpoints, laptop)) {
-    width: 20%;
-  }
-  @media screen and (min-width: map-get($breakpoints, desktop)) {
-    width: 16.66%;
-  }
-}
-
 .product-card {
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin: 8px;
-  margin-bottom: 10px;
   overflow: hidden;
-	
+
   &_priceless {
     padding-right: 10px;
-		padding-left: 10px;
-		& .product-card__image-container {
-			height: 100%;
-		}
+    padding-left: 10px;
+    & .product-card__image-container {
+      height: 100%;
+    }
   }
 
   &__image-container {
@@ -99,20 +77,13 @@
   }
 }
 
-@media screen and (max-width: map-get($breakpoints, tablet-portrait) - 1px) {
-  .product-card {
-    padding-right: 10px;
-    padding-left: 10px;
-  }
-}
-
 @media screen and (max-width: map-get($breakpoints, mobile-portrait)) {
   .product-card {
     &__image-container {
       align-self: center;
       max-width: 300px;
-      max-height: 300px;
-      margin: 10px;
+			max-height: 300px;
+			
       &_priceless {
         max-width: unset;
       }

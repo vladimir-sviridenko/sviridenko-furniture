@@ -1,10 +1,9 @@
-import { Component, AfterViewInit, ViewChild, OnDestroy, ChangeDetectionStrategy, OnInit } from '@angular/core';
-import { ShopFacadeService } from '@store/facades/shop.facade';
+import { Component, OnDestroy, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { ProductsTableFacadeService } from '@store/facades/productsTable.facade';
 import { Album } from '@shop/models/album';
-import { PageEvent, MatPaginator } from '@angular/material/paginator';
-import { take, filter, delay, takeUntil, map } from 'rxjs/operators';
+import { take, filter, takeUntil } from 'rxjs/operators';
 import { Product } from '@shop/models/product';
-import { Subject, Observable, BehaviorSubject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
@@ -24,7 +23,7 @@ export class PaginatorComponent implements OnInit, OnDestroy {
 
 	public unsubscriber$: Subject<void> = new Subject();
 
-	constructor(public shopFacadeService: ShopFacadeService, public router: ActivatedRoute) { }
+	constructor(public productsTableFacadeService: ProductsTableFacadeService, public router: ActivatedRoute) { }
 
 	private initPaginatorButtons(): void {
 		const pagesQuantity: number = Math.ceil(this.productsFullList.length / this.pageSize);
@@ -36,7 +35,7 @@ export class PaginatorComponent implements OnInit, OnDestroy {
 	}
 
 	public ngOnInit(): void {
-		this.shopFacadeService.currentAlbum$
+		this.productsTableFacadeService.tableAlbum$
 			.pipe(
 				filter((album: Album) => Boolean(album)),
 				takeUntil(this.unsubscriber$)
@@ -58,7 +57,7 @@ export class PaginatorComponent implements OnInit, OnDestroy {
 			const lastProductIndex: number = firstProductIndex + this.pageSize;
 			const paginatedProducts: Product[] = this.productsFullList.slice(firstProductIndex, lastProductIndex);
 			this.initPaginatorButtons();
-			this.shopFacadeService.changeCurrentProducts(paginatedProducts);
+			this.productsTableFacadeService.changeTableProducts(paginatedProducts);
 		}
 	}
 

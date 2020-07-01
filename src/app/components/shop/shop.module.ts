@@ -3,14 +3,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
-import { MaterialModules } from '../../ui/material/material.modules';
+import { MaterialModules } from '../ui/material/material.modules';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 // Store
 import { reducers } from '@store/.';
-import { ShopEffects } from '@store/effects/shop.effects';
+import { ProductsTableEffects } from '@store/effects/productsTable.effects';
 // Routing
 import { ShopRoutingModule } from './shop-routing.module';
 // Components
@@ -37,8 +37,6 @@ import { LocalStorageService } from './services/local-storage.service';
 import { ProductsOptionsService } from 'src/app/components/shop/services/products-options.service';
 // Pipes
 import { SizePipe } from 'src/app/components/shop/pipes/size/size.pipe';
-// Directives
-import { HideUntilImagesLoadedDirective } from './directives/hide-until-images-loaded.directive';
 // Guards
 import { CanOpenProductGuard } from 'src/app/components/shop/guards/can-open-product/can-open-product.guard';
 import { CanCloseProductsTableGuard } from './guards/can-close-products-table/can-close-products-table.guard';
@@ -64,7 +62,6 @@ import { CanOpenProductsTableGuard } from './guards/can-open-products-table/can-
 		FullPhotoComponent,
 		HomePageComponent,
 		SizePipe,
-		HideUntilImagesLoadedDirective,
 		NotFoundComponent,
 		PaginatorComponent
 	],
@@ -77,7 +74,7 @@ import { CanOpenProductsTableGuard } from './guards/can-open-products-table/can-
 		...MaterialModules,
 		StoreModule.forRoot(reducers),
 		StoreRouterConnectingModule.forRoot(),
-		EffectsModule.forRoot([ShopEffects]),
+		EffectsModule.forRoot([ProductsTableEffects]),
 		StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
 	],
 	providers: [

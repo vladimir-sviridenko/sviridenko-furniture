@@ -1,69 +1,71 @@
-<div class="product-page" *ngIf="!(this.shopFacadeService.isShopLoading$ | async)">
-	<div class="product-page__image-card">
-		<button mat-mini-fab class="product-page__button product-page__button_back"
-				aria-label="Go back"
-				title="Назад"
-				(click)="location.back()">
-			<mat-icon>arrow_back</mat-icon>
-		</button>
-		<mat-card class="product-page__image">
-			<app-lazy-image [title]="product.name" [src]="photoUrl"></app-lazy-image>
-		</mat-card>
-		<button mat-stroked-button class="product-page__button product-page__button_update-photo"
-				color="primary"
-				[disabled]="photoUrl === product.photoUrl.high"
-				[disableRipple]="true"
-				(click)="photoUrl = product.photoUrl.high">
-			Показать фото продукта
-		</button>
-	</div>
-	<div class="product-page__options-card-container">
-		<mat-card class="product-page__options-card">
-			<app-product-options
-				*ngIf="product.options.length > 0"
-				[optionAlbums]="product.options"
-				(check)="photoUrl = $event">
-			</app-product-options>
-		</mat-card>
-	</div>
-	<mat-card class="product-page__total-card">
-		<mat-card-title class="product-page__name">
-			<span>{{product.name}}</span>
-		</mat-card-title>
-		<mat-card-content>
-			<table class="product-page__table">
-				<ng-container *ngIf="product.size">
-					<tr>
-						<td>Высота:</td>
-						<td>{{product.size.height}} см</td>
-					</tr>
-					<tr>
-						<td>Ширина:</td>
-						<td>{{product.size.width}} см</td>
-					</tr>
-					<tr>
-						<td>Глубина:</td>
-						<td>{{product.size.depth}} см</td>
-					</tr>
-				</ng-container>
-				<tr *ngFor="let selectedOption of productFacadeService.selectedOptions$ | async">
-					<td>{{selectedOption.type}}: </td>
-					<td>{{selectedOption.option.name}}</td>
-				</tr>
-			</table>
-		</mat-card-content>
-		<mat-card-title class="product-page__price">
-			<span>Итого: </span> 
-			<span>{{(productFacadeService.totalPrice$ | async) | currency:"RUB":"code":"4.0":"ru"}}</span>
-		</mat-card-title>
-		<mat-card-actions class="product-page__actions">
-			<button mat-flat-button  
-					class="product-page__button"  
-					*ngIf="product.price" 
-					color="primary"
-					(click)="addProductToCart()">
-				В корзину
+<div class="product-page" *ngIf="!(this.productsTableFacadeService.isTableLoading$ | async)">
+	<div class="product-page__container">
+		<div class="product-page__image-container">
+			<button mat-mini-fab class="product-page__button product-page__button_back"
+					aria-label="Go back"
+					title="Назад"
+					(click)="location.back()">
+				<mat-icon>arrow_back</mat-icon>
 			</button>
-		</mat-card-actions>
-	</mat-card>
+			<mat-card class="product-page__image-card">
+				<app-lazy-image [title]="product.name" [src]="photoUrl"></app-lazy-image>
+			</mat-card>
+			<button mat-stroked-button class="product-page__button product-page__button_update-photo"
+					color="primary"
+					[disabled]="photoUrl === product.photoUrl.high"
+					[disableRipple]="true"
+					(click)="photoUrl = product.photoUrl.high">
+				Показать фото продукта
+			</button>
+		</div>
+		<div class="product-page__options-card-container">
+			<mat-card class="product-page__options-card">
+				<app-product-options
+					*ngIf="product.options.length > 0"
+					[optionAlbums]="product.options"
+					(checkedPhoto)="photoUrl = $event">
+				</app-product-options>
+			</mat-card>
+		</div>
+		<mat-card class="product-page__total-card">
+			<mat-card-title class="product-page__name">
+				<span>{{product.name}}</span>
+			</mat-card-title>
+			<mat-card-content>
+				<table class="product-page__table">
+					<ng-container *ngIf="product.size">
+						<tr>
+							<td>Высота:</td>
+							<td>{{product.size.height}} см</td>
+						</tr>
+						<tr>
+							<td>Ширина:</td>
+							<td>{{product.size.width}} см</td>
+						</tr>
+						<tr>
+							<td>Глубина:</td>
+							<td>{{product.size.depth}} см</td>
+						</tr>
+					</ng-container>
+					<tr *ngFor="let selectedOption of productPageFacadeService.selectedOptions$ | async">
+						<td>{{selectedOption.type}}: </td>
+						<td>{{selectedOption.option.name}}</td>
+					</tr>
+				</table>
+			</mat-card-content>
+			<mat-card-title class="product-page__price">
+				<span>Итого: </span> 
+				<span>{{(productPageFacadeService.totalPrice$ | async) | currency:"RUB":"code":"4.0":"ru"}}</span>
+			</mat-card-title>
+			<mat-card-actions class="product-page__actions">
+				<button mat-flat-button  
+						class="product-page__button"  
+						*ngIf="product.price" 
+						color="primary"
+						(click)="addProductToCart()">
+					В корзину
+				</button>
+			</mat-card-actions>
+		</mat-card>
+	</div>
 </div>

@@ -1,11 +1,11 @@
-<div class="paginator" *ngIf="(shopFacadeService.currentAlbum$ | async)">
+<div class="paginator" *ngIf="(productsTableFacadeService.tableAlbum$ | async)">
 	<div class="paginator__buttons">
 		<button mat-mini-fab	class="paginator__button"
-				*ngFor="let pageIndex of pageIndexes" 
+				*ngFor="let pageIndex of pageIndexes"
 				[class.paginator__button_checked]="isCurrentPageIndex(pageIndex)"
 				[title]="isCurrentPageIndex(pageIndex) ? 'Текущая страница' : 'Страница ' + (pageIndex + 1)"
 				[color]="isCurrentPageIndex(pageIndex) ? 'accent' : 'primary'"
-				[routerLink]="['/shop', (shopFacadeService.currentAlbum$ | async).id]" [queryParams]="{ page: pageIndex + 1 }">
+				[routerLink]="['/shop', (productsTableFacadeService.tableAlbum$ | async).id]" [queryParams]="{ page: pageIndex + 1 }">
 			{{pageIndex + 1}}
 		</button>
 	</div>
