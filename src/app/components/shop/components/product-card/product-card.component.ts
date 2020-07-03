@@ -36,7 +36,7 @@ export class ProductCardComponent {
 	}
 
 	public openRequestCallDialog(): void {
-		const submitMethod: (contacts: UserContacts) => Observable<EmailJSResponseStatus> = (contacts: UserContacts) => {
+		const submitMethod: (contacts: UserContacts) => Observable<string> = (contacts: UserContacts) => {
 			return this.emailService.sendCallRequest.call(this.emailService, contacts, this.product.photoUrl.low);
 		};
 		const contactsSubmit: ContactsSubmit = {

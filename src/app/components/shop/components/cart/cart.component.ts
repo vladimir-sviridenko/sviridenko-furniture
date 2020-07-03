@@ -32,7 +32,7 @@ export class CartComponent {
 				currentCart = cart;
 			});
 
-		const submitMethod: (contacts: UserContacts) => Observable<EmailJSResponseStatus> = (contacts: UserContacts) => {
+		const submitMethod: (contacts: UserContacts) => Observable<string> = (contacts: UserContacts) => {
 			return this.emailService.sendOrder.call(this.emailService, contacts, currentCart)
 				.pipe(
 					switchMap(() => this.emailService.sendOrderConfirmation.call(this.emailService, contacts, currentCart))

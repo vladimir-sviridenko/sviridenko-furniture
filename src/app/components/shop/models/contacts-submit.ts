@@ -5,5 +5,5 @@ import { Observable } from 'rxjs';
 
 export interface ContactsSubmit {
 	type: SubmitType;
-	method: (contacts: UserContacts) => Observable<EmailJSResponseStatus>;
+	method: (contacts: UserContacts) => Observable<string>;
 }

@@ -1,6 +1,5 @@
 export interface EmailParams {
 	subject: string;
-	sendTo: string;
-	sendCopyTo: string;
-	htmlMessage: string;
+	send_to: string;
+	html_message: string;
 }

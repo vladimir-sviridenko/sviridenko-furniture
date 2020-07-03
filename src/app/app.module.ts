@@ -10,7 +10,6 @@ import { AppComponent } from './app.component';
 import { ErrorComponent } from './components/error/error.component';
 // Guards
 import { CanOpenErrorPageGuard } from 'src/app/guards/can-open-error-page/can-open-error-page.guard';
-import { RecaptchaService } from './services/recaptcha.service';
 // Intercaptors
 import { GlobalErrorHandler } from './interceptors/global-error-handler/global-error-handler';
 
@@ -39,7 +38,6 @@ import { GlobalErrorHandler } from './interceptors/global-error-handler/global-e
 			provide: RECAPTCHA_LANGUAGE,
 			useValue: 'ru',
 		},
-		RecaptchaService,
 		CanOpenErrorPageGuard
 	],
 	bootstrap: [AppComponent]
