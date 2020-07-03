@@ -7,61 +7,30 @@ import { Cart } from '@shop/models/cart';
 import { HTMLGeneratorService } from './html-generator.service';
 import { RecaptchaService } from 'src/app/services/recaptcha.service';
 import { RecaptchaComponent } from 'ng-recaptcha';
-import { take, filter, switchMap, tap } from 'rxjs/operators';
-import { Observable, from } from 'rxjs';
+import { take, filter, switchMap, tap, catchError } from 'rxjs/operators';
+import { Observable, from, of } from 'rxjs';
 import { EmailTemplate } from '@shop/models/enums/email-template.enum';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class EmailService {
 
-	private serviceId: string = 'gmail';
-	private userId: string = 'user_QZnzCIxRa5wxvW6sLg46x';
 	private sendTo: string = Email.Developer;
-	private sendCopyTo: string = '';
+	private sendCopyTo: string = 'vladimirsviridenko1998@gmail.com';
 
-	private recaptcha: RecaptchaComponent;
+	constructor(private htmlGenerator: HTMLGeneratorService, private http: HttpClient) {}
 
-	constructor(private htmlGenerator: HTMLGeneratorService, private recaptchaService: RecaptchaService) {
-		this.recaptchaService.recaptcha$
-			.pipe(
-				filter((recaptcha: RecaptchaComponent) => Boolean(recaptcha)),
-				take(1)
-			)
-			.subscribe((recaptcha: RecaptchaComponent) => {
-				this.recaptcha = recaptcha;
-			});
+	public sendEmail(emailParams: EmailParams): Observable<string> {
+		const headers: HttpHeaders = new HttpHeaders();
+		headers.set('Content-Type', 'application/json');
+		this.http.post('/api/send-email', { subject: emailParams.subject, send_to: emailParams.sendTo, send_copy_to: this.sendCopyTo, html_message: '<html><body>'+emailParams.htmlMessage+ '</body></html>'}, { headers }).subscribe((response) => {
+			console.log(response);
+		});
+
+		return of('1');
 	}
 
-	public sendEmail(emailParams: EmailParams): Observable<EmailJSResponseStatus> {
-		return from(emailjs.send(this.serviceId, EmailTemplate.NoCaptcha, emailParams, this.userId));
-	}
-
-	public sendRecaptchedEmail(emailParams: EmailParams): Observable<EmailJSResponseStatus> {
-		this.recaptcha.execute();
-		this.recaptchaService.isRecaptchaExecuting$.next(true);
-		this.setRecaptchaStyles();
-		return this.recaptcha.resolved.pipe(
-			take(1),
-			switchMap(() => {
-				return from(emailjs.send(this.serviceId, EmailTemplate.Main, emailParams, this.userId));
-			}),
-			tap(() => this.recaptcha.reset())
-		);
-	}
-
-	public setRecaptchaStyles(): void {
-		const recaptchaIframe: HTMLElement = document.querySelector('iframe[title="recaptcha challenge"]');
-		if (recaptchaIframe) {
-			const recaptchaContainer: HTMLElement = recaptchaIframe.parentElement;
-			recaptchaContainer.classList.add('recaptcha__challenge-container');
-			const overlay: HTMLElement = recaptchaContainer.previousElementSibling as HTMLElement;
-			overlay.onclick = () => {
-				this.recaptchaService.isRecaptchaCanceled$.next();
-			};
-		}
-	}
-
-	public sendErrorMessage(error: Error): Observable<EmailJSResponseStatus> {
+	public sendErrorMessage(error: Error): Observable<string> {
 		const htmlMessage: string = this.htmlGenerator.getErrorHtml(error).outerHTML;
 		const emailParams: EmailParams = {
 			subject: 'Uncaught Error!',
@@ -72,7 +41,7 @@ export class EmailService {
 		return this.sendEmail(emailParams);
 	}
 
-	public sendCallRequest(user: UserContacts, targetPhotoUrl: string): Observable<EmailJSResponseStatus> {
+	public sendCallRequest(user: UserContacts, targetPhotoUrl: string): Observable<string> {
 		const htmlMessage: string = this.htmlGenerator.getRequestCallMessageHtml(user, targetPhotoUrl).outerHTML;
 		const emailParams: EmailParams = {
 			subject: 'Клиент запросил звонок!',
@@ -80,10 +49,10 @@ export class EmailService {
 			sendCopyTo: this.sendCopyTo,
 			htmlMessage
 		};
-		return this.sendRecaptchedEmail(emailParams);
+		return this.sendEmail(emailParams);
 	}
 
-	public sendOrderConfirmation(user: UserContacts, cart: Cart): Observable<EmailJSResponseStatus> {
+	public sendOrderConfirmation(user: UserContacts, cart: Cart): Observable<string> {
 		const htmlMessage: string = this.htmlGenerator.getOrderConfirmationMessageHtml(cart).outerHTML;
 		const emailParams: EmailParams = {
 			subject: 'Ваш заказ мебели',
@@ -91,10 +60,10 @@ export class EmailService {
 			sendCopyTo: this.sendCopyTo,
 			htmlMessage
 		};
-		return this.sendRecaptchedEmail(emailParams);
+		return this.sendEmail(emailParams);
 	}
 
-	public sendOrder(user: UserContacts, cart: Cart): Observable<EmailJSResponseStatus> {
+	public sendOrder(user: UserContacts, cart: Cart): Observable<string> {
 		const htmlMessage: string = this.htmlGenerator.getOrderMessageHtml(user, cart).outerHTML;
 		const emailParams: EmailParams = {
 			subject: 'Новый заказ!',
@@ -102,6 +71,6 @@ export class EmailService {
 			sendCopyTo: this.sendCopyTo,
 			htmlMessage
 		};
-		return this.sendRecaptchedEmail(emailParams);
+		return this.sendEmail(emailParams);
 	}
 }
