@@ -7,7 +7,7 @@ import { SubmitType } from '@shop/models/enums/submit-type.enum';
 import { SubmitStatus } from '@shop/models/submit-status';
 import { ContactsSubmit } from '@shop/models/contacts-submit';
 import { EmailJSResponseStatus } from 'emailjs-com';
-import { take, tap, switchMap, takeUntil } from 'rxjs/operators';
+import { take, tap, switchMap, takeUntil, finalize } from 'rxjs/operators';
 import { RecaptchaService } from 'src/app/services/recaptcha.service';
 import { RecaptchaComponent } from 'ng-recaptcha';
 
@@ -83,7 +83,7 @@ export class ContactsFormComponent {
 			.pipe(
 				take(1),
 				takeUntil(this.dialogRef.afterClosed()),
-				tap(() => {
+				finalize(() => {
 					document.body.classList.remove('waiting');
 				})
 			)

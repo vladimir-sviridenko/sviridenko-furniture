@@ -5,12 +5,15 @@ import { CartProduct } from '@shop/models/cart-product';
 import { SelectedOption } from '@shop/models/selected-option';
 import { Option } from '@shop/models/option';
 import { Injectable } from '@angular/core';
+import { SizePipe } from '@shop/pipes/size/size.pipe';
 
 @Injectable()
 export class HTMLGeneratorService {
 
 	private containerStyle: string = 'padding:12px 15px;background:#f5f5f5;font-size:14px;color:#333';
 	private baseHref: string = 'https://sviridenkofurniture.web.app/';
+
+	constructor(private sizePipe: SizePipe) { }
 
 	private getTwoColumnsTableHtml(tableContent: Map<string, string>): HTMLTableElement {
 		const table: HTMLTableElement = document.createElement('table');
@@ -41,9 +44,7 @@ export class HTMLGeneratorService {
 	private getProductDescriptionHtml(cartProduct: CartProduct): HTMLTableElement {
 		const tableContent: Map<string, string> = new Map([
 			['Название: ', cartProduct.product.name],
-			['Высота: ', cartProduct.product.size.height.toString()],
-			['Ширина: ', cartProduct.product.size.width.toString()],
-			['Глубина: ', cartProduct.product.size.depth.toString()]
+			['Размер: ', this.sizePipe.transform(cartProduct.product.size)]
 		]);
 		cartProduct.selectedOptions.forEach((selectedOption: SelectedOption) => {
 			const option: Option = selectedOption.option;
