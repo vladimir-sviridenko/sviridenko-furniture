@@ -10,6 +10,7 @@ import { DialogService } from '@shop/services/dialog.service';
 import { ContactsSubmit } from '@shop/models/contacts-submit';
 import { SubmitType } from '@shop/models/enums/submit-type.enum';
 import { Observable } from 'rxjs';
+import { ConfirmDialogText } from '@shop/models/confirm-dialog';
 
 @Component({
 	selector: 'app-cart',
@@ -24,6 +25,20 @@ export class CartComponent {
 	constructor(private dialogService: DialogService,
 		private emailService: EmailService,
 		public cartFacadeService: CartFacadeService) { }
+
+	public onCartClear(): void {
+		const confirmDialogText: ConfirmDialogText = {
+			question: 'Очистить корзину?',
+			confirm: 'Очистить',
+			cancel: 'Отмена'
+		};
+		this.dialogService.openConfirmDialog(confirmDialogText)
+			.subscribe((confirmed: boolean) => {
+				if (confirmed) {
+					this.cartFacadeService.clearCart();
+				}
+			});
+	}
 
 	public openMakeOrderDialog(): void {
 		let currentCart: Cart;

@@ -13,6 +13,8 @@ import { FullPhotoComponent } from '@shop/components/full-photo/full-photo.compo
 import { SubmitStatus } from '@shop/models/submit-status';
 import { ContactsSubmit } from '@shop/models/contacts-submit';
 import { SubmitType } from '@shop/models/enums/submit-type.enum';
+import { ConfirmDialogComponent } from '@shop/components/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogText } from '@shop/models/confirm-dialog';
 
 @Injectable()
 export class DialogService {
@@ -27,6 +29,20 @@ export class DialogService {
 		return this.breakpointObserver.observe([
 			'(min-width: 600px)',
 		]);
+	}
+
+	public openConfirmDialog(dialogText: ConfirmDialogText): Observable<boolean> {
+		const dialogRef: MatDialogRef<ConfirmDialogComponent> = this.dialog.open(ConfirmDialogComponent, {
+			width: '250px',
+			scrollStrategy: this.overlay.scrollStrategies.noop(),
+			restoreFocus: false,
+			autoFocus: false,
+			data: dialogText,
+			maxHeight: '90vh',
+			maxWidth: '95vw'
+		});
+
+		return dialogRef.afterClosed().pipe(take(1));
 	}
 
 	public openContactsForm(contactsSubmit: ContactsSubmit): void {
@@ -75,7 +91,7 @@ export class DialogService {
 			scrollStrategy: this.overlay.scrollStrategies.noop(),
 			restoreFocus: false,
 			autoFocus: false,
-			panelClass: 'dialog__contacts',
+			panelClass: 'dialog_contacts',
 			maxHeight: '90vh'
 		});
 
@@ -92,8 +108,8 @@ export class DialogService {
 
 		this.dialog.open(FullPhotoComponent, {
 			scrollStrategy: this.overlay.scrollStrategies.noop(),
-			panelClass: 'dialog__full-photo',
-			backdropClass: 'dialog__full-photo-background',
+			panelClass: 'dialog_full-photo',
+			backdropClass: 'dialog_full-photo-background',
 			restoreFocus: false,
 			maxHeight: '90vh',
 			maxWidth: '90vw',

@@ -27,6 +27,8 @@ import { HomePageComponent } from './components/home-page/home-page.component';
 import { ProductPageComponent } from './components/product-page/product-page.component';
 import { ProductsTableComponent } from './components/products-table/products-table.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { PaginatorComponent } from './components/paginator/paginator.component';
 // Services
 import { GalleryService } from './services/gallery.service';
 import { ProductsService } from 'src/app/components/shop/services/products.service';
@@ -41,11 +43,10 @@ import { SizePipe } from 'src/app/components/shop/pipes/size/size.pipe';
 import { CanOpenProductGuard } from 'src/app/components/shop/guards/can-open-product/can-open-product.guard';
 import { CanCloseProductsTableGuard } from './guards/can-close-products-table/can-close-products-table.guard';
 import { CanCloseProductPageGuard } from './guards/can-close-product-page/can-close-product-page.guard';
+import { CanOpenProductsTableGuard } from './guards/can-open-products-table/can-open-products-table.guard';
 // Other
 import ru from '@angular/common/locales/ru';
 import { environment } from 'src/environments/environment';
-import { PaginatorComponent } from './components/paginator/paginator.component';
-import { CanOpenProductsTableGuard } from './guards/can-open-products-table/can-open-products-table.guard';
 
 @NgModule({
 	declarations: [
@@ -63,7 +64,8 @@ import { CanOpenProductsTableGuard } from './guards/can-open-products-table/can-
 		HomePageComponent,
 		SizePipe,
 		NotFoundComponent,
-		PaginatorComponent
+		PaginatorComponent,
+		ConfirmDialogComponent
 	],
 	imports: [
 		CommonModule,

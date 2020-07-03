@@ -1,25 +1,25 @@
 @import "variables";
 
 .dialog {
-  &__full-photo-background {
+  &_full-photo-background {
     background-color: $background-color-dark;
   }
 
-  &__full-photo {
+  &_full-photo {
     & .mat-dialog-container {
       padding: 0;
       overflow: hidden;
     }
   }
 
-  &__contacts {
+  &_contacts {
     display: none;
   }
 }
 
 @media screen and (max-width: map-get($breakpoints, mobile) - 1) {
   .dialog {
-    &__contacts {
+    &_contacts {
       display: block;
       & .mat-dialog-container {
         position: relative;
