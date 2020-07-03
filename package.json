@@ -7,7 +7,7 @@
     "start:host": "sudo ng serve --host 192.168.100.3",
 		"build:gh-pages": "sudo ng build --prod --base-href https://vladimir-sviridenko.github.io/sviridenko-furniture/",
 		"deploy:gh-pages": "sudo ngh --dir=dist/sviridenko-furniture",
-		"build:firabase": "sudo ng build --prod --base-href https://sviridenkofurniture.web.app/",
+		"build:firebase": "sudo ng build --prod --base-href https://sviridenkofurniture.web.app/",
 		"deploy:firebase": "sudo firebase deploy",
     "build": "ng build",
     "test": "ng test",
