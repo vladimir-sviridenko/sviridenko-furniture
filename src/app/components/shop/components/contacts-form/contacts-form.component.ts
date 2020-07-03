@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 import { SubmitType } from '@shop/models/enums/submit-type.enum';
 import { SubmitStatus } from '@shop/models/submit-status';
 import { ContactsSubmit } from '@shop/models/contacts-submit';
-import { take, tap, takeUntil } from 'rxjs/operators';
+import { take, tap, takeUntil, delay, finalize } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-contacts-form',
@@ -38,26 +38,29 @@ export class ContactsFormComponent {
 
 	private resetFormState(): void {
 		this.dialogRef.disableClose = false;
-		this.isLoading = false;
 		document.body.classList.remove('waiting');
+		this.isLoading = false;
+		this.contactsForm.enable();
 		this.formTitle$.next('Ваши контакты');
 	}
 
-	private infromUserAboutSubmitState(): void {
+	private disableForm(): void {
+		this.dialogRef.disableClose = true;
 		document.body.classList.add('waiting');
+		this.isLoading = true;
 		this.contactsForm.disable();
 		this.formTitle$.next('Отправка запроса...');
 	}
 
 	public submitForm(): void {
-		this.infromUserAboutSubmitState();
+		this.disableForm();
 		const submitType: SubmitType = this.contactsSubmit.type;
 
 		this.contactsSubmit.method(this.userContacts)
 			.pipe(
 				take(1),
 				takeUntil(this.dialogRef.afterClosed()),
-				tap(() => {
+				finalize(() => {
 					document.body.classList.remove('waiting');
 				})
 			)

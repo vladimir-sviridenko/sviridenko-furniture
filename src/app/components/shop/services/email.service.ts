@@ -4,7 +4,7 @@ import { EmailParams } from '@shop/models/email-params';
 import { UserContacts } from '@shop/models/user-contacts';
 import { Cart } from '@shop/models/cart';
 import { HTMLGeneratorService } from './html-generator.service';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
