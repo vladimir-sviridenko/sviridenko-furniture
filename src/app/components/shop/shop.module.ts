@@ -78,6 +78,7 @@ import { CanOpenProductsTableGuard } from './guards/can-open-products-table/can-
 		StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
 	],
 	providers: [
+		SizePipe,
 		GalleryService,
 		ProductsService,
 		ProductsOptionsService,
