@@ -2,7 +2,6 @@ import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from 
 import { Product } from '@shop/models/product';
 import { CartFacadeService } from '@store/facades/cart.facade';
 import { CartProduct } from '@shop/models/cart-product';
-import { EmailJSResponseStatus } from 'emailjs-com';
 import { UserContacts } from '@shop/models/user-contacts';
 import { EmailService } from '@shop/services/email.service';
 import { DialogService } from '@shop/services/dialog.service';
@@ -10,6 +9,7 @@ import { ContactsSubmit } from '@shop/models/contacts-submit';
 import { SubmitType } from '@shop/models/enums/submit-type.enum';
 import { Observable } from 'rxjs';
 import { ProductsTableFacadeService } from '@store/facades/productsTable.facade';
+import { SentMessageInfo } from 'nodemailer/lib/smtp-pool';
 
 @Component({
 	selector: 'app-product-card',
@@ -36,7 +36,7 @@ export class ProductCardComponent {
 	}
 
 	public openRequestCallDialog(): void {
-		const submitMethod: (contacts: UserContacts) => Observable<EmailJSResponseStatus> = (contacts: UserContacts) => {
+		const submitMethod: (contacts: UserContacts) => Observable<SentMessageInfo> = (contacts: UserContacts) => {
 			return this.emailService.sendCallRequest.call(this.emailService, contacts, this.product.photoUrl.low);
 		};
 		const contactsSubmit: ContactsSubmit = {
