@@ -8,6 +8,7 @@ import { SubmitStatus } from '@shop/models/submit-status';
 import { ContactsSubmit } from '@shop/models/contacts-submit';
 import { take, takeUntil, finalize } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
+import { SentMessageInfo } from 'nodemailer/lib/smtp-pool';
 
 @Component({
 	selector: 'app-contacts-form',
@@ -66,13 +67,11 @@ export class ContactsFormComponent {
 				})
 			)
 			.subscribe(
-				(response: string) => {
-					console.log(response)
+				(response: SentMessageInfo) => {
 					const submitStatus: SubmitStatus = { success: true, submitType };
 					this.dialogRef.close(submitStatus);
 				},
-				(error: HttpErrorResponse) => {
-					console.log(error)
+				(error: HttpErrorResponse | Error) => {
 					const submitStatus: SubmitStatus = { success: false, submitType };
 					this.dialogRef.close(submitStatus);
 				}
