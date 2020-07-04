@@ -2,14 +2,13 @@ import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserContacts } from '@shop/models/user-contacts';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { SubmitType } from '@shop/models/enums/submit-type.enum';
 import { SubmitStatus } from '@shop/models/submit-status';
 import { ContactsSubmit } from '@shop/models/contacts-submit';
-import { EmailJSResponseStatus } from 'emailjs-com';
-import { take, tap, switchMap, takeUntil, finalize } from 'rxjs/operators';
-import { RecaptchaService } from 'src/app/services/recaptcha.service';
-import { RecaptchaComponent } from 'ng-recaptcha';
+import { take, takeUntil, finalize } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
+import { SentMessageInfo } from 'nodemailer/lib/smtp-pool';
 
 @Component({
 	selector: 'app-contacts-form',
@@ -37,46 +36,26 @@ export class ContactsFormComponent {
 	}
 
 	constructor(private dialogRef: MatDialogRef<ContactsFormComponent>,
-		private recaptchaService: RecaptchaService,
 		@Inject(MAT_DIALOG_DATA) public contactsSubmit: ContactsSubmit) { }
 
 	private resetFormState(): void {
 		this.dialogRef.disableClose = false;
-		this.isLoading = false;
 		document.body.classList.remove('waiting');
+		this.isLoading = false;
+		this.contactsForm.enable();
 		this.formTitle$.next('Ваши контакты');
 	}
 
-	private infromUserAboutSubmitState(): void {
-		const recaptchaExecutingPreventer: Subject<void> = new Subject<void>();
-
-		this.recaptchaService.isRecaptchaCanceled$.pipe(takeUntil(this.dialogRef.afterClosed())).subscribe(() => {
-			this.resetFormState();
-			recaptchaExecutingPreventer.next();
-			recaptchaExecutingPreventer.complete();
-		});
-
-		this.recaptchaService.isRecaptchaExecuting$
-			.pipe(
-				takeUntil(this.dialogRef.afterClosed()),
-				takeUntil(recaptchaExecutingPreventer),
-				tap(() => {
-					this.dialogRef.disableClose = true;
-					this.isLoading = true;
-					this.formTitle$.next('Проверка на робота...');
-				}),
-				switchMap(() => this.recaptchaService.recaptcha$),
-				switchMap((recaptcha: RecaptchaComponent) => recaptcha.resolved),
-				tap((recaptchaKey: string) => {
-					document.body.classList.add('waiting');
-					this.contactsForm.disable();
-					this.formTitle$.next('Отправка запроса...');
-				}),
-			).subscribe();
+	private disableForm(): void {
+		this.dialogRef.disableClose = true;
+		document.body.classList.add('waiting');
+		this.isLoading = true;
+		this.contactsForm.disable();
+		this.formTitle$.next('Отправка запроса...');
 	}
 
 	public submitForm(): void {
-		this.infromUserAboutSubmitState();
+		this.disableForm();
 		const submitType: SubmitType = this.contactsSubmit.type;
 
 		this.contactsSubmit.method(this.userContacts)
@@ -88,11 +67,11 @@ export class ContactsFormComponent {
 				})
 			)
 			.subscribe(
-				(response: EmailJSResponseStatus) => {
+				(response: SentMessageInfo) => {
 					const submitStatus: SubmitStatus = { success: true, submitType };
 					this.dialogRef.close(submitStatus);
 				},
-				(error: EmailJSResponseStatus) => {
+				(error: HttpErrorResponse | Error) => {
 					const submitStatus: SubmitStatus = { success: false, submitType };
 					this.dialogRef.close(submitStatus);
 				}

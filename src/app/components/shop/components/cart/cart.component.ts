@@ -3,7 +3,6 @@ import { CartFacadeService } from '@store/facades/cart.facade';
 import { OptionType } from '@shop/models/enums/option-type.enum';
 import { take, switchMap } from 'rxjs/operators';
 import { Cart } from '@shop/models/cart';
-import { EmailJSResponseStatus } from 'emailjs-com';
 import { EmailService } from '@shop/services/email.service';
 import { UserContacts } from '@shop/models/user-contacts';
 import { DialogService } from '@shop/services/dialog.service';
@@ -11,6 +10,7 @@ import { ContactsSubmit } from '@shop/models/contacts-submit';
 import { SubmitType } from '@shop/models/enums/submit-type.enum';
 import { Observable } from 'rxjs';
 import { ConfirmDialogText } from '@shop/models/confirm-dialog';
+import { SentMessageInfo } from 'nodemailer/lib/smtp-pool';
 
 @Component({
 	selector: 'app-cart',
@@ -47,7 +47,7 @@ export class CartComponent {
 				currentCart = cart;
 			});
 
-		const submitMethod: (contacts: UserContacts) => Observable<EmailJSResponseStatus> = (contacts: UserContacts) => {
+		const submitMethod: (contacts: UserContacts) => Observable<SentMessageInfo> = (contacts: UserContacts) => {
 			return this.emailService.sendOrder.call(this.emailService, contacts, currentCart)
 				.pipe(
 					switchMap(() => this.emailService.sendOrderConfirmation.call(this.emailService, contacts, currentCart))

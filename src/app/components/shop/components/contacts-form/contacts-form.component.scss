@@ -17,7 +17,7 @@
     }
   }
 
-  &__terms {
+  &__recaptcha-terms {
     font-size: 11px;
     line-height: 14px;
     color: transparentize($color: black, $amount: 0.4);
@@ -25,14 +25,6 @@
       color: transparentize($color: #0366d6, $amount: 0.2);
       text-decoration: none;
     }
-  }
-
-  &__loader {
-    padding-top: 8px;
-  }
-
-  &__actions {
-    padding-top: 0;
   }
 }
 
