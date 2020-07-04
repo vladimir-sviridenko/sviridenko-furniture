@@ -21,7 +21,7 @@ export class EmailService {
 		const headers: HttpHeaders = new HttpHeaders();
 		headers.set('Access-Control-Allow-Origin', '*');
 		headers.set('Content-Type', 'application/json');
-		return this.http.post(`${this.apiBaseHref}/sendMail`, mailOptions, { headers }) as Observable<SentMessageInfo>;
+		return this.http.post(`${this.apiBaseHref}/sendEmail`, mailOptions, { headers }) as Observable<SentMessageInfo>;
 	}
 
 	public sendErrorMessage(error: Error): Observable<SentMessageInfo> {

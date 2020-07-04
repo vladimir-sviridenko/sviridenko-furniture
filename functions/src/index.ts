@@ -6,9 +6,7 @@ import Mail = require('nodemailer/lib/mailer');
 import { SentMessageInfo } from 'nodemailer/lib/smtp-pool';
 import { IMailOptions } from './interfaces/IMailOptions';
 
-// tslint:disable-next-line: no-var-requires
 const cors: any = require('cors')({ origin: true });
-
 admin.initializeApp();
 
 const transporter: Mail = nodemailer.createTransport({
@@ -19,16 +17,11 @@ const transporter: Mail = nodemailer.createTransport({
 	}
 });
 
-exports.sendMail = functions.https.onRequest((request: Request, response: Response) => {
+exports.sendEmail = functions.https.onRequest((request: Request, response: Response) => {
 	cors(request, response, () => {
-
 		const mailOptions: IMailOptions = request.body;
-
 		return transporter.sendMail(mailOptions, (error: Error | null, info: SentMessageInfo) => {
-			if (error !== null) {
-				return response.send(JSON.stringify(error));
-			}
-			return response.send(JSON.stringify(info));
+			return Boolean(error) ? response.status(400).send(JSON.stringify(error)) : response.send(JSON.stringify(info));
 		});
 	});
 });

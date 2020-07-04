@@ -78,7 +78,8 @@
           -1,
           0,
           1,
-					2
+					2,
+					400
       ],
       "no-misused-new": true,
       "no-non-null-assertion": false,
@@ -91,7 +92,8 @@
       "no-unnecessary-initializer": true,
       "no-unnecessary-type-assertion": false,
       "no-unused-expression": true,
-      "no-var-keyword": true,
+			"no-var-keyword": true,
+			"no-var-requires": false,
       "object-literal-key-quotes": [
           true,
           "as-needed"
