@@ -5,8 +5,8 @@ import * as nodemailer from 'nodemailer';
 import Mail = require('nodemailer/lib/mailer');
 import { SentMessageInfo } from 'nodemailer/lib/smtp-pool';
 import { IMailOptions } from './interfaces/IMailOptions';
-
 const cors: any = require('cors')({ origin: true });
+
 admin.initializeApp();
 
 const transporter: Mail = nodemailer.createTransport({
