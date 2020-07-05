@@ -38,14 +38,6 @@ export class ContactsFormComponent {
 	constructor(private dialogRef: MatDialogRef<ContactsFormComponent>,
 		@Inject(MAT_DIALOG_DATA) public contactsSubmit: ContactsSubmit) { }
 
-	private resetFormState(): void {
-		this.dialogRef.disableClose = false;
-		document.body.classList.remove('waiting');
-		this.isLoading = false;
-		this.contactsForm.enable();
-		this.formTitle$.next('Ваши контакты');
-	}
-
 	private disableForm(): void {
 		this.dialogRef.disableClose = true;
 		document.body.classList.add('waiting');
