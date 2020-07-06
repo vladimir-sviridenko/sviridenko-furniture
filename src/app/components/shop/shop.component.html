@@ -39,6 +39,6 @@
 				<mat-icon>shopping_cart</mat-icon>
 			</button>
 		</mat-toolbar>
-		<router-outlet (activate)="scrollTop()"></router-outlet>
+		<router-outlet (activate)="scrollTop(); cartFacadeService.closeCart();"></router-outlet>
 	</div>
 </div>
