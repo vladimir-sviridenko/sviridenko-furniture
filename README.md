@@ -1,8 +1,18 @@
 # SviridenkoFurniture
 
- ### Release: https://sviridenkofurniture.web.app/
+ #### Release: https://sviridenkofurniture.web.app/
 
-DevBuild https://vladimir-sviridenko.github.io/sviridenko-furniture/
+ ##### DevBuild https://vladimir-sviridenko.github.io/sviridenko-furniture/
+
+### package.json scripts
+
+Attention. Main package.json scripts include sudo command.
+
+### Dev Deploy and Release Deploy
+
+2 comands by queue to deploy:  
+DevDeploy: build:gh-pages -> deploy:gh-pages  
+Release: build:firebase -> deploy:firebase
 
 ## Angular
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.4.
