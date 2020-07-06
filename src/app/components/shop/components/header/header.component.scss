@@ -21,15 +21,15 @@
     cursor: pointer;
 
     justify-items: center;
+
+    &:focus {
+      outline: none;
+    }
   }
 
   &__logo {
     display: inline-block;
     margin-right: 10px;
-
-    &:focus {
-      outline: none;
-    }
   }
 
   &__location {
