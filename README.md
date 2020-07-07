@@ -1,8 +1,10 @@
 # SviridenkoFurniture
 
  #### Release: https://sviridenkofurniture.web.app/
-
- ##### DevBuild https://vladimir-sviridenko.github.io/sviridenko-furniture/
+  * email services: recaptcha, emailjs
+ 
+ #### DevBuild https://vladimir-sviridenko.github.io/sviridenko-furniture/
+  * email services: firebase 
 
 ### package.json scripts
 
