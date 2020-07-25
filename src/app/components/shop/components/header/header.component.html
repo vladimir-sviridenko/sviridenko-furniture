@@ -6,6 +6,7 @@
     </div>
 		<app-contacts class="header__contacts"></app-contacts>
 		<button mat-stroked-button class="header__button header__button_home"
+				[routerLink]="['/home']"
 				(click)="panel.close()"
 				aria-label="Open home page">
 			<mat-icon>home</mat-icon> 
