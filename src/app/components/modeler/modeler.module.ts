@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MaterialModules } from '../ui/material/material.modules';
-import { ModelerComponent } from './components/modeler/modeler.component';
+import { ModelerComponent } from './modeler.component';
 import { SceneComponent } from './components/scene/scene.component';
+import { ModelerRoutingModule } from './modeler-routing.module';
 
 @NgModule({
   declarations: [
@@ -10,8 +10,8 @@ import { SceneComponent } from './components/scene/scene.component';
 		SceneComponent
 	],
   imports: [
+		ModelerRoutingModule,
 		CommonModule,
-		...MaterialModules,
   ]
 })
 export class ModelerModule { }

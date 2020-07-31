@@ -10,6 +10,7 @@ export class ModelerComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+		
   }
 
 }
