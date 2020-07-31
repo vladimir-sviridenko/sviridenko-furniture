@@ -5,12 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './modeler.component.html',
   styleUrls: ['./modeler.component.scss']
 })
-export class ModelerComponent implements OnInit {
+export class ModelerComponent {
 
   constructor() { }
-
-  ngOnInit(): void {
-		
-  }
-
 }

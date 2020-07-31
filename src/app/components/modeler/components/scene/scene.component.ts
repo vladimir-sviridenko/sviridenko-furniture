@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { ThreeService } from '../../services/three.service';
 
 @Component({
-  selector: 'app-scene',
-  templateUrl: './scene.component.html',
-  styleUrls: ['./scene.component.scss']
+	selector: 'app-scene',
+	templateUrl: './scene.component.html',
+	styleUrls: ['./scene.component.scss']
 })
-export class SceneComponent implements OnInit {
+export class SceneComponent implements AfterViewInit {
 
-  constructor() { }
+	@ViewChild('sceneContainer')
+	private sceneContainer: ElementRef;
 
-  ngOnInit(): void {
-  }
+	constructor(private threeService: ThreeService) {}
 
+	public ngAfterViewInit(): void {
+		this.sceneContainer.nativeElement.appendChild(this.threeService.domElement);
+	}
 }
