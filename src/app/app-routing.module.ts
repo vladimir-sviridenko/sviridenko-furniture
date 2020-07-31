@@ -5,6 +5,10 @@ import { CanOpenErrorPageGuard } from 'src/app/guards/can-open-error-page/can-op
 
 const routes: Routes = [
 	{ path: 'error', component: ErrorComponent, canActivate: [CanOpenErrorPageGuard] },
+	{
+		path: 'modeler',
+  	loadChildren: () => import('./components/modeler/modeler.module').then((m: any) => m.ModelerModule)
+  },
 	{ path: '**', redirectTo: '404', pathMatch: 'full' }
 ];
 

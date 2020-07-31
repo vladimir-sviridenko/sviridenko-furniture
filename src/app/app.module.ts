@@ -13,6 +13,7 @@ import { CanOpenErrorPageGuard } from 'src/app/guards/can-open-error-page/can-op
 import { RecaptchaService } from './services/recaptcha.service';
 // Intercaptors
 import { GlobalErrorHandler } from './interceptors/global-error-handler/global-error-handler';
+import { SceneComponent } from './components/modeler/components/scene/scene.component';
 
 @NgModule({
 	declarations: [
