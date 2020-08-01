@@ -14,6 +14,7 @@ export class SceneComponent implements AfterViewInit {
 	constructor(private threeService: ThreeService) {}
 
 	public ngAfterViewInit(): void {
+		this.threeService.domElement.style.display = 'block';
 		this.sceneContainer.nativeElement.appendChild(this.threeService.domElement);
 	}
 }

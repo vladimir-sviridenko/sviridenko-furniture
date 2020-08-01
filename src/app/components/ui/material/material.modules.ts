@@ -1,4 +1,3 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -31,8 +30,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatBadgeModule } from '@angular/material/badge';
 
-export const MaterialModules: Array<typeof BrowserAnimationsModule> = [
-	BrowserAnimationsModule,
+export const MaterialModules: Array<typeof MatCheckboxModule> = [
 	MatCheckboxModule,
 	MatCheckboxModule,
 	MatButtonModule,

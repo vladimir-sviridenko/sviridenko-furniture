@@ -16,8 +16,9 @@
       "dom"
     ],
     "paths": {
-      "@shop/*": ["src/app/components/shop/*"],
-      "@store/*": ["src/app/store/*"]
+			"@shop/*": ["src/app/components/shop/*"],
+			"@modeler/*": ["src/app/components/modeler/*"],
+			"@store/*": ["src/app/store/*"]
     }
   },
   "angularCompilerOptions": {

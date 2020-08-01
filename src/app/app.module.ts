@@ -1,5 +1,5 @@
 // Modules
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { ShopModule } from './components/shop/shop.module';
@@ -13,7 +13,6 @@ import { CanOpenErrorPageGuard } from 'src/app/guards/can-open-error-page/can-op
 import { RecaptchaService } from './services/recaptcha.service';
 // Intercaptors
 import { GlobalErrorHandler } from './interceptors/global-error-handler/global-error-handler';
-import { SceneComponent } from './components/modeler/components/scene/scene.component';
 
 @NgModule({
 	declarations: [
@@ -21,10 +20,10 @@ import { SceneComponent } from './components/modeler/components/scene/scene.comp
 		ErrorComponent
 	],
 	imports: [
-		BrowserModule,
 		ShopModule,
 		AppRoutingModule,
 		RecaptchaModule,
+		BrowserAnimationsModule,
 		...MaterialModules,
 	],
 	providers: [
