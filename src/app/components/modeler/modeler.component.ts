@@ -14,13 +14,6 @@ export class ModelerComponent {
 	constructor(public threeService: ThreeService) { }
 
 	public onAddBoard(): void {
-		const size: Size = {
-			width: 1,
-			height: 1,
-			depth: 1
-		};
-		const position: Vector3 = new Vector3(2, 2, 2);
-		this.threeService.addBoard(size, position);
-		this.threeService.update();
+
 	}
 }

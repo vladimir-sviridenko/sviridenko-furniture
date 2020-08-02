@@ -3,6 +3,8 @@ import * as THREE from 'three';
 import { ClipPlane } from '../models/clip-plane';
 import { Vector3, Object3D } from 'three';
 import { Size } from '../models/size';
+import { Room } from '@modeler/models/room';
+import { Board } from '@modeler/models/board';
 
 @Injectable()
 export class ThreeService {
@@ -11,7 +13,6 @@ export class ThreeService {
 	private _camera: THREE.PerspectiveCamera;
 	private _renderer: THREE.WebGLRenderer;
 
-	private defaultCameraPosition: Vector3 = new Vector3(1, 1, 5);
 	private fieldOfView: number = 75;
 	private aspectRatio: number = window.innerWidth / window.innerHeight;
 	private clipPlane: ClipPlane = {
@@ -43,8 +44,6 @@ export class ThreeService {
 
 		this.renderer.setSize( window.innerWidth, window.innerHeight );
 		this.renderer.setClearColor(this.backgroundColor);
-		this.scene.add(new THREE.AxesHelper(5));
-		this.setPosition(this.camera, this.defaultCameraPosition);
 
 		// 	adjust scene lights
 		const ambientLight: THREE.AmbientLight = new THREE.AmbientLight( 0x404040 );
@@ -53,6 +52,21 @@ export class ThreeService {
 		light.position.set( 1, 1, 5 );
 		light.castShadow = true;
 		this.scene.add(light);
+	}
+
+	private addBoard(board: Board): void {
+		const geometry: THREE.BoxGeometry = new THREE.BoxGeometry( board.size.width, board.size.height, board.size.depth );
+		const material: THREE.MeshPhongMaterial = new THREE.MeshPhongMaterial( {color: 0x03a1fc} );
+		const board3d: THREE.Mesh = new THREE.Mesh( geometry, material );
+		this.scene.add( board3d );
+		this.setPosition(board3d, board.position);
+	}
+
+	public renderRoom(room: Room): void {
+		this.setPosition(this.camera, room.cameraPosition);
+		room.boards.forEach((board: Board) => {
+			this.addBoard(board);
+		});
 
 		this.update();
 	}
@@ -61,14 +75,6 @@ export class ThreeService {
 		object3d.position.setX(position.x);
 		object3d.position.setY(position.y);
 		object3d.position.setZ(position.z);
-	}
-
-	public addBoard(size: Size, position: Vector3): void {
-		const geometry: THREE.BoxGeometry = new THREE.BoxGeometry( size.width, size.height, size.depth );
-		const material: THREE.MeshPhongMaterial = new THREE.MeshPhongMaterial( {color: 0x03a1fc} );
-		const board: THREE.Mesh = new THREE.Mesh( geometry, material );
-		this.scene.add( board );
-		this.setPosition(board, position);
 	}
 
 	public update(): void {
