@@ -12,6 +12,7 @@ export class ThreeService {
 	private _scene: THREE.Scene;
 	private _camera: THREE.PerspectiveCamera;
 	private _renderer: THREE.WebGLRenderer;
+	private _orbitControls: OrbitControls;
 
 	private fieldOfView: number = 75;
 	private aspectRatio: number = window.innerWidth / window.innerHeight;
@@ -33,6 +34,10 @@ export class ThreeService {
 		return this._renderer;
 	}
 
+	public get orbitControls(): OrbitControls {
+		return this._orbitControls;
+	}
+
 	public get domElement(): HTMLElement {
 		return this.renderer.domElement;
 	}
@@ -48,22 +53,21 @@ export class ThreeService {
 
 		this.initOrbitControls();
 		this.initLights();
-	}
 
-	private initOrbitControls(): void {
-		const controls: OrbitControls = new OrbitControls(this.camera, this.renderer.domElement);
-		controls.update();
-
+		//  animate workers
 		const animate: () => void = () => {
-
 			requestAnimationFrame( animate );
 
-			controls.update();
+			this.orbitControls.update();
 
 			this.render();
 		};
-
 		animate();
+	}
+
+	private initOrbitControls(): void {
+		this._orbitControls = new OrbitControls(this.camera, this.renderer.domElement);
+		this.orbitControls.update();
 	}
 
 	private initLights(): void {

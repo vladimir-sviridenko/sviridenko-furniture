@@ -11,7 +11,7 @@ import { Vector3 } from 'three';
 })
 export class ModelerComponent {
 
-	constructor(public threeService: ThreeService) { }
+	constructor(public threeService: ThreeService) {}
 
 	public onAddBoard(): void {
 
