@@ -24,11 +24,10 @@ export class SceneComponent implements AfterViewInit {
 
 		// 	create Room
 		const roomSize: Size = new Size(40, 40, 40);
-		const cameraPosition: Vector3 = new Vector3(1, 1, 5);
 		const boards: Board[] = [new Board(new Size(3, 0.1, 1), new Vector3(0, 0, 0))];
-		const room: Room = new Room(roomSize, boards, cameraPosition);
+		const room: Room = new Room(roomSize, boards);
 
 		// 	render Room
-		this.threeService.renderRoom(room);
+		this.threeService.renderRoom3D(room);
 	}
 }

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { ClipPlane } from '../models/clip-plane';
-import { Vector3, Object3D } from 'three';
-import { Size } from '../models/size';
+import { Vector3, Object3D, AxesHelper } from 'three';
 import { Room } from '@modeler/models/room';
 import { Board } from '@modeler/models/board';
 
@@ -42,42 +42,60 @@ export class ThreeService {
 		this._camera = new THREE.PerspectiveCamera( this.fieldOfView, this.aspectRatio, this.clipPlane.near, this.clipPlane.far);
 		this._renderer = new THREE.WebGLRenderer();
 
+		this.camera.position.set(1, 1, 5);
 		this.renderer.setSize( window.innerWidth, window.innerHeight );
 		this.renderer.setClearColor(this.backgroundColor);
 
-		// 	adjust scene lights
+		this.initOrbitControls();
+		this.initLights();
+	}
+
+	private initOrbitControls(): void {
+		const controls: OrbitControls = new OrbitControls(this.camera, this.renderer.domElement);
+		controls.update();
+
+		const animate: () => void = () => {
+
+			requestAnimationFrame( animate );
+
+			controls.update();
+
+			this.render();
+		};
+
+		animate();
+	}
+
+	private initLights(): void {
 		const ambientLight: THREE.AmbientLight = new THREE.AmbientLight( 0x404040 );
 		this.scene.add(ambientLight);
-		const light: THREE.PointLight = new THREE.PointLight( 0xff0000, 1, 100 );
-		light.position.set( 1, 1, 5 );
+		const light: THREE.PointLight = new THREE.PointLight( 0xfffff, 1, 100 );
+		light.position.set(1, 1, 5);
 		light.castShadow = true;
 		this.scene.add(light);
 	}
 
-	private addBoard(board: Board): void {
+	private createBoard3D(board: Board): Object3D {
 		const geometry: THREE.BoxGeometry = new THREE.BoxGeometry( board.size.width, board.size.height, board.size.depth );
 		const material: THREE.MeshPhongMaterial = new THREE.MeshPhongMaterial( {color: 0x03a1fc} );
-		const board3d: THREE.Mesh = new THREE.Mesh( geometry, material );
-		this.scene.add( board3d );
-		this.setPosition(board3d, board.position);
+		const board3D: THREE.Mesh = new THREE.Mesh( geometry, material );
+		board3D.position.set(board.position.x, board.position.y, board.position.z);
+		return board3D;
 	}
 
-	public renderRoom(room: Room): void {
-		this.setPosition(this.camera, room.cameraPosition);
+	public renderRoom3D(room: Room): void {
+		const room3D: Object3D = new Object3D();
+		room3D.add(new AxesHelper(3));
+
 		room.boards.forEach((board: Board) => {
-			this.addBoard(board);
+			room3D.add(this.createBoard3D(board));
 		});
+		this.scene.add(room3D);
 
-		this.update();
+		this.render();
 	}
 
-	public setPosition(object3d: Object3D, position: Vector3): void {
-		object3d.position.setX(position.x);
-		object3d.position.setY(position.y);
-		object3d.position.setZ(position.z);
-	}
-
-	public update(): void {
+	public render(): void {
 		this.renderer.render( this.scene, this.camera );
 	}
 }

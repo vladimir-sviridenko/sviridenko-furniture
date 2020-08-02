@@ -5,14 +5,10 @@ import { Vector3 } from 'three';
 export class Room {
 	public size: Size;
 	public boards: Board[];
-	public walls: Board[];
 
-	public cameraPosition: Vector3;
-
-	constructor(size: Size, boards: Board[], cameraPosition: Vector3) {
+	constructor(size: Size, boards: Board[]) {
 		this.size = size;
 		this.boards = boards;
-		this.cameraPosition = cameraPosition;
 	}
 
 	public addBoard(size: Size): void {
