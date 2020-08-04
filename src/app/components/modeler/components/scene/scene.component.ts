@@ -1,9 +1,5 @@
 import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { ThreeService } from '../../services/three.service';
-import { Vector3 } from 'three';
-import { Size } from '@modeler/models/size';
-import { Room } from '@modeler/models/room';
-import { Board } from '@modeler/models/board';
 
 @Component({
 	selector: 'app-scene',
@@ -21,13 +17,5 @@ export class SceneComponent implements AfterViewInit {
 		// 	init three scene
 		this.threeService.domElement.style.display = 'block';
 		this.sceneContainer.nativeElement.appendChild(this.threeService.domElement);
-
-		// 	create Room
-		const roomSize: Size = new Size(40, 40, 40);
-		const boards: Board[] = [new Board(new Size(3, 0.1, 1), new Vector3(0, 0, 0))];
-		const room: Room = new Room(roomSize, boards);
-
-		// 	render Room
-		this.threeService.renderRoom3D(room);
 	}
 }
