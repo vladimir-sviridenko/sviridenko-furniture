@@ -1,21 +1,22 @@
 import { Injectable } from '@angular/core';
 import * as THREE from 'three';
+import { DragControls } from 'three/examples/jsm/controls/DragControls';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { ClipPlane } from '../models/clip-plane';
-import { Room3D } from '@modeler/models/room-3d';
+import { Room } from '@modeler/models/room';
 import { Size } from '@modeler/models/size';
-import { Interaction } from 'three.interaction';
+import { Board3D } from '@modeler/models/board-3d';
 
 @Injectable()
 export class ThreeService {
 
-	private _room3D: Room3D = new Room3D(new Size(40, 40, 40));
+	private _room: Room = new Room(new Size(10, 10, 10));
 
 	private _scene: THREE.Scene;
 	private _camera: THREE.PerspectiveCamera;
 	private _renderer: THREE.WebGLRenderer;
 	private _orbitControls: OrbitControls;
-	private _interaction: Interaction;
+	private _dragControls: DragControls;
 
 	private fieldOfView: number = 75;
 	private aspectRatio: number = window.innerWidth / window.innerHeight;
@@ -29,8 +30,8 @@ export class ThreeService {
 		return this._renderer.domElement;
 	}
 
-	public get room3D(): Room3D {
-		return this._room3D;
+	public get room(): Room {
+		return this._room;
 	}
 
   constructor() {
@@ -41,10 +42,11 @@ export class ThreeService {
 		this._camera.position.set(1, 1, 5);
 		this._renderer.setSize( window.innerWidth, window.innerHeight );
 		this._renderer.setClearColor(this.backgroundColor);
-		this._interaction = new Interaction(this._renderer, this._scene, this._camera);
 
 		this.initOrbitControls();
 		this.initLights();
+
+		this.initDragControls();
 
 		//  animate workers
 		const animate: () => void = () => {
@@ -55,8 +57,16 @@ export class ThreeService {
 			this.render();
 		};
 		animate();
+	}
 
-		this._scene.add(this.room3D);
+	private initDragControls(): void {
+		this._dragControls = new DragControls( this.room.boards, this._camera, this.domElement);
+		this._dragControls.addEventListener('dragstart', () => {
+			this._orbitControls.enabled = false;
+		});
+		this._dragControls.addEventListener('dragend', () => {
+			this._orbitControls.enabled = true;
+		});
 	}
 
 	private initOrbitControls(): void {
@@ -74,6 +84,9 @@ export class ThreeService {
 	}
 
 	public render(): void {
+		this.room.boards.forEach((board: Board3D) => {
+			this._scene.add(board);
+		});
 		this._renderer.render( this._scene, this._camera );
 	}
 }

@@ -19,6 +19,7 @@ export class SceneComponent implements AfterViewInit {
 		this.threeService.domElement.style.display = 'block';
 		this.sceneContainer.nativeElement.appendChild(this.threeService.domElement);
 
-		this.threeService.room3D.addBoard(new Size(3, 0.1, 1));
+		this.threeService.room.addBoard(new Size(3, 0.1, 1));
+		this.threeService.room.addBoard(new Size(0.1, 3, 1));
 	}
 }
