@@ -5,12 +5,9 @@ import { Board3D } from './board-3d';
 export class Room3D extends Object3D {
 	public maxSize: Size;
 
-	constructor(maxSize: Size, boards3D: Board3D[]) {
+	constructor(maxSize: Size) {
 		super();
 		this.maxSize = maxSize;
-		if (boards3D) {
-			this.children = boards3D;
-		}
 	}
 
 	public addBoard(size: Size): void {
